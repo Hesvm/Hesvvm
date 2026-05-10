@@ -46,7 +46,8 @@ export function ProjectCard({ project }: { project: Project }) {
         </h3>
         <p
           style={{
-            fontFamily: "var(--font-sans)",
+            fontFamily: "var(--font-serif)",
+            fontStyle: "italic",
             fontSize: "12px",
             color: "var(--color-text-year)",
             margin: 0,

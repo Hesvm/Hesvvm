@@ -48,7 +48,7 @@ export function ProjectCard({ project }: { project: Project }) {
           style={{
             fontFamily: "var(--font-serif)",
             fontStyle: "italic",
-            fontSize: "12px",
+            fontSize: "14px",
             color: "var(--color-text-year)",
             margin: 0,
           }}

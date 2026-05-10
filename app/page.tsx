@@ -75,40 +75,69 @@ export default function Home() {
           </p>
 
           {/* Social row */}
-          <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-            <Link
-              href="https://linkedin.com/in/hesammousavi"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn"
-              style={{ color: "var(--color-text-primary)", opacity: 0.7, lineHeight: 0 }}
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            {/* Email */}
+            <a
+              href="mailto:hesammousavizadeh@gmail.com"
+              aria-label="Email"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "52px",
+                height: "36px",
+                borderRadius: "100px",
+                backgroundColor: "#f2f3f7",
+                lineHeight: 0,
+                textDecoration: "none",
+              }}
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" />
+              <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13.5 0H4.5C1.8 0 0 1.35 0 4.5V10.8C0 13.95 1.8 15.3 4.5 15.3H13.5C16.2 15.3 18 13.95 18 10.8V4.5C18 1.35 16.2 0 13.5 0ZM13.923 5.481L11.106 7.731C10.512 8.208 9.756 8.442 9 8.442C8.244 8.442 7.479 8.208 6.894 7.731L4.077 5.481C3.789 5.247 3.744 4.815 3.969 4.527C4.203 4.239 4.626 4.185 4.914 4.419L7.731 6.669C8.415 7.218 9.576 7.218 10.26 6.669L13.077 4.419C13.365 4.185 13.797 4.23 14.022 4.527C14.256 4.815 14.211 5.247 13.923 5.481Z" fill="#8D91A6"/>
               </svg>
-            </Link>
+            </a>
+            {/* X */}
             <Link
               href="https://x.com/hesammousavi"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="X (Twitter)"
-              style={{ color: "var(--color-text-primary)", opacity: 0.7, lineHeight: 0 }}
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.514l-5.106-6.672-5.8 6.672H2.561l7.746-8.973L1.1 2.25h6.772l4.6 6.088 5.25-6.088zM17.15 18.75h1.832L5.928 4.123H4.009l13.141 14.627z" />
-              </svg>
-            </Link>
-            <a
-              href="/resume.pdf"
               style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: "14px",
-                color: "var(--color-text-muted)",
-                textDecoration: "none",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "52px",
+                height: "36px",
+                borderRadius: "100px",
+                backgroundColor: "#f2f3f7",
+                lineHeight: 0,
               }}
             >
-              Resume ↓
-            </a>
+              <svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fillRule="evenodd" clipRule="evenodd" d="M6.23983 7.70552L0 0H4.94239L8.79418 4.76254L12.9092 0.0214433H15.6312L10.1103 6.38983L16.6566 14.484H11.7289L7.55824 9.33359L3.10559 14.4697H0.368835L6.23983 7.70552ZM12.4472 13.0563L3.0305 1.4277H4.22359L13.6284 13.0563H12.4472Z" fill="#8D91A6"/>
+              </svg>
+            </Link>
+            {/* LinkedIn */}
+            <Link
+              href="https://linkedin.com/in/hesammousavi"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "52px",
+                height: "36px",
+                borderRadius: "100px",
+                backgroundColor: "#f2f3f7",
+                lineHeight: 0,
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.0855 0H1.12266C0.824912 0 0.539359 0.123912 0.328819 0.344478C0.11828 0.565043 0 0.864193 0 1.17612V14.7563C0 15.0682 0.11828 15.3673 0.328819 15.5879C0.539359 15.8085 0.824912 15.9324 1.12266 15.9324H14.0855C14.3833 15.9324 14.6688 15.8085 14.8794 15.5879C15.0899 15.3673 15.2082 15.0682 15.2082 14.7563V1.17612C15.2082 0.864193 15.0899 0.565043 14.8794 0.344478C14.6688 0.123912 14.3833 0 14.0855 0ZM4.53288 13.5724H2.24638V5.96358H4.53288V13.5724ZM3.38804 4.90916C3.12868 4.90763 2.87556 4.82565 2.66063 4.67356C2.4457 4.52146 2.27859 4.30608 2.18039 4.05458C2.0822 3.80309 2.05732 3.52676 2.10889 3.26046C2.16046 2.99417 2.28617 2.74985 2.47016 2.55833C2.65415 2.36681 2.88817 2.23668 3.14269 2.18437C3.3972 2.13205 3.66081 2.1599 3.90023 2.26438C4.13966 2.36886 4.34418 2.54531 4.48797 2.77145C4.63177 2.99758 4.7084 3.26328 4.7082 3.535C4.71065 3.71691 4.67811 3.89748 4.61252 4.06595C4.54694 4.23441 4.44965 4.38731 4.32645 4.51555C4.20326 4.64378 4.05669 4.74472 3.89546 4.81234C3.73424 4.87997 3.56167 4.9129 3.38804 4.90916ZM12.9607 13.579H10.6753V9.42223C10.6753 8.19632 10.1779 7.81793 9.53574 7.81793C8.85771 7.81793 8.19235 8.35343 8.19235 9.45321V13.579H5.90584V5.96911H8.10469V7.02352H8.13426C8.35499 6.55551 9.12808 5.75557 10.3078 5.75557C11.5836 5.75557 12.9618 6.54887 12.9618 8.87234L12.9607 13.579Z" fill="#8D91A6"/>
+              </svg>
+            </Link>
           </div>
         </section>
 

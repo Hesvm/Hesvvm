@@ -55,10 +55,10 @@ export default function ProjectPageClient({ project }: { project: Project }) {
             <ProjectHero thumbnail={project.thumbnail} slug={project.slug} />
           </div>
 
-          {/* Phase 2: Shared title — morphs from card h3, preserves left alignment */}
           <motion.h1
-            layoutId={`project-title-${project.slug}`}
-            transition={{ type: "tween", duration: 0.4, ease: EASE }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.2, ease: "easeOut", delay: 0.38 }}
             style={{
               fontFamily: "var(--font-serif)",
               fontStyle: "italic",

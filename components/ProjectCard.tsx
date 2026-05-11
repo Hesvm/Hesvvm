@@ -26,10 +26,6 @@ export function ProjectCard({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16, scale: 0.98 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: "-10% 0px" }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       style={{
@@ -56,13 +52,13 @@ export function ProjectCard({
             overflow: "hidden",
             position: "relative",
             marginBottom: "12px",
-            transition: "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease",
             transform: isHovered ? "translateY(-6px)" : "translateY(0)",
             boxShadow: isHovered ? "0 12px 32px rgba(0,0,0,0.036)" : "none",
+            willChange: "transform",
           }}
           transition={{
             type: "tween",
-            duration: 0.75,
+            duration: 0.45,
             ease: [0.22, 1, 0.36, 1],
           }}
         >
@@ -75,7 +71,7 @@ export function ProjectCard({
         </motion.div>
         <motion.h3
           layoutId={`project-title-${project.slug}`}
-          transition={{ type: "tween", duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ type: "tween", duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           style={{
             fontFamily: "var(--font-serif)",
             fontStyle: "italic",

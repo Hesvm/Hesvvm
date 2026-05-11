@@ -15,7 +15,7 @@ export default function ProjectPageClient({ project }: { project: Project }) {
     document.body.style.overflow = "hidden";
     const timer = setTimeout(() => {
       document.body.style.overflow = "";
-    }, 900);
+    }, 500);
     return () => {
       clearTimeout(timer);
       document.body.style.overflow = "";
@@ -36,6 +36,7 @@ export default function ProjectPageClient({ project }: { project: Project }) {
           backgroundColor: "var(--color-bg)",
           zIndex: -1,
           pointerEvents: "none",
+          willChange: "opacity",
         }}
       />
 
@@ -57,7 +58,7 @@ export default function ProjectPageClient({ project }: { project: Project }) {
           {/* Phase 2: Shared title — morphs from card h3, preserves left alignment */}
           <motion.h1
             layoutId={`project-title-${project.slug}`}
-            transition={{ type: "tween", duration: 0.65, ease: EASE }}
+            transition={{ type: "tween", duration: 0.4, ease: EASE }}
             style={{
               fontFamily: "var(--font-serif)",
               fontStyle: "italic",
@@ -73,13 +74,12 @@ export default function ProjectPageClient({ project }: { project: Project }) {
 
           {/* Phase 4 + 5: Content reveal with settle — appears after image lands */}
           <motion.div
-            initial={{ opacity: 0, y: 8, scale: 1.015 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, transition: { duration: 0.15, ease: "easeIn" } }}
             transition={{
-              opacity: { duration: 0.35, ease: "easeOut", delay: 0.5 },
-              y: { duration: 0.35, ease: "easeOut", delay: 0.5 },
-              scale: { duration: 0.7, ease: EASE, delay: 0.55 },
+              opacity: { duration: 0.25, ease: "easeOut", delay: 0.35 },
+              y: { duration: 0.25, ease: "easeOut", delay: 0.35 },
             }}
           >
             <p

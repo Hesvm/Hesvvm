@@ -2,16 +2,12 @@
 
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { useTransition } from "@/context/TransitionContext";
-
 export default function BackButton() {
   const router = useRouter();
-  const { setClickedSlug } = useTransition();
 
   return (
     <motion.button
       onClick={() => {
-        setClickedSlug(null);
         router.push("/");
       }}
       initial={{ opacity: 0 }}

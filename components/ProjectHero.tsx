@@ -20,10 +20,11 @@ export default function ProjectHero({
         height: "420px",
         position: "relative",
         marginBottom: "24px",
+        willChange: "transform",
       }}
       transition={{
         type: "tween",
-        duration: 0.75,
+        duration: 0.45,
         ease: [0.22, 1, 0.36, 1],
       }}
     >

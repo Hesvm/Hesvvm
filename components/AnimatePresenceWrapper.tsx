@@ -2,6 +2,7 @@
 
 import { AnimatePresence, LayoutGroup } from "framer-motion";
 import { usePathname } from "next/navigation";
+import { useTransition } from "@/context/TransitionContext";
 
 export default function AnimatePresenceWrapper({
   children,
@@ -9,9 +10,15 @@ export default function AnimatePresenceWrapper({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const { setClickedSlug } = useTransition();
+
   return (
     <LayoutGroup id="project-layout">
-      <AnimatePresence mode="popLayout" initial={false}>
+      <AnimatePresence
+        mode="wait"
+        initial={false}
+        onExitComplete={() => setClickedSlug(null)}
+      >
         <div key={pathname} style={{ position: "relative" }}>
           {children}
         </div>

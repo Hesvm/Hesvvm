@@ -3,6 +3,7 @@ import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { TransitionProvider } from "@/context/TransitionContext";
 import AnimatePresenceWrapper from "@/components/AnimatePresenceWrapper";
+import TransitionOverlay from "@/components/TransitionOverlay";
 
 export const metadata: Metadata = {
   title: "Hesam",
@@ -18,6 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body style={{ paddingBottom: "120px" }}>
         <TransitionProvider>
+          <TransitionOverlay />
           <AnimatePresenceWrapper>
             {children}
           </AnimatePresenceWrapper>

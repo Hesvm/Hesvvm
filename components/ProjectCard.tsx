@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import { Project } from "@/data/projects";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -21,8 +22,11 @@ export function ProjectCard({
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
 }) {
-  const { setClickedSlug } = useTransition();
+  const { clickedSlug, setClickedSlug, setCardRect, setThumbnail } = useTransition();
   const router = useRouter();
+  const imageRef = useRef<HTMLDivElement>(null);
+
+  const isClicked = clickedSlug === project.slug;
 
   return (
     <motion.div
@@ -37,13 +41,17 @@ export function ProjectCard({
     >
       <div
         onClick={() => {
+          if (!imageRef.current) return;
+          const rect = imageRef.current.getBoundingClientRect();
+          setCardRect({ x: rect.left, y: rect.top, width: rect.width, height: rect.height });
+          setThumbnail(project.thumbnail);
           setClickedSlug(project.slug);
           router.push(`/projects/${project.slug}`);
         }}
         style={{ cursor: "pointer" }}
       >
-        <motion.div
-          layoutId={`project-image-${project.slug}`}
+        <div
+          ref={imageRef}
           style={{
             width: "184px",
             height: "184px",
@@ -54,12 +62,8 @@ export function ProjectCard({
             marginBottom: "12px",
             transform: isHovered ? "translateY(-6px)" : "translateY(0)",
             boxShadow: isHovered ? "0 12px 32px rgba(0,0,0,0.036)" : "none",
-            willChange: "transform",
-          }}
-          transition={{
-            type: "tween",
-            duration: 0.45,
-            ease: [0.22, 1, 0.36, 1],
+            transition: "transform 0.3s ease, box-shadow 0.3s ease",
+            opacity: isClicked ? 0 : 1,
           }}
         >
           <Image
@@ -68,10 +72,8 @@ export function ProjectCard({
             fill
             style={{ objectFit: "cover" }}
           />
-        </motion.div>
-        <motion.h3
-          layoutId={`project-title-${project.slug}`}
-          transition={{ type: "tween", duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        </div>
+        <h3
           style={{
             fontFamily: "var(--font-serif)",
             fontStyle: "italic",
@@ -82,7 +84,7 @@ export function ProjectCard({
           }}
         >
           {project.title}
-        </motion.h3>
+        </h3>
         <p
           style={{
             fontFamily: "var(--font-serif)",

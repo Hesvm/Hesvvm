@@ -9,7 +9,7 @@ interface ContentRendererProps {
 
 export default function ContentRenderer({ blocks }: ContentRendererProps) {
   return (
-    <div style={{ maxWidth: "760px", display: "flex", flexDirection: "column", gap: "32px" }}>
+    <div style={{ maxWidth: "530px", display: "flex", flexDirection: "column", gap: "32px" }}>
       {blocks.map((block, index) => {
         if (block.type === "text") {
           return (

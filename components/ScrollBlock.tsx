@@ -1,14 +1,24 @@
-"use client";
+"use client"
 
-import { motion } from "framer-motion";
-import { useScrollFade } from "@/hooks/useScrollFade";
+import { motion } from "framer-motion"
+import { useScrollFade } from "@/hooks/useScrollFade"
 
 export default function ScrollBlock({ children }: { children: React.ReactNode }) {
-  const { ref, opacity } = useScrollFade();
+  const { ref, isInView } = useScrollFade()
 
   return (
-    <motion.div ref={ref} style={{ opacity }}>
+    <motion.div
+      ref={ref}
+      animate={{
+        opacity: isInView ? 1 : 0.15,
+        y: isInView ? 0 : 16,
+      }}
+      transition={{
+        duration: 0.5,
+        ease: "easeOut",
+      }}
+    >
       {children}
     </motion.div>
-  );
+  )
 }

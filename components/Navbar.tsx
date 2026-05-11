@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const COLOR_ACTIVE = "#141B34";
 const COLOR_IDLE = "#A8ACB5";
 
-const springConfig = { type: "spring", stiffness: 400, damping: 28, mass: 0.6 };
+const springConfig = { type: "spring" as const, stiffness: 400, damping: 28, mass: 0.6 };
 
 function HomeIcon({ color }: { color: string }) {
   return (

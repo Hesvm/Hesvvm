@@ -25,7 +25,8 @@ export default function BackButton() {
         height: "40px",
         borderRadius: "0",
         backgroundColor: "#ffffff",
-        border: "1px solid rgba(0, 0, 0, 0.12)",
+        border: "1px solid #F4F4F4",
+        boxShadow: "0 2px 12px rgba(0,0,0,0.08)",
         cursor: "pointer",
       }}
       aria-label="Back to home"

@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const COLOR_ACTIVE = "#141B34";
 const COLOR_IDLE = "#A8ACB5";
 
-const springConfig = { duration: 0.3, ease: "easeInOut" };
+const springConfig = { type: "spring", stiffness: 400, damping: 28, mass: 0.6 };
 
 function HomeIcon({ color }: { color: string }) {
   return (
@@ -52,20 +52,22 @@ export function Navbar() {
   const pathname = usePathname();
   const activeIndex = getActiveIndex(pathname);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  // Don't show tooltip on the active route
+  const visibleTooltipIndex = hoveredIndex !== null && hoveredIndex !== activeIndex ? hoveredIndex : null;
   const menuRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
   const [tooltipLeft, setTooltipLeft] = useState(0);
 
   useEffect(() => {
-    if (hoveredIndex !== null && menuRef.current && tooltipRef.current) {
+    if (visibleTooltipIndex !== null && menuRef.current && tooltipRef.current) {
       const items = menuRef.current.children;
       const menuRect = menuRef.current.getBoundingClientRect();
-      const itemRect = (items[hoveredIndex] as HTMLElement).getBoundingClientRect();
+      const itemRect = (items[visibleTooltipIndex] as HTMLElement).getBoundingClientRect();
       const tooltipRect = tooltipRef.current.getBoundingClientRect();
       const left = itemRect.left - menuRect.left + (itemRect.width - tooltipRect.width) / 2;
       setTooltipLeft(Math.max(0, Math.min(left, menuRect.width - tooltipRect.width)));
     }
-  }, [hoveredIndex]);
+  }, [visibleTooltipIndex]);
 
   return (
     <nav
@@ -79,17 +81,17 @@ export function Navbar() {
     >
       {/* Tooltip */}
       <AnimatePresence>
-        {hoveredIndex !== null && (
+        {visibleTooltipIndex !== null && (
           <motion.div
-            initial={{ opacity: 0, y: 5 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 5 }}
+            initial={{ opacity: 0, y: 8, scale: 0.88 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 6, scale: 0.92 }}
             transition={springConfig}
             style={{
               position: "absolute",
               left: 0,
               right: 0,
-              top: "-48px",
+              top: "-38px",
               pointerEvents: "none",
             }}
           >
@@ -99,25 +101,25 @@ export function Navbar() {
               transition={springConfig}
               style={{
                 display: "inline-flex",
-                height: "36px",
-                padding: "0 18px",
+                height: "28px",
+                padding: "0 12px",
                 borderRadius: "100px",
                 alignItems: "center",
                 justifyContent: "center",
                 backgroundColor: "#ffffff",
                 border: "none",
-                boxShadow: "0 8px 32px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06)",
+                boxShadow: "0 2px 12px rgba(0,0,0,0.08)",
                 whiteSpace: "nowrap",
               }}
             >
               <span style={{
                 fontFamily: "var(--font-sans)",
-                fontSize: "15px",
+                fontSize: "13px",
                 fontWeight: 500,
                 color: COLOR_ACTIVE,
                 lineHeight: 1,
               }}>
-                {navItems[hoveredIndex].label}
+                {navItems[visibleTooltipIndex].label}
               </span>
             </motion.div>
           </motion.div>

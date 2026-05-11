@@ -139,8 +139,6 @@ export function Navbar() {
           borderRadius: "0",
           backgroundColor: "var(--color-navbar-bg)",
           boxShadow: "0 4px 24px rgba(0, 0, 0, 0.08)",
-          backdropFilter: "blur(12px)",
-          WebkitBackdropFilter: "blur(12px)",
         }}
       >
         {navItems.map((item, idx) => {

@@ -17,8 +17,17 @@ export function ProjectCard({
 }) {
   const router = useRouter();
 
+  const handleMouseEnter = () => {
+    onMouseEnter?.();
+    // Preload hero image into browser cache before navigation
+    if (typeof window !== "undefined") {
+      const img = new window.Image();
+      img.src = project.thumbnail;
+    }
+  };
+
   return (
-    <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+    <div onMouseEnter={handleMouseEnter} onMouseLeave={onMouseLeave}>
       <div
         onClick={() => router.push(`/projects/${project.slug}`)}
         style={{ cursor: "pointer" }}

@@ -2,16 +2,19 @@
 
 import { Project } from "@/data/projects";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 
 export function ProjectCard({
   project,
   isHovered,
+  anyHovered,
   onMouseEnter,
   onMouseLeave,
 }: {
   project: Project;
   isHovered?: boolean;
+  anyHovered?: boolean;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
 }) {
@@ -19,7 +22,6 @@ export function ProjectCard({
 
   const handleMouseEnter = () => {
     onMouseEnter?.();
-    // Preload hero image into browser cache before navigation
     if (typeof window !== "undefined") {
       const img = new window.Image();
       img.src = project.thumbnail;
@@ -27,7 +29,15 @@ export function ProjectCard({
   };
 
   return (
-    <div onMouseEnter={handleMouseEnter} onMouseLeave={onMouseLeave}>
+    <motion.div
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={onMouseLeave}
+      style={{
+        filter: anyHovered && !isHovered ? "blur(2px)" : "none",
+        opacity: anyHovered && !isHovered ? 0.45 : 1,
+        transition: "filter 0.3s ease, opacity 0.3s ease",
+      }}
+    >
       <div
         onClick={() => router.push(`/projects/${project.slug}`)}
         style={{ cursor: "pointer" }}
@@ -40,8 +50,9 @@ export function ProjectCard({
             overflow: "hidden",
             position: "relative",
             marginBottom: "12px",
-            transform: isHovered ? "translateY(-4px)" : "translateY(0)",
-            transition: "transform 0.25s cubic-bezier(0.22,1,0.36,1)",
+            transition: "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease",
+            transform: isHovered ? "translateY(-6px)" : "translateY(0)",
+            boxShadow: isHovered ? "0 12px 32px rgba(0,0,0,0.12)" : "0 2px 8px rgba(0,0,0,0.06)",
           }}
         >
           <Image
@@ -75,6 +86,6 @@ export function ProjectCard({
           {project.year}
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 }

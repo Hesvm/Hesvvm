@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Divider from "@/components/Divider";
+import ProjectLink from "@/components/ProjectLink";
 import { ContentBlock } from "@/data/projects";
 
 interface ContentRendererProps {
@@ -146,6 +147,10 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
 
         if (block.type === "divider") {
           return <Divider key={index} variant={block.variant} />;
+        }
+
+        if (block.type === "link") {
+          return <ProjectLink key={index} href={block.href} label={block.label} />;
         }
 
         return null;

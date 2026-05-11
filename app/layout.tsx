@@ -15,7 +15,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body style={{ paddingBottom: "120px" }}>
+      <body style={{ paddingBottom: "120px", backgroundColor: "var(--color-bg)" }}>
+        {/* Persistent background — always mounted, prevents any flash during DOM gap */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: "fixed",
+            inset: 0,
+            backgroundColor: "var(--color-bg)",
+            zIndex: -1,
+            pointerEvents: "none",
+          }}
+        />
         <AnimatePresenceWrapper>
           {children}
         </AnimatePresenceWrapper>

@@ -15,8 +15,9 @@ export default function AnimatePresenceWrapper({
         key={pathname}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
+        exit={{ opacity: 0, transition: { duration: 0 } }}
         transition={{ duration: 0.18, ease: "easeOut" }}
+        style={{ minHeight: "100vh" }}
       >
         {children}
       </motion.div>

@@ -39,7 +39,7 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
                     position: "relative",
                     width: "100%",
                     height: "480px",
-                    borderRadius: "16px",
+                    borderRadius: "0",
                     overflow: "hidden",
                   }}
                 >
@@ -84,7 +84,7 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
                     style={{
                       position: "relative",
                       height: "360px",
-                      borderRadius: "16px",
+                      borderRadius: "0",
                       overflow: "hidden",
                     }}
                   >
@@ -115,7 +115,7 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
                     style={{
                       position: "relative",
                       height: "360px",
-                      borderRadius: "16px",
+                      borderRadius: "0",
                       overflow: "hidden",
                     }}
                   >

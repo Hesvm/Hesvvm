@@ -2,13 +2,14 @@
 
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-
 export default function BackButton() {
   const router = useRouter();
 
   return (
     <motion.button
-      onClick={() => router.push("/")}
+      onClick={() => {
+        router.push("/");
+      }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 0.2 }}

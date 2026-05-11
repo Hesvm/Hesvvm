@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
+import { TransitionProvider } from "@/context/TransitionContext";
+import AnimatePresenceWrapper from "@/components/AnimatePresenceWrapper";
 
 export const metadata: Metadata = {
   title: "Hesam",
@@ -15,7 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body style={{ paddingBottom: "120px" }}>
-        {children}
+        <TransitionProvider>
+          <AnimatePresenceWrapper>
+            {children}
+          </AnimatePresenceWrapper>
+        </TransitionProvider>
         <Navbar />
       </body>
     </html>

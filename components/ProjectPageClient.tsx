@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 import { Project } from "@/data/projects";
 import BackButton from "@/components/BackButton";
 import ProjectHero from "@/components/ProjectHero";
@@ -8,6 +9,8 @@ import ContentRenderer from "@/components/ContentRenderer";
 import ScrollBlock from "@/components/ScrollBlock";
 
 export default function ProjectPageClient({ project }: { project: Project }) {
+  useEffect(() => { window.scrollTo(0, 0) }, [])
+
   return (
     <div
       style={{
@@ -26,7 +29,7 @@ export default function ProjectPageClient({ project }: { project: Project }) {
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: "easeOut", delay: 0.15 }}
+          transition={{ duration: 0.35, ease: "easeOut", delay: 0.2 }}
         >
           <div style={{ paddingBottom: "28px" }}>
             <ScrollBlock>

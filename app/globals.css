@@ -59,3 +59,11 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.social-link {
+  color: #8D91A6 !important;
+  transition: color 0.2s ease;
+}
+.social-link:hover {
+  color: #000 !important;
+}

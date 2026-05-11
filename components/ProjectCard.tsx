@@ -45,12 +45,13 @@ export function ProjectCard({
             marginBottom: "12px",
             transition: "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease",
             transform: isHovered ? "translateY(-6px)" : "translateY(0)",
-            boxShadow: isHovered ? "0 12px 32px rgba(0,0,0,0.12)" : "0 2px 8px rgba(0,0,0,0.06)",
+            boxShadow: isHovered ? "0 12px 32px rgba(0,0,0,0.036)" : "none",
           }}
           transition={{
             type: "spring",
-            stiffness: 180,
-            damping: 24,
+            stiffness: 380,
+            damping: 30,
+            mass: 1,
           }}
         >
           <Image

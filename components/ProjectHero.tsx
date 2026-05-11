@@ -13,6 +13,7 @@ export default function ProjectHero({
   return (
     <motion.div
       layoutId={`project-image-${slug}`}
+      layoutDependency={false}
       style={{
         borderRadius: 0,
         overflow: "hidden",
@@ -23,8 +24,9 @@ export default function ProjectHero({
       }}
       transition={{
         type: "spring",
-        stiffness: 180,
-        damping: 24,
+        stiffness: 380,
+        damping: 30,
+        mass: 1,
       }}
     >
       <Image

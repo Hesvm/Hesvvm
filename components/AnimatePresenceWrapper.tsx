@@ -9,5 +9,9 @@ export default function AnimatePresenceWrapper({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  return <AnimatePresence mode="wait">{children}</AnimatePresence>;
+  return (
+    <AnimatePresence mode="wait" initial={false}>
+      <div key={pathname}>{children}</div>
+    </AnimatePresence>
+  );
 }

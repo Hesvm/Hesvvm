@@ -93,6 +93,7 @@ export function Navbar() {
               right: 0,
               top: "-18px",
               pointerEvents: "none",
+              zIndex: 10,
             }}
           >
             <motion.div

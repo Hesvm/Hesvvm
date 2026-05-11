@@ -73,7 +73,9 @@ export function ProjectCard({
             style={{ objectFit: "cover" }}
           />
         </motion.div>
-        <h3
+        <motion.h3
+          layoutId={`project-title-${project.slug}`}
+          transition={{ type: "tween", duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           style={{
             fontFamily: "var(--font-serif)",
             fontStyle: "italic",
@@ -84,7 +86,7 @@ export function ProjectCard({
           }}
         >
           {project.title}
-        </h3>
+        </motion.h3>
         <p
           style={{
             fontFamily: "var(--font-serif)",

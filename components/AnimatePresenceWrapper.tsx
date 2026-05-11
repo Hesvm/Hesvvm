@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, LayoutGroup } from "framer-motion";
 import { usePathname } from "next/navigation";
 
 export default function AnimatePresenceWrapper({
@@ -10,10 +10,12 @@ export default function AnimatePresenceWrapper({
 }) {
   const pathname = usePathname();
   return (
-    <AnimatePresence mode="popLayout" initial={false}>
-      <div key={pathname} style={{ position: "relative" }}>
-        {children}
-      </div>
-    </AnimatePresence>
+    <LayoutGroup id="project-layout">
+      <AnimatePresence mode="popLayout" initial={false}>
+        <div key={pathname} style={{ position: "relative" }}>
+          {children}
+        </div>
+      </AnimatePresence>
+    </LayoutGroup>
   );
 }

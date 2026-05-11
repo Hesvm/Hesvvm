@@ -19,7 +19,7 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
                   fontFamily: "var(--font-sans)",
                   lineHeight: "1.65",
                   color: "var(--color-text-primary)",
-                  fontSize: "16px",
+                  fontSize: "14px",
                 }}
               >
                 {block.content}

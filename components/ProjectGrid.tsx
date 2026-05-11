@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Project } from "@/data/projects";
 import { ProjectCard } from "./ProjectCard";
 import { motion } from "framer-motion";
+import { useTransition } from "@/context/TransitionContext";
 
 const gridVariants = {
   hidden: {},
@@ -16,6 +17,7 @@ const gridVariants = {
 
 export function ProjectGrid({ projects }: { projects: Project[] }) {
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
+  const { clickedSlug } = useTransition();
 
   return (
     <motion.div
@@ -35,6 +37,7 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
           project={project}
           isHovered={hoveredSlug === project.slug}
           anyHovered={hoveredSlug !== null}
+          isTransitioning={clickedSlug !== null && clickedSlug !== project.slug}
           onMouseEnter={() => setHoveredSlug(project.slug)}
           onMouseLeave={() => setHoveredSlug(null)}
         />

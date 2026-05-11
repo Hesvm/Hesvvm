@@ -1,23 +1,29 @@
 "use client";
 
 import { Project } from "@/data/projects";
-import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
+import { useTransition } from "@/context/TransitionContext";
 
 export function ProjectCard({
   project,
   isHovered,
   anyHovered,
+  isTransitioning,
   onMouseEnter,
   onMouseLeave,
 }: {
   project: Project;
   isHovered?: boolean;
   anyHovered?: boolean;
+  isTransitioning?: boolean;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
 }) {
+  const { setClickedSlug } = useTransition();
+  const router = useRouter();
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 16, scale: 0.98 }}
@@ -28,11 +34,18 @@ export function ProjectCard({
       onMouseLeave={onMouseLeave}
       style={{
         filter: anyHovered && !isHovered ? "blur(2px)" : "none",
-        opacity: anyHovered && !isHovered ? 0.45 : 1,
+        opacity: isTransitioning ? 0 : anyHovered && !isHovered ? 0.45 : 1,
         transition: "filter 0.3s ease, opacity 0.3s ease",
+        pointerEvents: isTransitioning ? "none" : "auto",
       }}
     >
-      <Link href={`/projects/${project.slug}`} className="block">
+      <div
+        onClick={() => {
+          setClickedSlug(project.slug);
+          router.push(`/projects/${project.slug}`);
+        }}
+        style={{ cursor: "pointer" }}
+      >
         <motion.div
           layoutId={`project-image-${project.slug}`}
           style={{
@@ -48,10 +61,9 @@ export function ProjectCard({
             boxShadow: isHovered ? "0 12px 32px rgba(0,0,0,0.036)" : "none",
           }}
           transition={{
-            type: "spring",
-            stiffness: 380,
-            damping: 30,
-            mass: 1,
+            type: "tween",
+            duration: 0.75,
+            ease: [0.22, 1, 0.36, 1],
           }}
         >
           <Image
@@ -84,7 +96,7 @@ export function ProjectCard({
         >
           {project.year}
         </p>
-      </Link>
+      </div>
     </motion.div>
   );
 }

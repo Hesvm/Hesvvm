@@ -10,8 +10,10 @@ export default function AnimatePresenceWrapper({
 }) {
   const pathname = usePathname();
   return (
-    <AnimatePresence mode="wait" initial={false}>
-      <div key={pathname}>{children}</div>
+    <AnimatePresence mode="popLayout" initial={false}>
+      <div key={pathname} style={{ position: "relative" }}>
+        {children}
+      </div>
     </AnimatePresence>
   );
 }

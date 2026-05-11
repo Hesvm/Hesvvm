@@ -1,13 +1,11 @@
 import { projects } from "@/data/projects";
 import { ProjectGrid } from "@/components/ProjectGrid";
-import { PageTransition } from "@/components/PageTransition";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
   return (
-    <PageTransition>
-      <main
+    <main
         style={{
           minHeight: "100vh",
           backgroundColor: "var(--color-bg)",
@@ -162,6 +160,5 @@ export default function Home() {
           <ProjectGrid projects={projects} />
         </section>
       </main>
-    </PageTransition>
   );
 }

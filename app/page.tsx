@@ -26,25 +26,38 @@ export default function Home() {
             marginBottom: "80px",
           }}
         >
-          {/* Avatar */}
-          <div
-            style={{
-              width: "var(--avatar-size)",
-              height: "var(--avatar-size)",
+          {/* Avatar with SVG dashed border */}
+          <div style={{ position: "relative", width: "97px", height: "97px", marginBottom: "16px", flexShrink: 0 }}>
+            {/* Rounded dashed circle — only SVG supports stroke-linecap on dashes */}
+            <svg
+              width="97" height="97"
+              viewBox="0 0 97 97"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
+            >
+              <circle
+                cx="48.5" cy="48.5" r="45"
+                stroke="#2cabff"
+                strokeWidth="3.5"
+                strokeLinecap="round"
+                strokeDasharray="4 7"
+              />
+            </svg>
+            {/* Photo — inset 10px from outer edge to create gap */}
+            <div style={{
+              position: "absolute",
+              inset: "10px",
               borderRadius: "50%",
-              border: "4px dashed var(--color-accent)",
               overflow: "hidden",
-              marginBottom: "16px",
-              flexShrink: 0,
-            }}
-          >
-            <Image
-              src="/images/avatar.jpg"
-              alt="Hesam"
-              width={77}
-              height={77}
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            />
+            }}>
+              <Image
+                src="/images/avatar.png"
+                alt="Hesam"
+                fill
+                style={{ objectFit: "cover" }}
+              />
+            </div>
           </div>
 
           {/* Name */}

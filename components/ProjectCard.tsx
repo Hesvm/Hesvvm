@@ -18,7 +18,7 @@ export function ProjectCard({ project }: { project: Project }) {
           style={{
             width: "184px",
             height: "184px",
-            borderRadius: "var(--card-radius)",
+            borderRadius: "0",
             backgroundColor: "var(--color-card)",
             overflow: "hidden",
             position: "relative",

@@ -66,7 +66,7 @@ export function ProjectCard({
           style={{
             fontFamily: "var(--font-serif)",
             fontStyle: "italic",
-            fontSize: "20px",
+            fontSize: "22px",
             fontWeight: 400,
             margin: "0 0 4px 0",
             color: "var(--color-text-primary)",

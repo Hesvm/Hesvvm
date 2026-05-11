@@ -52,7 +52,7 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
                     style={{
                       fontFamily: "var(--font-serif)",
                       fontStyle: "italic",
-                      fontSize: "13px",
+                      fontSize: "12px",
                       color: "var(--color-text-muted)",
                       textAlign: "center",
                       marginTop: "8px",
@@ -97,7 +97,7 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
                       style={{
                         fontFamily: "var(--font-serif)",
                         fontStyle: "italic",
-                        fontSize: "13px",
+                        fontSize: "12px",
                         color: "var(--color-text-muted)",
                         textAlign: "center",
                         marginTop: "8px",
@@ -129,7 +129,7 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
                       style={{
                         fontFamily: "var(--font-serif)",
                         fontStyle: "italic",
-                        fontSize: "13px",
+                        fontSize: "12px",
                         color: "var(--color-text-muted)",
                         textAlign: "center",
                         marginTop: "8px",

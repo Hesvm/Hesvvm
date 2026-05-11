@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Project } from "@/data/projects";
 import { ProjectCard } from "./ProjectCard";
 import { motion } from "framer-motion";
@@ -14,6 +15,8 @@ const gridVariants = {
 };
 
 export function ProjectGrid({ projects }: { projects: Project[] }) {
+  const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
+
   return (
     <motion.div
       variants={gridVariants}
@@ -27,7 +30,14 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
       }}
     >
       {projects.map((project) => (
-        <ProjectCard key={project.slug} project={project} />
+        <ProjectCard
+          key={project.slug}
+          project={project}
+          isHovered={hoveredSlug === project.slug}
+          anyHovered={hoveredSlug !== null}
+          onMouseEnter={() => setHoveredSlug(project.slug)}
+          onMouseLeave={() => setHoveredSlug(null)}
+        />
       ))}
     </motion.div>
   );

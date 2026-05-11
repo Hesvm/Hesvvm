@@ -8,7 +8,7 @@ export default function BackButton() {
 
   return (
     <motion.button
-      onClick={() => router.push("/")}
+      onClick={() => router.back()}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 0.2 }}

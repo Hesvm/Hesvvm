@@ -17,15 +17,17 @@ export default function ProjectPageClient({ project }: { project: Project }) {
       }}
     >
       <BackButton />
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
-      >
-        <div style={{ maxWidth: "760px", margin: "0 auto" }}>
-          <div style={{ paddingTop: "32px" }}>
-            <ProjectHero thumbnail={project.thumbnail} />
-          </div>
+
+      <div style={{ maxWidth: "760px", margin: "0 auto" }}>
+        <div style={{ paddingTop: "32px" }}>
+          <ProjectHero thumbnail={project.thumbnail} slug={project.slug} />
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut", delay: 0.15 }}
+        >
           <div style={{ paddingBottom: "28px" }}>
             <ScrollBlock>
               <h1
@@ -54,8 +56,8 @@ export default function ProjectPageClient({ project }: { project: Project }) {
             </ScrollBlock>
           </div>
           <ContentRenderer blocks={project.blocks} />
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </div>
   );
 }

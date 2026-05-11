@@ -16,7 +16,6 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
             <ScrollBlock key={index}>
               <div
                 style={{
-                  maxWidth: "640px",
                   fontFamily: "var(--font-sans)",
                   lineHeight: "1.65",
                   color: "var(--color-text-primary)",
@@ -52,7 +51,8 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
                 {block.subtitle && (
                   <div
                     style={{
-                      fontFamily: "var(--font-sans)",
+                      fontFamily: "var(--font-serif)",
+                      fontStyle: "italic",
                       fontSize: "13px",
                       color: "var(--color-text-muted)",
                       textAlign: "center",
@@ -96,7 +96,8 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
                   {block.left.subtitle && (
                     <div
                       style={{
-                        fontFamily: "var(--font-sans)",
+                        fontFamily: "var(--font-serif)",
+                        fontStyle: "italic",
                         fontSize: "13px",
                         color: "var(--color-text-muted)",
                         textAlign: "center",
@@ -127,7 +128,8 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
                   {block.right.subtitle && (
                     <div
                       style={{
-                        fontFamily: "var(--font-sans)",
+                        fontFamily: "var(--font-serif)",
+                        fontStyle: "italic",
                         fontSize: "13px",
                         color: "var(--color-text-muted)",
                         textAlign: "center",

@@ -35,7 +35,7 @@ export default function Divider({ variant }: { variant: 1 | 2 | 3 | 4 | 5 }) {
   const config = variants[variant]
 
   return (
-    <div ref={ref} className="my-12 w-full overflow-hidden">
+    <div ref={ref} style={{ width: "50%", margin: "3rem auto", overflow: "hidden" }}>
       <svg
         width="100%"
         viewBox={config.viewBox}

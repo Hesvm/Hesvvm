@@ -136,7 +136,7 @@ export function Navbar() {
           gap: "27px",
           padding: "0 24px",
           height: "60px",
-          borderRadius: "0",
+          borderRadius: "100px",
           backgroundColor: "var(--color-navbar-bg)",
           boxShadow: "0 4px 24px rgba(0, 0, 0, 0.08)",
         }}

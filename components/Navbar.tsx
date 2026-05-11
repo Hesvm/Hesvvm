@@ -45,16 +45,14 @@ function WritesIcon({ color }: { color: string }) {
 
 const navItems = [
   { href: "/", label: "Home", Icon: HomeIcon },
-  { href: "/projects", label: "Projects", Icon: ProjectsIcon },
-  { href: "/notes", label: "Writings", Icon: WritesIcon },
   { href: "/buildings", label: "Buildings", Icon: BuildingsIcon },
+  { href: "/notes", label: "Writings", Icon: WritesIcon },
 ];
 
 function getActiveIndex(pathname: string) {
   if (pathname === "/") return 0;
-  if (pathname.startsWith("/projects")) return 1;
+  if (pathname.startsWith("/buildings")) return 1;
   if (pathname.startsWith("/notes")) return 2;
-  if (pathname.startsWith("/buildings")) return 3;
   return -1;
 }
 

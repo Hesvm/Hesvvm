@@ -81,7 +81,7 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
                   <div
                     style={{
                       position: "relative",
-                      height: "280px",
+                      aspectRatio: "1 / 1",
                       borderRadius: "0",
                       overflow: "hidden",
                     }}
@@ -112,7 +112,7 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
                   <div
                     style={{
                       position: "relative",
-                      height: "280px",
+                      aspectRatio: "1 / 1",
                       borderRadius: "0",
                       overflow: "hidden",
                     }}

@@ -2,10 +2,13 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const COLOR_ACTIVE = "#141B34";
 const COLOR_IDLE = "#A8ACB5";
+
+const springConfig = { duration: 0.3, ease: "easeInOut" };
 
 function HomeIcon({ color }: { color: string }) {
   return (
@@ -35,7 +38,7 @@ function WritesIcon({ color }: { color: string }) {
 const navItems = [
   { href: "/", label: "Home", Icon: HomeIcon },
   { href: "/projects", label: "Projects", Icon: ProjectsIcon },
-  { href: "/notes", label: "Notes", Icon: WritesIcon },
+  { href: "/notes", label: "Writings", Icon: WritesIcon },
 ];
 
 function getActiveIndex(pathname: string) {
@@ -45,30 +48,24 @@ function getActiveIndex(pathname: string) {
   return -1;
 }
 
-function NavItem({ item, isActive }: { item: typeof navItems[0]; isActive: boolean }) {
-  const [hovered, setHovered] = useState(false);
-  const color = isActive || hovered ? COLOR_ACTIVE : COLOR_IDLE;
-
-  return (
-    <Link
-      href={item.href}
-      aria-label={item.label}
-      style={{
-        lineHeight: 0,
-        display: "block",
-        transition: "color 150ms ease",
-      }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      <item.Icon color={color} />
-    </Link>
-  );
-}
-
 export function Navbar() {
   const pathname = usePathname();
   const activeIndex = getActiveIndex(pathname);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const tooltipRef = useRef<HTMLDivElement>(null);
+  const [tooltipLeft, setTooltipLeft] = useState(0);
+
+  useEffect(() => {
+    if (hoveredIndex !== null && menuRef.current && tooltipRef.current) {
+      const items = menuRef.current.children;
+      const menuRect = menuRef.current.getBoundingClientRect();
+      const itemRect = (items[hoveredIndex] as HTMLElement).getBoundingClientRect();
+      const tooltipRect = tooltipRef.current.getBoundingClientRect();
+      const left = itemRect.left - menuRect.left + (itemRect.width - tooltipRect.width) / 2;
+      setTooltipLeft(Math.max(0, Math.min(left, menuRect.width - tooltipRect.width)));
+    }
+  }, [hoveredIndex]);
 
   return (
     <nav
@@ -80,7 +77,57 @@ export function Navbar() {
         zIndex: 50,
       }}
     >
+      {/* Tooltip */}
+      <AnimatePresence>
+        {hoveredIndex !== null && (
+          <motion.div
+            initial={{ opacity: 0, y: 5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 5 }}
+            transition={springConfig}
+            style={{
+              position: "absolute",
+              left: 0,
+              right: 0,
+              top: "-36px",
+              pointerEvents: "none",
+            }}
+          >
+            <motion.div
+              ref={tooltipRef}
+              animate={{ x: tooltipLeft }}
+              transition={springConfig}
+              style={{
+                display: "inline-flex",
+                height: "28px",
+                padding: "0 10px",
+                borderRadius: "8px",
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "rgba(255,255,255,0.95)",
+                backdropFilter: "blur(8px)",
+                border: "1px solid rgba(0,0,0,0.08)",
+                boxShadow: "0 0 0 1px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.08)",
+                whiteSpace: "nowrap",
+              }}
+            >
+              <span style={{
+                fontFamily: "var(--font-sans)",
+                fontSize: "13px",
+                fontWeight: 500,
+                color: COLOR_ACTIVE,
+                lineHeight: 1,
+              }}>
+                {navItems[hoveredIndex].label}
+              </span>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Pill */}
       <div
+        ref={menuRef}
         style={{
           display: "flex",
           alignItems: "center",
@@ -94,9 +141,23 @@ export function Navbar() {
           WebkitBackdropFilter: "blur(12px)",
         }}
       >
-        {navItems.map((item, idx) => (
-          <NavItem key={item.href} item={item} isActive={activeIndex === idx} />
-        ))}
+        {navItems.map((item, idx) => {
+          const isActive = activeIndex === idx;
+          const isHovered = hoveredIndex === idx;
+          const color = isActive || isHovered ? COLOR_ACTIVE : COLOR_IDLE;
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              aria-label={item.label}
+              style={{ lineHeight: 0, display: "block", transition: "color 150ms ease" }}
+              onMouseEnter={() => setHoveredIndex(idx)}
+              onMouseLeave={() => setHoveredIndex(null)}
+            >
+              <item.Icon color={color} />
+            </Link>
+          );
+        })}
       </div>
     </nav>
   );

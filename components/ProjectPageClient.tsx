@@ -22,43 +22,39 @@ export default function ProjectPageClient({ project }: { project: Project }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
       >
-        <div style={{ paddingTop: "48px" }}>
-          <ProjectHero thumbnail={project.thumbnail} />
+        <div style={{ maxWidth: "760px", margin: "0 auto" }}>
+          <div style={{ paddingTop: "48px" }}>
+            <ProjectHero thumbnail={project.thumbnail} />
+          </div>
+          <div style={{ paddingBottom: "48px" }}>
+            <ScrollBlock>
+              <h1
+                style={{
+                  fontFamily: "var(--font-serif)",
+                  fontStyle: "italic",
+                  fontSize: "56px",
+                  fontWeight: 400,
+                  margin: "0 0 8px 0",
+                  color: "var(--color-text-primary)",
+                  lineHeight: 1.1,
+                }}
+              >
+                {project.title}
+              </h1>
+              <p
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "18px",
+                  color: "rgba(0,0,0,0.4)",
+                  margin: 0,
+                }}
+              >
+                {project.category}
+              </p>
+            </ScrollBlock>
+          </div>
+          <ContentRenderer blocks={project.blocks} />
         </div>
-        <div
-          style={{
-            maxWidth: "760px",
-            margin: "0 auto",
-            paddingBottom: "48px",
-          }}
-        >
-          <ScrollBlock>
-            <h1
-              style={{
-                fontFamily: "var(--font-serif)",
-                fontStyle: "italic",
-                fontSize: "56px",
-                fontWeight: 400,
-                margin: "0 0 8px 0",
-                color: "var(--color-text-primary)",
-                lineHeight: 1.1,
-              }}
-            >
-              {project.title}
-            </h1>
-            <p
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: "18px",
-                color: "rgba(0,0,0,0.4)",
-                margin: 0,
-              }}
-            >
-              {project.category}
-            </p>
-          </ScrollBlock>
-        </div>
-        <ContentRenderer blocks={project.blocks} />
       </motion.div>
     </div>
   );

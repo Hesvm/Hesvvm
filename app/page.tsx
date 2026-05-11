@@ -34,7 +34,7 @@ export default function Home() {
               borderRadius: "50%",
               border: "4px dashed var(--color-accent)",
               overflow: "hidden",
-              marginBottom: "19px",
+              marginBottom: "16px",
               flexShrink: 0,
             }}
           >
@@ -51,27 +51,27 @@ export default function Home() {
           <h1
             style={{
               fontFamily: "var(--font-serif)",
-              fontStyle: "normal",
+              fontStyle: "italic",
               fontSize: "33px",
               fontWeight: 400,
-              margin: "0 0 43px 0",
+              margin: "0 0 8px 0",
               color: "var(--color-text-primary)",
               letterSpacing: "-0.5px",
             }}
           >
-            Hesam
+            Hesvm
           </h1>
 
           {/* Tagline */}
           <p
             style={{
               fontFamily: "var(--font-sans)",
-              fontSize: "20px",
+              fontSize: "16px",
               color: "var(--color-text-muted)",
-              margin: "0 0 45px 0",
+              margin: "0 0 28px 0",
             }}
           >
-            Designer & Developer
+            Designing products in a world of non-senses
           </p>
 
           {/* Social row */}

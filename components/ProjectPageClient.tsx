@@ -35,7 +35,8 @@ export default function ProjectPageClient({ project }: { project: Project }) {
 
         <p
           style={{
-            fontFamily: "var(--font-sans)",
+            fontFamily: "var(--font-serif)",
+            fontStyle: "italic",
             fontSize: "14px",
             color: "rgba(0,0,0,0.4)",
             margin: "0 0 28px 0",

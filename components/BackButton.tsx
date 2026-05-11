@@ -15,7 +15,7 @@ export default function BackButton() {
       whileHover={{ scale: 1.05 }}
       style={{
         position: "fixed",
-        left: "20px",
+        left: "0px",
         top: "48px",
         zIndex: 50,
         display: "flex",
@@ -25,15 +25,14 @@ export default function BackButton() {
         height: "40px",
         borderRadius: "0",
         backgroundColor: "#ffffff",
-        border: "1px solid rgba(0, 0, 0, 0.15)",
+        border: "1px solid rgba(0, 0, 0, 0.12)",
         cursor: "pointer",
-        fontFamily: "var(--font-sans)",
-        fontSize: "18px",
-        color: "var(--color-text-primary)",
       }}
       aria-label="Back to home"
     >
-      ←
+      <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6 1L1 6L6 11" stroke="#8F94AC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
     </motion.button>
   );
 }

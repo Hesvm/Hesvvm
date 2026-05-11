@@ -54,7 +54,7 @@ export default function Home() {
               fontStyle: "italic",
               fontSize: "33px",
               fontWeight: 400,
-              margin: "0 0 8px 0",
+              margin: "0 0 4px 0",
               color: "var(--color-text-primary)",
               letterSpacing: "-0.5px",
             }}

@@ -21,6 +21,7 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
           key={project.slug}
           project={project}
           isHovered={hoveredSlug === project.slug}
+          anyHovered={hoveredSlug !== null}
           onMouseEnter={() => setHoveredSlug(project.slug)}
           onMouseLeave={() => setHoveredSlug(null)}
         />

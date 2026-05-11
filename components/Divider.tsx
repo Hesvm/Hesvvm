@@ -7,6 +7,8 @@ export default function Divider({ variant }: { variant: 1 | 2 | 3 | 4 | 5 }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-10% 0px" })
 
+  const id = `clip-divider-${variant}`
+
   const variants = {
     1: {
       viewBox: "0 0 445 34",
@@ -33,7 +35,7 @@ export default function Divider({ variant }: { variant: 1 | 2 | 3 | 4 | 5 }) {
   const config = variants[variant]
 
   return (
-    <div ref={ref} className="my-12 w-full">
+    <div ref={ref} className="my-12 w-full overflow-hidden">
       <svg
         width="100%"
         viewBox={config.viewBox}
@@ -41,15 +43,22 @@ export default function Divider({ variant }: { variant: 1 | 2 | 3 | 4 | 5 }) {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <motion.path
+        <defs>
+          <clipPath id={id}>
+            <motion.rect
+              x="0"
+              y="-10"
+              height="200%"
+              initial={{ width: "0%" }}
+              animate={isInView ? { width: "100%" } : {}}
+              transition={{ duration: 1.2, ease: "easeInOut" }}
+            />
+          </clipPath>
+        </defs>
+        <path
           d={config.path}
-          fill="none"
-          stroke="#D0D0D0"
-          strokeWidth="4"
-          strokeLinecap="round"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={isInView ? { pathLength: 1, opacity: 1 } : {}}
-          transition={{ duration: 1.2, ease: "easeInOut", delay: 0.1 }}
+          fill="#D0D0D0"
+          clipPath={`url(#${id})`}
         />
       </svg>
     </div>

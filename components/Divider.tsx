@@ -30,7 +30,7 @@ export default function Divider({ variant }: { variant: 1 | 2 | 3 | 4 | 5 }) {
   const config = variants[variant];
 
   return (
-    <div style={{ margin: "48px 0" }}>
+    <div style={{ margin: "24px 0" }}>
       <svg
         width="100%"
         height={config.height}

@@ -9,19 +9,18 @@ interface ContentRendererProps {
 
 export default function ContentRenderer({ blocks }: ContentRendererProps) {
   return (
-    <div className="mx-auto flex flex-col gap-12" style={{ maxWidth: "760px" }}>
+    <div style={{ maxWidth: "760px", display: "flex", flexDirection: "column", gap: "32px" }}>
       {blocks.map((block, index) => {
         if (block.type === "text") {
           return (
             <ScrollBlock key={index}>
               <div
-                className="mx-auto text-lg"
                 style={{
-                  maxWidth: "680px",
+                  maxWidth: "640px",
                   fontFamily: "var(--font-sans)",
-                  lineHeight: "1.75",
+                  lineHeight: "1.65",
                   color: "var(--color-text-primary)",
-                  fontSize: "18px",
+                  fontSize: "15px",
                 }}
               >
                 {block.content}
@@ -38,7 +37,7 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
                   style={{
                     position: "relative",
                     width: "100%",
-                    height: "480px",
+                    height: "380px",
                     borderRadius: "0",
                     overflow: "hidden",
                   }}
@@ -54,10 +53,10 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
                   <div
                     style={{
                       fontFamily: "var(--font-sans)",
-                      fontSize: "14px",
+                      fontSize: "13px",
                       color: "var(--color-text-muted)",
                       textAlign: "center",
-                      marginTop: "12px",
+                      marginTop: "8px",
                     }}
                   >
                     {block.subtitle}
@@ -75,15 +74,14 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
                 style={{
                   display: "flex",
                   flexDirection: "row",
-                  gap: "24px",
+                  gap: "16px",
                 }}
-                className="flex-col md:flex-row"
               >
                 <div style={{ flex: 1 }}>
                   <div
                     style={{
                       position: "relative",
-                      height: "360px",
+                      height: "280px",
                       borderRadius: "0",
                       overflow: "hidden",
                     }}
@@ -99,10 +97,10 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
                     <div
                       style={{
                         fontFamily: "var(--font-sans)",
-                        fontSize: "14px",
+                        fontSize: "13px",
                         color: "var(--color-text-muted)",
                         textAlign: "center",
-                        marginTop: "12px",
+                        marginTop: "8px",
                       }}
                     >
                       {block.left.subtitle}
@@ -114,7 +112,7 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
                   <div
                     style={{
                       position: "relative",
-                      height: "360px",
+                      height: "280px",
                       borderRadius: "0",
                       overflow: "hidden",
                     }}
@@ -130,10 +128,10 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
                     <div
                       style={{
                         fontFamily: "var(--font-sans)",
-                        fontSize: "14px",
+                        fontSize: "13px",
                         color: "var(--color-text-muted)",
                         textAlign: "center",
-                        marginTop: "12px",
+                        marginTop: "8px",
                       }}
                     >
                       {block.right.subtitle}
@@ -141,16 +139,6 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
                   )}
                 </div>
               </div>
-              <style jsx>{`
-                @media (max-width: 768px) {
-                  div[style*="flex-direction: row"] {
-                    flex-direction: column !important;
-                  }
-                  div[style*="flex-direction: row"] > div {
-                    flex: none !important;
-                  }
-                }
-              `}</style>
             </ScrollBlock>
           );
         }

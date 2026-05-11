@@ -5,11 +5,11 @@ export default function ProjectHero({ thumbnail }: { thumbnail: string }) {
     <div
       style={{
         width: "100%",
-        height: "560px",
+        height: "420px",
         borderRadius: "0",
         overflow: "hidden",
         position: "relative",
-        marginBottom: "48px",
+        marginBottom: "24px",
       }}
     >
       <Image

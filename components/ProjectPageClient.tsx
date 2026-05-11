@@ -13,7 +13,7 @@ export default function ProjectPageClient({ project }: { project: Project }) {
       style={{
         minHeight: "100vh",
         backgroundColor: "var(--color-bg)",
-        padding: "0 var(--page-padding) 120px",
+        padding: "0 var(--page-padding) 80px",
       }}
     >
       <BackButton />
@@ -23,18 +23,18 @@ export default function ProjectPageClient({ project }: { project: Project }) {
         transition={{ duration: 0.4, ease: "easeOut" }}
       >
         <div style={{ maxWidth: "760px", margin: "0 auto" }}>
-          <div style={{ paddingTop: "48px" }}>
+          <div style={{ paddingTop: "32px" }}>
             <ProjectHero thumbnail={project.thumbnail} />
           </div>
-          <div style={{ paddingBottom: "48px" }}>
+          <div style={{ paddingBottom: "28px" }}>
             <ScrollBlock>
               <h1
                 style={{
                   fontFamily: "var(--font-serif)",
                   fontStyle: "italic",
-                  fontSize: "56px",
+                  fontSize: "42px",
                   fontWeight: 400,
-                  margin: "0 0 8px 0",
+                  margin: "0 0 6px 0",
                   color: "var(--color-text-primary)",
                   lineHeight: 1.1,
                 }}
@@ -44,7 +44,7 @@ export default function ProjectPageClient({ project }: { project: Project }) {
               <p
                 style={{
                   fontFamily: "var(--font-sans)",
-                  fontSize: "18px",
+                  fontSize: "14px",
                   color: "rgba(0,0,0,0.4)",
                   margin: 0,
                 }}

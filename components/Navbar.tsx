@@ -89,7 +89,7 @@ export function Navbar() {
               position: "absolute",
               left: 0,
               right: 0,
-              top: "-36px",
+              top: "-48px",
               pointerEvents: "none",
             }}
           >
@@ -99,21 +99,20 @@ export function Navbar() {
               transition={springConfig}
               style={{
                 display: "inline-flex",
-                height: "28px",
-                padding: "0 10px",
-                borderRadius: "8px",
+                height: "36px",
+                padding: "0 18px",
+                borderRadius: "100px",
                 alignItems: "center",
                 justifyContent: "center",
-                backgroundColor: "rgba(255,255,255,0.95)",
-                backdropFilter: "blur(8px)",
-                border: "1px solid rgba(0,0,0,0.08)",
-                boxShadow: "0 0 0 1px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.08)",
+                backgroundColor: "#ffffff",
+                border: "none",
+                boxShadow: "0 8px 32px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06)",
                 whiteSpace: "nowrap",
               }}
             >
               <span style={{
                 fontFamily: "var(--font-sans)",
-                fontSize: "13px",
+                fontSize: "15px",
                 fontWeight: 500,
                 color: COLOR_ACTIVE,
                 lineHeight: 1,

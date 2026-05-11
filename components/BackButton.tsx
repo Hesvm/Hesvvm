@@ -15,7 +15,7 @@ export default function BackButton() {
       whileHover={{ scale: 1.05 }}
       style={{
         position: "fixed",
-        left: "0px",
+        left: "max(0px, calc(50vw - 444px))",
         top: "48px",
         zIndex: 50,
         display: "flex",

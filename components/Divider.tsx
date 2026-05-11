@@ -35,13 +35,13 @@ export default function Divider({ variant }: { variant: 1 | 2 | 3 | 4 | 5 }) {
   const config = variants[variant]
 
   return (
-    <div ref={ref} className="my-12 w-full overflow-hidden">
+    <div ref={ref} className="my-12 overflow-hidden">
       <svg
-        width="100%"
         viewBox={config.viewBox}
         preserveAspectRatio="none"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        style={{ width: "50%", margin: "0 auto", display: "block" }}
       >
         <defs>
           <clipPath id={id}>
@@ -51,7 +51,7 @@ export default function Divider({ variant }: { variant: 1 | 2 | 3 | 4 | 5 }) {
               height="200%"
               initial={{ width: "0%" }}
               animate={isInView ? { width: "100%" } : {}}
-              transition={{ duration: 1.2, ease: "easeInOut" }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
             />
           </clipPath>
         </defs>

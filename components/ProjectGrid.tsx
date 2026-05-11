@@ -3,27 +3,12 @@
 import { useState } from "react";
 import { Project } from "@/data/projects";
 import { ProjectCard } from "./ProjectCard";
-import { motion } from "framer-motion";
-import { useTransition } from "@/context/TransitionContext";
-
-const gridVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.06,
-    },
-  },
-};
 
 export function ProjectGrid({ projects }: { projects: Project[] }) {
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
-  const { clickedSlug } = useTransition();
 
   return (
-    <motion.div
-      variants={gridVariants}
-      initial="hidden"
-      animate="visible"
+    <div
       style={{
         display: "grid",
         gridTemplateColumns: "repeat(3, 184px)",
@@ -36,12 +21,10 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
           key={project.slug}
           project={project}
           isHovered={hoveredSlug === project.slug}
-          anyHovered={hoveredSlug !== null}
-          isTransitioning={clickedSlug !== null && clickedSlug !== project.slug}
           onMouseEnter={() => setHoveredSlug(project.slug)}
           onMouseLeave={() => setHoveredSlug(null)}
         />
       ))}
-    </motion.div>
+    </div>
   );
 }

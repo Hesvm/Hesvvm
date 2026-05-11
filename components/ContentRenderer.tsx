@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Divider from "@/components/Divider";
-import ScrollBlock from "@/components/ScrollBlock";
 import { ContentBlock } from "@/data/projects";
 
 interface ContentRendererProps {
@@ -13,7 +12,7 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
       {blocks.map((block, index) => {
         if (block.type === "text") {
           return (
-            <ScrollBlock key={index}>
+            <div key={index}>
               <div
                 style={{
                   fontFamily: "var(--font-sans)",
@@ -24,13 +23,13 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
               >
                 {block.content}
               </div>
-            </ScrollBlock>
+            </div>
           );
         }
 
         if (block.type === "image") {
           return (
-            <ScrollBlock key={index}>
+            <div key={index}>
               <div>
                 <div
                   style={{
@@ -63,13 +62,13 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
                   </div>
                 )}
               </div>
-            </ScrollBlock>
+            </div>
           );
         }
 
         if (block.type === "image-pair") {
           return (
-            <ScrollBlock key={index}>
+            <div key={index}>
               <div
                 style={{
                   display: "flex",
@@ -141,7 +140,7 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
                   )}
                 </div>
               </div>
-            </ScrollBlock>
+            </div>
           );
         }
 

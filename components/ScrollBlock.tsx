@@ -9,14 +9,9 @@ export default function ScrollBlock({ children }: { children: React.ReactNode })
   return (
     <motion.div
       ref={ref}
-      animate={{
-        opacity: isInView ? 1 : 0.15,
-        y: isInView ? 0 : 16,
-      }}
-      transition={{
-        duration: 0.5,
-        ease: "easeOut",
-      }}
+      initial={{ opacity: 0, y: 16, scale: 0.98 }}
+      animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+      transition={{ duration: 0.5, ease: "easeOut" }}
     >
       {children}
     </motion.div>

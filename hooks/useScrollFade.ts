@@ -6,7 +6,7 @@ import { useInView } from "framer-motion"
 export function useScrollFade() {
   const ref = useRef(null)
   const isInView = useInView(ref, {
-    once: false,
+    once: true,
     margin: "-10% 0px -10% 0px"
   })
 

@@ -20,7 +20,13 @@ export type DoubleImageBlock = {
   right: { src: string; subtitle?: string }
 }
 
-export type ContentBlock = TextBlock | SingleImageBlock | DoubleImageBlock | DividerBlock
+export type LinkBlock = {
+  type: 'link'
+  label: string
+  href: string
+}
+
+export type ContentBlock = TextBlock | SingleImageBlock | DoubleImageBlock | DividerBlock | LinkBlock
 
 export type Project = {
   slug: string
@@ -113,6 +119,11 @@ export const projects: Project[] = [
       {
         type: "image",
         src: "/images/icon-3.png"
+      },
+      {
+        type: "link",
+        label: "View on App Store",
+        href: "https://apple.com"
       }
     ]
   },

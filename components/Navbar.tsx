@@ -27,6 +27,14 @@ function ProjectsIcon({ color }: { color: string }) {
   );
 }
 
+function BuildingsIcon({ color }: { color: string }) {
+  return (
+    <svg width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fillRule="evenodd" clipRule="evenodd" d="M5.5 26.5V11.5L15.5 4.5L25.5 11.5V26.5H19.5V19.5H11.5V26.5H5.5ZM13.5 26.5V21.5H17.5V26.5H13.5ZM7.5 13.0V24.5H9.5V17.5H21.5V24.5H23.5V13.0L15.5 7.2L7.5 13.0ZM11.5 13.5H13.5V15.5H11.5V13.5ZM17.5 13.5H19.5V15.5H17.5V13.5Z" fill={color}/>
+    </svg>
+  );
+}
+
 function WritesIcon({ color }: { color: string }) {
   return (
     <svg width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -39,12 +47,14 @@ const navItems = [
   { href: "/", label: "Home", Icon: HomeIcon },
   { href: "/projects", label: "Projects", Icon: ProjectsIcon },
   { href: "/notes", label: "Writings", Icon: WritesIcon },
+  { href: "/buildings", label: "Buildings", Icon: BuildingsIcon },
 ];
 
 function getActiveIndex(pathname: string) {
   if (pathname === "/") return 0;
   if (pathname.startsWith("/projects")) return 1;
   if (pathname.startsWith("/notes")) return 2;
+  if (pathname.startsWith("/buildings")) return 3;
   return -1;
 }
 

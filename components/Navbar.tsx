@@ -91,7 +91,7 @@ export function Navbar() {
               position: "absolute",
               left: 0,
               right: 0,
-              top: "-38px",
+              top: "-18px",
               pointerEvents: "none",
             }}
           >

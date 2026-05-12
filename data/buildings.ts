@@ -19,7 +19,7 @@ export const buildings: Building[] = [
   {
     name: 'Weather Lab',
     tagline: 'Real-time weather visualization experiment',
-    icon: '/images/buildings/weather.png',
+    icon: '/images/buildings/cent.png',
     status: 'Beta',
     url: 'https://weather-lab.example.com',
   },

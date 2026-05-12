@@ -23,13 +23,13 @@ export function BuildingRow({ building }: { building: Building }) {
         <img
           src={building.icon}
           alt={building.name}
-          className="w-[52px] h-[52px] rounded-xl object-cover bg-gray-100"
+          className="w-[52px] h-[52px] object-cover bg-gray-100"
         />
         <div className="flex flex-col gap-0.5">
           <p className="font-sans font-semibold text-base text-[#1a1a1a]">
             {building.name}
           </p>
-          <p className="font-serif italic text-[0.85rem] text-[#888]">
+          <p className="font-serif italic text-[18px] text-[#888]">
             {building.tagline}
           </p>
         </div>
@@ -53,21 +53,8 @@ export function BuildingRow({ building }: { building: Building }) {
           rel="noopener noreferrer"
           className="w-[36px] h-[36px] rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-all duration-150 hover:scale-105"
         >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="text-[#1a1a1a]"
-          >
-            <path
-              d="M3 13L13 3M13 3H6M13 3V10"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.83333 5.16667L11 1M11 3.77778V1H8.22222M11 7.11111V9.88889C11 10.1836 10.8829 10.4662 10.6746 10.6746C10.4662 10.8829 10.1836 11 9.88889 11H2.11111C1.81643 11 1.53381 10.8829 1.32544 10.6746C1.11706 10.4662 1 10.1836 1 9.88889V2.11111C1 1.81643 1.11706 1.53381 1.32544 1.32544C1.53381 1.11706 1.81643 1 2.11111 1H4.88889" stroke="#595959" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </a>
       </div>

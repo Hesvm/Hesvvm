@@ -28,7 +28,7 @@ export default function BuildingsPage() {
 
         {/* Buildings List */}
         <motion.div
-          className="mt-12 flex flex-col divide-y divide-gray-100"
+          className="mt-12 flex flex-col"
           variants={containerVariants}
           initial="hidden"
           animate="show"

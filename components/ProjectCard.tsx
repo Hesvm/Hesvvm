@@ -50,9 +50,9 @@ export function ProjectCard({
             overflow: "hidden",
             position: "relative",
             marginBottom: "12px",
-            transition: "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease",
+            transition: "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
             transform: isHovered ? "translateY(-6px)" : "translateY(0)",
-            boxShadow: isHovered ? "0 12px 32px rgba(0,0,0,0.12)" : "0 2px 8px rgba(0,0,0,0.06)",
+            boxShadow: "none",
           }}
         >
           <Image
@@ -68,7 +68,7 @@ export function ProjectCard({
             fontStyle: "italic",
             fontSize: "22px",
             fontWeight: 400,
-            margin: "0 0 4px 0",
+            margin: "0 0 3px 0",
             color: "var(--color-text-primary)",
           }}
         >
@@ -78,7 +78,7 @@ export function ProjectCard({
           style={{
             fontFamily: "var(--font-serif)",
             fontStyle: "italic",
-            fontSize: "14px",
+            fontSize: "16px",
             color: "var(--color-text-year)",
             margin: 0,
           }}

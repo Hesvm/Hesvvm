@@ -10,14 +10,15 @@ export default function BackButton() {
       onClick={() => router.push("/")}
       style={{
         position: "fixed",
-        left: "max(0px, calc(50vw - 444px))",
-        top: "48px",
+        left: "max(16px, calc(50vw - 329px))",
+        top: "64px",
         zIndex: 50,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         width: "40px",
         height: "40px",
+        borderRadius: "999px",
         backgroundColor: "#ffffff",
         border: "1px solid #F4F4F4",
         boxShadow: "0 2px 12px rgba(0,0,0,0.027)",

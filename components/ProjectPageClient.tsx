@@ -16,7 +16,7 @@ export default function ProjectPageClient({ project }: { project: Project }) {
     >
       <BackButton />
 
-      <div style={{ maxWidth: "530px", margin: "0 auto", paddingTop: "32px" }}>
+      <div style={{ maxWidth: "530px", margin: "0 auto", paddingTop: "64px" }}>
         <ProjectHero thumbnail={project.thumbnail} slug={project.slug} />
 
         <h1

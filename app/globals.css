@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 @font-face {
   font-family: "SF Pro";
   src: url("/fonts/SFPro.ttf") format("truetype");
@@ -6,7 +8,29 @@
   font-display: swap;
 }
 
-@import "tailwindcss";
+@font-face {
+  font-family: "SF Pro";
+  src: url("/fonts/SFProDisplay-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro";
+  src: url("/fonts/SFProDisplay-Semibold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro";
+  src: url("/fonts/SFProDisplay-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   --color-bg: #ffffff;
@@ -37,9 +61,17 @@ body {
 }
 
 .social-link {
-  color: #8D91A6 !important;
+  color: #8D91A6;
   transition: color 0.2s ease;
 }
-.social-link:hover {
-  color: #000 !important;
+
+.social-link svg {
+  color: inherit;
+  transition: color 0.2s ease;
+}
+
+.social-link:active,
+.social-link:hover,
+.social-link:focus-visible {
+  color: #000000;
 }

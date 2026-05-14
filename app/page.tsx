@@ -36,7 +36,7 @@ export default function Home() {
             >
               <circle
                 cx="48.5" cy="48.5" r="45"
-                stroke="#2cabff"
+                stroke="#D9D4CC"
                 strokeWidth="3.5"
                 strokeLinecap="round"
                 strokeDasharray="4 7"
@@ -101,7 +101,7 @@ export default function Home() {
                 width: "52px",
                 height: "36px",
                 borderRadius: "100px",
-                backgroundColor: "#f2f3f7",
+                backgroundColor: "var(--surface-secondary)",
                 lineHeight: 0,
                 textDecoration: "none",
               }}
@@ -124,7 +124,7 @@ export default function Home() {
                 width: "52px",
                 height: "36px",
                 borderRadius: "100px",
-                backgroundColor: "#f2f3f7",
+                backgroundColor: "var(--surface-secondary)",
                 lineHeight: 0,
               }}
             >
@@ -146,7 +146,7 @@ export default function Home() {
                 width: "52px",
                 height: "36px",
                 borderRadius: "100px",
-                backgroundColor: "#f2f3f7",
+                backgroundColor: "var(--surface-secondary)",
                 lineHeight: 0,
               }}
             >

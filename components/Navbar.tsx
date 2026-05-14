@@ -5,8 +5,8 @@ import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const COLOR_ACTIVE = "#141B34";
-const COLOR_IDLE = "#A8ACB5";
+const COLOR_ACTIVE = "#181818";
+const COLOR_IDLE = "#969189";
 
 const springConfig = { type: "spring" as const, stiffness: 400, damping: 28, mass: 0.6 };
 
@@ -116,9 +116,9 @@ export function Navbar() {
                 borderRadius: "100px",
                 alignItems: "center",
                 justifyContent: "center",
-                backgroundColor: "#ffffff",
+                backgroundColor: "var(--surface-primary)",
                 border: "none",
-                boxShadow: "0 2px 12px rgba(0,0,0,0.08)",
+                boxShadow: "var(--shadow-medium)",
                 whiteSpace: "nowrap",
               }}
             >
@@ -146,8 +146,8 @@ export function Navbar() {
           padding: "0 24px",
           height: "60px",
           borderRadius: "100px",
-          backgroundColor: "var(--color-navbar-bg)",
-          boxShadow: "0 4px 24px rgba(0, 0, 0, 0.08)",
+          backgroundColor: "var(--surface-primary)",
+          boxShadow: "var(--shadow-elevated)",
         }}
       >
         {navItems.map((item, idx) => {

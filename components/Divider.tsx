@@ -57,7 +57,7 @@ export default function Divider({ variant }: { variant: 1 | 2 | 3 | 4 | 5 }) {
         </defs>
         <path
           d={config.path}
-          fill="#D0D0D0"
+          style={{ fill: "var(--border-subtle)" }}
           clipPath={`url(#${id})`}
         />
       </svg>

@@ -33,22 +33,69 @@
 }
 
 :root {
-  --color-bg: #ffffff;
-  --color-card: #f2f3f7;
-  --color-text-primary: #000000;
-  --color-text-muted: rgba(0, 0, 0, 0.5);
-  --color-text-navy: #1e2347;
-  --color-text-year: #b9b9b9;
-  --color-navbar-bg: #ffffff;
-  --color-accent: #2cabff;
+  /* ── Backgrounds ── */
+  --bg-primary:   #F7F6F3;
+  --bg-secondary: #F1EFEB;
+  --bg-tertiary:  #E8E5DF;
 
+  /* ── Surfaces ── */
+  --surface-primary:   #FFFFFF;
+  --surface-secondary: #F4F2EE;
+  --surface-muted:     #ECE9E3;
+  --surface-hover:     #E5E1DA;
+
+  /* ── Typography ── */
+  --text-primary:   #131313;
+  --text-strong:    #222222;
+  --text-secondary: #5F5B55;
+  --text-muted:     #969189;
+  --text-disabled:  #B8B2A8;
+
+  /* ── Borders ── */
+  --border-subtle: #D9D4CC;
+  --border-soft:   #E7E2DA;
+  --border-strong: #C9C2B8;
+
+  /* ── Accents ── */
+  --accent-primary: #181818;
+  --accent-hover:   #2A2A2A;
+
+  /* ── Optional restrained accents ── */
+  --accent-soft-blue:  #6E8EFA;
+  --accent-soft-sage:  #C8D1C4;
+  --accent-soft-beige: #E8DED1;
+
+  /* ── Semantic ── */
+  --success-bg:   #EDF4EC;
+  --success-text: #4F6B4E;
+  --warning-bg:   #F7F1E5;
+  --warning-text: #8A6A35;
+  --error-bg:     #F6ECE9;
+  --error-text:   #9A4B42;
+
+  /* ── Shadows ── */
+  --shadow-soft:     0 2px 10px rgba(20, 20, 20, 0.03);
+  --shadow-medium:   0 6px 24px rgba(20, 20, 20, 0.05);
+  --shadow-elevated: 0 10px 40px rgba(20, 20, 20, 0.06);
+
+  /* ── Legacy aliases (backward compat) ── */
+  --color-bg:           var(--bg-primary);
+  --color-card:         var(--surface-secondary);
+  --color-text-primary: var(--text-primary);
+  --color-text-muted:   var(--text-secondary);
+  --color-text-navy:    var(--accent-primary);
+  --color-text-year:    var(--text-muted);
+  --color-navbar-bg:    var(--surface-primary);
+
+  /* ── Typography ── */
   --font-sans: "SF Pro", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
   --font-serif: "Instrument Serif", Georgia, serif;
 
+  /* ── Structure ── */
   --page-padding: 64px;
-  --card-radius: 27px;
-  --navbar-radius: 49px;
-  --avatar-size: 77px;
+  --card-radius:  27px;
+  --navbar-radius:49px;
+  --avatar-size:  77px;
 }
 
 html,
@@ -61,7 +108,7 @@ body {
 }
 
 .social-link {
-  color: #8D91A6;
+  color: var(--text-muted);
   transition: color 0.2s ease;
 }
 
@@ -73,5 +120,5 @@ body {
 .social-link:active,
 .social-link:hover,
 .social-link:focus-visible {
-  color: #000000;
+  color: var(--text-primary);
 }

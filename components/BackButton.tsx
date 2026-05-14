@@ -19,7 +19,7 @@ export default function BackButton() {
         width: "40px",
         height: "40px",
         borderRadius: "999px",
-        backgroundColor: "var(--surface-primary)",
+        backgroundColor: "transparent",
         border: "1px solid var(--border-subtle)",
         boxShadow: "var(--shadow-soft)",
         cursor: "pointer",

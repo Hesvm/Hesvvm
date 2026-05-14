@@ -40,7 +40,7 @@ export function ProjectCard({
     >
       <div
         onClick={() => router.push(`/projects/${project.slug}`)}
-        style={{ cursor: "pointer" }}
+        style={{ cursor: "url('/cursors/link.cur'), pointer" }}
       >
         <div
           style={{

@@ -43,7 +43,7 @@ export function BuildingRow({ building }: { building: Building }) {
           href={building.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="group flex h-[40px] w-[40px] items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--surface-primary)] shadow-[var(--shadow-soft)]"
+          className="group flex h-[40px] w-[40px] items-center justify-center rounded-full border border-[var(--border-subtle)] bg-transparent shadow-[var(--shadow-soft)]"
         >
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path className="transition-colors group-hover:stroke-[#131313]" d="M6.83333 5.16667L11 1M11 3.77778V1H8.22222M11 7.11111V9.88889C11 10.1836 10.8829 10.4662 10.6746 10.6746C10.4662 10.8829 10.1836 11 9.88889 11H2.11111C1.81643 11 1.53381 10.8829 1.32544 10.6746C1.11706 10.4662 1 10.1836 1 9.88889V2.11111C1 1.81643 1.11706 1.53381 1.32544 1.32544C1.53381 1.11706 1.81643 1 2.11111 1H4.88889" stroke="#969189" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>

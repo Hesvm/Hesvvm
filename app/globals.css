@@ -98,6 +98,45 @@
   --avatar-size:  77px;
 }
 
+/* ── Cursors ── */
+*,
+html,
+body {
+  cursor: url('/cursors/pointer.cur'), auto;
+}
+
+a,
+button,
+[role="button"],
+label[for],
+select,
+summary,
+[tabindex]:not([tabindex="-1"]) {
+  cursor: url('/cursors/link.cur'), pointer;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="search"],
+input[type="url"],
+input[type="password"],
+input[type="number"],
+textarea,
+[contenteditable] {
+  cursor: url('/cursors/beam.cur'), text;
+}
+
+[disabled],
+[aria-disabled="true"] {
+  cursor: url('/cursors/unavailable.cur'), not-allowed;
+}
+
+[draggable="true"],
+.draggable {
+  cursor: url('/cursors/move.cur'), move;
+}
+
+/* ── Base ── */
 html,
 body {
   font-family: var(--font-sans);

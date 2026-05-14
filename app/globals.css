@@ -99,9 +99,7 @@
 }
 
 /* ── Cursors ── */
-*,
-html,
-body {
+html {
   cursor: url('/cursors/pointer.cur'), auto;
 }
 

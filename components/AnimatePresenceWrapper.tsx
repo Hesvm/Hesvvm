@@ -11,7 +11,7 @@ export default function AnimatePresenceWrapper({
   const pathname = usePathname();
   return (
     <LayoutGroup id="project-transition">
-      <AnimatePresence mode="wait" initial={false}>
+      <AnimatePresence mode="popLayout" initial={false}>
         <motion.div
           key={pathname}
           style={{ minHeight: "100vh" }}

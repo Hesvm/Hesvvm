@@ -58,7 +58,7 @@ export function ProjectCard({
               height: "184px",
               backgroundColor: "var(--color-card)",
             }}
-            sizes="184px"
+            sizes="(max-width: 768px) 100vw, 530px"
           />
         </div>
         <h3

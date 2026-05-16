@@ -23,12 +23,15 @@ export function SharedProjectImage({
 
   return (
     <motion.div
+      layout
       layoutId={layoutId}
+      initial={false}
       style={{
         overflow: "hidden",
         borderRadius: 0,
         backgroundColor: "#FFFEFA",
         position: "relative",
+        transformOrigin: "center center",
         ...style,
       }}
       transition={{

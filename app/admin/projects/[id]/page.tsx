@@ -60,8 +60,8 @@ export default function ProjectEditorPage({ params }: PageProps) {
   const [isReordering, setIsReordering] = useState(false)
   const [slugManual, setSlugManual] = useState(false)
   const [thumbnailUploading, setThumbnailUploading] = useState(false)
-  const [navBtn, setNavBtn] = useState<'save' | 'deploy'>('save')
-  const [navBtnLoading, setNavBtnLoading] = useState(false)
+  const [saving, setSaving] = useState(false)
+  const [deploying, setDeploying] = useState(false)
   const [mounted, setMounted] = useState(false)
 
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -80,7 +80,6 @@ export default function ProjectEditorPage({ params }: PageProps) {
         if (data && !data.error) {
           setProject(data as Project)
           setSlugManual(true)
-          setNavBtn('deploy')
         }
       })
   }, [id])
@@ -110,7 +109,7 @@ export default function ProjectEditorPage({ params }: PageProps) {
   }
 
   async function handleSave() {
-    setNavBtnLoading(true)
+    setSaving(true)
     try {
       const data = { ...projectRef.current, status: 'draft' as const }
       if (isNewRef.current) {
@@ -135,13 +134,12 @@ export default function ProjectEditorPage({ params }: PageProps) {
         if (result.error) throw new Error(result.error)
         setProject(p => ({ ...p, status: 'draft' }))
       }
-      setNavBtn('deploy')
     } catch { /* no-op */ }
-    setNavBtnLoading(false)
+    setSaving(false)
   }
 
   async function handleDeploy() {
-    setNavBtnLoading(true)
+    setDeploying(true)
     try {
       const data = { ...projectRef.current, status: 'published' as const }
       const res = await fetch(`/api/admin/projects/${currentIdRef.current}`, {
@@ -156,7 +154,7 @@ export default function ProjectEditorPage({ params }: PageProps) {
         await fetch(process.env.NEXT_PUBLIC_VERCEL_DEPLOY_HOOK_URL, { method: 'POST' })
       }
     } catch { /* no-op */ }
-    setNavBtnLoading(false)
+    setDeploying(false)
   }
 
   function insertBlock(type: BlockType) {
@@ -212,25 +210,45 @@ export default function ProjectEditorPage({ params }: PageProps) {
 
   const slug = project.slug ?? ''
 
+  const isNew = isNewRef.current
+
   const navbarActions = (
-    <button
-      onClick={navBtn === 'save' ? handleSave : handleDeploy}
-      disabled={navBtnLoading}
-      style={{
-        fontSize: 12,
-        fontFamily: font,
-        fontWeight: 500,
-        color: navBtnLoading ? '#aaa' : '#fff',
-        background: navBtnLoading ? '#ccc' : '#1a1a1a',
-        border: 'none',
-        borderRadius: 6,
-        padding: '5px 12px',
-        cursor: navBtnLoading ? 'not-allowed' : 'pointer',
-        transition: 'background 0.15s',
-      }}
-    >
-      {navBtnLoading ? '…' : navBtn === 'save' ? 'Save draft' : 'Deploy'}
-    </button>
+    <div style={{ display: 'flex', gap: 8 }}>
+      <button
+        onClick={handleSave}
+        disabled={saving}
+        style={{
+          fontSize: 12,
+          fontFamily: font,
+          fontWeight: 500,
+          color: saving ? '#aaa' : '#555',
+          background: saving ? '#f0f0f0' : '#f0f0f0',
+          border: 'none',
+          borderRadius: 6,
+          padding: '5px 12px',
+          cursor: saving ? 'not-allowed' : 'pointer',
+        }}
+      >
+        {saving ? '…' : 'Save draft'}
+      </button>
+      <button
+        onClick={handleDeploy}
+        disabled={isNew || deploying}
+        style={{
+          fontSize: 12,
+          fontFamily: font,
+          fontWeight: 500,
+          color: (isNew || deploying) ? '#aaa' : '#fff',
+          background: (isNew || deploying) ? '#ccc' : '#1a1a1a',
+          border: 'none',
+          borderRadius: 6,
+          padding: '5px 12px',
+          cursor: (isNew || deploying) ? 'not-allowed' : 'pointer',
+        }}
+      >
+        {deploying ? '…' : 'Deploy'}
+      </button>
+    </div>
   )
 
   return (

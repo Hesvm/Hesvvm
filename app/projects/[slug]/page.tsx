@@ -1,5 +1,6 @@
-import { getProjectBySlug, getPublishedProjects } from "@/lib/getProjects";
+import { getProjectBySlug, getProjectBySlugAny, getPublishedProjects } from "@/lib/getProjects";
 import { notFound } from "next/navigation";
+import { cookies } from "next/headers";
 import ProjectPageClient from "@/components/ProjectPageClient";
 import type { Metadata } from "next";
 import type { TextBlock } from "@/types/project";
@@ -38,7 +39,12 @@ export default async function ProjectPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const project = await getProjectBySlug(slug);
+  const cookieStore = await cookies();
+  const isAdmin = cookieStore.get("admin_session")?.value === "authenticated";
+
+  const project = isAdmin
+    ? await getProjectBySlugAny(slug)
+    : await getProjectBySlug(slug);
 
   if (!project) {
     notFound();

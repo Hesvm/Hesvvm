@@ -22,10 +22,15 @@ export function ProjectCard({
 
   const handleMouseEnter = () => {
     onMouseEnter?.();
+    router.prefetch(`/projects/${project.slug}`);
     if (typeof window !== "undefined") {
       const img = new window.Image();
       img.src = project.thumbnail_url ?? '';
     }
+  };
+
+  const handleFocus = () => {
+    router.prefetch(`/projects/${project.slug}`);
   };
 
   return (
@@ -40,6 +45,7 @@ export function ProjectCard({
     >
       <div
         onClick={() => router.push(`/projects/${project.slug}`)}
+        onFocus={handleFocus}
         style={{ cursor: "url('/cursors/link.cur'), pointer" }}
       >
         <div

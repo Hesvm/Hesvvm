@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef, use } from 'react'
 import { useRouter } from 'next/navigation'
 import { createPortal } from 'react-dom'
-import { supabase } from '@/lib/supabase'
 import { Project, ContentBlock, BlockType } from '@/types/project'
 import BlockEditor from '@/components/admin/BlockEditor'
 import FloatingBar from '@/components/admin/FloatingBar'
@@ -75,13 +74,10 @@ export default function ProjectEditorPage({ params }: PageProps) {
 
   useEffect(() => {
     if (id === 'new') return
-    supabase
-      .from('projects')
-      .select('*')
-      .eq('id', id)
-      .single()
-      .then(({ data }) => {
-        if (data) {
+    fetch(`/api/admin/projects/${id}`)
+      .then(r => r.json())
+      .then(data => {
+        if (data && !data.error) {
           setProject(data as Project)
           setSlugManual(true)
           setNavBtn('deploy')
@@ -98,14 +94,18 @@ export default function ProjectEditorPage({ params }: PageProps) {
   }
 
   function scheduleAutosave(data: Partial<Project>) {
+    if (isNewRef.current) return
     if (debounceRef.current) clearTimeout(debounceRef.current)
     debounceRef.current = setTimeout(() => { void silentSave(data) }, 2000)
   }
 
   async function silentSave(data: Partial<Project>) {
     try {
-      if (isNewRef.current) return
-      await supabase.from('projects').update(data).eq('id', currentIdRef.current)
+      await fetch(`/api/admin/projects/${currentIdRef.current}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
     } catch { /* silent */ }
   }
 
@@ -114,25 +114,27 @@ export default function ProjectEditorPage({ params }: PageProps) {
     try {
       const data = { ...projectRef.current, status: 'draft' as const }
       if (isNewRef.current) {
-        const { data: inserted, error } = await supabase
-          .from('projects')
-          .insert(data)
-          .select()
-          .single()
-        if (error) throw error
-        if (inserted) {
-          isNewRef.current = false
-          currentIdRef.current = (inserted as Project).id
-          router.replace(`/admin/projects/${(inserted as Project).id}`)
-        }
+        const res = await fetch('/api/admin/projects', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        })
+        const inserted = await res.json() as Project & { error?: string }
+        if (inserted.error) throw new Error(inserted.error)
+        isNewRef.current = false
+        currentIdRef.current = inserted.id
+        setProject(inserted)
+        router.replace(`/admin/projects/${inserted.id}`)
       } else {
-        const { error } = await supabase
-          .from('projects')
-          .update(data)
-          .eq('id', currentIdRef.current)
-        if (error) throw error
+        const res = await fetch(`/api/admin/projects/${currentIdRef.current}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        })
+        const result = await res.json() as { error?: string }
+        if (result.error) throw new Error(result.error)
+        setProject(p => ({ ...p, status: 'draft' }))
       }
-      setProject(p => ({ ...p, status: 'draft' }))
       setNavBtn('deploy')
     } catch { /* no-op */ }
     setNavBtnLoading(false)
@@ -142,7 +144,13 @@ export default function ProjectEditorPage({ params }: PageProps) {
     setNavBtnLoading(true)
     try {
       const data = { ...projectRef.current, status: 'published' as const }
-      await supabase.from('projects').update(data).eq('id', currentIdRef.current)
+      const res = await fetch(`/api/admin/projects/${currentIdRef.current}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+      const result = await res.json() as { error?: string }
+      if (result.error) throw new Error(result.error)
       setProject(p => ({ ...p, status: 'published' }))
       if (process.env.NEXT_PUBLIC_VERCEL_DEPLOY_HOOK_URL) {
         await fetch(process.env.NEXT_PUBLIC_VERCEL_DEPLOY_HOOK_URL, { method: 'POST' })
@@ -240,7 +248,6 @@ export default function ProjectEditorPage({ params }: PageProps) {
           flexShrink: 0,
         }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            {/* Title */}
             <div>
               <label style={labelStyle()}>Title</label>
               <input
@@ -257,7 +264,6 @@ export default function ProjectEditorPage({ params }: PageProps) {
               />
             </div>
 
-            {/* Slug */}
             <div>
               <label style={labelStyle()}>
                 Slug{' '}
@@ -279,7 +285,6 @@ export default function ProjectEditorPage({ params }: PageProps) {
               />
             </div>
 
-            {/* Subtitle */}
             <div>
               <label style={labelStyle()}>Subtitle</label>
               <input
@@ -291,7 +296,6 @@ export default function ProjectEditorPage({ params }: PageProps) {
               />
             </div>
 
-            {/* Thumbnail */}
             <div>
               <label style={labelStyle()}>Thumbnail</label>
               {project.thumbnail_url && (
@@ -301,12 +305,6 @@ export default function ProjectEditorPage({ params }: PageProps) {
                     src={project.thumbnail_url}
                     alt="Thumbnail"
                     style={{ width: '100%', borderRadius: 6, objectFit: 'cover', display: 'block', marginBottom: 6 }}
-                  />
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={project.thumbnail_url}
-                    alt="Thumbnail preview"
-                    style={{ width: 120, height: 80, borderRadius: 4, objectFit: 'cover', display: 'block' }}
                   />
                 </div>
               )}

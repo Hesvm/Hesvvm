@@ -81,17 +81,18 @@ export function Navbar() {
 
   return (
     <nav
+      className="navbar-nav"
       style={{
         position: "fixed",
-        bottom: "48px",
         left: "50%",
         transform: "translateX(-50%)",
         zIndex: 50,
       }}
     >
       {/* Tooltip */}
-      <AnimatePresence>
-        {visibleTooltipIndex !== null && (
+      <div className="navbar-tooltip">
+        <AnimatePresence>
+          {visibleTooltipIndex !== null && (
           <motion.div
             initial={{ opacity: 0, y: 8, scale: 0.88 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -135,16 +136,16 @@ export function Navbar() {
             </motion.div>
           </motion.div>
         )}
-      </AnimatePresence>
+        </AnimatePresence>
+      </div>
 
       {/* Pill */}
       <div
         ref={menuRef}
+        className="navbar-pill"
         style={{
           display: "flex",
           alignItems: "center",
-          gap: "27px",
-          padding: "0 24px",
           height: "60px",
           borderRadius: "100px",
           backgroundColor: "var(--surface-primary)",

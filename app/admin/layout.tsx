@@ -31,19 +31,22 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <span style={{ fontSize: 12, fontFamily: 'monospace', color: '#555' }}>
           Portfolio Admin
         </span>
-        <button
-          onClick={handleLogout}
-          style={{
-            fontSize: 12,
-            color: '#999',
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            padding: '4px 0',
-          }}
-        >
-          Logout
-        </button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          <div id="navbar-actions" style={{ display: 'flex', alignItems: 'center', gap: 8 }} />
+          <button
+            onClick={handleLogout}
+            style={{
+              fontSize: 12,
+              color: '#999',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              padding: '4px 0',
+            }}
+          >
+            Logout
+          </button>
+        </div>
       </div>
       <div>{children}</div>
     </div>

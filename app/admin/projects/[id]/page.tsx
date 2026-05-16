@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, use } from 'react'
 import { useRouter } from 'next/navigation'
+import { createPortal } from 'react-dom'
 import { supabase } from '@/lib/supabase'
 import { Project, ContentBlock, BlockType } from '@/types/project'
 import BlockEditor from '@/components/admin/BlockEditor'
@@ -57,12 +58,12 @@ export default function ProjectEditorPage({ params }: PageProps) {
     status: 'draft',
     blocks: [],
   })
-  const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle')
   const [isReordering, setIsReordering] = useState(false)
-  const [selectedBlockId, setSelectedBlockId] = useState<string | null>(null)
   const [slugManual, setSlugManual] = useState(false)
-  const [deployToast, setDeployToast] = useState(false)
   const [thumbnailUploading, setThumbnailUploading] = useState(false)
+  const [navBtn, setNavBtn] = useState<'save' | 'deploy'>('save')
+  const [navBtnLoading, setNavBtnLoading] = useState(false)
+  const [mounted, setMounted] = useState(false)
 
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const projectRef = useRef(project)
@@ -70,7 +71,8 @@ export default function ProjectEditorPage({ params }: PageProps) {
   const isNewRef = useRef(id === 'new')
   const currentIdRef = useRef(id)
 
-  // Fetch existing project
+  useEffect(() => { setMounted(true) }, [])
+
   useEffect(() => {
     if (id === 'new') return
     supabase
@@ -82,6 +84,7 @@ export default function ProjectEditorPage({ params }: PageProps) {
         if (data) {
           setProject(data as Project)
           setSlugManual(true)
+          setNavBtn('deploy')
         }
       })
   }, [id])
@@ -89,21 +92,27 @@ export default function ProjectEditorPage({ params }: PageProps) {
   function updateProject(patch: Partial<Project>) {
     setProject(prev => {
       const next = { ...prev, ...patch }
-      scheduleSave(next)
+      scheduleAutosave(next)
       return next
     })
   }
 
-  function scheduleSave(data: Partial<Project>) {
+  function scheduleAutosave(data: Partial<Project>) {
     if (debounceRef.current) clearTimeout(debounceRef.current)
-    debounceRef.current = setTimeout(() => {
-      void save(data)
-    }, 1500)
+    debounceRef.current = setTimeout(() => { void silentSave(data) }, 2000)
   }
 
-  async function save(data: Partial<Project>) {
-    setSaveStatus('saving')
+  async function silentSave(data: Partial<Project>) {
     try {
+      if (isNewRef.current) return
+      await supabase.from('projects').update(data).eq('id', currentIdRef.current)
+    } catch { /* silent */ }
+  }
+
+  async function handleSave() {
+    setNavBtnLoading(true)
+    try {
+      const data = { ...projectRef.current, status: 'draft' as const }
       if (isNewRef.current) {
         const { data: inserted, error } = await supabase
           .from('projects')
@@ -123,11 +132,23 @@ export default function ProjectEditorPage({ params }: PageProps) {
           .eq('id', currentIdRef.current)
         if (error) throw error
       }
-      setSaveStatus('saved')
-      setTimeout(() => setSaveStatus('idle'), 2000)
-    } catch {
-      setSaveStatus('error')
-    }
+      setProject(p => ({ ...p, status: 'draft' }))
+      setNavBtn('deploy')
+    } catch { /* no-op */ }
+    setNavBtnLoading(false)
+  }
+
+  async function handleDeploy() {
+    setNavBtnLoading(true)
+    try {
+      const data = { ...projectRef.current, status: 'published' as const }
+      await supabase.from('projects').update(data).eq('id', currentIdRef.current)
+      setProject(p => ({ ...p, status: 'published' }))
+      if (process.env.NEXT_PUBLIC_VERCEL_DEPLOY_HOOK_URL) {
+        await fetch(process.env.NEXT_PUBLIC_VERCEL_DEPLOY_HOOK_URL, { method: 'POST' })
+      }
+    } catch { /* no-op */ }
+    setNavBtnLoading(false)
   }
 
   function insertBlock(type: BlockType) {
@@ -145,12 +166,7 @@ export default function ProjectEditorPage({ params }: PageProps) {
         newBlock = { id: blockId, type: 'image', src: '' }
         break
       case 'image-pair':
-        newBlock = {
-          id: blockId,
-          type: 'image-pair',
-          left: { src: '' },
-          right: { src: '' },
-        }
+        newBlock = { id: blockId, type: 'image-pair', left: { src: '' }, right: { src: '' } }
         break
       case 'divider':
         newBlock = { id: blockId, type: 'divider', variant: (Math.ceil(Math.random() * 5)) as 1 | 2 | 3 | 4 | 5 }
@@ -167,22 +183,7 @@ export default function ProjectEditorPage({ params }: PageProps) {
     }
 
     const blocks = project.blocks ?? []
-    const insertAfterIndex = selectedBlockId
-      ? blocks.findIndex(b => b.id === selectedBlockId)
-      : blocks.length - 1
-    const newBlocks = [...blocks]
-    newBlocks.splice(insertAfterIndex + 1, 0, newBlock)
-    updateProject({ blocks: newBlocks })
-  }
-
-  async function handleDeploy() {
-    await supabase.from('projects').update({ status: 'published' }).eq('id', currentIdRef.current)
-    updateProject({ status: 'published' })
-    if (process.env.NEXT_PUBLIC_VERCEL_DEPLOY_HOOK_URL) {
-      await fetch(process.env.NEXT_PUBLIC_VERCEL_DEPLOY_HOOK_URL, { method: 'POST' })
-    }
-    setDeployToast(true)
-    setTimeout(() => setDeployToast(false), 3000)
+    updateProject({ blocks: [...blocks, newBlock] })
   }
 
   async function handleThumbnailUpload(file: File) {
@@ -202,28 +203,32 @@ export default function ProjectEditorPage({ params }: PageProps) {
   }
 
   const slug = project.slug ?? ''
-  const status = project.status ?? 'draft'
+
+  const navbarActions = (
+    <button
+      onClick={navBtn === 'save' ? handleSave : handleDeploy}
+      disabled={navBtnLoading}
+      style={{
+        fontSize: 12,
+        fontFamily: font,
+        fontWeight: 500,
+        color: navBtnLoading ? '#aaa' : '#fff',
+        background: navBtnLoading ? '#ccc' : '#1a1a1a',
+        border: 'none',
+        borderRadius: 6,
+        padding: '5px 12px',
+        cursor: navBtnLoading ? 'not-allowed' : 'pointer',
+        transition: 'background 0.15s',
+      }}
+    >
+      {navBtnLoading ? '…' : navBtn === 'save' ? 'Save draft' : 'Deploy'}
+    </button>
+  )
 
   return (
     <div style={{ fontFamily: font }}>
-      {/* Deploy toast */}
-      {deployToast && (
-        <div style={{
-          position: 'fixed',
-          top: 60,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          background: '#1a1a1a',
-          color: '#fff',
-          padding: '10px 20px',
-          borderRadius: 8,
-          fontSize: 13,
-          fontFamily: font,
-          zIndex: 500,
-        }}>
-          Deploy triggered ✓
-        </div>
-      )}
+      {mounted && document.getElementById('navbar-actions') &&
+        createPortal(navbarActions, document.getElementById('navbar-actions')!)}
 
       <div style={{ display: 'flex', height: 'calc(100vh - 48px)' }}>
         {/* LEFT PANEL */}
@@ -284,33 +289,6 @@ export default function ProjectEditorPage({ params }: PageProps) {
                 style={inputStyle()}
                 placeholder="e.g. Product Design · 2024"
               />
-            </div>
-
-            {/* Status */}
-            <div>
-              <label style={labelStyle()}>Status</label>
-              <div style={{ display: 'flex', gap: 8 }}>
-                {(['draft', 'published'] as const).map(s => (
-                  <button
-                    key={s}
-                    onClick={() => updateProject({ status: s })}
-                    style={{
-                      flex: 1,
-                      padding: '7px 0',
-                      border: '1px solid #e8e8e8',
-                      borderRadius: 6,
-                      background: status === s ? '#1a1a1a' : '#fafafa',
-                      color: status === s ? '#fff' : '#6b7280',
-                      fontSize: 13,
-                      fontFamily: font,
-                      cursor: 'pointer',
-                      textTransform: 'capitalize',
-                    }}
-                  >
-                    {s}
-                  </button>
-                ))}
-              </div>
             </div>
 
             {/* Thumbnail */}
@@ -380,8 +358,8 @@ export default function ProjectEditorPage({ params }: PageProps) {
                 blocks={project.blocks ?? []}
                 onChange={blocks => updateProject({ blocks })}
                 isReordering={isReordering}
-                selectedBlockId={selectedBlockId}
-                onSelectBlock={setSelectedBlockId}
+                selectedBlockId={null}
+                onSelectBlock={() => {}}
                 slug={slug}
               />
             )}
@@ -390,14 +368,10 @@ export default function ProjectEditorPage({ params }: PageProps) {
       </div>
 
       <FloatingBar
-        saveStatus={saveStatus}
         projectSlug={slug}
-        projectStatus={status}
         onInsertBlock={insertBlock}
         onToggleReorder={() => setIsReordering(r => !r)}
         isReordering={isReordering}
-        onDeploy={handleDeploy}
-        onStatusChange={s => updateProject({ status: s })}
       />
     </div>
   )

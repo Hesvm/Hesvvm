@@ -17,15 +17,10 @@ const BLOCK_TYPES: { type: BlockType; icon: string; label: string }[] = [
 ]
 
 interface Props {
-  saveStatus: 'idle' | 'saving' | 'saved' | 'error'
   projectSlug: string
-  projectStatus: 'draft' | 'published'
   onInsertBlock: (type: BlockType) => void
   onToggleReorder: () => void
   isReordering: boolean
-  deployHookUrl?: string
-  onDeploy: () => void
-  onStatusChange: (status: 'draft' | 'published') => void
 }
 
 function PlusIcon() {
@@ -54,24 +49,7 @@ function ReorderIcon({ active }: { active: boolean }) {
   )
 }
 
-function PublishIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-      <path d="M9 2L12 6H6L9 2Z" fill="currentColor"/>
-      <path d="M9 2V12M5 16H13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-    </svg>
-  )
-}
-
-export default function FloatingBar({
-  saveStatus,
-  projectSlug,
-  projectStatus,
-  onInsertBlock,
-  onToggleReorder,
-  isReordering,
-  onDeploy,
-}: Props) {
+export default function FloatingBar({ projectSlug, onInsertBlock, onToggleReorder, isReordering }: Props) {
   const [popoverOpen, setPopoverOpen] = useState(false)
   const popoverRef = useRef<HTMLDivElement>(null)
   const plusBtnRef = useRef<HTMLButtonElement>(null)
@@ -100,16 +78,6 @@ export default function FloatingBar({
     }
   }, [popoverOpen])
 
-  const saveLabel =
-    saveStatus === 'saving' ? 'Saving…' :
-    saveStatus === 'saved' ? '✓ Saved' :
-    saveStatus === 'error' ? 'Save failed' : null
-
-  const saveColor =
-    saveStatus === 'saving' ? '#969189' :
-    saveStatus === 'saved' ? '#16a34a' :
-    saveStatus === 'error' ? '#dc2626' : 'transparent'
-
   const btnStyle = (active = false): React.CSSProperties => ({
     display: 'flex',
     alignItems: 'center',
@@ -128,29 +96,12 @@ export default function FloatingBar({
   return (
     <div style={{
       position: 'fixed',
-      bottom: 48,
+      bottom: 24,
       left: '50%',
       transform: 'translateX(-50%)',
       zIndex: 50,
       fontFamily: font,
     }}>
-      {/* Save status label above bar */}
-      {saveLabel && (
-        <div style={{
-          position: 'absolute',
-          bottom: 'calc(100% + 8px)',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          whiteSpace: 'nowrap',
-          fontSize: 12,
-          color: saveColor,
-          pointerEvents: 'none',
-          fontFamily: font,
-        }}>
-          {saveLabel}
-        </div>
-      )}
-
       {/* Block type popover */}
       {popoverOpen && (
         <div
@@ -236,29 +187,6 @@ export default function FloatingBar({
           title="Reorder blocks"
         >
           <ReorderIcon active={isReordering} />
-        </button>
-
-        {/* Divider */}
-        <div style={{ width: 1, height: 20, background: 'rgba(0,0,0,0.1)', margin: '0 4px' }} />
-
-        {/* Publish */}
-        <button
-          onClick={projectStatus === 'published' ? onDeploy : undefined}
-          disabled={projectStatus === 'draft'}
-          style={{
-            ...btnStyle(false),
-            width: 'auto',
-            padding: '0 14px',
-            gap: 6,
-            color: projectStatus === 'draft' ? COLOR_IDLE : COLOR_ACTIVE,
-            cursor: projectStatus === 'draft' ? 'not-allowed' : 'pointer',
-            fontSize: 13,
-            fontWeight: 500,
-          }}
-          title={projectStatus === 'draft' ? 'Set to Published to deploy' : 'Deploy'}
-        >
-          <PublishIcon />
-          {projectStatus === 'published' ? 'Redeploy' : 'Publish'}
         </button>
       </div>
     </div>

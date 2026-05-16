@@ -1,9 +1,8 @@
-import { supabase } from './supabase'
 import { supabaseAdmin } from './supabase-admin'
 import type { Project } from '@/types/project'
 
 export async function getPublishedProjects(): Promise<Project[]> {
-  const { data } = await supabase
+  const { data } = await supabaseAdmin
     .from('projects')
     .select('*')
     .eq('status', 'published')
@@ -12,16 +11,6 @@ export async function getPublishedProjects(): Promise<Project[]> {
 }
 
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
-  const { data } = await supabase
-    .from('projects')
-    .select('*')
-    .eq('status', 'published')
-    .eq('slug', slug)
-    .single()
-  return (data ?? null) as Project | null
-}
-
-export async function getProjectBySlugAny(slug: string): Promise<Project | null> {
   const { data } = await supabaseAdmin
     .from('projects')
     .select('*')

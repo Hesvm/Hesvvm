@@ -1,6 +1,5 @@
-import { getProjectBySlug, getProjectBySlugAny, getPublishedProjects } from "@/lib/getProjects";
+import { getProjectBySlug, getPublishedProjects } from "@/lib/getProjects";
 import { notFound } from "next/navigation";
-import { cookies } from "next/headers";
 import ProjectPageClient from "@/components/ProjectPageClient";
 import type { Metadata } from "next";
 import type { TextBlock } from "@/types/project";
@@ -20,9 +19,7 @@ export async function generateMetadata({
   if (!project) return {};
 
   const firstText = project.blocks.find((b) => b.type === "text") as TextBlock | undefined;
-  const description = firstText
-    ? firstText.content.slice(0, 160)
-    : project.category;
+  const description = firstText ? firstText.content.slice(0, 160) : undefined;
 
   return {
     title: project.title,
@@ -39,16 +36,9 @@ export default async function ProjectPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const cookieStore = await cookies();
-  const isAdmin = cookieStore.get("admin_session")?.value === "authenticated";
+  const project = await getProjectBySlug(slug);
 
-  const project = isAdmin
-    ? await getProjectBySlugAny(slug)
-    : await getProjectBySlug(slug);
+  if (!project) notFound();
 
-  if (!project) {
-    notFound();
-  }
-
-  return <ProjectPageClient project={project} />;
+  return <ProjectPageClient project={project!} />;
 }

@@ -96,6 +96,16 @@
   --card-radius:  27px;
   --navbar-radius:49px;
   --avatar-size:  77px;
+  --grid-card-size: 184px;
+  --grid-gap: 85px;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --page-padding: 20px;
+    --grid-card-size: calc((100vw - 40px - 16px) / 2);
+    --grid-gap: 16px;
+  }
 }
 
 /* ── Cursors ── */
@@ -158,4 +168,143 @@ body {
 .social-link:hover,
 .social-link:focus-visible {
   color: var(--text-primary);
+}
+
+/* ── Responsive Layout Classes ── */
+
+/* Hero section */
+.hero-avatar {
+  width: 97px;
+  height: 97px;
+}
+.hero-name {
+  font-size: 33px;
+}
+.hero-tagline {
+  font-size: 16px;
+}
+
+/* Project grid */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 184px);
+  column-gap: 85px;
+  row-gap: 81px;
+}
+
+/* Project card thumbnail */
+.project-card-thumbnail {
+  width: 184px;
+  height: 184px;
+}
+
+/* Navbar */
+.navbar-nav {
+  bottom: 48px;
+}
+.navbar-pill {
+  gap: 27px;
+  padding: 0 24px;
+}
+
+/* Project hero image */
+.project-hero {
+  height: 420px;
+}
+
+/* Content image blocks */
+.content-image-single {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  overflow: hidden;
+}
+.content-image-pair {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+/* Project detail title */
+.project-detail-title {
+  font-size: 42px;
+}
+
+/* Buildings */
+.building-row-icon {
+  width: 64px;
+  height: 64px;
+}
+
+/* ── Mobile Overrides (max-width: 767px) ── */
+@media (max-width: 767px) {
+
+  /* Hero */
+  .hero-avatar {
+    width: 80px;
+    height: 80px;
+  }
+  .hero-name {
+    font-size: 26px;
+  }
+  .hero-tagline {
+    font-size: 15px;
+  }
+
+  /* Project grid — 2 columns, fluid */
+  .project-grid {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 16px;
+    row-gap: 24px;
+    width: 100%;
+  }
+
+  /* Project card thumbnail — fill cell, keep square */
+  .project-card-thumbnail {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+
+  /* Navbar */
+  .navbar-nav {
+    bottom: 24px;
+  }
+  .navbar-pill {
+    gap: 20px;
+    padding: 0 18px;
+  }
+  .navbar-tooltip {
+    display: none;
+  }
+
+  /* Project hero */
+  .project-hero {
+    height: 56vw;
+    min-height: 200px;
+    max-height: 300px;
+  }
+
+  /* Content images */
+  .content-image-single {
+    height: auto;
+    aspect-ratio: 16 / 10;
+  }
+
+  /* Image pair — stack vertically */
+  .content-image-pair {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* Project detail title */
+  .project-detail-title {
+    font-size: 28px;
+  }
+
+  /* Buildings icon */
+  .building-row-icon {
+    width: 48px;
+    height: 48px;
+  }
 }

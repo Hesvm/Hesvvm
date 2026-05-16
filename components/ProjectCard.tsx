@@ -4,6 +4,7 @@ import { Project } from "@/types/project";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { useIsHoverCapable } from "@/hooks/useIsHoverCapable";
 
 export function ProjectCard({
   project,
@@ -19,6 +20,7 @@ export function ProjectCard({
   onMouseLeave?: () => void;
 }) {
   const router = useRouter();
+  const isHoverCapable = useIsHoverCapable();
 
   const handleMouseEnter = () => {
     onMouseEnter?.();
@@ -33,8 +35,8 @@ export function ProjectCard({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={onMouseLeave}
       style={{
-        filter: anyHovered && !isHovered ? "blur(2px)" : "none",
-        opacity: anyHovered && !isHovered ? 0.45 : 1,
+        filter: isHoverCapable && anyHovered && !isHovered ? "blur(2px)" : "none",
+        opacity: isHoverCapable && anyHovered && !isHovered ? 0.45 : 1,
         transition: "filter 0.3s ease, opacity 0.3s ease",
       }}
     >
@@ -43,15 +45,14 @@ export function ProjectCard({
         style={{ cursor: "url('/cursors/link.cur'), pointer" }}
       >
         <div
+          className="project-card-thumbnail"
           style={{
-            width: "184px",
-            height: "184px",
             backgroundColor: "var(--color-card)",
             overflow: "hidden",
             position: "relative",
             marginBottom: "12px",
             transition: "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
-            transform: isHovered ? "translateY(-6px)" : "translateY(0)",
+            transform: isHoverCapable && isHovered ? "translateY(-6px)" : "translateY(0)",
             boxShadow: "none",
           }}
         >

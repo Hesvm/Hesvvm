@@ -8,14 +8,7 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
 
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(3, 184px)",
-        columnGap: "85px",
-        rowGap: "81px",
-      }}
-    >
+    <div className="project-grid">
       {projects.map((project) => (
         <ProjectCard
           key={project.slug}

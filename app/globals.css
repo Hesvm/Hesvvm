@@ -176,11 +176,16 @@ body {
   width: 97px;
   height: 97px;
 }
+.hero-avatar svg {
+  width: 100%;
+  height: 100%;
+}
 .hero-name {
   font-size: 33px;
 }
 .hero-tagline {
   font-size: 16px;
+  text-align: center;
 }
 
 /* Project grid */
@@ -308,5 +313,9 @@ body {
   .building-row-icon {
     width: 48px;
     height: 48px;
+  }
+  .building-row-icon img:last-child {
+    width: 30px;
+    height: 30px;
   }
 }

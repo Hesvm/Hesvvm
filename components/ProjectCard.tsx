@@ -1,8 +1,8 @@
 "use client";
 
 import { Project } from "@/types/project";
-import Image from "next/image";
 import { motion } from "framer-motion";
+import { SharedProjectImage } from "@/components/SharedProjectImage";
 import { useRouter } from "next/navigation";
 
 export function ProjectCard({
@@ -44,22 +44,21 @@ export function ProjectCard({
       >
         <div
           style={{
-            width: "184px",
-            height: "184px",
-            backgroundColor: "var(--color-card)",
-            overflow: "hidden",
-            position: "relative",
             marginBottom: "12px",
             transition: "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
             transform: isHovered ? "translateY(-6px)" : "translateY(0)",
-            boxShadow: "none",
           }}
         >
-          <Image
+          <SharedProjectImage
+            layoutId={`project-image-${project.slug}`}
             src={project.thumbnail_url ?? ''}
             alt={project.title}
-            fill
-            style={{ objectFit: "cover" }}
+            style={{
+              width: "184px",
+              height: "184px",
+              backgroundColor: "var(--color-card)",
+            }}
+            sizes="184px"
           />
         </div>
         <h3

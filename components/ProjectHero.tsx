@@ -1,4 +1,6 @@
-import Image from "next/image";
+"use client";
+
+import { SharedProjectImage } from "@/components/SharedProjectImage";
 
 export default function ProjectHero({
   thumbnail,
@@ -7,25 +9,20 @@ export default function ProjectHero({
   thumbnail: string | null;
   slug: string;
 }) {
+  if (!thumbnail) return null;
+
   return (
-    <div
+    <SharedProjectImage
+      layoutId={`project-image-${slug}`}
+      src={thumbnail}
+      alt={slug}
       style={{
         width: "100%",
         height: "420px",
-        position: "relative",
-        overflow: "hidden",
         marginBottom: "24px",
       }}
-    >
-      {thumbnail && (
-        <Image
-          src={thumbnail}
-          alt={slug}
-          fill
-          style={{ objectFit: "cover", objectPosition: "center" }}
-          priority
-        />
-      )}
-    </div>
+      sizes="(max-width: 768px) 100vw, 530px"
+      priority
+    />
   );
 }

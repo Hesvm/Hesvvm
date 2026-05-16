@@ -81,6 +81,7 @@ export type Project = {
   year?: string
   tags?: string[]
   thumbnail_url: string | null
+  og_image_url?: string | null
   status: 'draft' | 'published'
   blocks: ContentBlock[]
   created_at: string

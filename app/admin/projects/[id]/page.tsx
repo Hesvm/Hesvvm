@@ -58,6 +58,7 @@ export default function ProjectEditorPage({ params }: PageProps) {
   const [isReordering, setIsReordering] = useState(false)
   const [slugManual, setSlugManual] = useState(false)
   const [thumbnailUploading, setThumbnailUploading] = useState(false)
+  const [ogUploading, setOgUploading] = useState(false)
   const [saving, setSaving] = useState(false)
   const [deploying, setDeploying] = useState(false)
   const [mounted, setMounted] = useState(false)
@@ -209,6 +210,25 @@ export default function ProjectEditorPage({ params }: PageProps) {
     setThumbnailUploading(false)
   }
 
+  async function handleOgUpload(file: File) {
+    const ext = file.name.split('.').pop() ?? 'jpg'
+    const path = `og/${project.slug ?? 'project'}-${Date.now()}.${ext}`
+    const formData = new FormData()
+    formData.append('file', file)
+    formData.append('path', path)
+    setOgUploading(true)
+    try {
+      const res = await fetch('/api/admin/upload', { method: 'POST', body: formData })
+      const data = await res.json() as { url?: string; error?: string }
+      if (data.error) throw new Error(data.error)
+      updateProject({ og_image_url: data.url! })
+      addToast('OG image uploaded', 'success')
+    } catch (err) {
+      addToast((err as Error).message || 'Upload failed', 'error')
+    }
+    setOgUploading(false)
+  }
+
   const slug = project.slug ?? ''
 
   const navbarActions = mounted && document.getElementById('navbar-actions')
@@ -329,6 +349,24 @@ export default function ProjectEditorPage({ params }: PageProps) {
                 </div>
                 <input type="file" accept="image/*" style={{ display: 'none' }} onChange={e => { const f = e.target.files?.[0]; if (f) void handleThumbnailUpload(f) }} />
               </label>
+            </div>
+
+            <div>
+              <label style={labelStyle()}>OG Image <span style={{ textTransform: 'none', fontSize: 10, color: '#bbb', marginLeft: 2 }}>for social sharing</span></label>
+              {project.og_image_url && (
+                <div style={{ marginBottom: 8, position: 'relative' }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={project.og_image_url} alt="OG" style={{ width: '100%', aspectRatio: '1200/630', objectFit: 'cover', borderRadius: 6, display: 'block' }} />
+                  <div style={{ position: 'absolute', bottom: 4, right: 4, background: 'rgba(0,0,0,0.4)', color: '#fff', fontSize: 9, padding: '2px 5px', borderRadius: 3 }}>1200×630</div>
+                </div>
+              )}
+              <label style={{ display: 'block', cursor: 'pointer' }}>
+                <div style={{ border: '1px dashed #d1d5db', borderRadius: 6, padding: '10px 12px', fontSize: 13, color: '#6b7280', textAlign: 'center', cursor: 'pointer' }}>
+                  {ogUploading ? 'Uploading…' : project.og_image_url ? 'Replace OG image' : 'Upload OG image'}
+                </div>
+                <input type="file" accept="image/*" style={{ display: 'none' }} onChange={e => { const f = e.target.files?.[0]; if (f) void handleOgUpload(f) }} />
+              </label>
+              <p style={{ fontSize: 10, color: '#bbb', margin: '4px 0 0', fontFamily: font }}>Recommended: 1200×630px</p>
             </div>
           </div>
         </div>

@@ -21,11 +21,19 @@ export async function generateMetadata({
   const firstText = project.blocks.find((b) => b.type === "text") as TextBlock | undefined;
   const description = firstText ? firstText.content.slice(0, 160) : undefined;
 
+  const ogImage = project.og_image_url ?? project.thumbnail_url
+
   return {
     title: project.title,
-    description,
+    description: description ?? project.subtitle,
     openGraph: {
-      images: project.thumbnail_url ? [project.thumbnail_url] : [],
+      title: project.title,
+      description: project.subtitle ?? description,
+      images: ogImage ? [{ url: ogImage, width: 1200, height: 630 }] : [],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      images: ogImage ? [ogImage] : [],
     },
   };
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { Project } from "@/data/projects";
+import { Project } from "@/types/project";
 import BackButton from "@/components/BackButton";
 import ProjectHero from "@/components/ProjectHero";
 import ContentRenderer from "@/components/ContentRenderer";
@@ -17,7 +17,7 @@ export default function ProjectPageClient({ project }: { project: Project }) {
       <BackButton />
 
       <div style={{ maxWidth: "530px", margin: "0 auto", paddingTop: "64px" }}>
-        <ProjectHero thumbnail={project.thumbnail} slug={project.slug} />
+        <ProjectHero thumbnail={project.thumbnail_url} slug={project.slug} />
 
         <h1
           style={{
@@ -33,17 +33,19 @@ export default function ProjectPageClient({ project }: { project: Project }) {
           {project.title}
         </h1>
 
-        <p
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontStyle: "italic",
-            fontSize: "18px",
-            color: "var(--text-muted)",
-            margin: "0 0 28px 0",
-          }}
-        >
-          {project.category}
-        </p>
+        {(project.subtitle || project.category) && (
+          <p
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontStyle: "italic",
+              fontSize: "18px",
+              color: "var(--text-muted)",
+              margin: "0 0 28px 0",
+            }}
+          >
+            {project.subtitle || project.category}
+          </p>
+        )}
 
         <ContentRenderer blocks={project.blocks} />
       </div>

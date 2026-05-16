@@ -4,7 +4,7 @@ export default function ProjectHero({
   thumbnail,
   slug,
 }: {
-  thumbnail: string;
+  thumbnail: string | null;
   slug: string;
 }) {
   return (
@@ -17,13 +17,15 @@ export default function ProjectHero({
         marginBottom: "24px",
       }}
     >
-      <Image
-        src={thumbnail}
-        alt={slug}
-        fill
-        style={{ objectFit: "cover", objectPosition: "center" }}
-        priority
-      />
+      {thumbnail && (
+        <Image
+          src={thumbnail}
+          alt={slug}
+          fill
+          style={{ objectFit: "cover", objectPosition: "center" }}
+          priority
+        />
+      )}
     </div>
   );
 }

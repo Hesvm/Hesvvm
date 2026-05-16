@@ -59,6 +59,7 @@ function getActiveIndex(pathname: string) {
 
 export function Navbar() {
   const pathname = usePathname();
+  if (pathname.startsWith('/admin')) return null;
   const activeIndex = getActiveIndex(pathname);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   // Don't show tooltip on the active route

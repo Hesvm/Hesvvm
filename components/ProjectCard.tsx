@@ -1,6 +1,6 @@
 "use client";
 
-import { Project } from "@/data/projects";
+import { Project } from "@/types/project";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
@@ -24,7 +24,7 @@ export function ProjectCard({
     onMouseEnter?.();
     if (typeof window !== "undefined") {
       const img = new window.Image();
-      img.src = project.thumbnail;
+      img.src = project.thumbnail_url ?? '';
     }
   };
 
@@ -56,7 +56,7 @@ export function ProjectCard({
           }}
         >
           <Image
-            src={project.thumbnail}
+            src={project.thumbnail_url ?? ''}
             alt={project.title}
             fill
             style={{ objectFit: "cover" }}

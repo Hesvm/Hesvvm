@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Divider from "@/components/Divider";
 import ProjectLink from "@/components/ProjectLink";
-import { ContentBlock } from "@/data/projects";
+import { ContentBlock } from "@/types/project";
 
 interface ContentRendererProps {
   blocks: ContentBlock[];
@@ -10,10 +10,10 @@ interface ContentRendererProps {
 export default function ContentRenderer({ blocks }: ContentRendererProps) {
   return (
     <div style={{ maxWidth: "530px", display: "flex", flexDirection: "column", gap: "32px" }}>
-      {blocks.map((block, index) => {
+      {blocks.map((block) => {
         if (block.type === "text") {
           return (
-            <div key={index}>
+            <div key={block.id}>
               <div
                 style={{
                   fontFamily: "var(--font-sans)",
@@ -28,9 +28,27 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
           );
         }
 
+        if (block.type === "title") {
+          return (
+            <div key={block.id}>
+              <h2
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "20px",
+                  fontWeight: 600,
+                  color: "var(--color-text-primary)",
+                  margin: 0,
+                }}
+              >
+                {block.content}
+              </h2>
+            </div>
+          );
+        }
+
         if (block.type === "image") {
           return (
-            <div key={index}>
+            <div key={block.id}>
               <div>
                 <div
                   style={{
@@ -43,7 +61,7 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
                 >
                   <Image
                     src={block.src}
-                    alt=""
+                    alt={block.alt ?? ""}
                     fill
                     style={{ objectFit: "cover" }}
                   />
@@ -69,73 +87,24 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
 
         if (block.type === "image-pair") {
           return (
-            <div key={index}>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  gap: "16px",
-                }}
-              >
+            <div key={block.id}>
+              <div style={{ display: "flex", flexDirection: "row", gap: "16px" }}>
                 <div style={{ flex: 1 }}>
-                  <div
-                    style={{
-                      position: "relative",
-                      aspectRatio: "1 / 1",
-                      borderRadius: "0",
-                      overflow: "hidden",
-                    }}
-                  >
-                    <Image
-                      src={block.left.src}
-                      alt=""
-                      fill
-                      style={{ objectFit: "cover" }}
-                    />
+                  <div style={{ position: "relative", aspectRatio: "1 / 1", overflow: "hidden" }}>
+                    <Image src={block.left.src} alt={block.left.alt ?? ""} fill style={{ objectFit: "cover" }} />
                   </div>
                   {block.left.subtitle && (
-                    <div
-                      style={{
-                        fontFamily: "var(--font-serif)",
-                        fontStyle: "italic",
-                        fontSize: "16px",
-                        color: "var(--color-text-muted)",
-                        textAlign: "center",
-                        marginTop: "8px",
-                      }}
-                    >
+                    <div style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontSize: "16px", color: "var(--color-text-muted)", textAlign: "center", marginTop: "8px" }}>
                       {block.left.subtitle}
                     </div>
                   )}
                 </div>
-
                 <div style={{ flex: 1 }}>
-                  <div
-                    style={{
-                      position: "relative",
-                      aspectRatio: "1 / 1",
-                      borderRadius: "0",
-                      overflow: "hidden",
-                    }}
-                  >
-                    <Image
-                      src={block.right.src}
-                      alt=""
-                      fill
-                      style={{ objectFit: "cover" }}
-                    />
+                  <div style={{ position: "relative", aspectRatio: "1 / 1", overflow: "hidden" }}>
+                    <Image src={block.right.src} alt={block.right.alt ?? ""} fill style={{ objectFit: "cover" }} />
                   </div>
                   {block.right.subtitle && (
-                    <div
-                      style={{
-                        fontFamily: "var(--font-serif)",
-                        fontStyle: "italic",
-                        fontSize: "16px",
-                        color: "var(--color-text-muted)",
-                        textAlign: "center",
-                        marginTop: "8px",
-                      }}
-                    >
+                    <div style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontSize: "16px", color: "var(--color-text-muted)", textAlign: "center", marginTop: "8px" }}>
                       {block.right.subtitle}
                     </div>
                   )}
@@ -146,11 +115,49 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
         }
 
         if (block.type === "divider") {
-          return <Divider key={index} variant={block.variant} />;
+          return <Divider key={block.id} variant={block.variant} />;
         }
 
         if (block.type === "link") {
-          return <ProjectLink key={index} href={block.href} label={block.label} />;
+          return <ProjectLink key={block.id} href={block.url} label={block.label} />;
+        }
+
+        if (block.type === "video") {
+          const isEmbed = block.url.includes("youtube") || block.url.includes("vimeo") || block.url.includes("youtu.be");
+          return (
+            <div key={block.id}>
+              {isEmbed && (
+                <div style={{ position: "relative", paddingBottom: "56.25%", height: 0, overflow: "hidden" }}>
+                  <iframe
+                    src={block.url}
+                    style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: "none" }}
+                    allow="autoplay; fullscreen"
+                    allowFullScreen
+                  />
+                </div>
+              )}
+              {block.subtitle && (
+                <div style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontSize: "16px", color: "var(--color-text-muted)", textAlign: "center", marginTop: "8px" }}>
+                  {block.subtitle}
+                </div>
+              )}
+            </div>
+          );
+        }
+
+        if (block.type === "quote") {
+          return (
+            <div key={block.id} style={{ borderLeft: "2px solid var(--border-subtle)", paddingLeft: "20px" }}>
+              <p style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontSize: "18px", color: "var(--color-text-primary)", margin: "0 0 8px 0", lineHeight: 1.5 }}>
+                {block.content}
+              </p>
+              {block.attribution && (
+                <p style={{ fontFamily: "var(--font-sans)", fontSize: "13px", color: "var(--color-text-muted)", margin: 0 }}>
+                  {block.attribution}
+                </p>
+              )}
+            </div>
+          );
         }
 
         return null;

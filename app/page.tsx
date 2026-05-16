@@ -1,9 +1,10 @@
-import { projects } from "@/data/projects";
+import { getPublishedProjects } from "@/lib/getProjects";
 import { ProjectGrid } from "@/components/ProjectGrid";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
+  const projects = await getPublishedProjects();
   return (
     <main
         style={{

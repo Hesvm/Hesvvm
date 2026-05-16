@@ -7,7 +7,7 @@ export default function BackButton() {
 
   return (
     <button
-      onClick={() => router.push("/")}
+      onClick={() => router.back()}
       style={{
         position: "fixed",
         left: "max(16px, calc(50vw - 329px))",

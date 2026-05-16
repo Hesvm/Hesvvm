@@ -1,4 +1,6 @@
 import { getPublishedProjects } from "@/lib/getProjects";
+
+export const dynamic = 'force-dynamic';
 import { ProjectGrid } from "@/components/ProjectGrid";
 import Image from "next/image";
 import Link from "next/link";

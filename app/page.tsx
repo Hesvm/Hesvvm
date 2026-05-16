@@ -28,7 +28,7 @@ export default async function Home() {
           }}
         >
           {/* Avatar with SVG dashed border */}
-          <div style={{ position: "relative", width: "97px", height: "97px", marginBottom: "10px", flexShrink: 0 }}>
+          <div className="hero-avatar" style={{ position: "relative", marginBottom: "10px", flexShrink: 0 }}>
             {/* Rounded dashed circle — only SVG supports stroke-linecap on dashes */}
             <svg
               width="97" height="97"
@@ -63,10 +63,10 @@ export default async function Home() {
 
           {/* Name */}
           <h1
+            className="hero-name"
             style={{
               fontFamily: "var(--font-serif)",
               fontStyle: "italic",
-              fontSize: "33px",
               fontWeight: 400,
               lineHeight: 1,
               margin: "0 0 3px 0",
@@ -79,9 +79,9 @@ export default async function Home() {
 
           {/* Tagline */}
           <p
+            className="hero-tagline"
             style={{
               fontFamily: "var(--font-sans)",
-              fontSize: "16px",
               lineHeight: 1.35,
               color: "var(--color-text-muted)",
               margin: "0 0 28px 0",

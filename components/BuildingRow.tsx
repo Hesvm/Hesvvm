@@ -14,7 +14,7 @@ export function BuildingRow({ building }: { building: Building }) {
     >
       {/* Icon + Name + Tagline (left group) */}
       <div className="flex items-center gap-5">
-        <div className="relative h-[64px] w-[64px] shrink-0">
+        <div className="building-row-icon relative shrink-0">
           <img
             src="/images/buildings/icon-frame.svg"
             alt=""

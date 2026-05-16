@@ -17,7 +17,7 @@ export default function BuildingsPage() {
     <PageTransition>
       <main className="mx-auto max-w-2xl px-6 py-16">
         {/* Page Title */}
-        <h1 className="font-serif italic text-[2rem] text-[var(--text-strong)] text-center">
+        <h1 className="font-serif italic text-[1.5rem] md:text-[2rem] text-[var(--text-strong)] text-center">
           My buildings
         </h1>
 

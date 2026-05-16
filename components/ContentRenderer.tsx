@@ -50,15 +50,7 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
           return (
             <div key={block.id}>
               <div>
-                <div
-                  style={{
-                    position: "relative",
-                    width: "100%",
-                    height: "380px",
-                    borderRadius: "0",
-                    overflow: "hidden",
-                  }}
-                >
+                <div className="content-image-single">
                   <Image
                     src={block.src}
                     alt={block.alt ?? ""}
@@ -88,7 +80,7 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
         if (block.type === "image-pair") {
           return (
             <div key={block.id}>
-              <div style={{ display: "flex", flexDirection: "row", gap: "16px" }}>
+              <div className="content-image-pair">
                 <div style={{ flex: 1 }}>
                   <div style={{ position: "relative", aspectRatio: "1 / 1", overflow: "hidden" }}>
                     <Image src={block.left.src} alt={block.left.alt ?? ""} fill style={{ objectFit: "cover" }} />

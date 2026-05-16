@@ -9,9 +9,9 @@ export default function ProjectHero({
 }) {
   return (
     <div
+      className="project-hero"
       style={{
         width: "100%",
-        height: "420px",
         position: "relative",
         overflow: "hidden",
         marginBottom: "24px",

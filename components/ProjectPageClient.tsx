@@ -20,10 +20,10 @@ export default function ProjectPageClient({ project }: { project: Project }) {
         <ProjectHero thumbnail={project.thumbnail_url} slug={project.slug} />
 
         <h1
+          className="project-detail-title"
           style={{
             fontFamily: "var(--font-serif)",
             fontStyle: "italic",
-            fontSize: "42px",
             fontWeight: 400,
             margin: "0 0 6px 0",
             color: "var(--color-text-primary)",

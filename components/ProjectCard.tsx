@@ -1,8 +1,8 @@
 "use client";
 
 import { Project } from "@/types/project";
-import Image from "next/image";
 import { motion } from "framer-motion";
+import { SharedProjectImage } from "@/components/SharedProjectImage";
 import { useRouter } from "next/navigation";
 import { useIsHoverCapable } from "@/hooks/useIsHoverCapable";
 
@@ -24,10 +24,11 @@ export function ProjectCard({
 
   const handleMouseEnter = () => {
     onMouseEnter?.();
-    if (typeof window !== "undefined") {
-      const img = new window.Image();
-      img.src = project.thumbnail_url ?? '';
-    }
+    router.prefetch(`/projects/${project.slug}`);
+  };
+
+  const handleFocus = () => {
+    router.prefetch(`/projects/${project.slug}`);
   };
 
   return (
@@ -42,25 +43,25 @@ export function ProjectCard({
     >
       <div
         onClick={() => router.push(`/projects/${project.slug}`)}
+        onFocus={handleFocus}
         style={{ cursor: "url('/cursors/link.cur'), pointer" }}
       >
         <div
           className="project-card-thumbnail"
           style={{
-            backgroundColor: "var(--color-card)",
-            overflow: "hidden",
             position: "relative",
+            overflow: "hidden",
             marginBottom: "12px",
             transition: "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
             transform: isHoverCapable && isHovered ? "translateY(-6px)" : "translateY(0)",
-            boxShadow: "none",
           }}
         >
-          <Image
+          <SharedProjectImage
+            layoutId={`project-image-${project.slug}`}
             src={project.thumbnail_url ?? ''}
             alt={project.title}
-            fill
-            style={{ objectFit: "cover" }}
+            style={{ width: "100%", height: "100%" }}
+            sizes="(max-width: 767px) 50vw, 184px"
           />
         </div>
         <h3

@@ -4,6 +4,30 @@ export const dynamic = 'force-dynamic';
 import { ProjectGrid } from "@/components/ProjectGrid";
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Hesvm Portfolio",
+  description: "Designing products in a world of non-senses",
+  openGraph: {
+    title: "Hesvm Portfolio",
+    description: "Designing products in a world of non-senses",
+    images: [
+      {
+        url: "/images/og-hero.png",
+        width: 1200,
+        height: 630,
+        alt: "Hesvm Portfolio",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Hesvm Portfolio",
+    description: "Designing products in a world of non-senses",
+    images: ["/images/og-hero.png"],
+  },
+};
 
 export default async function Home() {
   const projects = await getPublishedProjects();

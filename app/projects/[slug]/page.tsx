@@ -19,13 +19,23 @@ export async function generateMetadata({
   if (!project) return {};
 
   const firstText = project.blocks.find((b) => b.type === "text") as TextBlock | undefined;
-  const description = firstText ? firstText.content.slice(0, 160) : undefined;
+  const description = project.subtitle || firstText?.content.slice(0, 160) || project.category || undefined;
+
+  const ogImage = project.og_image_url ?? project.thumbnail_url
 
   return {
     title: project.title,
     description,
     openGraph: {
-      images: project.thumbnail_url ? [project.thumbnail_url] : [],
+      title: project.title,
+      description,
+      images: ogImage ? [{ url: ogImage, width: 1200, height: 630, alt: project.title }] : [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: project.title,
+      description,
+      images: ogImage ? [ogImage] : [],
     },
   };
 }

@@ -2,24 +2,21 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { supabase } from '@/lib/supabase'
 import type { Project } from '@/types/project'
+
+const font = '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif'
 
 export default function AdminProjectsPage() {
   const router = useRouter()
   const [projects, setProjects] = useState<Project[]>([])
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    fetchProjects()
-  }, [])
+  useEffect(() => { void fetchProjects() }, [])
 
   async function fetchProjects() {
-    const { data } = await supabase
-      .from('projects')
-      .select('*')
-      .order('updated_at', { ascending: false })
-    setProjects(data ?? [])
+    const res = await fetch('/api/admin/projects')
+    const data = await res.json() as Project[]
+    setProjects(Array.isArray(data) ? data : [])
     setLoading(false)
   }
 
@@ -30,7 +27,7 @@ export default function AdminProjectsPage() {
   }
 
   return (
-    <div style={{ padding: '32px 24px', maxWidth: 1100, margin: '0 auto' }}>
+    <div style={{ padding: '32px 24px', maxWidth: 1100, margin: '0 auto', fontFamily: font }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 28 }}>
         <h1 style={{ fontSize: 16, fontWeight: 500, margin: 0 }}>Projects</h1>
         <button
@@ -41,7 +38,9 @@ export default function AdminProjectsPage() {
             background: '#111',
             color: '#fff',
             border: 'none',
+            borderRadius: 6,
             cursor: 'pointer',
+            fontFamily: font,
           }}
         >
           + New Project
@@ -60,8 +59,8 @@ export default function AdminProjectsPage() {
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
           <thead>
             <tr style={{ borderBottom: '1px solid #e8e8e8' }}>
-              {['Thumbnail', 'Title', 'Slug', 'Category', 'Year', 'Status', 'Last updated', 'Actions'].map(h => (
-                <th key={h} style={{ textAlign: 'left', padding: '8px 12px', color: '#888', fontWeight: 500 }}>{h}</th>
+              {['Thumbnail', 'Title', 'Slug', 'Status', 'Last updated', 'Actions'].map(h => (
+                <th key={h} style={{ textAlign: 'left', padding: '8px 12px', color: '#888', fontWeight: 500, fontFamily: font }}>{h}</th>
               ))}
             </tr>
           </thead>
@@ -70,19 +69,14 @@ export default function AdminProjectsPage() {
               <tr key={project.id} style={{ borderBottom: '1px solid #f0f0f0' }}>
                 <td style={{ padding: '10px 12px' }}>
                   {project.thumbnail_url ? (
-                    <img
-                      src={project.thumbnail_url}
-                      alt=""
-                      style={{ width: 48, height: 48, objectFit: 'cover', display: 'block' }}
-                    />
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={project.thumbnail_url} alt="" style={{ width: 48, height: 48, objectFit: 'cover', display: 'block', borderRadius: 4 }} />
                   ) : (
-                    <div style={{ width: 48, height: 48, background: '#e8e8e8' }} />
+                    <div style={{ width: 48, height: 48, background: '#e8e8e8', borderRadius: 4 }} />
                   )}
                 </td>
-                <td style={{ padding: '10px 12px', fontWeight: 500 }}>{project.title}</td>
+                <td style={{ padding: '10px 12px', fontWeight: 500 }}>{project.title || <span style={{ color: '#ccc' }}>Untitled</span>}</td>
                 <td style={{ padding: '10px 12px', color: '#888', fontFamily: 'monospace', fontSize: 12 }}>{project.slug}</td>
-                <td style={{ padding: '10px 12px', color: '#666' }}>{project.category}</td>
-                <td style={{ padding: '10px 12px', color: '#666' }}>{project.year}</td>
                 <td style={{ padding: '10px 12px' }}>
                   <span style={{
                     display: 'inline-block',
@@ -92,6 +86,7 @@ export default function AdminProjectsPage() {
                     background: project.status === 'published' ? '#d1fae5' : '#f3f4f6',
                     color: project.status === 'published' ? '#065f46' : '#6b7280',
                     fontWeight: 500,
+                    fontFamily: font,
                   }}>
                     {project.status}
                   </span>
@@ -102,13 +97,13 @@ export default function AdminProjectsPage() {
                 <td style={{ padding: '10px 12px' }}>
                   <button
                     onClick={() => router.push(`/admin/projects/${project.id}`)}
-                    style={{ fontSize: 12, marginRight: 12, background: 'none', border: 'none', cursor: 'pointer', color: '#333' }}
+                    style={{ fontSize: 12, marginRight: 12, background: 'none', border: 'none', cursor: 'pointer', color: '#333', fontFamily: font }}
                   >
                     Edit
                   </button>
                   <button
                     onClick={() => handleDelete(project.id, project.title)}
-                    style={{ fontSize: 12, background: 'none', border: 'none', cursor: 'pointer', color: '#e53e3e' }}
+                    style={{ fontSize: 12, background: 'none', border: 'none', cursor: 'pointer', color: '#e53e3e', fontFamily: font }}
                   >
                     Delete
                   </button>

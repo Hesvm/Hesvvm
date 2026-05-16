@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef, use } from 'react'
+import { useState, useEffect, useRef, use, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { createPortal } from 'react-dom'
 import { Project, ContentBlock, BlockType } from '@/types/project'
@@ -41,6 +41,8 @@ function inputStyle(extraStyle?: React.CSSProperties): React.CSSProperties {
   }
 }
 
+type Toast = { id: number; message: string; type: 'success' | 'error' | 'info' }
+
 interface PageProps {
   params: Promise<{ id: string }>
 }
@@ -50,25 +52,22 @@ export default function ProjectEditorPage({ params }: PageProps) {
   const router = useRouter()
 
   const [project, setProject] = useState<Partial<Project>>({
-    title: '',
-    slug: '',
-    subtitle: '',
-    thumbnail_url: null,
-    status: 'draft',
-    blocks: [],
+    title: '', slug: '', subtitle: '', thumbnail_url: null, status: 'draft', blocks: [],
   })
+  const [isNew, setIsNew] = useState(id === 'new')
   const [isReordering, setIsReordering] = useState(false)
   const [slugManual, setSlugManual] = useState(false)
   const [thumbnailUploading, setThumbnailUploading] = useState(false)
   const [saving, setSaving] = useState(false)
   const [deploying, setDeploying] = useState(false)
   const [mounted, setMounted] = useState(false)
+  const [toasts, setToasts] = useState<Toast[]>([])
 
+  const toastCounter = useRef(0)
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const projectRef = useRef(project)
   projectRef.current = project
-  const isNewRef = useRef(id === 'new')
-  const currentIdRef = useRef(id)
+  const currentIdRef = useRef(id === 'new' ? '' : id)
 
   useEffect(() => { setMounted(true) }, [])
 
@@ -80,9 +79,16 @@ export default function ProjectEditorPage({ params }: PageProps) {
         if (data && !data.error) {
           setProject(data as Project)
           setSlugManual(true)
+          setIsNew(false)
         }
       })
   }, [id])
+
+  const addToast = useCallback((message: string, type: Toast['type'] = 'info') => {
+    const toastId = ++toastCounter.current
+    setToasts(prev => [...prev, { id: toastId, message, type }])
+    setTimeout(() => setToasts(prev => prev.filter(t => t.id !== toastId)), 3500)
+  }, [])
 
   function updateProject(patch: Partial<Project>) {
     setProject(prev => {
@@ -93,7 +99,7 @@ export default function ProjectEditorPage({ params }: PageProps) {
   }
 
   function scheduleAutosave(data: Partial<Project>) {
-    if (isNewRef.current) return
+    if (!currentIdRef.current) return
     if (debounceRef.current) clearTimeout(debounceRef.current)
     debounceRef.current = setTimeout(() => { void silentSave(data) }, 2000)
   }
@@ -112,7 +118,7 @@ export default function ProjectEditorPage({ params }: PageProps) {
     setSaving(true)
     try {
       const data = { ...projectRef.current, status: 'draft' as const }
-      if (isNewRef.current) {
+      if (!currentIdRef.current) {
         const res = await fetch('/api/admin/projects', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -120,10 +126,11 @@ export default function ProjectEditorPage({ params }: PageProps) {
         })
         const inserted = await res.json() as Project & { error?: string }
         if (inserted.error) throw new Error(inserted.error)
-        isNewRef.current = false
         currentIdRef.current = inserted.id
         setProject(inserted)
+        setIsNew(false)
         router.replace(`/admin/projects/${inserted.id}`)
+        addToast('Saved as draft', 'success')
       } else {
         const res = await fetch(`/api/admin/projects/${currentIdRef.current}`, {
           method: 'PUT',
@@ -133,8 +140,11 @@ export default function ProjectEditorPage({ params }: PageProps) {
         const result = await res.json() as { error?: string }
         if (result.error) throw new Error(result.error)
         setProject(p => ({ ...p, status: 'draft' }))
+        addToast('Saved as draft', 'success')
       }
-    } catch { /* no-op */ }
+    } catch (err) {
+      addToast((err as Error).message || 'Save failed', 'error')
+    }
     setSaving(false)
   }
 
@@ -152,8 +162,13 @@ export default function ProjectEditorPage({ params }: PageProps) {
       setProject(p => ({ ...p, status: 'published' }))
       if (process.env.NEXT_PUBLIC_VERCEL_DEPLOY_HOOK_URL) {
         await fetch(process.env.NEXT_PUBLIC_VERCEL_DEPLOY_HOOK_URL, { method: 'POST' })
+        addToast('Deployed — Vercel build triggered', 'success')
+      } else {
+        addToast('Published', 'success')
       }
-    } catch { /* no-op */ }
+    } catch (err) {
+      addToast((err as Error).message || 'Deploy failed', 'error')
+    }
     setDeploying(false)
   }
 
@@ -162,34 +177,17 @@ export default function ProjectEditorPage({ params }: PageProps) {
     let newBlock: ContentBlock
 
     switch (type) {
-      case 'text':
-        newBlock = { id: blockId, type: 'text', content: '' }
-        break
-      case 'title':
-        newBlock = { id: blockId, type: 'title', content: '' }
-        break
-      case 'image':
-        newBlock = { id: blockId, type: 'image', src: '' }
-        break
-      case 'image-pair':
-        newBlock = { id: blockId, type: 'image-pair', left: { src: '' }, right: { src: '' } }
-        break
-      case 'divider':
-        newBlock = { id: blockId, type: 'divider', variant: (Math.ceil(Math.random() * 5)) as 1 | 2 | 3 | 4 | 5 }
-        break
-      case 'link':
-        newBlock = { id: blockId, type: 'link', url: '', label: '' }
-        break
-      case 'video':
-        newBlock = { id: blockId, type: 'video', url: '' }
-        break
-      case 'quote':
-        newBlock = { id: blockId, type: 'quote', content: '' }
-        break
+      case 'text': newBlock = { id: blockId, type: 'text', content: '' }; break
+      case 'title': newBlock = { id: blockId, type: 'title', content: '' }; break
+      case 'image': newBlock = { id: blockId, type: 'image', src: '' }; break
+      case 'image-pair': newBlock = { id: blockId, type: 'image-pair', left: { src: '' }, right: { src: '' } }; break
+      case 'divider': newBlock = { id: blockId, type: 'divider', variant: (Math.ceil(Math.random() * 5)) as 1|2|3|4|5 }; break
+      case 'link': newBlock = { id: blockId, type: 'link', url: '', label: '' }; break
+      case 'video': newBlock = { id: blockId, type: 'video', url: '' }; break
+      case 'quote': newBlock = { id: blockId, type: 'quote', content: '' }; break
     }
 
-    const blocks = project.blocks ?? []
-    updateProject({ blocks: [...blocks, newBlock] })
+    updateProject({ blocks: [...(project.blocks ?? []), newBlock] })
   }
 
   async function handleThumbnailUpload(file: File) {
@@ -201,70 +199,78 @@ export default function ProjectEditorPage({ params }: PageProps) {
     setThumbnailUploading(true)
     try {
       const res = await fetch('/api/admin/upload', { method: 'POST', body: formData })
-      const data = await res.json() as { url: string }
-      updateProject({ thumbnail_url: data.url })
-    } finally {
-      setThumbnailUploading(false)
+      const data = await res.json() as { url?: string; error?: string }
+      if (data.error) throw new Error(data.error)
+      updateProject({ thumbnail_url: data.url! })
+      addToast('Thumbnail uploaded', 'success')
+    } catch (err) {
+      addToast((err as Error).message || 'Upload failed', 'error')
     }
+    setThumbnailUploading(false)
   }
 
   const slug = project.slug ?? ''
 
-  const isNew = isNewRef.current
-
-  const navbarActions = (
-    <div style={{ display: 'flex', gap: 8 }}>
-      <button
-        onClick={handleSave}
-        disabled={saving}
-        style={{
-          fontSize: 12,
-          fontFamily: font,
-          fontWeight: 500,
-          color: saving ? '#aaa' : '#555',
-          background: saving ? '#f0f0f0' : '#f0f0f0',
-          border: 'none',
-          borderRadius: 6,
-          padding: '5px 12px',
-          cursor: saving ? 'not-allowed' : 'pointer',
-        }}
-      >
-        {saving ? '…' : 'Save draft'}
-      </button>
-      <button
-        onClick={handleDeploy}
-        disabled={isNew || deploying}
-        style={{
-          fontSize: 12,
-          fontFamily: font,
-          fontWeight: 500,
-          color: (isNew || deploying) ? '#aaa' : '#fff',
-          background: (isNew || deploying) ? '#ccc' : '#1a1a1a',
-          border: 'none',
-          borderRadius: 6,
-          padding: '5px 12px',
-          cursor: (isNew || deploying) ? 'not-allowed' : 'pointer',
-        }}
-      >
-        {deploying ? '…' : 'Deploy'}
-      </button>
-    </div>
-  )
+  const navbarActions = mounted && document.getElementById('navbar-actions')
+    ? createPortal(
+        <div style={{ display: 'flex', gap: 8 }}>
+          <button
+            onClick={handleSave}
+            disabled={saving}
+            style={{
+              fontSize: 12, fontFamily: font, fontWeight: 500,
+              color: '#555', background: '#f0f0f0',
+              border: 'none', borderRadius: 6, padding: '5px 12px',
+              cursor: saving ? 'not-allowed' : 'pointer',
+              opacity: saving ? 0.6 : 1,
+            }}
+          >
+            {saving ? 'Saving…' : 'Save draft'}
+          </button>
+          <button
+            onClick={handleDeploy}
+            disabled={isNew || deploying}
+            style={{
+              fontSize: 12, fontFamily: font, fontWeight: 500,
+              color: '#fff', background: (isNew || deploying) ? '#aaa' : '#1a1a1a',
+              border: 'none', borderRadius: 6, padding: '5px 12px',
+              cursor: (isNew || deploying) ? 'not-allowed' : 'pointer',
+            }}
+            title={isNew ? 'Save draft first' : 'Publish and trigger Vercel deploy'}
+          >
+            {deploying ? 'Deploying…' : 'Deploy'}
+          </button>
+        </div>,
+        document.getElementById('navbar-actions')!
+      )
+    : null
 
   return (
     <div style={{ fontFamily: font }}>
-      {mounted && document.getElementById('navbar-actions') &&
-        createPortal(navbarActions, document.getElementById('navbar-actions')!)}
+      {navbarActions}
+
+      {/* Toasts */}
+      <div style={{ position: 'fixed', top: 60, left: '50%', transform: 'translateX(-50%)', zIndex: 1000, display: 'flex', flexDirection: 'column', gap: 8, pointerEvents: 'none' }}>
+        {toasts.map(t => (
+          <div key={t.id} style={{
+            padding: '10px 18px',
+            borderRadius: 8,
+            fontSize: 13,
+            fontFamily: font,
+            fontWeight: 500,
+            whiteSpace: 'nowrap',
+            background: t.type === 'success' ? '#111' : t.type === 'error' ? '#dc2626' : '#555',
+            color: '#fff',
+            boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
+          }}>
+            {t.message}
+          </div>
+        ))}
+      </div>
 
       <div style={{ display: 'flex', height: 'calc(100vh - 48px)' }}>
         {/* LEFT PANEL */}
-        <div style={{
-          width: 320,
-          borderRight: '1px solid #e8e8e8',
-          overflowY: 'auto',
-          padding: 24,
-          flexShrink: 0,
-        }}>
+        <div style={{ width: 320, borderRight: '1px solid #e8e8e8', overflowY: 'auto', padding: 24, flexShrink: 0 }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div>
               <label style={labelStyle()}>Title</label>
@@ -286,18 +292,13 @@ export default function ProjectEditorPage({ params }: PageProps) {
               <label style={labelStyle()}>
                 Slug{' '}
                 {!slugManual && (
-                  <span style={{ background: '#f0f0f0', borderRadius: 4, padding: '1px 6px', fontSize: 10, fontWeight: 400, marginLeft: 4 }}>
-                    auto
-                  </span>
+                  <span style={{ background: '#f0f0f0', borderRadius: 4, padding: '1px 6px', fontSize: 10, fontWeight: 400, marginLeft: 4 }}>auto</span>
                 )}
               </label>
               <input
                 type="text"
                 value={slug}
-                onChange={e => {
-                  setSlugManual(true)
-                  updateProject({ slug: e.target.value })
-                }}
+                onChange={e => { setSlugManual(true); updateProject({ slug: e.target.value }) }}
                 style={inputStyle({ fontFamily: 'monospace', fontSize: 12 })}
                 placeholder="project-slug"
               />
@@ -319,34 +320,14 @@ export default function ProjectEditorPage({ params }: PageProps) {
               {project.thumbnail_url && (
                 <div style={{ marginBottom: 8 }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={project.thumbnail_url}
-                    alt="Thumbnail"
-                    style={{ width: '100%', borderRadius: 6, objectFit: 'cover', display: 'block', marginBottom: 6 }}
-                  />
+                  <img src={project.thumbnail_url} alt="Thumbnail" style={{ width: '100%', borderRadius: 6, objectFit: 'cover', display: 'block', marginBottom: 6 }} />
                 </div>
               )}
               <label style={{ display: 'block', cursor: 'pointer' }}>
-                <div style={{
-                  border: '1px dashed #d1d5db',
-                  borderRadius: 6,
-                  padding: '10px 12px',
-                  fontSize: 13,
-                  color: '#6b7280',
-                  textAlign: 'center',
-                  cursor: 'pointer',
-                }}>
-                  {thumbnailUploading ? 'Uploading...' : project.thumbnail_url ? 'Replace thumbnail' : 'Upload thumbnail'}
+                <div style={{ border: '1px dashed #d1d5db', borderRadius: 6, padding: '10px 12px', fontSize: 13, color: '#6b7280', textAlign: 'center', cursor: 'pointer' }}>
+                  {thumbnailUploading ? 'Uploading…' : project.thumbnail_url ? 'Replace thumbnail' : 'Upload thumbnail'}
                 </div>
-                <input
-                  type="file"
-                  accept="image/*"
-                  style={{ display: 'none' }}
-                  onChange={e => {
-                    const file = e.target.files?.[0]
-                    if (file) void handleThumbnailUpload(file)
-                  }}
-                />
+                <input type="file" accept="image/*" style={{ display: 'none' }} onChange={e => { const f = e.target.files?.[0]; if (f) void handleThumbnailUpload(f) }} />
               </label>
             </div>
           </div>
@@ -356,17 +337,7 @@ export default function ProjectEditorPage({ params }: PageProps) {
         <div style={{ flex: 1, overflowY: 'auto', paddingBottom: 120 }}>
           <div style={{ maxWidth: 530, margin: '0 auto', padding: '32px 24px' }}>
             {(project.blocks ?? []).length === 0 ? (
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: 200,
-                color: '#9ca3af',
-                fontSize: 14,
-                fontFamily: font,
-                border: '2px dashed #e8e8e8',
-                borderRadius: 12,
-              }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: 200, color: '#9ca3af', fontSize: 14, fontFamily: font, border: '2px dashed #e8e8e8', borderRadius: 12 }}>
                 Use the + button below to add content blocks
               </div>
             ) : (

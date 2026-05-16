@@ -103,7 +103,6 @@
 @media (max-width: 767px) {
   :root {
     --page-padding: 20px;
-    --grid-card-size: calc((100vw - 40px - 16px) / 2);
     --grid-gap: 16px;
   }
 }
@@ -205,6 +204,9 @@ body {
 .navbar-pill {
   gap: 27px;
   padding: 0 24px;
+}
+.navbar-tooltip {
+  display: block;
 }
 
 /* Project hero image */

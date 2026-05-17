@@ -44,21 +44,9 @@ export default function ProjectPageClient({ project }: { project: Project }) {
             fontSize: "26px",
             color: "var(--color-text-primary)",
             lineHeight: 1.1,
-            marginBottom: "10px",
           }}>
             {project.title}
           </span>
-          {mobileSubtitle && (
-            <span style={{
-              fontFamily: "var(--font-serif)",
-              fontStyle: "italic",
-              fontSize: "17px",
-              color: "var(--text-muted)",
-              lineHeight: 1.3,
-            }}>
-              {mobileSubtitle}
-            </span>
-          )}
         </div>
       </div>
 

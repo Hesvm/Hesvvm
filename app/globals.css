@@ -237,6 +237,26 @@ body {
   font-size: 42px;
 }
 
+/* Project content padding */
+.project-content {
+  padding-top: 64px;
+}
+
+/* Mobile project header — hidden on desktop */
+.mobile-project-header {
+  display: none;
+}
+
+/* Desktop back button — shown on desktop */
+.back-button-fixed {
+  display: flex;
+}
+
+/* Desktop title/subtitle block */
+.project-title-content {
+  display: block;
+}
+
 /* Buildings */
 .building-row-icon {
   width: 64px;
@@ -307,6 +327,66 @@ body {
   /* Project detail title */
   .project-detail-title {
     font-size: 28px;
+  }
+
+  /* Project content — starts below mobile header */
+  .project-content {
+    padding-top: 56px;
+  }
+
+  /* Mobile project header — fixed bar with back + title */
+  .mobile-project-header {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    background-color: var(--color-bg);
+    z-index: 50;
+  }
+
+  .mobile-project-back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    background-color: transparent;
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-soft);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .mobile-project-header-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    padding: 0 8px;
+    overflow: hidden;
+  }
+
+  .mobile-project-header-title span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  /* Hide desktop back button and title block on mobile */
+  .back-button-fixed {
+    display: none;
+  }
+
+  .project-title-content {
+    display: none;
   }
 
   /* Buildings icon */

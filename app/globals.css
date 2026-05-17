@@ -381,8 +381,7 @@ body {
 
   .mobile-project-header-title span {
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    overflow: visible;
     max-width: 80%;
   }
 

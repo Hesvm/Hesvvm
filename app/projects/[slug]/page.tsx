@@ -19,22 +19,24 @@ export async function generateMetadata({
   if (!project) return {};
 
   const firstText = project.blocks.find((b) => b.type === "text") as TextBlock | undefined;
-  const description = project.subtitle || firstText?.content.slice(0, 160) || project.category || undefined;
+  const fallbackDescription = project.subtitle || firstText?.content.slice(0, 160) || undefined;
 
-  const ogImage = project.og_image_url ?? project.thumbnail_url
+  const ogTitle = project.og_title || project.title;
+  const ogDescription = project.og_description || fallbackDescription;
+  const ogImage = project.og_image_url ?? project.thumbnail_url;
 
   return {
     title: project.title,
-    description,
+    description: fallbackDescription,
     openGraph: {
-      title: project.title,
-      description,
-      images: ogImage ? [{ url: ogImage, width: 1200, height: 630, alt: project.title }] : [],
+      title: ogTitle,
+      description: ogDescription,
+      images: ogImage ? [{ url: ogImage, width: 1200, height: 630, alt: ogTitle }] : [],
     },
     twitter: {
       card: "summary_large_image",
-      title: project.title,
-      description,
+      title: ogTitle,
+      description: ogDescription,
       images: ogImage ? [ogImage] : [],
     },
   };

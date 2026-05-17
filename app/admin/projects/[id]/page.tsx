@@ -368,6 +368,28 @@ export default function ProjectEditorPage({ params }: PageProps) {
               </label>
               <p style={{ fontSize: 10, color: '#bbb', margin: '4px 0 0', fontFamily: font }}>Recommended: 1200×630px</p>
             </div>
+
+            <div>
+              <label style={labelStyle()}>OG Title <span style={{ textTransform: 'none', fontSize: 10, color: '#bbb', marginLeft: 2 }}>overrides project title</span></label>
+              <input
+                type="text"
+                value={project.og_title ?? ''}
+                onChange={e => updateProject({ og_title: e.target.value })}
+                style={inputStyle()}
+                placeholder={project.title || 'Same as title'}
+              />
+            </div>
+
+            <div>
+              <label style={labelStyle()}>OG Description <span style={{ textTransform: 'none', fontSize: 10, color: '#bbb', marginLeft: 2 }}>overrides subtitle</span></label>
+              <textarea
+                value={project.og_description ?? ''}
+                onChange={e => updateProject({ og_description: e.target.value })}
+                rows={3}
+                style={{ ...inputStyle(), resize: 'vertical', lineHeight: 1.5 }}
+                placeholder={project.subtitle || 'Same as subtitle'}
+              />
+            </div>
           </div>
         </div>
 

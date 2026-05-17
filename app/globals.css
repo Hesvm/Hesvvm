@@ -333,26 +333,26 @@ body {
 
   /* Project content — header ends at 96px, +24px gap before thumbnail */
   .project-content {
-    padding-top: 120px;
+    padding-top: 116px;
   }
 
-  /* Mobile project header — fixed bar with back + title */
+  /* Mobile project header — fixed bar from top edge of screen */
   .mobile-project-header {
     display: block;
     position: fixed;
-    top: 32px;
+    top: 0;
     left: 0;
     right: 0;
-    height: 64px;
+    height: 96px;
     background-color: var(--color-bg);
     z-index: 50;
   }
 
-  /* Back button — absolute left, vertically centered, above title layer */
+  /* Back button — absolute left, centered in lower 64px (i.e. center at 64px from top) */
   .mobile-project-back {
     position: absolute;
     left: 16px;
-    top: 50%;
+    top: 64px;
     transform: translateY(-50%);
     display: flex;
     align-items: center;
@@ -374,7 +374,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    padding-top: 18px;
+    padding-top: 50px;
     text-align: center;
     pointer-events: none;
   }

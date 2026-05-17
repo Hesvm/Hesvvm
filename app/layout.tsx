@@ -3,6 +3,8 @@ import "./globals.css";
 import { Instrument_Serif } from "next/font/google";
 import { Navbar } from "@/components/Navbar";
 import AnimatePresenceWrapper from "@/components/AnimatePresenceWrapper";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const instrumentSerif = Instrument_Serif({
   weight: "400",
@@ -40,6 +42,8 @@ export default function RootLayout({
           {children}
         </AnimatePresenceWrapper>
         <Navbar />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

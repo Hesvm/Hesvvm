@@ -24,6 +24,7 @@ export default function ProjectPageClient({ project }: { project: Project }) {
 
       {/* Mobile-only fixed header */}
       <div className="mobile-project-header">
+        {/* Back button — absolute so it doesn't affect title centering */}
         <button
           className="mobile-project-back"
           onClick={() => router.back()}
@@ -39,9 +40,10 @@ export default function ProjectPageClient({ project }: { project: Project }) {
             fontFamily: "var(--font-serif)",
             fontStyle: "italic",
             fontWeight: 400,
-            fontSize: "22px",
+            fontSize: "26px",
             color: "var(--color-text-primary)",
             lineHeight: 1.1,
+            marginBottom: "5px",
           }}>
             {project.title}
           </span>
@@ -49,7 +51,7 @@ export default function ProjectPageClient({ project }: { project: Project }) {
             <span style={{
               fontFamily: "var(--font-serif)",
               fontStyle: "italic",
-              fontSize: "13px",
+              fontSize: "17px",
               color: "var(--color-text-muted)",
               lineHeight: 1.3,
             }}>
@@ -57,9 +59,6 @@ export default function ProjectPageClient({ project }: { project: Project }) {
             </span>
           )}
         </div>
-
-        {/* Spacer to visually center the title */}
-        <div style={{ width: "40px", flexShrink: 0 }} />
       </div>
 
       <div className="project-content" style={{ maxWidth: "530px", margin: "0 auto" }}>

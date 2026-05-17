@@ -18,7 +18,6 @@ export default function ProjectHero({
         width: "100%",
         position: "relative",
         overflow: "hidden",
-        marginBottom: "24px",
       }}
     >
       <SharedProjectImage

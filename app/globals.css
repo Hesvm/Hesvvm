@@ -217,6 +217,7 @@ body {
 /* Project hero image */
 .project-hero {
   height: 420px;
+  margin-bottom: 24px;
 }
 
 /* Content image blocks */
@@ -310,6 +311,7 @@ body {
     height: 56vw;
     min-height: 200px;
     max-height: 300px;
+    margin-bottom: 72px;
   }
 
   /* Content images */
@@ -329,9 +331,9 @@ body {
     font-size: 28px;
   }
 
-  /* Project content — starts below mobile header */
+  /* Project content — starts below mobile header (top:32 + height:64) */
   .project-content {
-    padding-top: 88px;
+    padding-top: 96px;
   }
 
   /* Mobile project header — fixed bar with back + title */
@@ -341,15 +343,20 @@ body {
     top: 32px;
     left: 0;
     right: 0;
-    height: 56px;
+    height: 64px;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    padding: 0 16px;
+    justify-content: center;
+    padding: 0 56px;
     background-color: var(--color-bg);
     z-index: 50;
   }
 
   .mobile-project-back {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -359,7 +366,6 @@ body {
     background-color: transparent;
     border: 1px solid var(--border-subtle);
     cursor: pointer;
-    flex-shrink: 0;
   }
 
   .mobile-project-header-title {
@@ -367,8 +373,7 @@ body {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    flex: 1;
-    padding: 0 8px;
+    width: 100%;
     overflow: hidden;
   }
 

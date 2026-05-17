@@ -311,7 +311,7 @@ body {
     height: 56vw;
     min-height: 200px;
     max-height: 300px;
-    margin-bottom: 72px;
+    margin-bottom: 24px;
   }
 
   /* Content images */
@@ -331,9 +331,9 @@ body {
     font-size: 28px;
   }
 
-  /* Project content — header ends at 96px, +24px gap before thumbnail */
+  /* Project content — header ends at 96px, +32px gap before thumbnail */
   .project-content {
-    padding-top: 116px;
+    padding-top: 128px;
   }
 
   /* Mobile project header — fixed bar from top edge of screen */

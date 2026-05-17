@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 export default function ProjectPageClient({ project }: { project: Project }) {
   const router = useRouter();
   const subtitle = project.subtitle || project.category;
+  const mobileSubtitle = [project.year, subtitle].filter(Boolean).join(" - ");
 
   return (
     <div
@@ -38,21 +39,21 @@ export default function ProjectPageClient({ project }: { project: Project }) {
             fontFamily: "var(--font-serif)",
             fontStyle: "italic",
             fontWeight: 400,
-            fontSize: "18px",
+            fontSize: "22px",
             color: "var(--color-text-primary)",
             lineHeight: 1.1,
           }}>
             {project.title}
           </span>
-          {subtitle && (
+          {mobileSubtitle && (
             <span style={{
               fontFamily: "var(--font-serif)",
               fontStyle: "italic",
-              fontSize: "16px",
+              fontSize: "13px",
               color: "var(--color-text-muted)",
-              lineHeight: 1.2,
+              lineHeight: 1.3,
             }}>
-              {subtitle}
+              {mobileSubtitle}
             </span>
           )}
         </div>

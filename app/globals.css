@@ -358,7 +358,6 @@ body {
     border-radius: 999px;
     background-color: transparent;
     border: 1px solid var(--border-subtle);
-    box-shadow: var(--shadow-soft);
     cursor: pointer;
     flex-shrink: 0;
   }

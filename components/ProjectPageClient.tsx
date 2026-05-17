@@ -48,7 +48,7 @@ export default function ProjectPageClient({ project }: { project: Project }) {
             <span style={{
               fontFamily: "var(--font-serif)",
               fontStyle: "italic",
-              fontSize: "13px",
+              fontSize: "16px",
               color: "var(--color-text-muted)",
               lineHeight: 1.2,
             }}>

@@ -331,14 +331,14 @@ body {
 
   /* Project content — starts below mobile header */
   .project-content {
-    padding-top: 56px;
+    padding-top: 88px;
   }
 
   /* Mobile project header — fixed bar with back + title */
   .mobile-project-header {
     display: flex;
     position: fixed;
-    top: 0;
+    top: 32px;
     left: 0;
     right: 0;
     height: 56px;

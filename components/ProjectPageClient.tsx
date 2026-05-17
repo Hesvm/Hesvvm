@@ -35,6 +35,7 @@ export default function ProjectPageClient({ project }: { project: Project }) {
           </svg>
         </button>
 
+        {/* Title — absolutely centered on full screen, pointer-events:none so button stays clickable */}
         <div className="mobile-project-header-title">
           <span style={{
             fontFamily: "var(--font-serif)",
@@ -43,7 +44,7 @@ export default function ProjectPageClient({ project }: { project: Project }) {
             fontSize: "26px",
             color: "var(--color-text-primary)",
             lineHeight: 1.1,
-            marginBottom: "5px",
+            marginBottom: "10px",
           }}>
             {project.title}
           </span>
@@ -52,7 +53,7 @@ export default function ProjectPageClient({ project }: { project: Project }) {
               fontFamily: "var(--font-serif)",
               fontStyle: "italic",
               fontSize: "17px",
-              color: "var(--color-text-muted)",
+              color: "var(--text-muted)",
               lineHeight: 1.3,
             }}>
               {mobileSubtitle}

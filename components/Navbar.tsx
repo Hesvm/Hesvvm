@@ -46,7 +46,7 @@ function WritesIcon({ color }: { color: string }) {
 
 const navItems = [
   { href: "/", label: "Works", Icon: HomeIcon },
-  { href: "/buildings", label: "Buildings", Icon: BuildingsIcon },
+  { href: "/buildings", label: "Experiment", Icon: BuildingsIcon },
   { href: "/notes", label: "Writings", Icon: WritesIcon },
 ];
 

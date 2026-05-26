@@ -1,11 +1,10 @@
 export default function NotesPage() {
   return (
     <main
+      className="site-content"
       style={{
         minHeight: "100vh",
         backgroundColor: "var(--color-bg)",
-        paddingLeft: "var(--page-padding)",
-        paddingRight: "var(--page-padding)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",

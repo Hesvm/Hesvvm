@@ -16,7 +16,7 @@ export default function ProjectPageClient({ project }: { project: Project }) {
       style={{
         minHeight: "100vh",
         backgroundColor: "var(--color-bg)",
-        padding: "0 var(--page-padding) 80px",
+        paddingBottom: "80px",
       }}
     >
       {/* Desktop back button — hidden on mobile */}
@@ -50,7 +50,7 @@ export default function ProjectPageClient({ project }: { project: Project }) {
         </div>
       </div>
 
-      <div className="project-content" style={{ maxWidth: "530px", margin: "0 auto" }}>
+      <div className="project-content site-content">
         <ProjectHero thumbnail={project.thumbnail_url} slug={project.slug} />
 
         {/* Desktop-only title/subtitle block */}

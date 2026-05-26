@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Instrument_Serif } from "next/font/google";
+import localFont from "next/font/local";
 import { Navbar } from "@/components/Navbar";
 import AnimatePresenceWrapper from "@/components/AnimatePresenceWrapper";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-const instrumentSerif = Instrument_Serif({
+const awesomeBiPolar = localFont({
+  src: "../public/fonts/AwesomeBi_polar-Regular.otf",
   weight: "400",
-  style: ["normal", "italic"],
-  subsets: ["latin"],
+  style: "normal",
   display: "swap",
   variable: "--font-serif",
 });
@@ -25,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={instrumentSerif.variable}>
+    <html lang="en" className={awesomeBiPolar.variable}>
       <body style={{ paddingBottom: "120px", backgroundColor: "var(--color-bg)" }}>
         {/* Persistent background — always mounted, prevents any flash during DOM gap */}
         <div

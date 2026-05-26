@@ -13,7 +13,7 @@ export function BuildingRow({ building }: { building: Building }) {
       className="flex items-center justify-between py-4 px-0"
     >
       {/* Icon + Name + Tagline (left group) */}
-      <div className="flex items-center gap-5">
+      <div className="flex min-w-0 flex-1 items-center gap-5">
         <div className="building-row-icon relative shrink-0">
           <img
             src="/images/buildings/icon-frame.svg"
@@ -27,11 +27,11 @@ export function BuildingRow({ building }: { building: Building }) {
             className="absolute left-1/2 top-1/2 h-[40px] w-[40px] -translate-x-1/2 -translate-y-1/2 rounded-[11px] object-cover"
           />
         </div>
-        <div className="flex flex-col gap-0.5">
-          <p className="font-sans text-[18px] font-semibold text-[var(--text-strong)]">
+        <div className="flex min-w-0 flex-col gap-0.5">
+          <p className="break-words font-sans text-[18px] font-semibold text-[var(--text-strong)]">
             {building.name}
           </p>
-          <p className="font-serif italic text-[18px] text-[var(--text-muted)]">
+          <p className="break-words font-serif italic text-[18px] text-[var(--text-muted)]">
             {building.tagline}
           </p>
         </div>

@@ -9,6 +9,14 @@
 }
 
 @font-face {
+  font-family: "SF Pro Body";
+  src: url("/fonts/SFPro.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: "SF Pro";
   src: url("/fonts/SFProDisplay-Medium.ttf") format("truetype");
   font-weight: 500;
@@ -89,15 +97,17 @@
 
   /* ── Typography ── */
   --font-sans: "SF Pro", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-  --font-serif: "Instrument Serif", Georgia, serif;
+  --font-body: "SF Pro Body", "SF Pro", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  --font-serif: "Awesome Bi_polar", Georgia, serif;
 
   /* ── Structure ── */
   --page-padding: 64px;
+  --content-max-width: 540px;
   --card-radius:  27px;
   --navbar-radius:49px;
   --avatar-size:  77px;
-  --grid-card-size: 184px;
-  --grid-gap: 85px;
+  --grid-card-size: 156px;
+  --grid-gap: 36px;
 }
 
 @media (max-width: 767px) {
@@ -149,8 +159,22 @@ body {
   font-family: var(--font-sans);
   background-color: var(--color-bg);
   color: var(--color-text-primary);
+  letter-spacing: 0;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   margin: 0;
   padding: 0;
+}
+
+.font-sans,
+[style*="--font-sans"] {
+  letter-spacing: 0;
+}
+
+.font-serif,
+[style*="--font-serif"] {
+  letter-spacing: -0.04em;
 }
 
 .social-link {
@@ -169,12 +193,24 @@ body {
   color: var(--text-primary);
 }
 
+/* ── Page Content Constraint ── */
+.site-content {
+  width: min(calc(100% - (2 * var(--page-padding))), var(--content-max-width));
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* ── Responsive Layout Classes ── */
 
 /* Hero section */
+.home-hero {
+  width: min(100%, 460px);
+  padding-top: 76px;
+  margin-left: 0;
+}
 .hero-avatar {
-  width: 97px;
-  height: 97px;
+  width: 57.5px;
+  height: 57.5px;
 }
 .hero-avatar svg {
   width: 100%;
@@ -184,22 +220,82 @@ body {
   font-size: 33px;
 }
 .hero-tagline {
+  font-family: var(--font-sans);
   font-size: 16px;
-  text-align: center;
+  font-weight: 400;
+  line-height: 1.43;
+  letter-spacing: -0.03em;
+  text-align: left;
+  max-width: 460px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.hero-link-line {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0 4px;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.43;
+  letter-spacing: -0.03em;
+  color: var(--text-muted);
+  margin: 0;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.hero-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.hero-text-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  border-radius: 999px;
+  background-color: rgba(150, 145, 137, 0.14);
+  pointer-events: none;
+}
+.hero-text-link svg {
+  color: inherit;
+  flex: 0 0 auto;
+  transform: translateY(0.5px);
+}
+.hero-text-link:active,
+.hero-text-link:hover,
+.hero-text-link:focus-visible {
+  color: var(--text-primary);
+}
+.hero-text-link:active::after,
+.hero-text-link:hover::after,
+.hero-text-link:focus-visible::after {
+  background-color: rgba(19, 19, 19, 0.16);
 }
 
 /* Project grid */
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(3, 184px);
-  column-gap: 85px;
+  grid-template-columns: repeat(3, var(--grid-card-size));
+  column-gap: var(--grid-gap);
   row-gap: 81px;
 }
 
 /* Project card thumbnail */
 .project-card-thumbnail {
-  width: 184px;
-  height: 184px;
+  width: var(--grid-card-size);
+  height: var(--grid-card-size);
+  border-radius: 18px;
 }
 
 /* Navbar */
@@ -218,6 +314,7 @@ body {
 .project-hero {
   height: 420px;
   margin-bottom: 24px;
+  border-radius: 18px;
 }
 
 /* Content image blocks */
@@ -226,6 +323,7 @@ body {
   width: 100%;
   height: 380px;
   overflow: hidden;
+  border-radius: 18px;
 }
 .content-image-pair {
   display: flex;
@@ -269,16 +367,18 @@ body {
 
   /* Hero */
   .hero-avatar {
-    width: 80px;
-    height: 80px;
+    width: 57.5px;
+    height: 57.5px;
   }
   .hero-name {
-    font-size: 26px;
+    font-size: 33px;
   }
-  .hero-tagline {
-    font-size: 15px;
+  .home-hero {
+    width: 100%;
+    max-width: 460px;
+    padding-top: 20px;
+    margin-left: 0;
   }
-
   /* Project grid — 2 columns, fluid */
   .project-grid {
     grid-template-columns: repeat(2, 1fr);

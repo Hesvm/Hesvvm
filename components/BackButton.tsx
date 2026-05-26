@@ -14,7 +14,6 @@ export default function BackButton() {
         left: "max(16px, calc(50vw - 329px))",
         top: "64px",
         zIndex: 50,
-        display: "flex",
         alignItems: "center",
         justifyContent: "center",
         width: "40px",

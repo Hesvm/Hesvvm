@@ -20,7 +20,7 @@ function labelStyle(): React.CSSProperties {
     fontFamily: font,
     color: '#9ca3af',
     textTransform: 'uppercase',
-    letterSpacing: '0.05em',
+    letterSpacing: 0,
     marginBottom: 4,
   }
 }

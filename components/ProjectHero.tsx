@@ -25,8 +25,9 @@ export default function ProjectHero({
         src={thumbnail}
         alt={slug}
         style={{ width: "100%", height: "100%" }}
-        sizes="(max-width: 767px) 100vw, 530px"
+        sizes="(max-width: 767px) 100vw, 540px"
         priority
+        fetchPriority="high"
       />
     </div>
   );

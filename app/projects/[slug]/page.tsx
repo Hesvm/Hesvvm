@@ -25,9 +25,14 @@ export async function generateMetadata({
   const ogDescription = project.og_description || fallbackDescription;
   const ogImage = project.og_image_url ?? project.thumbnail_url;
 
+  const faviconUrl = project.thumbnail_url
+    ? `/_next/image?url=${encodeURIComponent(project.thumbnail_url)}&w=16&q=75`
+    : undefined;
+
   return {
     title: project.title,
     description: fallbackDescription,
+    icons: faviconUrl ? { icon: faviconUrl } : undefined,
     openGraph: {
       title: ogTitle,
       description: ogDescription,

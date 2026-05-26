@@ -10,7 +10,7 @@ interface ContentRendererProps {
 
 export default function ContentRenderer({ blocks }: ContentRendererProps) {
   return (
-    <div style={{ maxWidth: "530px", display: "flex", flexDirection: "column", gap: "32px" }}>
+    <div style={{ maxWidth: "var(--content-max-width)", display: "flex", flexDirection: "column", gap: "32px" }}>
       {blocks.map((block, i) => {
         const delay = Math.min(i * 0.08, 0.24);
 
@@ -19,10 +19,13 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
             <Reveal key={block.id} delay={delay}>
               <div
                 style={{
-                  fontFamily: "var(--font-sans)",
-                  lineHeight: "1.65",
+                  fontFamily: "var(--font-body)",
+                  fontSize: "16px",
+                  fontWeight: 400,
+                  lineHeight: "1.3",
+                  letterSpacing: "-0.035em",
+                  fontSynthesis: "none",
                   color: "var(--color-text-primary)",
-                  fontSize: "14px",
                 }}
               >
                 {block.content}
@@ -85,7 +88,7 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
             <Reveal key={block.id} delay={delay}>
               <div className="content-image-pair">
                 <div style={{ flex: 1 }}>
-                  <div style={{ position: "relative", aspectRatio: "1 / 1", overflow: "hidden" }}>
+                  <div style={{ position: "relative", aspectRatio: "1 / 1", overflow: "hidden", borderRadius: "18px" }}>
                     <Image src={block.left.src} alt={block.left.alt ?? ""} fill style={{ objectFit: "cover" }} />
                   </div>
                   {block.left.subtitle && (
@@ -95,7 +98,7 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
                   )}
                 </div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ position: "relative", aspectRatio: "1 / 1", overflow: "hidden" }}>
+                  <div style={{ position: "relative", aspectRatio: "1 / 1", overflow: "hidden", borderRadius: "18px" }}>
                     <Image src={block.right.src} alt={block.right.alt ?? ""} fill style={{ objectFit: "cover" }} />
                   </div>
                   {block.right.subtitle && (

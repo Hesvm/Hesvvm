@@ -10,6 +10,7 @@ export function SharedProjectImage({
   alt,
   style,
   priority = false,
+  fetchPriority,
   sizes,
 }: {
   layoutId: string;
@@ -17,6 +18,7 @@ export function SharedProjectImage({
   alt: string;
   style?: CSSProperties;
   priority?: boolean;
+  fetchPriority?: "high" | "low" | "auto";
   sizes?: string;
 }) {
   const shouldReduceMotion = useReducedMotion();
@@ -28,7 +30,7 @@ export function SharedProjectImage({
       initial={false}
       style={{
         overflow: "hidden",
-        borderRadius: 0,
+        borderRadius: "18px",
         backgroundColor: "#FFFEFA",
         position: "relative",
         transformOrigin: "center center",
@@ -46,6 +48,7 @@ export function SharedProjectImage({
         fill
         style={{ objectFit: "cover", objectPosition: "center" }}
         priority={priority}
+        fetchPriority={fetchPriority}
         sizes={sizes}
       />
     </motion.div>

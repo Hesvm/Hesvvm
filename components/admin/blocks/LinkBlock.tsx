@@ -105,7 +105,7 @@ export default function LinkBlock({ block, onChange, onDelete, isReordering, dra
       {/* Preview */}
       {(block.label || block.url) && (
         <div style={{ marginTop: 12, paddingTop: 12, borderTop: '1px solid #f0f0f0' }}>
-          <span style={{ fontSize: 11, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Preview</span>
+          <span style={{ fontSize: 11, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: 0 }}>Preview</span>
           <div style={{ marginTop: 6 }}>
             <a
               href={block.url || '#'}

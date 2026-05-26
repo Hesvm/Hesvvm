@@ -15,10 +15,10 @@ const containerVariants = {
 export default function BuildingsPage() {
   return (
     <PageTransition>
-      <main className="mx-auto max-w-2xl px-6 py-16">
+      <main className="site-content py-16">
         {/* Page Title */}
         <h1 className="font-serif italic text-[1.5rem] md:text-[2rem] text-[var(--text-strong)] text-center">
-          My buildings
+          Experiment
         </h1>
 
         {/* Subtitle */}

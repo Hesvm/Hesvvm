@@ -12,7 +12,7 @@ export default async function Icon({
   const { slug } = await params;
   const project = await getProjectBySlug(slug);
 
-  const thumbnailUrl = project?.thumbnail_url;
+  const thumbnailUrl = project?.favicon_url || project?.thumbnail_url;
   if (!thumbnailUrl) return new Response(null, { status: 404 });
 
   const baseUrl = process.env.VERCEL_URL

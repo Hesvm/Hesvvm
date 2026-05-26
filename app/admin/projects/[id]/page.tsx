@@ -59,6 +59,7 @@ export default function ProjectEditorPage({ params }: PageProps) {
   const [slugManual, setSlugManual] = useState(false)
   const [thumbnailUploading, setThumbnailUploading] = useState(false)
   const [ogUploading, setOgUploading] = useState(false)
+  const [faviconUploading, setFaviconUploading] = useState(false)
   const [saving, setSaving] = useState(false)
   const [deploying, setDeploying] = useState(false)
   const [mounted, setMounted] = useState(false)
@@ -208,6 +209,25 @@ export default function ProjectEditorPage({ params }: PageProps) {
       addToast((err as Error).message || 'Upload failed', 'error')
     }
     setThumbnailUploading(false)
+  }
+
+  async function handleFaviconUpload(file: File) {
+    const ext = file.name.split('.').pop() ?? 'png'
+    const path = `favicons/${project.slug ?? 'project'}-${Date.now()}.${ext}`
+    const formData = new FormData()
+    formData.append('file', file)
+    formData.append('path', path)
+    setFaviconUploading(true)
+    try {
+      const res = await fetch('/api/admin/upload', { method: 'POST', body: formData })
+      const data = await res.json() as { url?: string; error?: string }
+      if (data.error) throw new Error(data.error)
+      updateProject({ favicon_url: data.url! })
+      addToast('Favicon uploaded', 'success')
+    } catch (err) {
+      addToast((err as Error).message || 'Upload failed', 'error')
+    }
+    setFaviconUploading(false)
   }
 
   async function handleOgUpload(file: File) {
@@ -389,6 +409,29 @@ export default function ProjectEditorPage({ params }: PageProps) {
                 style={{ ...inputStyle(), resize: 'vertical', lineHeight: 1.5 }}
                 placeholder={project.subtitle || 'Same as subtitle'}
               />
+            </div>
+
+            <div>
+              <label style={labelStyle()}>Favicon <span style={{ textTransform: 'none', fontSize: 10, color: '#bbb', marginLeft: 2 }}>browser tab icon</span></label>
+              {project.favicon_url && (
+                <div style={{ marginBottom: 8, display: 'flex', alignItems: 'center', gap: 10 }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={project.favicon_url} alt="Favicon" style={{ width: 32, height: 32, borderRadius: 6, objectFit: 'cover', display: 'block', border: '1px solid #e8e8e8' }} />
+                  <button
+                    onClick={() => updateProject({ favicon_url: null })}
+                    style={{ fontSize: 11, color: '#dc2626', background: 'none', border: 'none', cursor: 'pointer', fontFamily: font, padding: 0 }}
+                  >
+                    Remove
+                  </button>
+                </div>
+              )}
+              <label style={{ display: 'block', cursor: 'pointer' }}>
+                <div style={{ border: '1px dashed #d1d5db', borderRadius: 6, padding: '10px 12px', fontSize: 13, color: '#6b7280', textAlign: 'center', cursor: 'pointer' }}>
+                  {faviconUploading ? 'Uploading…' : project.favicon_url ? 'Replace favicon' : 'Upload favicon'}
+                </div>
+                <input type="file" accept="image/*" style={{ display: 'none' }} onChange={e => { const f = e.target.files?.[0]; if (f) void handleFaviconUpload(f) }} />
+              </label>
+              <p style={{ fontSize: 10, color: '#bbb', margin: '4px 0 0', fontFamily: font }}>Recommended: 32×32px PNG</p>
             </div>
           </div>
         </div>

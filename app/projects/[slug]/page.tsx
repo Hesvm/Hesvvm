@@ -28,9 +28,6 @@ export async function generateMetadata({
   return {
     title: project.title,
     description: fallbackDescription,
-    icons: project.thumbnail_url
-      ? { icon: [{ url: project.thumbnail_url, type: "image/png" }] }
-      : undefined,
     openGraph: {
       title: ogTitle,
       description: ogDescription,

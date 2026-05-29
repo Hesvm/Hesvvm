@@ -212,31 +212,37 @@ function EmailPreview() {
   }, []);
 
   return (
-    <div>
-      <div className="contact-preview-inner">
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          {LIGHTNING_ICON}
-          <span style={{
-            fontFamily: "var(--font-sans)", fontSize: 13,
-            color: "var(--text-secondary)", letterSpacing: "-0.02em",
-            WebkitFontSmoothing: "antialiased",
-          }}>
-            Usually responds within 4 hours
-          </span>
-        </div>
-      </div>
-
-      <hr className="contact-preview-divider" />
-
-      <div className="contact-preview-inner" style={{ display: "flex", gap: 6 }}>
-        <button className="email-action-pill" onClick={handleCopy}>
+    <div className="contact-preview-inner" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+      {/* Buttons row — each fills half the width */}
+      <div style={{ display: "flex", gap: 8 }}>
+        <button
+          className="email-action-pill"
+          onClick={handleCopy}
+          style={{ flex: 1, justifyContent: "center" }}
+        >
           {COPY_ICON}
           {copied ? "Copied!" : "Copy email"}
         </button>
-        <a href={`mailto:${EMAIL_ADDRESS}`} className="email-action-pill">
+        <a
+          href={`mailto:${EMAIL_ADDRESS}`}
+          className="email-action-pill"
+          style={{ flex: 1, justifyContent: "center" }}
+        >
           {ARROW_OUT_ICON}
           Open in Mail
         </a>
+      </div>
+
+      {/* Reply-time note — centered, below buttons */}
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
+        {LIGHTNING_ICON}
+        <span style={{
+          fontFamily: "var(--font-sans)", fontSize: 12,
+          color: "var(--text-muted)", letterSpacing: "-0.02em",
+          WebkitFontSmoothing: "antialiased",
+        }}>
+          Usually responds within 4 hours
+        </span>
       </div>
     </div>
   );

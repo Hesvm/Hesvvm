@@ -104,13 +104,6 @@ function LinkedInPreview() {
             <div style={{
               fontFamily: "var(--font-sans)", fontSize: 12,
               color: "var(--text-muted)", letterSpacing: "-0.01em",
-              WebkitFontSmoothing: "antialiased", lineHeight: 1.4,
-            }}>
-              Product Designer
-            </div>
-            <div style={{
-              fontFamily: "var(--font-sans)", fontSize: 12,
-              color: "var(--text-muted)", letterSpacing: "-0.01em",
               WebkitFontSmoothing: "antialiased",
             }}>
               611 connections

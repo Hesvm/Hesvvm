@@ -31,6 +31,18 @@ const LIGHTNING_ICON = (
   </svg>
 );
 
+const COPY_ICON = (
+  <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true">
+    <path d="M6.27539 2.3374C6.27539 1.81315 6.27539 1.55103 6.18989 1.34459C6.13335 1.208 6.05045 1.0839 5.94592 0.979372C5.84139 0.874844 5.71729 0.791941 5.5807 0.735402C5.37427 0.649902 5.11214 0.649902 4.58789 0.649902L2.90039 0.649902C1.83952 0.649902 1.30964 0.649902 0.980016 0.979527C0.650391 1.30915 0.650391 1.83903 0.650391 2.8999V4.5874C0.650391 5.11165 0.650391 5.37378 0.735891 5.58022C0.792429 5.7168 0.875332 5.8409 0.97986 5.94543C1.08439 6.04996 1.20849 6.13286 1.34508 6.1894C1.55152 6.2749 1.81364 6.2749 2.33789 6.2749M5.15039 4.0249H8.52539C9.14671 4.0249 9.65039 4.52858 9.65039 5.1499V8.5249C9.65039 9.14622 9.14671 9.6499 8.52539 9.6499H5.15039C4.52907 9.6499 4.02539 9.14622 4.02539 8.5249V5.1499C4.02539 4.52858 4.52907 4.0249 5.15039 4.0249Z" stroke="currentColor" strokeWidth="1.3"/>
+  </svg>
+);
+
+const ARROW_OUT_ICON = (
+  <svg width="8" height="8" viewBox="0 0 8 8" fill="none" aria-hidden="true">
+    <path d="M0.699219 6.7002L6.69922 0.700195M1.69922 0.700195H6.69922V5.7002" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
 // X stat icons (from provided SVG assets)
 const RepostIcon = () => (
   <svg width="14" height="11" viewBox="0 0 18 14" fill="none" aria-hidden="true">
@@ -182,26 +194,50 @@ function XPreview() {
 const EMAIL_ADDRESS = "hesammousavizadeh@gmail.com";
 
 function EmailPreview() {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL_ADDRESS);
+    } catch {
+      const el = document.createElement("textarea");
+      el.value = EMAIL_ADDRESS;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand("copy");
+      document.body.removeChild(el);
+    }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }, []);
+
   return (
-    <div className="contact-preview-inner" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-        {LIGHTNING_ICON}
-        <span style={{
-          fontFamily: "var(--font-sans)", fontSize: 13,
-          color: "var(--text-secondary)", letterSpacing: "-0.02em",
-          WebkitFontSmoothing: "antialiased",
-        }}>
-          Usually responds within 4 hours
-        </span>
+    <div>
+      <div className="contact-preview-inner">
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          {LIGHTNING_ICON}
+          <span style={{
+            fontFamily: "var(--font-sans)", fontSize: 13,
+            color: "var(--text-secondary)", letterSpacing: "-0.02em",
+            WebkitFontSmoothing: "antialiased",
+          }}>
+            Usually responds within 4 hours
+          </span>
+        </div>
       </div>
 
-      <a
-        href={`mailto:${EMAIL_ADDRESS}`}
-        className="email-action-pill"
-        style={{ width: "100%", justifyContent: "center" }}
-      >
-        Send an email
-      </a>
+      <hr className="contact-preview-divider" />
+
+      <div className="contact-preview-inner" style={{ display: "flex", gap: 6 }}>
+        <button className="email-action-pill" onClick={handleCopy}>
+          {COPY_ICON}
+          {copied ? "Copied!" : "Copy email"}
+        </button>
+        <a href={`mailto:${EMAIL_ADDRESS}`} className="email-action-pill">
+          {ARROW_OUT_ICON}
+          Open in Mail
+        </a>
+      </div>
     </div>
   );
 }

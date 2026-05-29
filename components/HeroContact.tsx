@@ -26,48 +26,36 @@ const EMAIL_ICON = (
 );
 
 const LIGHTNING_ICON = (
-  <svg width="7" height="10" viewBox="0 0 7 10" fill="none" aria-hidden="true" style={{ flexShrink: 0, marginTop: 2 }}>
+  <svg width="7" height="10" viewBox="0 0 7 10" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>
     <path d="M6.3124 4.25228H4.83314V0.741574C4.83314 -0.0775894 4.39751 -0.243373 3.86612 0.371L3.48314 0.814714L0.242182 4.56921C-0.203032 5.08119 -0.0163291 5.50052 0.653884 5.50052H2.13314V9.01123C2.13314 9.83039 2.56878 9.99617 3.10016 9.3818L3.48314 8.93809L6.7241 5.18359C7.16932 4.67161 6.98261 4.25228 6.3124 4.25228Z" fill="#FFDC41"/>
   </svg>
 );
 
-const COPY_ICON = (
-  <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true">
-    <path d="M6.27539 2.3374C6.27539 1.81315 6.27539 1.55103 6.18989 1.34459C6.13335 1.208 6.05045 1.0839 5.94592 0.979372C5.84139 0.874844 5.71729 0.791941 5.5807 0.735402C5.37427 0.649902 5.11214 0.649902 4.58789 0.649902L2.90039 0.649902C1.83952 0.649902 1.30964 0.649902 0.980016 0.979527C0.650391 1.30915 0.650391 1.83903 0.650391 2.8999V4.5874C0.650391 5.11165 0.650391 5.37378 0.735891 5.58022C0.792429 5.7168 0.875332 5.8409 0.97986 5.94543C1.08439 6.04996 1.20849 6.13286 1.34508 6.1894C1.55152 6.2749 1.81364 6.2749 2.33789 6.2749M5.15039 4.0249H8.52539C9.14671 4.0249 9.65039 4.52858 9.65039 5.1499V8.5249C9.65039 9.14622 9.14671 9.6499 8.52539 9.6499H5.15039C4.52907 9.6499 4.02539 9.14622 4.02539 8.5249V5.1499C4.02539 4.52858 4.52907 4.0249 5.15039 4.0249Z" stroke="currentColor" strokeWidth="1.3"/>
+// X stat icons (from provided SVG assets)
+const RepostIcon = () => (
+  <svg width="14" height="11" viewBox="0 0 18 14" fill="none" aria-hidden="true">
+    <path d="M3.70868 0.29375C3.31806 -0.096875 2.68368 -0.096875 2.29306 0.29375L0.293056 2.29375C0.00555551 2.58125 -0.0788194 3.00938 0.0774306 3.38438C0.233681 3.75938 0.599306 4 1.00243 4H2.00243V11C2.00243 12.6562 3.34618 14 5.00243 14H9.00243C9.55556 14 10.0024 13.5531 10.0024 13C10.0024 12.4469 9.55556 12 9.00243 12H5.00243C4.44931 12 4.00243 11.5531 4.00243 11V4H5.00243C5.40556 4 5.77118 3.75625 5.92743 3.38125C6.08368 3.00625 5.99618 2.57813 5.71181 2.29063L3.71181 0.290625L3.70868 0.29375ZM14.2962 13.7062C14.6868 14.0969 15.3212 14.0969 15.7118 13.7062L17.7118 11.7063C17.9993 11.4188 18.0837 10.9906 17.9274 10.6156C17.7712 10.2406 17.4056 10 17.0024 10H16.0024V3C16.0024 1.34375 14.6587 0 13.0024 0H9.00243C8.44931 0 8.00243 0.446875 8.00243 1C8.00243 1.55313 8.44931 2 9.00243 2H13.0024C13.5556 2 14.0024 2.44687 14.0024 3V10H13.0024C12.5993 10 12.2337 10.2437 12.0774 10.6187C11.9212 10.9937 12.0087 11.4219 12.2931 11.7094L14.2931 13.7094L14.2962 13.7062Z" fill="currentColor"/>
   </svg>
 );
 
-const ARROW_OUT_ICON = (
-  <svg width="8" height="8" viewBox="0 0 8 8" fill="none" aria-hidden="true">
-    <path d="M0.699219 6.7002L6.69922 0.700195M1.69922 0.700195H6.69922V5.7002" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
-
-const RetweetIcon = () => (
-  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-    <path d="M23 7L20 4L17 7M21 5V15C21 16.1 20.1 17 19 17H3M1 17L4 20L7 17M3 19V9C3 7.9 3.9 7 5 7H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
-
-const HeartIcon = () => (
-  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+const LikeIcon = () => (
+  <svg width="14" height="13" viewBox="0 0 20 19" fill="none" aria-hidden="true">
+    <path d="M10.1 15.55L10 15.65L9.89 15.55C5.14 11.24 2 8.39 2 5.5C2 3.5 3.5 2 5.5 2C7.04 2 8.54 3 9.07 4.36H10.93C11.46 3 12.96 2 14.5 2C16.5 2 18 3.5 18 5.5C18 8.39 14.86 11.24 10.1 15.55ZM14.5 0C12.76 0 11.09 0.81 10 2.08C8.91 0.81 7.24 0 5.5 0C2.42 0 0 2.41 0 5.5C0 9.27 3.4 12.36 8.55 17.03L10 18.35L11.45 17.03C16.6 12.36 20 9.27 20 5.5C20 2.41 17.58 0 14.5 0Z" fill="currentColor"/>
   </svg>
 );
 
 const ViewsIcon = () => (
-  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-    <path d="M2 12C2 12 5 5 12 5C19 5 22 12 22 12C22 12 19 19 12 19C5 19 2 12 2 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-    <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="2"/>
+  <svg width="10" height="12" viewBox="0 0 13 15" fill="none" aria-hidden="true">
+    <path d="M1.75 15H0.75C0.551088 15 0.360322 14.921 0.21967 14.7803C0.0790177 14.6397 0 14.4489 0 14.25V9.75C0 9.55109 0.0790177 9.36032 0.21967 9.21967C0.360322 9.07902 0.551088 9 0.75 9H1.75C1.94891 9 2.13968 9.07902 2.28033 9.21967C2.42098 9.36032 2.5 9.55109 2.5 9.75V14.25C2.5 14.4489 2.42098 14.6397 2.28033 14.7803C2.13968 14.921 1.94891 15 1.75 15ZM8.75 15H7.75C7.55109 15 7.36032 14.921 7.21967 14.7803C7.07902 14.6397 7 14.4489 7 14.25V6.75C7 6.55109 7.07902 6.36032 7.21967 6.21967C7.36032 6.07902 7.55109 6 7.75 6H8.75C8.94891 6 9.13968 6.07902 9.28033 6.21967C9.42098 6.36032 9.5 6.55109 9.5 6.75V14.25C9.5 14.4489 9.42098 14.6397 9.28033 14.7803C9.13968 14.921 8.94891 15 8.75 15ZM12.25 15H11.25C11.0511 15 10.8603 14.921 10.7197 14.7803C10.579 14.6397 10.5 14.4489 10.5 14.25V3.25C10.5 3.05109 10.579 2.86032 10.7197 2.71967C10.8603 2.57902 11.0511 2.5 11.25 2.5H12.25C12.4489 2.5 12.6397 2.57902 12.7803 2.71967C12.921 2.86032 13 3.05109 13 3.25V14.25C13 14.4489 12.921 14.6397 12.7803 14.7803C12.6397 14.921 12.4489 15 12.25 15ZM5.25 15H4.25C4.05109 15 3.86032 14.921 3.71967 14.7803C3.57902 14.6397 3.5 14.4489 3.5 14.25V0.75C3.5 0.551088 3.57902 0.360322 3.71967 0.21967C3.86032 0.0790177 4.05109 0 4.25 0H5.25C5.44891 0 5.63968 0.0790177 5.78033 0.21967C5.92098 0.360322 6 0.551088 6 0.75V14.25C6 14.4489 5.92098 14.6397 5.78033 14.7803C5.63968 14.921 5.44891 15 5.25 15Z" fill="currentColor"/>
   </svg>
 );
 
 // ── Pills config ───────────────────────────────────────────────────────────
 
-const PILLS: { id: Platform; label: string; icon: React.ReactNode }[] = [
-  { id: "linkedin", label: "LinkedIn", icon: LINKEDIN_ICON },
-  { id: "x",        label: "X posts",  icon: X_ICON },
-  { id: "email",    label: "Email",    icon: EMAIL_ICON },
+const PILLS: { id: Platform; label: string; icon: React.ReactNode; href: string }[] = [
+  { id: "linkedin", label: "LinkedIn", icon: LINKEDIN_ICON, href: "https://linkedin.com/in/hesammousavi" },
+  { id: "x",        label: "X posts",  icon: X_ICON,        href: "https://x.com/hesammousavi" },
+  { id: "email",    label: "Email",    icon: EMAIL_ICON,    href: "mailto:hesammousavizadeh@gmail.com" },
 ];
 
 // ── LinkedIn preview ───────────────────────────────────────────────────────
@@ -89,7 +77,7 @@ function LinkedInPreview() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/avatar-hero.png"
-              alt="Hesvm"
+              alt="Hesam Mousavizadeh"
               style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
             />
           </div>
@@ -99,7 +87,7 @@ function LinkedInPreview() {
               color: "var(--text-primary)", letterSpacing: "-0.02em",
               WebkitFontSmoothing: "antialiased",
             }}>
-              Hesvm
+              Hesam Mousavizadeh
             </div>
             <div style={{
               fontFamily: "var(--font-sans)", fontSize: 12,
@@ -123,11 +111,8 @@ function LinkedInPreview() {
             <div
               key={n}
               style={{
-                flex: 1,
-                aspectRatio: "1",
-                borderRadius: 8,
-                overflow: "hidden",
-                background: "var(--surface-secondary)",
+                flex: 1, aspectRatio: "1", borderRadius: 8,
+                overflow: "hidden", background: "var(--surface-secondary)",
               }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -146,17 +131,6 @@ function LinkedInPreview() {
 
 // ── X posts preview ────────────────────────────────────────────────────────
 
-const X_POSTS_DATA = [
-  {
-    text: "You spend 5% of your time creating. You spend 95% of your time on social media creating a strategy.",
-    stats: { retweets: 3, likes: 163, views: "15K" },
-  },
-  {
-    text: "You spot when you overcomplicate things and take a step back. That's the skill.",
-    stats: null,
-  },
-];
-
 function XPreview() {
   return (
     <a
@@ -165,50 +139,40 @@ function XPreview() {
       rel="noopener noreferrer"
       style={{ display: "block", textDecoration: "none", color: "inherit" }}
     >
-      {X_POSTS_DATA.map((post, i) => (
-        <div key={i}>
-          {i > 0 && <hr className="contact-preview-divider" />}
-          <div
-            className="contact-preview-inner"
-            style={{ paddingBottom: i === X_POSTS_DATA.length - 1 ? 14 : 10 }}
-          >
-            <p style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: 13,
-              lineHeight: 1.45,
-              letterSpacing: "-0.02em",
-              color: "var(--text-primary)",
-              margin: "0 0 8px 0",
-              WebkitFontSmoothing: "antialiased",
-              display: "-webkit-box",
-              WebkitLineClamp: 3,
-              WebkitBoxOrient: "vertical" as const,
-              overflow: "hidden",
-            }}>
-              {post.text}
-            </p>
+      <div className="contact-preview-inner">
+        <p style={{
+          fontFamily: "var(--font-sans)",
+          fontSize: 13,
+          lineHeight: 1.45,
+          letterSpacing: "-0.02em",
+          color: "var(--text-primary)",
+          margin: "0 0 10px 0",
+          WebkitFontSmoothing: "antialiased",
+          display: "-webkit-box",
+          WebkitLineClamp: 3,
+          WebkitBoxOrient: "vertical" as const,
+          overflow: "hidden",
+        }}>
+          You spend 5% of your time creating. You spend 95% of your time on social media creating a strategy.
+        </p>
 
-            {post.stats && (
-              <div style={{ display: "flex", gap: 14, alignItems: "center", color: "var(--text-muted)" }}>
-                {[
-                  { icon: <RetweetIcon />, value: post.stats.retweets },
-                  { icon: <HeartIcon />,   value: post.stats.likes },
-                  { icon: <ViewsIcon />,   value: post.stats.views },
-                ].map(({ icon, value }, j) => (
-                  <div key={j} style={{
-                    display: "flex", alignItems: "center", gap: 4,
-                    fontFamily: "var(--font-sans)", fontSize: 12,
-                    WebkitFontSmoothing: "antialiased",
-                  }}>
-                    {icon}
-                    <span>{value}</span>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+        <div style={{ display: "flex", gap: 14, alignItems: "center", color: "var(--text-muted)" }}>
+          {[
+            { icon: <RepostIcon />, value: 3 },
+            { icon: <LikeIcon />,   value: 163 },
+            { icon: <ViewsIcon />,  value: "15K" },
+          ].map(({ icon, value }, j) => (
+            <div key={j} style={{
+              display: "flex", alignItems: "center", gap: 5,
+              fontFamily: "var(--font-sans)", fontSize: 12,
+              WebkitFontSmoothing: "antialiased",
+            }}>
+              {icon}
+              <span>{value}</span>
+            </div>
+          ))}
         </div>
-      ))}
+      </div>
     </a>
   );
 }
@@ -218,73 +182,26 @@ function XPreview() {
 const EMAIL_ADDRESS = "hesammousavizadeh@gmail.com";
 
 function EmailPreview() {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText(EMAIL_ADDRESS);
-    } catch {
-      const el = document.createElement("textarea");
-      el.value = EMAIL_ADDRESS;
-      document.body.appendChild(el);
-      el.select();
-      document.execCommand("copy");
-      document.body.removeChild(el);
-    }
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  }, []);
-
   return (
-    <div>
-      <div className="contact-preview-inner">
-        <div style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
-          {LIGHTNING_ICON}
-          <div>
-            <div style={{
-              fontFamily: "var(--font-sans)", fontSize: 13, fontWeight: 500,
-              color: "var(--text-primary)", letterSpacing: "-0.02em",
-              marginBottom: 8, WebkitFontSmoothing: "antialiased",
-            }}>
-              Available for:
-            </div>
-            {["Product Design", "UX Audits", "Consulting"].map((item) => (
-              <div
-                key={item}
-                style={{
-                  display: "flex", alignItems: "center", gap: 6,
-                  fontFamily: "var(--font-sans)", fontSize: 13,
-                  color: "var(--text-secondary)", letterSpacing: "-0.02em",
-                  marginBottom: 4, WebkitFontSmoothing: "antialiased",
-                }}
-              >
-                <span style={{ color: "var(--success-text)", fontWeight: 500 }}>✓</span>
-                {item}
-              </div>
-            ))}
-            <div style={{
-              fontFamily: "var(--font-sans)", fontSize: 12,
-              color: "var(--text-muted)", letterSpacing: "-0.02em",
-              marginTop: 8, WebkitFontSmoothing: "antialiased",
-            }}>
-              Usually replies within 24 hours
-            </div>
-          </div>
-        </div>
+    <div className="contact-preview-inner" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        {LIGHTNING_ICON}
+        <span style={{
+          fontFamily: "var(--font-sans)", fontSize: 13,
+          color: "var(--text-secondary)", letterSpacing: "-0.02em",
+          WebkitFontSmoothing: "antialiased",
+        }}>
+          Usually responds within 4 hours
+        </span>
       </div>
 
-      <hr className="contact-preview-divider" />
-
-      <div className="contact-preview-inner" style={{ display: "flex", gap: 6 }}>
-        <button className="email-action-pill" onClick={handleCopy}>
-          {COPY_ICON}
-          {copied ? "Copied!" : "Copy email"}
-        </button>
-        <a href={`mailto:${EMAIL_ADDRESS}`} className="email-action-pill">
-          {ARROW_OUT_ICON}
-          Open in Mail
-        </a>
-      </div>
+      <a
+        href={`mailto:${EMAIL_ADDRESS}`}
+        className="email-action-pill"
+        style={{ width: "100%", justifyContent: "center" }}
+      >
+        Send an email
+      </a>
     </div>
   );
 }
@@ -310,10 +227,6 @@ export function HeroContact() {
 
   const handleWrapperLeave = useCallback(() => {
     leaveTimer.current = setTimeout(() => setActive(null), 50);
-  }, []);
-
-  const handlePillClick = useCallback((id: Platform) => {
-    setActive((prev) => (prev === id ? null : id));
   }, []);
 
   useEffect(() => {
@@ -348,30 +261,33 @@ export function HeroContact() {
           Contact me:
         </span>
 
-        {PILLS.map(({ id, label, icon }) => {
+        {PILLS.map(({ id, label, icon, href }) => {
           const isActive = active === id;
           const isDimmed = active !== null && !isActive;
+          const isExternal = href.startsWith("http");
           return (
-            <button
+            <a
               key={id}
+              href={href}
               className="contact-pill"
               aria-expanded={isActive}
-              aria-controls="contact-preview-panel"
+              target={isExternal ? "_blank" : undefined}
+              rel={isExternal ? "noopener noreferrer" : undefined}
               onMouseEnter={() => handlePillEnter(id)}
-              onClick={() => handlePillClick(id)}
               style={{
                 opacity: isDimmed ? 0.55 : 1,
                 color: isActive ? "var(--text-primary)" : undefined,
                 background: isActive ? "rgba(0,0,0,0.08)" : undefined,
+                textDecoration: "none",
               }}
             >
               {icon}
               {label}
-            </button>
+            </a>
           );
         })}
 
-        {/* Desktop: absolute floating preview */}
+        {/* Desktop hover preview — absolute, no layout shift */}
         <AnimatePresence>
           {active && (
             <motion.div
@@ -392,22 +308,6 @@ export function HeroContact() {
           )}
         </AnimatePresence>
       </div>
-
-      {/* Mobile: inline preview below pills */}
-      <AnimatePresence>
-        {active && (
-          <motion.div
-            className="contact-preview-card contact-preview-mobile"
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 8 }}
-            transition={{ duration: 0.18, ease: "easeOut" }}
-            style={{ marginTop: 12 }}
-          >
-            <PreviewContent platform={active} />
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }

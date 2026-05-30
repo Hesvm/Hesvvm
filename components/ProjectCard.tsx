@@ -165,23 +165,28 @@ export function ProjectCard({
         </div>
         <h3
           style={{
-            fontFamily: "var(--font-serif)",
-            fontStyle: "italic",
-            fontSize: "22px",
-            fontWeight: 400,
+            fontFamily: "var(--font-sans)",
+            fontStyle: "normal",
+            fontSize: "15px",
+            fontWeight: 600,
+            letterSpacing: "-0.02em",
             margin: "0 0 3px 0",
             color: "var(--color-text-primary)",
+            WebkitFontSmoothing: "antialiased",
           }}
         >
           {project.title}
         </h3>
         <p
           style={{
-            fontFamily: "var(--font-serif)",
-            fontStyle: "italic",
-            fontSize: "16px",
+            fontFamily: "var(--font-sans)",
+            fontStyle: "normal",
+            fontSize: "13px",
+            fontWeight: 500,
+            letterSpacing: "-0.01em",
             color: "var(--color-text-year)",
             margin: 0,
+            WebkitFontSmoothing: "antialiased",
           }}
         >
           {project.year}

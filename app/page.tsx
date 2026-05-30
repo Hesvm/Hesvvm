@@ -116,8 +116,24 @@ export default async function Home() {
           <HeroContact />
         </section>
 
-        {/* Project Grid */}
-        <section style={{ display: "flex", justifyContent: "center" }}>
+        {/* Works heading + Project Grid */}
+        <section style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <h2
+            className="works-heading"
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontStyle: "italic",
+              fontWeight: 400,
+              fontSize: "33px",
+              lineHeight: 1,
+              margin: "0 0 32px 0",
+              color: "var(--color-text-primary)",
+              alignSelf: "flex-start",
+              width: "min(100%, 460px)",
+            }}
+          >
+            Works
+          </h2>
           <ProjectGrid projects={projects} />
         </section>
       </main>

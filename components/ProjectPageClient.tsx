@@ -38,12 +38,14 @@ export default function ProjectPageClient({ project }: { project: Project }) {
         {/* Title — absolutely centered on full screen, pointer-events:none so button stays clickable */}
         <div className="mobile-project-header-title">
           <span style={{
-            fontFamily: "var(--font-serif)",
-            fontStyle: "italic",
-            fontWeight: 400,
-            fontSize: "26px",
+            fontFamily: "var(--font-sans)",
+            fontStyle: "normal",
+            fontWeight: 600,
+            fontSize: "17px",
+            letterSpacing: "-0.02em",
             color: "var(--color-text-primary)",
             lineHeight: 1.1,
+            WebkitFontSmoothing: "antialiased",
           }}>
             {project.title}
           </span>
@@ -58,12 +60,14 @@ export default function ProjectPageClient({ project }: { project: Project }) {
           <h1
             className="project-detail-title"
             style={{
-              fontFamily: "var(--font-serif)",
-              fontStyle: "italic",
-              fontWeight: 400,
+              fontFamily: "var(--font-sans)",
+              fontStyle: "normal",
+              fontWeight: 600,
+              letterSpacing: "-0.03em",
               margin: "0 0 6px 0",
               color: "var(--color-text-primary)",
               lineHeight: 1.1,
+              WebkitFontSmoothing: "antialiased",
             }}
           >
             {project.title}
@@ -72,11 +76,14 @@ export default function ProjectPageClient({ project }: { project: Project }) {
           {subtitle && (
             <p
               style={{
-                fontFamily: "var(--font-serif)",
-                fontStyle: "italic",
-                fontSize: "18px",
+                fontFamily: "var(--font-sans)",
+                fontStyle: "normal",
+                fontWeight: 500,
+                fontSize: "16px",
+                letterSpacing: "-0.02em",
                 color: "var(--text-muted)",
                 margin: "0 0 28px 0",
+                WebkitFontSmoothing: "antialiased",
               }}
             >
               {subtitle}

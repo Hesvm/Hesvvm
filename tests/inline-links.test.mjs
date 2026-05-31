@@ -31,3 +31,11 @@ test("ContentRenderer imports parseInlineLinks", () => {
 test("ContentRenderer applies parseInlineLinks to block.content", () => {
   assert.match(renderer, /parseInlineLinks\(block\.content\)/);
 });
+
+const textBlock = readFileSync("components/admin/blocks/TextBlock.tsx", "utf8");
+
+test("TextBlock handles Ctrl+K keydown", () => {
+  assert.match(textBlock, /onKeyDown/);
+  assert.match(textBlock, /ctrlKey.*metaKey|metaKey.*ctrlKey/);
+  assert.match(textBlock, /key.*===.*k|key.*===.*K/);
+});

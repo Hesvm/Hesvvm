@@ -53,6 +53,7 @@ export type VideoBlock = {
   type: 'video'
   url: string
   subtitle?: string
+  playback?: 'auto' | 'click'
 }
 
 export type QuoteBlock = {

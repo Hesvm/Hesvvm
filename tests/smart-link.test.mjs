@@ -59,3 +59,18 @@ test("SmartLink card has title and subtitle from preview", () => {
 test("SmartLink card section has aria-hidden", () => {
   assert.match(smartLink, /aria-hidden="true"/);
 });
+
+test("SmartLink uses ReactDOM.createPortal", () => {
+  assert.match(smartLink, /createPortal/);
+  assert.match(smartLink, /from "react-dom"/);
+});
+
+test("SmartLink card uses position fixed", () => {
+  assert.match(smartLink, /position: "fixed"/);
+});
+
+test("SmartLink has computePosition helper with clamping logic", () => {
+  assert.match(smartLink, /computePosition/);
+  assert.match(smartLink, /window\.innerWidth/);
+  assert.match(smartLink, /window\.innerHeight/);
+});

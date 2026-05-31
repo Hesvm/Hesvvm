@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import React, { useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 export interface PreviewData {
   image: string;
@@ -18,12 +19,45 @@ interface SmartLinkProps {
   className?: string;
 }
 
-function PreviewCard({ preview }: { preview: PreviewData }) {
-  return (
+interface CardPos {
+  top: number;
+  left: number;
+}
+
+const CARD_WIDTH = 244;
+const CARD_HEIGHT_ESTIMATE = 220;
+const OFFSET = 8;
+const VIEWPORT_PAD = 8;
+
+function computePosition(rect: DOMRect): CardPos {
+  let top = rect.bottom + OFFSET;
+  if (top + CARD_HEIGHT_ESTIMATE > window.innerHeight - VIEWPORT_PAD) {
+    top = rect.top - CARD_HEIGHT_ESTIMATE - OFFSET;
+  }
+  let left = rect.left;
+  left = Math.max(
+    VIEWPORT_PAD,
+    Math.min(left, window.innerWidth - CARD_WIDTH - VIEWPORT_PAD)
+  );
+  return { top, left };
+}
+
+function PreviewCardPortal({
+  preview,
+  pos,
+}: {
+  preview: PreviewData;
+  pos: CardPos;
+}) {
+  return createPortal(
     <div
       aria-hidden="true"
       style={{
-        width: 244,
+        position: "fixed",
+        top: pos.top,
+        left: pos.left,
+        zIndex: 9999,
+        width: CARD_WIDTH,
         background: "#ffffff",
         borderRadius: 26,
         boxShadow:
@@ -32,6 +66,7 @@ function PreviewCard({ preview }: { preview: PreviewData }) {
         padding: "10px 10px 0 10px",
         boxSizing: "border-box",
         fontFamily: "var(--font-sans)",
+        pointerEvents: "none",
       }}
     >
       <div
@@ -75,7 +110,8 @@ function PreviewCard({ preview }: { preview: PreviewData }) {
           {preview.subtitle}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 
@@ -87,6 +123,10 @@ export function SmartLink({
   rel,
   className,
 }: SmartLinkProps) {
+  const linkRef = useRef<HTMLAnchorElement>(null);
+  const [visible, setVisible] = useState(false);
+  const [pos, setPos] = useState<CardPos>({ top: 0, left: 0 });
+
   if (!preview) {
     return (
       <a
@@ -101,17 +141,31 @@ export function SmartLink({
     );
   }
 
+  function show() {
+    if (!linkRef.current) return;
+    setPos(computePosition(linkRef.current.getBoundingClientRect()));
+    setVisible(true);
+  }
+
+  function hide() {
+    setVisible(false);
+  }
+
   return (
     <a
+      ref={linkRef}
       href={href}
       target={target}
       rel={rel}
       className={`smart-link${className ? ` ${className}` : ""}`}
+      onMouseEnter={show}
+      onMouseLeave={hide}
+      onFocus={show}
+      onBlur={hide}
     >
       {children}
       <span className="smart-link-underline" aria-hidden="true" />
-      {/* Card with portal + animation wired in next task */}
-      <PreviewCard preview={preview} />
+      {visible && <PreviewCardPortal preview={preview} pos={pos} />}
     </a>
   );
 }

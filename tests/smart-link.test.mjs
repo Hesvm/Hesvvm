@@ -74,3 +74,22 @@ test("SmartLink has computePosition helper with clamping logic", () => {
   assert.match(smartLink, /window\.innerWidth/);
   assert.match(smartLink, /window\.innerHeight/);
 });
+
+test("SmartLink uses Framer Motion AnimatePresence", () => {
+  assert.match(smartLink, /AnimatePresence/);
+  assert.match(smartLink, /from "framer-motion"/);
+});
+
+test("SmartLink card has enter animation values", () => {
+  assert.match(smartLink, /opacity: 0/);
+  assert.match(smartLink, /scale: 0\.98/);
+});
+
+test("SmartLink handles Escape key to close card", () => {
+  assert.match(smartLink, /Escape/);
+  assert.match(smartLink, /onKeyDown/);
+});
+
+test("SmartLink respects prefers-reduced-motion", () => {
+  assert.match(smartLink, /useReducedMotion/);
+});

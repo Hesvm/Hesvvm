@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import React, { useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
@@ -45,13 +46,29 @@ function computePosition(rect: DOMRect): CardPos {
 function PreviewCardPortal({
   preview,
   pos,
+  reducedMotion,
 }: {
   preview: PreviewData;
   pos: CardPos;
+  reducedMotion: boolean;
 }) {
+  const initial = reducedMotion
+    ? { opacity: 0 }
+    : { opacity: 0, scale: 0.98, y: 2 };
+  const animate = reducedMotion
+    ? { opacity: 1 }
+    : { opacity: 1, scale: 1, y: 0 };
+  const exit = reducedMotion
+    ? { opacity: 0 }
+    : { opacity: 0, scale: 0.98, y: 2 };
+
   return createPortal(
-    <div
+    <motion.div
       aria-hidden="true"
+      initial={initial}
+      animate={animate}
+      exit={exit}
+      transition={{ duration: 0.15, ease: "easeOut" }}
       style={{
         position: "fixed",
         top: pos.top,
@@ -110,10 +127,27 @@ function PreviewCardPortal({
           {preview.subtitle}
         </div>
       </div>
-    </div>,
+    </motion.div>,
     document.body
   );
 }
+
+// Usage example:
+// <SmartLink
+//   href="https://linkedin.com/in/parsaghaffari"
+//   preview={{
+//     image: "/images/people/parsa.jpg",
+//     title: "Parsa Ghaffari",
+//     subtitle: "Ex CEO of Alien, specialist in founding startups"
+//   }}
+// >
+//   Parsa
+// </SmartLink>
+//
+// TODO: implement long-press preview on mobile
+// Long-press (~500ms) should show card without navigating;
+// tap elsewhere closes; normal tap still navigates.
+// Deferred: conflicts with native iOS/Android link behaviour.
 
 export function SmartLink({
   href,
@@ -126,6 +160,7 @@ export function SmartLink({
   const linkRef = useRef<HTMLAnchorElement>(null);
   const [visible, setVisible] = useState(false);
   const [pos, setPos] = useState<CardPos>({ top: 0, left: 0 });
+  const reducedMotion = useReducedMotion() ?? false;
 
   if (!preview) {
     return (
@@ -151,21 +186,36 @@ export function SmartLink({
     setVisible(false);
   }
 
+  function onKeyDown(e: React.KeyboardEvent<HTMLAnchorElement>) {
+    if (e.key === "Escape") hide();
+  }
+
   return (
-    <a
-      ref={linkRef}
-      href={href}
-      target={target}
-      rel={rel}
-      className={`smart-link${className ? ` ${className}` : ""}`}
-      onMouseEnter={show}
-      onMouseLeave={hide}
-      onFocus={show}
-      onBlur={hide}
-    >
-      {children}
-      <span className="smart-link-underline" aria-hidden="true" />
-      {visible && <PreviewCardPortal preview={preview} pos={pos} />}
-    </a>
+    <>
+      <a
+        ref={linkRef}
+        href={href}
+        target={target}
+        rel={rel}
+        className={`smart-link${className ? ` ${className}` : ""}`}
+        onMouseEnter={show}
+        onMouseLeave={hide}
+        onFocus={show}
+        onBlur={hide}
+        onKeyDown={onKeyDown}
+      >
+        {children}
+        <span className="smart-link-underline" aria-hidden="true" />
+      </a>
+      <AnimatePresence>
+        {visible && (
+          <PreviewCardPortal
+            preview={preview}
+            pos={pos}
+            reducedMotion={reducedMotion}
+          />
+        )}
+      </AnimatePresence>
+    </>
   );
 }

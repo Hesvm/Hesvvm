@@ -5,15 +5,64 @@ import Image from "next/image";
 import Divider from "@/components/Divider";
 import ProjectLink from "@/components/ProjectLink";
 import Reveal from "@/components/Reveal";
+import { SmartLink } from "@/components/SmartLink";
 import { ContentBlock } from "@/types/project";
-import { parseInlineLinks } from "@/lib/parseInlineLinks";
+
+// Matches [text](url) and [text](url||image||title||subtitle)
+const INLINE_LINK_RE = /\[([^\]]+)\]\(([^)]+)\)/g;
+
+function parseRichLinks(text: string): React.ReactNode[] {
+  const nodes: React.ReactNode[] = [];
+  let last = 0;
+  let match: RegExpExecArray | null;
+
+  INLINE_LINK_RE.lastIndex = 0;
+  while ((match = INLINE_LINK_RE.exec(text)) !== null) {
+    if (match.index > last) nodes.push(text.slice(last, match.index));
+
+    const linkText = match[1];
+    const urlPart = match[2];
+    const parts = urlPart.split("||");
+
+    if (parts.length === 4) {
+      const [url, image, title, subtitle] = parts;
+      nodes.push(
+        <SmartLink
+          key={match.index}
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          preview={{ image, title, subtitle }}
+        >
+          {linkText}
+        </SmartLink>
+      );
+    } else {
+      nodes.push(
+        <a
+          key={match.index}
+          href={urlPart}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ textDecoration: "underline", color: "inherit" }}
+        >
+          {linkText}
+        </a>
+      );
+    }
+    last = match.index + match[0].length;
+  }
+
+  if (last < text.length) nodes.push(text.slice(last));
+  return nodes;
+}
 
 function renderRichText(text: string): React.ReactNode {
   const paragraphs = text.split(/\n\n+/);
   return paragraphs.map((para, pi) => (
     <p key={pi} style={{ margin: pi === 0 ? 0 : "1em 0 0" }}>
       {para.split("\n").flatMap((line, li, arr) => {
-        const nodes = parseInlineLinks(line);
+        const nodes = parseRichLinks(line);
         return li < arr.length - 1 ? [...nodes, <br key={`br-${li}`} />] : nodes;
       })}
     </p>
@@ -62,7 +111,7 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
                   margin: 0,
                 }}
               >
-                {parseInlineLinks(block.content)}
+                {parseRichLinks(block.content)}
               </h2>
             </Reveal>
           );
@@ -185,7 +234,7 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
             <Reveal key={block.id} delay={delay}>
               <div style={{ borderLeft: "2px solid var(--border-subtle)", paddingLeft: "20px" }}>
                 <p style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontSize: "18px", color: "var(--color-text-primary)", margin: "0 0 8px 0", lineHeight: 1.5 }}>
-                  {parseInlineLinks(block.content)}
+                  {parseRichLinks(block.content)}
                 </p>
                 {block.attribution && (
                   <p style={{ fontFamily: "var(--font-sans)", fontSize: "13px", color: "var(--color-text-muted)", margin: 0 }}>

@@ -630,3 +630,35 @@ body {
     height: 30px;
   }
 }
+
+/* ── SmartLink ── */
+.smart-link {
+  position: relative;
+  display: inline-block;
+  color: inherit;
+  text-decoration: none;
+  transition: color 150ms ease-out;
+}
+
+.smart-link:hover,
+.smart-link:focus-visible {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.smart-link-underline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(150, 145, 137, 0.40);
+  pointer-events: none;
+  transition: background 150ms ease-out;
+}
+
+.smart-link:hover .smart-link-underline,
+.smart-link:focus-visible .smart-link-underline {
+  background: rgba(19, 19, 19, 0.35);
+}

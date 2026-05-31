@@ -144,10 +144,11 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
 
         if (block.type === "video") {
           const isEmbed = block.url.includes("youtube") || block.url.includes("vimeo") || block.url.includes("youtu.be");
+          const playback = block.playback ?? 'auto';
           return (
             <Reveal key={block.id} delay={delay}>
               <div>
-                {isEmbed && (
+                {isEmbed ? (
                   <div style={{ position: "relative", paddingBottom: "56.25%", height: 0, overflow: "hidden" }}>
                     <iframe
                       src={block.url}
@@ -156,7 +157,17 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
                       allowFullScreen
                     />
                   </div>
-                )}
+                ) : block.url ? (
+                  <video
+                    src={block.url}
+                    autoPlay={playback === 'auto'}
+                    muted={playback === 'auto'}
+                    loop={playback === 'auto'}
+                    controls={playback === 'click'}
+                    playsInline
+                    style={{ width: "100%", borderRadius: "12px", display: "block" }}
+                  />
+                ) : null}
                 {block.subtitle && (
                   <div style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontSize: "16px", color: "var(--color-text-muted)", textAlign: "center", marginTop: "8px" }}>
                     {block.subtitle}

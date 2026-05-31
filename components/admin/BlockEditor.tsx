@@ -146,6 +146,7 @@ export default function BlockEditor({
             onDelete={() => deleteBlock(block.id)}
             isReordering={isReordering}
             dragHandleProps={dragHandleProps}
+            slug={slug}
           />
         )
       case 'quote':

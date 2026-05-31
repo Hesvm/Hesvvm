@@ -3,6 +3,7 @@ import Divider from "@/components/Divider";
 import ProjectLink from "@/components/ProjectLink";
 import Reveal from "@/components/Reveal";
 import { ContentBlock } from "@/types/project";
+import { parseInlineLinks } from "@/lib/parseInlineLinks";
 
 interface ContentRendererProps {
   blocks: ContentBlock[];
@@ -28,7 +29,7 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
                   color: "var(--color-text-primary)",
                 }}
               >
-                {block.content}
+                {parseInlineLinks(block.content)}
               </div>
             </Reveal>
           );
@@ -46,7 +47,7 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
                   margin: 0,
                 }}
               >
-                {block.content}
+                {parseInlineLinks(block.content)}
               </h2>
             </Reveal>
           );
@@ -158,7 +159,7 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
             <Reveal key={block.id} delay={delay}>
               <div style={{ borderLeft: "2px solid var(--border-subtle)", paddingLeft: "20px" }}>
                 <p style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontSize: "18px", color: "var(--color-text-primary)", margin: "0 0 8px 0", lineHeight: 1.5 }}>
-                  {block.content}
+                  {parseInlineLinks(block.content)}
                 </p>
                 {block.attribution && (
                   <p style={{ fontFamily: "var(--font-sans)", fontSize: "13px", color: "var(--color-text-muted)", margin: 0 }}>

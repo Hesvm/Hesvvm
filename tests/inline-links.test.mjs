@@ -21,3 +21,13 @@ test("renders links with target _blank and rel noopener", () => {
 test("uses color: 'inherit' so links match surrounding text", () => {
   assert.match(src, /color.*inherit/);
 });
+
+const renderer = readFileSync("components/ContentRenderer.tsx", "utf8");
+
+test("ContentRenderer imports parseInlineLinks", () => {
+  assert.match(renderer, /parseInlineLinks/);
+});
+
+test("ContentRenderer applies parseInlineLinks to block.content", () => {
+  assert.match(renderer, /parseInlineLinks\(block\.content\)/);
+});

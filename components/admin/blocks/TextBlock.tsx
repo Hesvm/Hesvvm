@@ -33,11 +33,24 @@ export default function TextBlock({ block, onChange, onDelete, isReordering, dra
       e.preventDefault()
       const el = textareaRef.current
       if (!el) return
-      const url = window.prompt('URL:')
-      if (!url) return
+      // Save selection before any prompt (prompts lose focus)
       const { selectionStart: start, selectionEnd: end, value } = el
       const selected = value.slice(start!, end!)
-      const insertion = selected ? `[${selected}](${url})` : `[](${url})`
+
+      const url = window.prompt('URL:')
+      if (!url) return
+
+      let urlPart = url
+      if (window.confirm('Add hover preview card?')) {
+        const image = window.prompt('Image path (e.g. /images/people/parsa.jpg):') ?? ''
+        const title = window.prompt('Preview title:') ?? ''
+        const subtitle = window.prompt('Preview subtitle:') ?? ''
+        if (image && title && subtitle) {
+          urlPart = `${url}||${image}||${title}||${subtitle}`
+        }
+      }
+
+      const insertion = selected ? `[${selected}](${urlPart})` : `[](${urlPart})`
       const next = value.slice(0, start!) + insertion + value.slice(end!)
       onChange({ ...block, content: next })
       const cursorPos = selected ? start! + insertion.length : start! + 1

@@ -22,13 +22,26 @@ export default function TitleBlock({ block, onChange, onDelete, isReordering, dr
       e.preventDefault()
       const el = inputRef.current
       if (!el) return
-      const url = window.prompt('URL:')
-      if (!url) return
+      // Save selection before any prompt (prompts lose focus)
       const { selectionStart: start, selectionEnd: end, value } = el
       const s = start ?? value.length
       const en = end ?? value.length
       const selected = value.slice(s, en)
-      const insertion = selected ? `[${selected}](${url})` : `[](${url})`
+
+      const url = window.prompt('URL:')
+      if (!url) return
+
+      let urlPart = url
+      if (window.confirm('Add hover preview card?')) {
+        const image = window.prompt('Image path (e.g. /images/people/parsa.jpg):') ?? ''
+        const title = window.prompt('Preview title:') ?? ''
+        const subtitle = window.prompt('Preview subtitle:') ?? ''
+        if (image && title && subtitle) {
+          urlPart = `${url}||${image}||${title}||${subtitle}`
+        }
+      }
+
+      const insertion = selected ? `[${selected}](${urlPart})` : `[](${urlPart})`
       const next = value.slice(0, s) + insertion + value.slice(en)
       onChange({ ...block, content: next })
       const cursorPos = selected ? s + insertion.length : s + 1

@@ -39,3 +39,11 @@ test("TextBlock handles Ctrl+K keydown", () => {
   assert.match(textBlock, /ctrlKey.*metaKey|metaKey.*ctrlKey/);
   assert.match(textBlock, /key.*===.*k|key.*===.*K/);
 });
+
+const quoteBlock = readFileSync("components/admin/blocks/QuoteBlock.tsx", "utf8");
+
+test("QuoteBlock handles Ctrl+K keydown", () => {
+  assert.match(quoteBlock, /onKeyDown/);
+  assert.match(quoteBlock, /ctrlKey.*metaKey|metaKey.*ctrlKey/);
+  assert.match(quoteBlock, /key.*===.*k|key.*===.*K/);
+});

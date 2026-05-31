@@ -28,6 +28,25 @@ export default function QuoteBlock({ block, onChange, onDelete, isReordering, dr
     autoResize()
   }, [block.content])
 
+  function handleKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault()
+      const el = textareaRef.current
+      if (!el) return
+      const url = window.prompt('URL:')
+      if (!url) return
+      const { selectionStart: start, selectionEnd: end, value } = el
+      const selected = value.slice(start!, end!)
+      const insertion = selected ? `[${selected}](${url})` : `[](${url})`
+      const next = value.slice(0, start!) + insertion + value.slice(end!)
+      onChange({ ...block, content: next })
+      const cursorPos = selected ? start! + insertion.length : start! + 1
+      requestAnimationFrame(() => {
+        el.setSelectionRange(cursorPos, cursorPos)
+      })
+    }
+  }
+
   return (
     <div style={{
       border: '1px solid #e8e8e8',
@@ -83,6 +102,7 @@ export default function QuoteBlock({ block, onChange, onDelete, isReordering, dr
             onChange({ ...block, content: e.target.value })
           }}
           onInput={autoResize}
+          onKeyDown={handleKeyDown}
           placeholder="Quote content..."
           style={{
             width: '100%',

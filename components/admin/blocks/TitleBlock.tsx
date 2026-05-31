@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react'
 import { TitleBlock as TitleBlockType } from '@/types/project'
+import { LinkDialog, LinkDialogResult } from '@/components/admin/LinkDialog'
 
 const font = '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif'
 
@@ -15,6 +16,8 @@ interface Props {
 
 export default function TitleBlock({ block, onChange, onDelete, isReordering, dragHandleProps }: Props) {
   const [confirmDelete, setConfirmDelete] = useState(false)
+  const [dialogOpen, setDialogOpen] = useState(false)
+  const [savedSel, setSavedSel] = useState<{ start: number; end: number; value: string } | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
@@ -22,33 +25,31 @@ export default function TitleBlock({ block, onChange, onDelete, isReordering, dr
       e.preventDefault()
       const el = inputRef.current
       if (!el) return
-      // Save selection before any prompt (prompts lose focus)
-      const { selectionStart: start, selectionEnd: end, value } = el
-      const s = start ?? value.length
-      const en = end ?? value.length
-      const selected = value.slice(s, en)
-
-      const url = window.prompt('URL:')
-      if (!url) return
-
-      let urlPart = url
-      if (window.confirm('Add hover preview card?')) {
-        const image = window.prompt('Image path (e.g. /images/people/parsa.jpg):') ?? ''
-        const title = window.prompt('Preview title:') ?? ''
-        const subtitle = window.prompt('Preview subtitle:') ?? ''
-        if (image && title && subtitle) {
-          urlPart = `${url}||${image}||${title}||${subtitle}`
-        }
-      }
-
-      const insertion = selected ? `[${selected}](${urlPart})` : `[](${urlPart})`
-      const next = value.slice(0, s) + insertion + value.slice(en)
-      onChange({ ...block, content: next })
-      const cursorPos = selected ? s + insertion.length : s + 1
-      requestAnimationFrame(() => {
-        el.setSelectionRange(cursorPos, cursorPos)
-      })
+      const s = el.selectionStart ?? el.value.length
+      const en = el.selectionEnd ?? el.value.length
+      setSavedSel({ start: s, end: en, value: el.value })
+      setDialogOpen(true)
     }
+  }
+
+  function handleLinkInsert(result: LinkDialogResult) {
+    if (!savedSel) return
+    const { start, end, value } = savedSel
+    const selected = value.slice(start, end)
+    let urlPart = result.url
+    if (result.preview) {
+      const { image, title, subtitle } = result.preview
+      urlPart = `${result.url}||${image}||${title}||${subtitle}`
+    }
+    const insertion = selected ? `[${selected}](${urlPart})` : `[link](${urlPart})`
+    const next = value.slice(0, start) + insertion + value.slice(end)
+    onChange({ ...block, content: next })
+    setDialogOpen(false)
+    setSavedSel(null)
+    requestAnimationFrame(() => {
+      inputRef.current?.focus()
+      inputRef.current?.setSelectionRange(start + insertion.length, start + insertion.length)
+    })
   }
 
   return (
@@ -123,6 +124,12 @@ export default function TitleBlock({ block, onChange, onDelete, isReordering, dr
           </button>
         </div>
       )}
+
+      <LinkDialog
+        open={dialogOpen}
+        onConfirm={handleLinkInsert}
+        onCancel={() => { setDialogOpen(false); setSavedSel(null) }}
+      />
 
       {/* Input */}
       <input

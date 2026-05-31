@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect } from 'react'
 import { QuoteBlock as QuoteBlockType } from '@/types/project'
+import { LinkDialog, LinkDialogResult } from '@/components/admin/LinkDialog'
 
 const font = '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif'
 
@@ -15,6 +16,8 @@ interface Props {
 
 export default function QuoteBlock({ block, onChange, onDelete, isReordering, dragHandleProps }: Props) {
   const [confirmDelete, setConfirmDelete] = useState(false)
+  const [dialogOpen, setDialogOpen] = useState(false)
+  const [savedSel, setSavedSel] = useState<{ start: number; end: number; value: string } | null>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   function autoResize() {
@@ -33,31 +36,29 @@ export default function QuoteBlock({ block, onChange, onDelete, isReordering, dr
       e.preventDefault()
       const el = textareaRef.current
       if (!el) return
-      // Save selection before any prompt (prompts lose focus)
-      const { selectionStart: start, selectionEnd: end, value } = el
-      const selected = value.slice(start!, end!)
-
-      const url = window.prompt('URL:')
-      if (!url) return
-
-      let urlPart = url
-      if (window.confirm('Add hover preview card?')) {
-        const image = window.prompt('Image path (e.g. /images/people/parsa.jpg):') ?? ''
-        const title = window.prompt('Preview title:') ?? ''
-        const subtitle = window.prompt('Preview subtitle:') ?? ''
-        if (image && title && subtitle) {
-          urlPart = `${url}||${image}||${title}||${subtitle}`
-        }
-      }
-
-      const insertion = selected ? `[${selected}](${urlPart})` : `[](${urlPart})`
-      const next = value.slice(0, start!) + insertion + value.slice(end!)
-      onChange({ ...block, content: next })
-      const cursorPos = selected ? start! + insertion.length : start! + 1
-      requestAnimationFrame(() => {
-        el.setSelectionRange(cursorPos, cursorPos)
-      })
+      setSavedSel({ start: el.selectionStart ?? 0, end: el.selectionEnd ?? 0, value: el.value })
+      setDialogOpen(true)
     }
+  }
+
+  function handleLinkInsert(result: LinkDialogResult) {
+    if (!savedSel) return
+    const { start, end, value } = savedSel
+    const selected = value.slice(start, end)
+    let urlPart = result.url
+    if (result.preview) {
+      const { image, title, subtitle } = result.preview
+      urlPart = `${result.url}||${image}||${title}||${subtitle}`
+    }
+    const insertion = selected ? `[${selected}](${urlPart})` : `[link](${urlPart})`
+    const next = value.slice(0, start) + insertion + value.slice(end)
+    onChange({ ...block, content: next })
+    setDialogOpen(false)
+    setSavedSel(null)
+    requestAnimationFrame(() => {
+      textareaRef.current?.focus()
+      textareaRef.current?.setSelectionRange(start + insertion.length, start + insertion.length)
+    })
   }
 
   return (
@@ -104,6 +105,12 @@ export default function QuoteBlock({ block, onChange, onDelete, isReordering, dr
           <button onClick={() => setConfirmDelete(false)} style={{ background: 'none', border: '1px solid #dc2626', color: '#dc2626', borderRadius: 4, padding: '2px 10px', cursor: 'pointer', fontSize: 12 }}>Cancel</button>
         </div>
       )}
+
+      <LinkDialog
+        open={dialogOpen}
+        onConfirm={handleLinkInsert}
+        onCancel={() => { setDialogOpen(false); setSavedSel(null) }}
+      />
 
       {/* Quote fields */}
       <div style={{ paddingRight: 60 }}>

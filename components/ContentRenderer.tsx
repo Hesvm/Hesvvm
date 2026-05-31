@@ -8,16 +8,13 @@ import Reveal from "@/components/Reveal";
 import { SmartLink } from "@/components/SmartLink";
 import { ContentBlock } from "@/types/project";
 
-// Matches [text](url) and [text](url||image||title||subtitle)
-const INLINE_LINK_RE = /\[([^\]]+)\]\(([^)]+)\)/g;
-
 function parseRichLinks(text: string): React.ReactNode[] {
+  // Local regex per call — avoids shared lastIndex state across concurrent renders
+  const re = /\[([^\]]+)\]\(([^)]+)\)/g;
   const nodes: React.ReactNode[] = [];
   let last = 0;
   let match: RegExpExecArray | null;
-
-  INLINE_LINK_RE.lastIndex = 0;
-  while ((match = INLINE_LINK_RE.exec(text)) !== null) {
+  while ((match = re.exec(text)) !== null) {
     if (match.index > last) nodes.push(text.slice(last, match.index));
 
     const linkText = match[1];

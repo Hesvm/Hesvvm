@@ -42,3 +42,20 @@ test("SmartLink includes the pill underline span", () => {
 test("SmartLink without preview prop renders just the link", () => {
   assert.match(smartLink, /if \(!preview\)/);
 });
+
+test("SmartLink imports Next.js Image", () => {
+  assert.match(smartLink, /from "next\/image"/);
+});
+
+test("SmartLink card renders image with alt from preview.title", () => {
+  assert.match(smartLink, /alt=\{preview\.title\}/);
+});
+
+test("SmartLink card has title and subtitle from preview", () => {
+  assert.match(smartLink, /preview\.title/);
+  assert.match(smartLink, /preview\.subtitle/);
+});
+
+test("SmartLink card section has aria-hidden", () => {
+  assert.match(smartLink, /aria-hidden="true"/);
+});

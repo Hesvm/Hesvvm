@@ -15,7 +15,7 @@ const awesomeBiPolar = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Hesam",
+  title: "Hesvm",
   description: "Portfolio",
 };
 

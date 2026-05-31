@@ -247,7 +247,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.hero-text-link {
+.hero-text-link,
+.project-text-link {
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -256,7 +257,8 @@ body {
   text-decoration: none;
   transition: color 0.2s ease;
 }
-.hero-text-link::after {
+.hero-text-link::after,
+.project-text-link::after {
   content: "";
   position: absolute;
   left: 0;
@@ -272,14 +274,28 @@ body {
   flex: 0 0 auto;
   transform: translateY(0.5px);
 }
+.project-text-link {
+  width: fit-content;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--color-text-primary);
+}
 .hero-text-link:active,
 .hero-text-link:hover,
-.hero-text-link:focus-visible {
+.hero-text-link:focus-visible,
+.project-text-link:active,
+.project-text-link:hover,
+.project-text-link:focus-visible {
   color: var(--text-primary);
 }
 .hero-text-link:active::after,
 .hero-text-link:hover::after,
-.hero-text-link:focus-visible::after {
+.hero-text-link:focus-visible::after,
+.project-text-link:active::after,
+.project-text-link:hover::after,
+.project-text-link:focus-visible::after {
   background-color: rgba(19, 19, 19, 0.16);
 }
 

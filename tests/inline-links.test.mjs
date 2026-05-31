@@ -1,0 +1,23 @@
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import test from "node:test";
+
+const src = readFileSync("lib/parseInlineLinks.ts", "utf8");
+
+test("parseInlineLinks is exported", () => {
+  assert.match(src, /export function parseInlineLinks/);
+});
+
+test("uses the correct inline link regex", () => {
+  assert.match(src, /INLINE_LINK_RE/);
+  assert.match(src, /\\\[.*\\\]/);
+});
+
+test("renders links with target _blank and rel noopener", () => {
+  assert.match(src, /target.*_blank/);
+  assert.match(src, /rel.*noopener noreferrer/);
+});
+
+test("uses color: 'inherit' so links match surrounding text", () => {
+  assert.match(src, /color.*inherit/);
+});

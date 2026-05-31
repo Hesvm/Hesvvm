@@ -22,3 +22,23 @@ test("globals.css darkens underline on hover", () => {
   assert.match(globals, /\.smart-link:hover .smart-link-underline/);
   assert.match(globals, /rgba\(19, 19, 19, 0\.35\)/);
 });
+
+const smartLink = readFileSync("components/SmartLink.tsx", "utf8");
+
+test("SmartLink component file exists and is a client component", () => {
+  assert.match(smartLink, /"use client"/);
+});
+
+test("SmartLink renders an <a> element with .smart-link class", () => {
+  assert.match(smartLink, /smart-link/);
+  assert.match(smartLink, /<a\b/);
+});
+
+test("SmartLink includes the pill underline span", () => {
+  assert.match(smartLink, /smart-link-underline/);
+  assert.match(smartLink, /aria-hidden="true"/);
+});
+
+test("SmartLink without preview prop renders just the link", () => {
+  assert.match(smartLink, /if \(!preview\)/);
+});

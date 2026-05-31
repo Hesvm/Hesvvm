@@ -47,3 +47,15 @@ test("QuoteBlock handles Ctrl+K keydown", () => {
   assert.match(quoteBlock, /ctrlKey.*metaKey|metaKey.*ctrlKey/);
   assert.match(quoteBlock, /key.*===.*k|key.*===.*K/);
 });
+
+const titleBlock = readFileSync("components/admin/blocks/TitleBlock.tsx", "utf8");
+
+test("TitleBlock handles Ctrl+K keydown", () => {
+  assert.match(titleBlock, /onKeyDown/);
+  assert.match(titleBlock, /ctrlKey.*metaKey|metaKey.*ctrlKey/);
+  assert.match(titleBlock, /key.*===.*k|key.*===.*K/);
+});
+
+test("TitleBlock uses a ref on the input", () => {
+  assert.match(titleBlock, /useRef/);
+});

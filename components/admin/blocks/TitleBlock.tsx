@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { TitleBlock as TitleBlockType } from '@/types/project'
 
 const font = '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif'
@@ -15,6 +15,28 @@ interface Props {
 
 export default function TitleBlock({ block, onChange, onDelete, isReordering, dragHandleProps }: Props) {
   const [confirmDelete, setConfirmDelete] = useState(false)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault()
+      const el = inputRef.current
+      if (!el) return
+      const url = window.prompt('URL:')
+      if (!url) return
+      const { selectionStart: start, selectionEnd: end, value } = el
+      const s = start ?? value.length
+      const en = end ?? value.length
+      const selected = value.slice(s, en)
+      const insertion = selected ? `[${selected}](${url})` : `[](${url})`
+      const next = value.slice(0, s) + insertion + value.slice(en)
+      onChange({ ...block, content: next })
+      const cursorPos = selected ? s + insertion.length : s + 1
+      requestAnimationFrame(() => {
+        el.setSelectionRange(cursorPos, cursorPos)
+      })
+    }
+  }
 
   return (
     <div style={{
@@ -91,10 +113,12 @@ export default function TitleBlock({ block, onChange, onDelete, isReordering, dr
 
       {/* Input */}
       <input
+        ref={inputRef}
         type="text"
         value={block.content}
         readOnly={isReordering}
         onChange={e => onChange({ ...block, content: e.target.value })}
+        onKeyDown={handleKeyDown}
         placeholder="Section title"
         style={{
           width: '100%',

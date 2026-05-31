@@ -1,9 +1,22 @@
+import React from "react";
 import Image from "next/image";
 import Divider from "@/components/Divider";
 import ProjectLink from "@/components/ProjectLink";
 import Reveal from "@/components/Reveal";
 import { ContentBlock } from "@/types/project";
 import { parseInlineLinks } from "@/lib/parseInlineLinks";
+
+function renderRichText(text: string): React.ReactNode {
+  const paragraphs = text.split(/\n\n+/);
+  return paragraphs.map((para, pi) => (
+    <p key={pi} style={{ margin: pi === 0 ? 0 : "1em 0 0" }}>
+      {para.split("\n").flatMap((line, li, arr) => {
+        const nodes = parseInlineLinks(line);
+        return li < arr.length - 1 ? [...nodes, <br key={`br-${li}`} />] : nodes;
+      })}
+    </p>
+  ));
+}
 
 interface ContentRendererProps {
   blocks: ContentBlock[];
@@ -29,7 +42,7 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
                   color: "var(--color-text-primary)",
                 }}
               >
-                {parseInlineLinks(block.content)}
+                {renderRichText(block.content)}
               </div>
             </Reveal>
           );

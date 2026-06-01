@@ -436,6 +436,21 @@ body {
   display: block;
 }
 
+/* Back + link button icon hover */
+.back-button-fixed svg path,
+.project-link-button svg path,
+.mobile-project-back svg path,
+.mobile-project-link svg path {
+  stroke: #969189;
+  transition: stroke 0.2s ease;
+}
+.back-button-fixed:hover svg path,
+.project-link-button:hover svg path,
+.mobile-project-back:hover svg path,
+.mobile-project-link:hover svg path {
+  stroke: var(--text-primary);
+}
+
 /* Project hero image */
 .project-hero {
   height: 336px;

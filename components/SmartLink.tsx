@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import React, { useRef, useState } from "react";
 import { createPortal } from "react-dom";
@@ -95,18 +94,17 @@ function PreviewCardPortal({
           position: "relative",
         }}
       >
-        <Image
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           src={preview.image}
           alt={preview.title}
-          fill
-          style={{ objectFit: "cover" }}
-          sizes="224px"
+          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
         />
       </div>
       <div style={{ padding: "11px 4px 14px" }}>
         <div
           style={{
-            fontSize: 13.5,
+            fontSize: 18,
             fontWeight: 600,
             color: "var(--text-primary)",
             lineHeight: 1.3,

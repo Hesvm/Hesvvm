@@ -650,7 +650,7 @@ body {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -4px;
+  bottom: -3px;
   height: 3px;
   border-radius: 999px;
   background: rgba(150, 145, 137, 0.40);

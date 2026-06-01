@@ -3,6 +3,17 @@
 import { useState, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 
+async function uploadImage(file: File): Promise<string> {
+  const ext = file.name.split('.').pop() ?? 'jpg'
+  const path = `smartlinks/${Date.now()}.${ext}`
+  const formData = new FormData()
+  formData.append('file', file)
+  formData.append('path', path)
+  const res = await fetch('/api/admin/upload', { method: 'POST', body: formData })
+  const data = await res.json() as { url: string }
+  return data.url
+}
+
 export interface LinkDialogResult {
   url: string
   preview?: { image: string; title: string; subtitle: string }
@@ -42,7 +53,9 @@ export function LinkDialog({ open, onConfirm, onCancel, onRemove, initialData }:
   const [image, setImage] = useState('')
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
+  const [uploading, setUploading] = useState(false)
   const urlRef = useRef<HTMLInputElement>(null)
+  const photoInputRef = useRef<HTMLInputElement>(null)
   const isEditing = !!initialData?.url
 
   useEffect(() => {
@@ -129,8 +142,40 @@ export function LinkDialog({ open, onConfirm, onCancel, onRemove, initialData }:
             border: '1px solid #f0f0f0',
           }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-              <label style={{ fontSize: 11, color: '#9ca3af', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.04em' }}>Photo path</label>
-              <input value={image} onChange={e => setImage(e.target.value)} placeholder="/images/people/name.jpg" style={fieldStyle} />
+              <label style={{ fontSize: 11, color: '#9ca3af', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.04em' }}>Photo</label>
+              <div style={{ display: 'flex', gap: 6 }}>
+                <input value={image} onChange={e => setImage(e.target.value)} placeholder="/images/people/name.jpg or URL" style={{ ...fieldStyle, flex: 1 }} />
+                <button
+                  type="button"
+                  onClick={() => photoInputRef.current?.click()}
+                  disabled={uploading}
+                  style={{
+                    flexShrink: 0, border: '1px solid #e8e8e8', borderRadius: 6,
+                    padding: '0 10px', fontSize: 12, fontFamily: font,
+                    background: '#f9f9f9', color: uploading ? '#9ca3af' : '#374151',
+                    cursor: uploading ? 'not-allowed' : 'pointer', whiteSpace: 'nowrap',
+                  }}
+                >
+                  {uploading ? '…' : 'Upload'}
+                </button>
+                <input
+                  ref={photoInputRef}
+                  type="file"
+                  accept="image/*"
+                  style={{ display: 'none' }}
+                  onChange={async e => {
+                    const file = e.target.files?.[0]
+                    if (!file) return
+                    setUploading(true)
+                    try { setImage(await uploadImage(file)) }
+                    finally { setUploading(false) }
+                  }}
+                />
+              </div>
+              {image && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={image} alt="preview" style={{ width: '100%', height: 80, objectFit: 'cover', borderRadius: 6, marginTop: 2 }} />
+              )}
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
               <label style={{ fontSize: 11, color: '#9ca3af', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.04em' }}>Title</label>

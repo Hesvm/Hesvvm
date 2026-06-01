@@ -4,12 +4,12 @@ import { Project } from "@/types/project";
 import BackButton from "@/components/BackButton";
 import ProjectHero from "@/components/ProjectHero";
 import ContentRenderer from "@/components/ContentRenderer";
+import Reveal from "@/components/Reveal";
 import { useRouter } from "next/navigation";
 
 export default function ProjectPageClient({ project }: { project: Project }) {
   const router = useRouter();
   const subtitle = project.subtitle || project.category;
-  const mobileSubtitle = [project.year, subtitle].filter(Boolean).join(" - ");
 
   return (
     <div
@@ -53,43 +53,53 @@ export default function ProjectPageClient({ project }: { project: Project }) {
       </div>
 
       <div className="project-content site-content">
-        <ProjectHero thumbnail={project.thumbnail_url} slug={project.slug} />
+        {(project.thumbnail_url || project.thumbnail_video_url) && (
+          <Reveal>
+            <ProjectHero
+              thumbnail={project.thumbnail_url}
+              thumbnailVideo={project.thumbnail_video_url}
+              slug={project.slug}
+            />
+          </Reveal>
+        )}
 
         {/* Desktop-only title/subtitle block */}
-        <div className="project-title-content">
-          <h1
-            className="project-detail-title"
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontStyle: "normal",
-              fontWeight: 600,
-              letterSpacing: "-0.03em",
-              margin: "0 0 6px 0",
-              color: "var(--color-text-primary)",
-              lineHeight: 1.1,
-              WebkitFontSmoothing: "antialiased",
-            }}
-          >
-            {project.title}
-          </h1>
-
-          {subtitle && (
-            <p
+        <Reveal delay={0.08}>
+          <div className="project-title-content">
+            <h1
+              className="project-detail-title"
               style={{
                 fontFamily: "var(--font-sans)",
                 fontStyle: "normal",
-                fontWeight: 500,
-                fontSize: "16px",
-                letterSpacing: "-0.02em",
-                color: "var(--text-muted)",
-                margin: "0 0 28px 0",
+                fontWeight: 600,
+                letterSpacing: "-0.03em",
+                margin: "0 0 6px 0",
+                color: "var(--color-text-primary)",
+                lineHeight: 1.1,
                 WebkitFontSmoothing: "antialiased",
               }}
             >
-              {subtitle}
-            </p>
-          )}
-        </div>
+              {project.title}
+            </h1>
+
+            {subtitle && (
+              <p
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontStyle: "normal",
+                  fontWeight: 500,
+                  fontSize: "16px",
+                  letterSpacing: "-0.02em",
+                  color: "var(--text-muted)",
+                  margin: "0 0 28px 0",
+                  WebkitFontSmoothing: "antialiased",
+                }}
+              >
+                {subtitle}
+              </p>
+            )}
+          </div>
+        </Reveal>
 
         <ContentRenderer blocks={project.blocks} />
       </div>

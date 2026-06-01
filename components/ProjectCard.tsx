@@ -155,13 +155,25 @@ export function ProjectCard({
             transform: isHoverCapable && isHovered ? "translateY(-6px)" : "translateY(0)",
           }}
         >
-          <SharedProjectImage
-            layoutId={`project-image-${project.slug}`}
-            src={project.thumbnail_url ?? ''}
-            alt={project.title}
-            style={{ width: "100%", height: "100%" }}
-            sizes="(max-width: 767px) 50vw, 156px"
-          />
+          {project.thumbnail_video_url ? (
+            <video
+              src={project.thumbnail_video_url}
+              autoPlay={project.thumbnail_video_play !== 'static'}
+              muted
+              loop
+              playsInline
+              preload={project.thumbnail_video_play === 'static' ? 'metadata' : 'auto'}
+              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+            />
+          ) : (
+            <SharedProjectImage
+              layoutId={`project-image-${project.slug}`}
+              src={project.thumbnail_url ?? ''}
+              alt={project.title}
+              style={{ width: "100%", height: "100%" }}
+              sizes="(max-width: 767px) 50vw, 156px"
+            />
+          )}
         </div>
         <h3
           style={{
@@ -189,7 +201,7 @@ export function ProjectCard({
             WebkitFontSmoothing: "antialiased",
           }}
         >
-          {project.year}
+          {[project.year, project.category].filter(Boolean).join(" · ")}
         </p>
       </div>
     </motion.div>

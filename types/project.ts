@@ -82,6 +82,8 @@ export type Project = {
   year?: string
   tags?: string[]
   thumbnail_url: string | null
+  thumbnail_video_url?: string | null
+  thumbnail_video_play?: 'auto' | 'static' | null
   favicon_url?: string | null
   og_image_url?: string | null
   og_title?: string | null

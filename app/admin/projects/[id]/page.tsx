@@ -58,6 +58,7 @@ export default function ProjectEditorPage({ params }: PageProps) {
   const [isReordering, setIsReordering] = useState(false)
   const [slugManual, setSlugManual] = useState(false)
   const [thumbnailUploading, setThumbnailUploading] = useState(false)
+  const [thumbnailVideoUploading, setThumbnailVideoUploading] = useState(false)
   const [ogUploading, setOgUploading] = useState(false)
   const [faviconUploading, setFaviconUploading] = useState(false)
   const [saving, setSaving] = useState(false)
@@ -209,6 +210,25 @@ export default function ProjectEditorPage({ params }: PageProps) {
       addToast((err as Error).message || 'Upload failed', 'error')
     }
     setThumbnailUploading(false)
+  }
+
+  async function handleThumbnailVideoUpload(file: File) {
+    const ext = file.name.split('.').pop() ?? 'mp4'
+    const path = `thumbnail-videos/${project.slug ?? 'project'}-${Date.now()}.${ext}`
+    const formData = new FormData()
+    formData.append('file', file)
+    formData.append('path', path)
+    setThumbnailVideoUploading(true)
+    try {
+      const res = await fetch('/api/admin/upload', { method: 'POST', body: formData })
+      const data = await res.json() as { url?: string; error?: string }
+      if (data.error) throw new Error(data.error)
+      updateProject({ thumbnail_video_url: data.url!, thumbnail_video_play: project.thumbnail_video_play ?? 'auto' })
+      addToast('Thumbnail video uploaded', 'success')
+    } catch (err) {
+      addToast((err as Error).message || 'Upload failed', 'error')
+    }
+    setThumbnailVideoUploading(false)
   }
 
   async function handleFaviconUpload(file: File) {
@@ -369,6 +389,54 @@ export default function ProjectEditorPage({ params }: PageProps) {
                 </div>
                 <input type="file" accept="image/*" style={{ display: 'none' }} onChange={e => { const f = e.target.files?.[0]; if (f) void handleThumbnailUpload(f) }} />
               </label>
+            </div>
+
+            {/* ── Thumbnail Video ── */}
+            <div>
+              <label style={labelStyle()}>Thumbnail Video <span style={{ textTransform: 'none', fontSize: 10, color: '#bbb', marginLeft: 2 }}>replaces image in grid + hero</span></label>
+              {project.thumbnail_video_url && (
+                <div style={{ marginBottom: 8, position: 'relative' }}>
+                  <video
+                    src={project.thumbnail_video_url}
+                    muted
+                    loop
+                    playsInline
+                    controls
+                    style={{ width: '100%', borderRadius: 6, display: 'block', maxHeight: 140, objectFit: 'cover', background: '#000' }}
+                  />
+                  <button
+                    onClick={() => updateProject({ thumbnail_video_url: null })}
+                    style={{ position: 'absolute', top: 4, right: 4, background: 'rgba(0,0,0,0.5)', color: '#fff', border: 'none', borderRadius: 4, padding: '2px 8px', fontSize: 11, cursor: 'pointer' }}
+                  >
+                    Remove
+                  </button>
+                </div>
+              )}
+              <label style={{ display: 'block', cursor: 'pointer' }}>
+                <div style={{ border: '1px dashed #d1d5db', borderRadius: 6, padding: '10px 12px', fontSize: 13, color: '#6b7280', textAlign: 'center', cursor: 'pointer' }}>
+                  {thumbnailVideoUploading ? 'Uploading…' : project.thumbnail_video_url ? 'Replace video' : 'Upload video'}
+                </div>
+                <input type="file" accept="video/*" style={{ display: 'none' }} onChange={e => { const f = e.target.files?.[0]; if (f) void handleThumbnailVideoUpload(f) }} />
+              </label>
+              {project.thumbnail_video_url && (
+                <div style={{ display: 'flex', gap: 6, marginTop: 8 }}>
+                  {(['auto', 'static'] as const).map(mode => (
+                    <button
+                      key={mode}
+                      onClick={() => updateProject({ thumbnail_video_play: mode })}
+                      style={{
+                        flex: 1, padding: '6px 0', fontSize: 12, fontFamily: font,
+                        border: '1px solid #e8e8e8', borderRadius: 6, cursor: 'pointer',
+                        background: (project.thumbnail_video_play ?? 'auto') === mode ? '#1a1a1a' : '#fafafa',
+                        color: (project.thumbnail_video_play ?? 'auto') === mode ? '#fff' : '#6b7280',
+                        fontWeight: (project.thumbnail_video_play ?? 'auto') === mode ? 500 : 400,
+                      }}
+                    >
+                      {mode === 'auto' ? '▶ Autoplay' : '⏸ First frame'}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             <div>

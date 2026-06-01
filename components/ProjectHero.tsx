@@ -4,12 +4,14 @@ import { SharedProjectImage } from "@/components/SharedProjectImage";
 
 export default function ProjectHero({
   thumbnail,
+  thumbnailVideo,
   slug,
 }: {
   thumbnail: string | null;
+  thumbnailVideo?: string | null;
   slug: string;
 }) {
-  if (!thumbnail) return null;
+  if (!thumbnail && !thumbnailVideo) return null;
 
   return (
     <div
@@ -20,15 +22,31 @@ export default function ProjectHero({
         overflow: "hidden",
       }}
     >
-      <SharedProjectImage
-        layoutId={`project-image-${slug}`}
-        src={thumbnail}
-        alt={slug}
-        style={{ width: "100%", height: "100%" }}
-        sizes="(max-width: 767px) 100vw, 540px"
-        priority
-        fetchPriority="high"
-      />
+      {thumbnailVideo ? (
+        <video
+          src={thumbnailVideo}
+          autoPlay
+          muted
+          loop
+          playsInline
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            display: "block",
+          }}
+        />
+      ) : (
+        <SharedProjectImage
+          layoutId={`project-image-${slug}`}
+          src={thumbnail!}
+          alt={slug}
+          style={{ width: "100%", height: "100%" }}
+          sizes="(max-width: 767px) 100vw, 540px"
+          priority
+          fetchPriority="high"
+        />
+      )}
     </div>
   );
 }

@@ -179,7 +179,7 @@ export function ProjectCard({
           style={{
             fontFamily: "var(--font-sans)",
             fontStyle: "normal",
-            fontSize: "15px",
+            fontSize: "18px",
             fontWeight: 600,
             letterSpacing: "-0.02em",
             margin: "0 0 2px 0",

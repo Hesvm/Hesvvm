@@ -182,13 +182,30 @@ export function ProjectCard({
             fontSize: "15px",
             fontWeight: 600,
             letterSpacing: "-0.02em",
-            margin: "0 0 3px 0",
+            margin: "0 0 2px 0",
             color: "var(--color-text-primary)",
             WebkitFontSmoothing: "antialiased",
           }}
         >
           {project.title}
         </h3>
+        {project.subtitle && (
+          <p
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontStyle: "normal",
+              fontSize: "12px",
+              fontWeight: 400,
+              letterSpacing: "-0.01em",
+              color: "var(--text-secondary)",
+              margin: "0 0 2px 0",
+              lineHeight: 1.3,
+              WebkitFontSmoothing: "antialiased",
+            }}
+          >
+            {project.subtitle}
+          </p>
+        )}
         <p
           style={{
             fontFamily: "var(--font-sans)",

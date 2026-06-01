@@ -438,7 +438,7 @@ body {
 
 /* Project hero image */
 .project-hero {
-  height: 420px;
+  height: 336px;
   margin-bottom: 24px;
   border-radius: 18px;
 }
@@ -546,10 +546,10 @@ body {
     aspect-ratio: 16 / 10;
   }
 
-  /* Image pair — stack vertically */
+  /* Image pair — keep side by side on mobile */
   .content-image-pair {
-    flex-direction: column;
-    gap: 12px;
+    flex-direction: row;
+    gap: 10px;
   }
 
   /* Project detail title */

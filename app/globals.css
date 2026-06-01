@@ -574,6 +574,24 @@ body {
     z-index: 50;
   }
 
+  /* Link button — absolute right, vertically centered */
+  .mobile-project-link {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    background-color: transparent;
+    border: 1px solid var(--border-subtle);
+    text-decoration: none;
+    z-index: 1;
+  }
+
   /* Back button — absolute left, vertically centered */
   .mobile-project-back {
     position: absolute;

@@ -52,7 +52,7 @@ export default function ProjectEditorPage({ params }: PageProps) {
   const router = useRouter()
 
   const [project, setProject] = useState<Partial<Project>>({
-    title: '', slug: '', subtitle: '', thumbnail_url: null, status: 'draft', blocks: [],
+    title: '', slug: '', subtitle: '', project_url: '', thumbnail_url: null, status: 'draft', blocks: [],
   })
   const [isNew, setIsNew] = useState(id === 'new')
   const [isReordering, setIsReordering] = useState(false)
@@ -372,6 +372,17 @@ export default function ProjectEditorPage({ params }: PageProps) {
                 onChange={e => updateProject({ subtitle: e.target.value })}
                 style={inputStyle()}
                 placeholder="e.g. Product Design · 2024"
+              />
+            </div>
+
+            <div>
+              <label style={labelStyle()}>Project URL <span style={{ textTransform: 'none', fontSize: 10, color: '#bbb', marginLeft: 2 }}>opens in new tab on project page</span></label>
+              <input
+                type="url"
+                value={project.project_url ?? ''}
+                onChange={e => updateProject({ project_url: e.target.value })}
+                style={inputStyle()}
+                placeholder="https://..."
               />
             </div>
 

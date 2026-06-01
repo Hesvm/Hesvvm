@@ -22,6 +22,37 @@ export default function ProjectPageClient({ project }: { project: Project }) {
       {/* Desktop back button — hidden on mobile */}
       <BackButton />
 
+      {/* Desktop link button — hidden on mobile, only when project_url is set */}
+      {project.project_url && (
+        <a
+          href={project.project_url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="back-button-fixed project-link-button"
+          aria-label="Open project"
+          style={{
+            position: "fixed",
+            left: "max(16px, calc(50vw - 329px))",
+            top: "112px",
+            zIndex: 50,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "40px",
+            height: "40px",
+            borderRadius: "999px",
+            backgroundColor: "transparent",
+            border: "1px solid var(--border-subtle)",
+            boxShadow: "var(--shadow-soft)",
+            textDecoration: "none",
+          }}
+        >
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.83333 5.16667L11 1M11 3.77778V1H8.22222M11 7.11111V9.88889C11 10.1836 10.8829 10.4662 10.6746 10.6746C10.4662 10.8829 10.1836 11 9.88889 11H2.11111C1.81643 11 1.53381 10.8829 1.32544 10.6746C1.11706 10.4662 1 10.1836 1 9.88889V2.11111C1 1.81643 1.11706 1.53381 1.32544 1.32544C1.53381 1.11706 1.81643 1 2.11111 1H4.88889" stroke="#969189" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </a>
+      )}
+
       {/* Mobile-only fixed header */}
       <div className="mobile-project-header">
         {/* Back button — absolute so it doesn't affect title centering */}
@@ -34,6 +65,21 @@ export default function ProjectPageClient({ project }: { project: Project }) {
             <path d="M6 1L1 6L6 11" stroke="#969189" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </button>
+
+        {/* Link button — top right, only when project_url is set */}
+        {project.project_url && (
+          <a
+            href={project.project_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mobile-project-link"
+            aria-label="Open project"
+          >
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6.83333 5.16667L11 1M11 3.77778V1H8.22222M11 7.11111V9.88889C11 10.1836 10.8829 10.4662 10.6746 10.6746C10.4662 10.8829 10.1836 11 9.88889 11H2.11111C1.81643 11 1.53381 10.8829 1.32544 10.6746C1.11706 10.4662 1 10.1836 1 9.88889V2.11111C1 1.81643 1.11706 1.53381 1.32544 1.32544C1.53381 1.11706 1.81643 1 2.11111 1H4.88889" stroke="#969189" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </a>
+        )}
 
         {/* Title — absolutely centered on full screen, pointer-events:none so button stays clickable */}
         <div className="mobile-project-header-title">

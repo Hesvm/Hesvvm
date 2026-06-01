@@ -81,6 +81,7 @@ export type Project = {
   category?: string
   year?: string
   tags?: string[]
+  project_url?: string | null
   thumbnail_url: string | null
   thumbnail_video_url?: string | null
   thumbnail_video_play?: 'auto' | 'static' | null

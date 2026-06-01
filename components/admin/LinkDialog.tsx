@@ -8,10 +8,17 @@ export interface LinkDialogResult {
   preview?: { image: string; title: string; subtitle: string }
 }
 
+export interface LinkDialogInitialData {
+  url?: string
+  preview?: { image: string; title: string; subtitle: string }
+}
+
 interface Props {
   open: boolean
   onConfirm: (result: LinkDialogResult) => void
   onCancel: () => void
+  onRemove?: () => void
+  initialData?: LinkDialogInitialData
 }
 
 const font = '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif'
@@ -29,34 +36,32 @@ const fieldStyle: React.CSSProperties = {
   boxSizing: 'border-box',
 }
 
-export function LinkDialog({ open, onConfirm, onCancel }: Props) {
+export function LinkDialog({ open, onConfirm, onCancel, onRemove, initialData }: Props) {
   const [url, setUrl] = useState('')
   const [smart, setSmart] = useState(false)
   const [image, setImage] = useState('')
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const urlRef = useRef<HTMLInputElement>(null)
+  const isEditing = !!initialData?.url
 
   useEffect(() => {
     if (open) {
-      setUrl('')
-      setSmart(false)
-      setImage('')
-      setTitle('')
-      setDescription('')
+      setUrl(initialData?.url ?? '')
+      const p = initialData?.preview
+      setSmart(!!p)
+      setImage(p?.image ?? '')
+      setTitle(p?.title ?? '')
+      setDescription(p?.subtitle ?? '')
       setTimeout(() => urlRef.current?.focus(), 30)
     }
-  }, [open])
+  }, [open]) // eslint-disable-line react-hooks/exhaustive-deps
 
   function confirm() {
     if (!url.trim()) return
     const result: LinkDialogResult = { url: url.trim() }
     if (smart && image.trim() && title.trim() && description.trim()) {
-      result.preview = {
-        image: image.trim(),
-        title: title.trim(),
-        subtitle: description.trim(),
-      }
+      result.preview = { image: image.trim(), title: title.trim(), subtitle: description.trim() }
     }
     onConfirm(result)
   }
@@ -89,7 +94,9 @@ export function LinkDialog({ open, onConfirm, onCancel }: Props) {
         }}
         onKeyDown={onKey}
       >
-        <div style={{ fontSize: 14, fontWeight: 600, color: '#1a1a1a' }}>Insert link</div>
+        <div style={{ fontSize: 14, fontWeight: 600, color: '#1a1a1a' }}>
+          {isEditing ? 'Edit link' : 'Insert link'}
+        </div>
 
         {/* URL */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
@@ -123,30 +130,15 @@ export function LinkDialog({ open, onConfirm, onCancel }: Props) {
           }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
               <label style={{ fontSize: 11, color: '#9ca3af', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.04em' }}>Photo path</label>
-              <input
-                value={image}
-                onChange={e => setImage(e.target.value)}
-                placeholder="/images/people/name.jpg"
-                style={fieldStyle}
-              />
+              <input value={image} onChange={e => setImage(e.target.value)} placeholder="/images/people/name.jpg" style={fieldStyle} />
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
               <label style={{ fontSize: 11, color: '#9ca3af', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.04em' }}>Title</label>
-              <input
-                value={title}
-                onChange={e => setTitle(e.target.value)}
-                placeholder="Parsa Ghaffari"
-                style={fieldStyle}
-              />
+              <input value={title} onChange={e => setTitle(e.target.value)} placeholder="Parsa Ghaffari" style={fieldStyle} />
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
               <label style={{ fontSize: 11, color: '#9ca3af', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.04em' }}>Description</label>
-              <input
-                value={description}
-                onChange={e => setDescription(e.target.value)}
-                placeholder="Ex CEO of Alien, specialist in founding startups"
-                style={fieldStyle}
-              />
+              <input value={description} onChange={e => setDescription(e.target.value)} placeholder="Ex CEO of Alien…" style={fieldStyle} />
             </div>
             {smart && !smartComplete && (
               <div style={{ fontSize: 11, color: '#9ca3af' }}>Fill all three fields to enable the hover card.</div>
@@ -155,29 +147,45 @@ export function LinkDialog({ open, onConfirm, onCancel }: Props) {
         )}
 
         {/* Actions */}
-        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8, marginTop: 2 }}>
-          <button
-            onClick={onCancel}
-            style={{
-              border: '1px solid #e8e8e8', background: 'none', borderRadius: 6,
-              padding: '6px 14px', fontSize: 13, cursor: 'pointer', color: '#6b7280', fontFamily: font,
-            }}
-          >
-            Cancel
-          </button>
-          <button
-            onClick={confirm}
-            disabled={!canInsert}
-            style={{
-              background: canInsert ? '#1a1a1a' : '#e5e7eb',
-              color: canInsert ? '#fff' : '#9ca3af',
-              border: 'none', borderRadius: 6, padding: '6px 14px',
-              fontSize: 13, fontWeight: 500, fontFamily: font,
-              cursor: canInsert ? 'pointer' : 'not-allowed',
-            }}
-          >
-            Insert
-          </button>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 2 }}>
+          {/* Remove link (edit mode only) */}
+          <div>
+            {isEditing && onRemove && (
+              <button
+                onClick={onRemove}
+                style={{
+                  background: 'none', border: 'none', padding: 0,
+                  fontSize: 12, color: '#dc2626', cursor: 'pointer', fontFamily: font,
+                }}
+              >
+                Remove link
+              </button>
+            )}
+          </div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <button
+              onClick={onCancel}
+              style={{
+                border: '1px solid #e8e8e8', background: 'none', borderRadius: 6,
+                padding: '6px 14px', fontSize: 13, cursor: 'pointer', color: '#6b7280', fontFamily: font,
+              }}
+            >
+              Cancel
+            </button>
+            <button
+              onClick={confirm}
+              disabled={!canInsert}
+              style={{
+                background: canInsert ? '#1a1a1a' : '#e5e7eb',
+                color: canInsert ? '#fff' : '#9ca3af',
+                border: 'none', borderRadius: 6, padding: '6px 14px',
+                fontSize: 13, fontWeight: 500, fontFamily: font,
+                cursor: canInsert ? 'pointer' : 'not-allowed',
+              }}
+            >
+              {isEditing ? 'Update' : 'Insert'}
+            </button>
+          </div>
         </div>
       </div>
     </div>,

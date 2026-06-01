@@ -146,29 +146,27 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
         }
 
         if (block.type === "image-pair") {
+          const renderPairSlot = (media: typeof block.left) => (
+            <div style={{ flex: 1 }}>
+              <div style={{ position: "relative", aspectRatio: "1 / 1", overflow: "hidden", borderRadius: "18px", backgroundColor: "#000" }}>
+                {media.mediaType === "video" ? (
+                  <video src={media.src} style={{ width: "100%", height: "100%", objectFit: "cover" }} autoPlay muted loop playsInline />
+                ) : (
+                  <Image src={media.src} alt={media.alt ?? ""} fill style={{ objectFit: "cover" }} />
+                )}
+              </div>
+              {media.subtitle && (
+                <div style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontSize: "16px", color: "var(--color-text-muted)", textAlign: "center", marginTop: "8px" }}>
+                  {media.subtitle}
+                </div>
+              )}
+            </div>
+          )
           return (
             <Reveal key={block.id} delay={delay}>
               <div className="content-image-pair">
-                <div style={{ flex: 1 }}>
-                  <div style={{ position: "relative", aspectRatio: "1 / 1", overflow: "hidden", borderRadius: "18px" }}>
-                    <Image src={block.left.src} alt={block.left.alt ?? ""} fill style={{ objectFit: "cover" }} />
-                  </div>
-                  {block.left.subtitle && (
-                    <div style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontSize: "16px", color: "var(--color-text-muted)", textAlign: "center", marginTop: "8px" }}>
-                      {block.left.subtitle}
-                    </div>
-                  )}
-                </div>
-                <div style={{ flex: 1 }}>
-                  <div style={{ position: "relative", aspectRatio: "1 / 1", overflow: "hidden", borderRadius: "18px" }}>
-                    <Image src={block.right.src} alt={block.right.alt ?? ""} fill style={{ objectFit: "cover" }} />
-                  </div>
-                  {block.right.subtitle && (
-                    <div style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontSize: "16px", color: "var(--color-text-muted)", textAlign: "center", marginTop: "8px" }}>
-                      {block.right.subtitle}
-                    </div>
-                  )}
-                </div>
+                {renderPairSlot(block.left)}
+                {renderPairSlot(block.right)}
               </div>
             </Reveal>
           );

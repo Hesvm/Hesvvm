@@ -188,6 +188,35 @@ export default function ImagePairBlock({ block, onChange, onDelete, isReordering
           </div>
         )}
 
+        {/* Play mode toggle — only for video slots */}
+        {isVideo && col.src && (
+          <div style={{ display: 'flex', gap: 6, marginBottom: 8, alignItems: 'center' }}>
+            <span style={{ fontSize: 11, color: '#9ca3af' }}>Play:</span>
+            {(['auto', 'static'] as const).map(mode => {
+              const active = (col.videoPlay ?? 'auto') === mode
+              return (
+                <button
+                  key={mode}
+                  disabled={isReordering}
+                  onClick={() => onChange({ ...block, [side]: { ...col, videoPlay: mode } })}
+                  style={{
+                    border: active ? '1px solid #3b82f6' : '1px solid #d1d5db',
+                    background: active ? '#eff6ff' : '#fafafa',
+                    color: active ? '#1d4ed8' : '#6b7280',
+                    borderRadius: 6,
+                    padding: '3px 10px',
+                    fontFamily: font,
+                    fontSize: 11,
+                    cursor: isReordering ? 'default' : 'pointer',
+                  }}
+                >
+                  {mode === 'auto' ? 'Autoplay' : 'Static'}
+                </button>
+              )
+            })}
+          </div>
+        )}
+
         {/* image input — filtered to images only */}
         <input
           ref={imageRef}

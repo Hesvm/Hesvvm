@@ -150,7 +150,11 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
             <div style={{ flex: 1 }}>
               <div style={{ position: "relative", aspectRatio: "1 / 1", overflow: "hidden", borderRadius: "18px", backgroundColor: "#000" }}>
                 {media.mediaType === "video" ? (
-                  <video src={media.src} style={{ width: "100%", height: "100%", objectFit: "cover" }} autoPlay muted loop playsInline />
+                  (media.videoPlay ?? "auto") === "auto" ? (
+                    <video src={media.src} style={{ width: "100%", height: "100%", objectFit: "cover" }} autoPlay muted loop playsInline />
+                  ) : (
+                    <video src={media.src} style={{ width: "100%", height: "100%", objectFit: "cover" }} controls muted playsInline preload="metadata" />
+                  )
                 ) : (
                   <Image src={media.src} alt={media.alt ?? ""} fill style={{ objectFit: "cover" }} />
                 )}

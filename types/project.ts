@@ -31,8 +31,8 @@ export type ImageBlock = {
 export type ImagePairBlock = {
   id: string
   type: 'image-pair'
-  left: { src: string; subtitle?: string; alt?: string; mediaType?: 'image' | 'video' }
-  right: { src: string; subtitle?: string; alt?: string; mediaType?: 'image' | 'video' }
+  left: { src: string; subtitle?: string; alt?: string; mediaType?: 'image' | 'video'; videoPlay?: 'auto' | 'static' }
+  right: { src: string; subtitle?: string; alt?: string; mediaType?: 'image' | 'video'; videoPlay?: 'auto' | 'static' }
 }
 
 export type DividerBlock = {

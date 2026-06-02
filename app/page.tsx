@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     description: "Selected works & notes",
     images: [
       {
-        url: "/images/og-hero.png",
+        url: "/images/og-hero.jpg",
         width: 1200,
         height: 630,
         alt: "Hesvm",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Hesvm",
     description: "Selected works & notes",
-    images: ["/images/og-hero.png"],
+    images: ["/images/og-hero.jpg"],
   },
 };
 

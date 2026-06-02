@@ -7,24 +7,24 @@ import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Hesvm Portfolio",
-  description: "Designing products in a world of non-senses",
+  title: "Hesvm",
+  description: "Selected works & notes",
   openGraph: {
-    title: "Hesvm Portfolio",
-    description: "Designing products in a world of non-senses",
+    title: "Hesvm",
+    description: "Selected works & notes",
     images: [
       {
         url: "/images/og-hero.png",
         width: 1200,
         height: 630,
-        alt: "Hesvm Portfolio",
+        alt: "Hesvm",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Hesvm Portfolio",
-    description: "Designing products in a world of non-senses",
+    title: "Hesvm",
+    description: "Selected works & notes",
     images: ["/images/og-hero.png"],
   },
 };

@@ -15,6 +15,7 @@ const awesomeBiPolar = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://hesvvm.vercel.app"),
   title: "Hesvm",
   description: "Portfolio",
 };

@@ -5,6 +5,7 @@ import { Navbar } from "@/components/Navbar";
 import AnimatePresenceWrapper from "@/components/AnimatePresenceWrapper";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { SITE_URL } from "@/lib/site";
 
 const awesomeBiPolar = localFont({
   src: "../public/fonts/AwesomeBi_polar-Regular.otf",
@@ -15,7 +16,7 @@ const awesomeBiPolar = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://hesvvm.vercel.app"),
+  metadataBase: new URL(SITE_URL),
   title: "Hesvm",
   description: "Portfolio",
 };

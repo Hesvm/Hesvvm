@@ -65,8 +65,8 @@ const ViewsIcon = () => (
 // ── Pills config ───────────────────────────────────────────────────────────
 
 const PILLS: { id: Platform; label: string; icon: React.ReactNode; href: string }[] = [
-  { id: "linkedin", label: "LinkedIn", icon: LINKEDIN_ICON, href: "https://linkedin.com/in/hesammousavi" },
-  { id: "x",        label: "X posts",  icon: X_ICON,        href: "https://x.com/hesammousavi" },
+  { id: "linkedin", label: "LinkedIn", icon: LINKEDIN_ICON, href: "https://www.linkedin.com/in/hesvm" },
+  { id: "x",        label: "X posts",  icon: X_ICON,        href: "https://x.com/hesvvm" },
   { id: "email",    label: "Email",    icon: EMAIL_ICON,    href: "mailto:hesammousavizadeh@gmail.com" },
 ];
 
@@ -75,7 +75,7 @@ const PILLS: { id: Platform; label: string; icon: React.ReactNode; href: string 
 function LinkedInPreview() {
   return (
     <a
-      href="https://linkedin.com/in/hesammousavi"
+      href="https://www.linkedin.com/in/hesvm"
       target="_blank"
       rel="noopener noreferrer"
       style={{ display: "block", textDecoration: "none", color: "inherit" }}
@@ -139,7 +139,7 @@ function LinkedInPreview() {
 function XPreview() {
   return (
     <a
-      href="https://x.com/hesammousavi"
+      href="https://x.com/hesvvm"
       target="_blank"
       rel="noopener noreferrer"
       style={{ display: "block", textDecoration: "none", color: "inherit" }}

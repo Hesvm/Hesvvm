@@ -40,7 +40,7 @@ type TypeConfig = {
 const TYPE_CONFIG: Record<StatusType, TypeConfig> = {
   song: {
     titleLabel: 'Song title',
-    titlePlaceholder: 'e.g. Count Me Out',
+    titlePlaceholder: 'e.g. Pink + White',
     photoLabel: 'Cover photo',
     photoPlaceholder: 'Album cover URL',
     linkLabel: 'Song link',
@@ -48,7 +48,7 @@ const TYPE_CONFIG: Record<StatusType, TypeConfig> = {
   },
   movie: {
     titleLabel: 'Movie title',
-    titlePlaceholder: 'e.g. Dune: Part Two',
+    titlePlaceholder: 'e.g. Nosferatu',
     photoLabel: 'Poster photo',
     photoPlaceholder: 'Poster image URL',
     linkLabel: 'Movie link',
@@ -64,7 +64,7 @@ const TYPE_CONFIG: Record<StatusType, TypeConfig> = {
   },
   book: {
     titleLabel: 'Book title',
-    titlePlaceholder: 'e.g. ZAG',
+    titlePlaceholder: 'e.g. Sprint',
     photoLabel: 'Cover photo',
     photoPlaceholder: 'Book cover URL',
     linkLabel: 'Book link',

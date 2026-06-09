@@ -310,7 +310,10 @@ export default function AdminStatusPage() {
                   <div style={{ minWidth: 0 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
                       <span style={{ fontSize: 11, color: '#777', textTransform: 'uppercase' }}>{status.type}</span>
-                      {status.isActive ? <span style={{ fontSize: 11, color: '#4F6B4E', background: '#EDF4EC', padding: '2px 7px', borderRadius: 99 }}>Active</span> : null}
+                      {status.isActive
+                        ? <span style={{ fontSize: 11, color: '#4F6B4E', background: '#EDF4EC', padding: '2px 7px', borderRadius: 99, fontWeight: 500 }}>Active</span>
+                        : <span style={{ fontSize: 11, color: '#999', background: '#f3f3f3', padding: '2px 7px', borderRadius: 99 }}>Inactive</span>
+                      }
                     </div>
                     <div style={{ fontSize: 14, fontWeight: 500, color: '#111', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{status.title}</div>
                     <div style={{ fontSize: 12, color: '#999', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{status.subtitle || status.link || 'No subtitle or link'}</div>
@@ -318,7 +321,7 @@ export default function AdminStatusPage() {
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                     <button onClick={() => setForm(statusToForm(status))} style={{ fontSize: 12, background: 'none', border: 'none', cursor: 'pointer', color: '#333', fontFamily: font }}>Edit</button>
                     <button onClick={() => handleSetActive(status, !status.isActive)} style={{ fontSize: 12, background: 'none', border: 'none', cursor: 'pointer', color: '#555', fontFamily: font }}>
-                      {status.isActive ? 'Deactivate' : 'Set Active'}
+                      {status.isActive ? 'Deactivate' : 'Set active'}
                     </button>
                     <button onClick={() => handleDelete(status)} style={{ fontSize: 12, background: 'none', border: 'none', cursor: 'pointer', color: '#e53e3e', fontFamily: font }}>Delete</button>
                   </div>

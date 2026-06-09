@@ -238,6 +238,14 @@ export default function AdminStatusPage() {
   }
 
   async function handleSetActive(status: Status, isActive: boolean) {
+    if (!isActive && status.isActive) {
+      const otherActive = statuses.some(s => s.id !== status.id && s.isActive)
+      if (!otherActive) {
+        setError('Cannot deactivate — this is the only active status. Set another status active first, or delete this one.')
+        return
+      }
+    }
+
     const res = await fetch(`/api/admin/statuses/${status.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -248,6 +256,7 @@ export default function AdminStatusPage() {
       setError(('error' in data && data.error) ? data.error : 'Status update failed.')
       return
     }
+    setError('')
     await fetchStatuses()
   }
 

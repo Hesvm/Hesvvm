@@ -382,6 +382,15 @@ export default function AdminStatusPage() {
                 {uploading ? 'Uploading...' : 'Upload'}
                 <input type="file" accept="image/*" disabled={uploading} onChange={e => e.target.files?.[0] && void handlePhotoUpload(e.target.files[0])} style={{ display: 'none' }} />
               </label>
+              {form.photo && !photoError ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={form.photo}
+                  alt="Photo preview"
+                  onError={() => setPhotoError(true)}
+                  style={{ width: 36, height: 36, objectFit: 'cover', borderRadius: 6, flexShrink: 0, border: '1px solid #e8e8e8' }}
+                />
+              ) : null}
             </div>
             {touched.has('photo') && fieldErrors.photo ? <p style={fieldErrorStyle()}>{fieldErrors.photo}</p> : null}
           </div>

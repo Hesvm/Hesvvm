@@ -120,6 +120,22 @@ function statusToForm(status: Status): StatusForm {
   }
 }
 
+type FieldErrors = Partial<Record<'type' | 'title' | 'subtitle' | 'link' | 'photo', string>>
+
+function validateFields(f: StatusForm): FieldErrors {
+  const errors: FieldErrors = {}
+  if (!f.type) errors.type = 'Type is required'
+  if (!f.title.trim()) errors.title = `${TYPE_CONFIG[f.type]?.titleLabel ?? 'Title'} is required`
+  if (!f.photo.trim()) errors.photo = `${TYPE_CONFIG[f.type]?.photoLabel ?? 'Photo'} is required`
+  if (!f.link.trim()) errors.link = `${TYPE_CONFIG[f.type]?.linkLabel ?? 'Link'} is required`
+  if (f.type === 'manual' && !f.subtitle.trim()) errors.subtitle = 'Subtitle is required for manual status'
+  return errors
+}
+
+function fieldErrorStyle(): React.CSSProperties {
+  return { fontSize: 11, color: '#9A4B42', margin: '4px 0 0' }
+}
+
 export default function AdminStatusPage() {
   const [statuses, setStatuses] = useState<Status[]>([])
   const [form, setForm] = useState<StatusForm>(emptyForm)
@@ -127,6 +143,9 @@ export default function AdminStatusPage() {
   const [saving, setSaving] = useState(false)
   const [uploading, setUploading] = useState(false)
   const [error, setError] = useState('')
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({})
+  const [touched, setTouched] = useState<Set<string>>(new Set())
+  const [photoError, setPhotoError] = useState(false)
 
   const isEditing = Boolean(form.id)
   const activeStatus = useMemo(() => statuses.find(status => status.isActive), [statuses])
@@ -161,27 +180,31 @@ export default function AdminStatusPage() {
 
   function updateForm(patch: Partial<StatusForm>) {
     setError('')
-    setForm(prev => {
-      const next = { ...prev, ...patch }
-      if (patch.type && patch.type !== 'manual') next.subtitle = ''
-      return next
-    })
+    if ('photo' in patch) setPhotoError(false)
+    const next = { ...form, ...patch }
+    if (patch.type && patch.type !== 'manual') next.subtitle = ''
+    setForm(next)
+    if (touched.size > 0) setFieldErrors(validateFields(next))
+  }
+
+  function handleBlur(field: string) {
+    setTouched(prev => new Set(prev).add(field))
+    setFieldErrors(validateFields(form))
+  }
+
+  function resetFormState() {
+    setForm(emptyForm)
+    setTouched(new Set())
+    setFieldErrors({})
+    setError('')
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (!form.type || !form.title.trim()) {
-      setError('Type and title are required.')
-      return
-    }
-    if (!form.link.trim() || !form.photo.trim()) {
-      setError('Link and photo are required.')
-      return
-    }
-    if (form.type === 'manual' && !form.subtitle.trim()) {
-      setError('Manual statuses require a subtitle.')
-      return
-    }
+    setTouched(new Set(['type', 'title', 'subtitle', 'link', 'photo']))
+    const errors = validateFields(form)
+    setFieldErrors(errors)
+    if (Object.keys(errors).length > 0) return
 
     setSaving(true)
     setError('')
@@ -199,7 +222,7 @@ export default function AdminStatusPage() {
       return
     }
 
-    setForm(emptyForm)
+    resetFormState()
     await fetchStatuses()
   }
 
@@ -211,7 +234,7 @@ export default function AdminStatusPage() {
       return
     }
     setStatuses(prev => prev.filter(item => item.id !== status.id))
-    if (form.id === status.id) setForm(emptyForm)
+    if (form.id === status.id) resetFormState()
   }
 
   async function handleSetActive(status: Status, isActive: boolean) {
@@ -259,7 +282,7 @@ export default function AdminStatusPage() {
           </p>
         </div>
         <button
-          onClick={() => { setForm(emptyForm); setError('') }}
+          onClick={resetFormState}
           style={{ fontSize: 13, padding: '8px 16px', background: '#111', color: '#fff', border: 'none', borderRadius: 6, cursor: 'pointer', fontFamily: font }}
         >
           Create Status
@@ -318,14 +341,16 @@ export default function AdminStatusPage() {
 
           <div>
             <label htmlFor="status-type" style={labelStyle()}>Type</label>
-            <select id="status-type" value={form.type} onChange={e => updateForm({ type: e.target.value as StatusType })} style={inputStyle()}>
+            <select id="status-type" value={form.type} onChange={e => updateForm({ type: e.target.value as StatusType })} onBlur={() => handleBlur('type')} style={inputStyle()}>
               {statusTypes.map(type => <option key={type} value={type}>{type}</option>)}
             </select>
+            {touched.has('type') && fieldErrors.type ? <p style={fieldErrorStyle()}>{fieldErrors.type}</p> : null}
           </div>
 
           <div>
             <label htmlFor="status-title" style={labelStyle()}>{cfg.titleLabel}</label>
-            <input id="status-title" value={form.title} onChange={e => updateForm({ title: e.target.value })} style={inputStyle()} placeholder={cfg.titlePlaceholder} />
+            <input id="status-title" value={form.title} onChange={e => updateForm({ title: e.target.value })} onBlur={() => handleBlur('title')} style={inputStyle()} placeholder={cfg.titlePlaceholder} />
+            {touched.has('title') && fieldErrors.title ? <p style={fieldErrorStyle()}>{fieldErrors.title}</p> : null}
           </div>
 
           {form.type === 'manual' ? (
@@ -335,26 +360,30 @@ export default function AdminStatusPage() {
                 id="status-subtitle"
                 value={form.subtitle}
                 onChange={e => updateForm({ subtitle: e.target.value })}
+                onBlur={() => handleBlur('subtitle')}
                 style={inputStyle()}
                 placeholder={cfg.subtitlePlaceholder}
               />
+              {touched.has('subtitle') && fieldErrors.subtitle ? <p style={fieldErrorStyle()}>{fieldErrors.subtitle}</p> : null}
             </div>
           ) : null}
 
           <div>
             <label htmlFor="status-link" style={labelStyle()}>{cfg.linkLabel}</label>
-            <input id="status-link" value={form.link} onChange={e => updateForm({ link: e.target.value })} style={inputStyle()} placeholder={cfg.linkPlaceholder} />
+            <input id="status-link" value={form.link} onChange={e => updateForm({ link: e.target.value })} onBlur={() => handleBlur('link')} style={inputStyle()} placeholder={cfg.linkPlaceholder} />
+            {touched.has('link') && fieldErrors.link ? <p style={fieldErrorStyle()}>{fieldErrors.link}</p> : null}
           </div>
 
           <div>
             <label htmlFor="status-photo" style={labelStyle()}>{cfg.photoLabel}</label>
-            <div style={{ display: 'flex', gap: 8 }}>
-              <input id="status-photo" value={form.photo} onChange={e => updateForm({ photo: e.target.value })} style={inputStyle()} placeholder={cfg.photoPlaceholder} />
+            <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+              <input id="status-photo" value={form.photo} onChange={e => updateForm({ photo: e.target.value })} onBlur={() => handleBlur('photo')} style={inputStyle()} placeholder={cfg.photoPlaceholder} />
               <label style={{ fontSize: 12, padding: '8px 10px', background: '#f3f3f3', borderRadius: 6, color: uploading ? '#aaa' : '#555', whiteSpace: 'nowrap', cursor: uploading ? 'not-allowed' : 'pointer' }}>
                 {uploading ? 'Uploading...' : 'Upload'}
                 <input type="file" accept="image/*" disabled={uploading} onChange={e => e.target.files?.[0] && void handlePhotoUpload(e.target.files[0])} style={{ display: 'none' }} />
               </label>
             </div>
+            {touched.has('photo') && fieldErrors.photo ? <p style={fieldErrorStyle()}>{fieldErrors.photo}</p> : null}
           </div>
 
           <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 13, color: '#555' }}>

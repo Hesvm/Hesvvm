@@ -305,7 +305,10 @@ export default function AdminStatusPage() {
               {[...Array(4)].map((_, i) => <div key={i} style={{ height: 64, background: '#f5f5f5', borderRadius: 6 }} />)}
             </div>
           ) : statuses.length === 0 ? (
-            <p style={{ color: '#999', fontSize: 14 }}>No statuses yet. Create your first one.</p>
+            <div style={{ padding: '40px 24px', textAlign: 'center', border: '1px dashed #e8e8e8', borderRadius: 8 }}>
+              <p style={{ color: '#999', fontSize: 14, margin: 0 }}>No statuses yet.</p>
+              <p style={{ color: '#bbb', fontSize: 13, margin: '6px 0 0' }}>Create your first one using the form →</p>
+            </div>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               {statuses.map(status => (

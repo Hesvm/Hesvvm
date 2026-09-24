@@ -225,7 +225,7 @@ export const projects: Project[] = [
   },
   {
     slug: "ap-doni",
-    title: "اپ دونی",
+    title: "Appdoni",
     category: "App Store",
     year: "2025",
     thumbnail: "/images/li-post-4.png",

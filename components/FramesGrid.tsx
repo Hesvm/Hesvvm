@@ -1,8 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FrameItem } from '@/data/frames';
 
@@ -13,8 +11,6 @@ export function FramesGrid({
   frames: FrameItem[];
   isFa?: boolean;
 }) {
-  const [selectedFrame, setSelectedFrame] = useState<FrameItem | null>(null);
-
   // Distribute frames across 3 columns for balanced masonry heights
   const col1: FrameItem[] = [];
   const col2: FrameItem[] = [];
@@ -93,7 +89,6 @@ export function FramesGrid({
                     style={{
                       position: 'relative',
                       width: '100%',
-                      aspectRatio: frame.aspectRatio || '1/1',
                       borderRadius: '16px',
                       overflow: 'hidden',
                       backgroundColor: 'var(--surface-secondary)',
@@ -101,12 +96,16 @@ export function FramesGrid({
                       transition: 'transform 180ms ease, filter 180ms ease',
                     }}
                   >
-                    <Image
+                    <img
                       src={frame.image}
                       alt={frame.title || frame.projectName}
-                      fill
-                      sizes="(max-width: 768px) 33vw, 270px"
-                      style={{ objectFit: 'cover' }}
+                      loading="lazy"
+                      style={{
+                        width: '100%',
+                        height: 'auto',
+                        display: 'block',
+                        borderRadius: '16px',
+                      }}
                     />
                   </motion.div>
                 </Link>
@@ -118,3 +117,4 @@ export function FramesGrid({
     </div>
   );
 }
+

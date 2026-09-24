@@ -7,16 +7,12 @@ export type FrameItem = {
   projectSlug: string;
   projectName: string;
   category?: string;
-  aspectRatio: string;
+  aspectRatio?: string;
 };
-
-// Aspect ratio variations to create organic heights in the 3-column masonry grid
-const ASPECT_RATIOS = ['4/3', '3/4', '1/1', '16/10', '4/5', '3/2', '9/16'];
 
 export function extractFramesFromProjects(projects: Project[]): FrameItem[] {
   const frames: FrameItem[] = [];
   const seenImages = new Set<string>();
-  let ratioIdx = 0;
 
   for (const project of projects) {
     const projectImages: { src: string; title: string; id: string }[] = [];
@@ -69,9 +65,7 @@ export function extractFramesFromProjects(projects: Project[]): FrameItem[] {
           projectSlug: project.slug,
           projectName: project.title,
           category: project.category || 'Project',
-          aspectRatio: ASPECT_RATIOS[ratioIdx % ASPECT_RATIOS.length],
         });
-        ratioIdx++;
       }
     });
   }

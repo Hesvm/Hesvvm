@@ -43,7 +43,6 @@ const ARROW_OUT_ICON = (
   </svg>
 );
 
-// X stat icons (from provided SVG assets)
 const RepostIcon = () => (
   <svg width="14" height="11" viewBox="0 0 18 14" fill="none" aria-hidden="true">
     <path d="M3.70868 0.29375C3.31806 -0.096875 2.68368 -0.096875 2.29306 0.29375L0.293056 2.29375C0.00555551 2.58125 -0.0788194 3.00938 0.0774306 3.38438C0.233681 3.75938 0.599306 4 1.00243 4H2.00243V11C2.00243 12.6562 3.34618 14 5.00243 14H9.00243C9.55556 14 10.0024 13.5531 10.0024 13C10.0024 12.4469 9.55556 12 9.00243 12H5.00243C4.44931 12 4.00243 11.5531 4.00243 11V4H5.00243C5.40556 4 5.77118 3.75625 5.92743 3.38125C6.08368 3.00625 5.99618 2.57813 5.71181 2.29063L3.71181 0.290625L3.70868 0.29375ZM14.2962 13.7062C14.6868 14.0969 15.3212 14.0969 15.7118 13.7062L17.7118 11.7063C17.9993 11.4188 18.0837 10.9906 17.9274 10.6156C17.7712 10.2406 17.4056 10 17.0024 10H16.0024V3C16.0024 1.34375 14.6587 0 13.0024 0H9.00243C8.44931 0 8.00243 0.446875 8.00243 1C8.00243 1.55313 8.44931 2 9.00243 2H13.0024C13.5556 2 14.0024 2.44687 14.0024 3V10H13.0024C12.5993 10 12.2337 10.2437 12.0774 10.6187C11.9212 10.9937 12.0087 11.4219 12.2931 11.7094L14.2931 13.7094L14.2962 13.7062Z" fill="currentColor"/>
@@ -66,7 +65,7 @@ const ViewsIcon = () => (
 
 const PILLS: { id: Platform; label: string; icon: React.ReactNode; href: string }[] = [
   { id: "linkedin", label: "LinkedIn", icon: LINKEDIN_ICON, href: "https://www.linkedin.com/in/hesvm" },
-  { id: "x",        label: "X posts",  icon: X_ICON,        href: "https://x.com/hesvvm" },
+  { id: "x",        label: "X",        icon: X_ICON,        href: "https://x.com/hesvvm" },
   { id: "email",    label: "Email",    icon: EMAIL_ICON,    href: "mailto:hesammousavizadeh@gmail.com" },
 ];
 
@@ -80,7 +79,7 @@ function LinkedInPreview() {
       rel="noopener noreferrer"
       style={{ display: "block", textDecoration: "none", color: "inherit" }}
     >
-      <div className="contact-preview-inner">
+      <div className="contact-preview-inner" style={{ direction: "rtl", textAlign: "right" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
           <div style={{
             width: 36, height: 36, borderRadius: "50%", overflow: "hidden",
@@ -89,24 +88,24 @@ function LinkedInPreview() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/avatar-hero.png"
-              alt="Hesam Mousavizadeh"
+              alt="حسام موسوی‌زاده"
               style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
             />
           </div>
           <div>
             <div style={{
-              fontFamily: "var(--font-sans)", fontSize: 13, fontWeight: 500,
-              color: "var(--text-primary)", letterSpacing: "-0.02em",
+              fontFamily: "var(--font-persian)", fontSize: 13, fontWeight: 600,
+              color: "var(--text-primary)",
               WebkitFontSmoothing: "antialiased",
             }}>
-              Hesam Mousavizadeh
+              حسام موسوی‌زاده
             </div>
             <div style={{
-              fontFamily: "var(--font-sans)", fontSize: 12,
-              color: "var(--text-muted)", letterSpacing: "-0.01em",
+              fontFamily: "var(--font-persian)", fontSize: 12,
+              color: "var(--text-muted)",
               WebkitFontSmoothing: "antialiased",
             }}>
-              611 connections
+              ۶۱۱ ارتباط
             </div>
           </div>
         </div>
@@ -144,12 +143,11 @@ function XPreview() {
       rel="noopener noreferrer"
       style={{ display: "block", textDecoration: "none", color: "inherit" }}
     >
-      <div className="contact-preview-inner">
+      <div className="contact-preview-inner" style={{ direction: "rtl", textAlign: "right" }}>
         <p style={{
-          fontFamily: "var(--font-sans)",
+          fontFamily: "var(--font-persian)",
           fontSize: 13,
-          lineHeight: 1.45,
-          letterSpacing: "-0.02em",
+          lineHeight: 1.55,
           color: "var(--text-primary)",
           margin: "0 0 10px 0",
           WebkitFontSmoothing: "antialiased",
@@ -158,18 +156,18 @@ function XPreview() {
           WebkitBoxOrient: "vertical" as const,
           overflow: "hidden",
         }}>
-          You spend 5% of your time creating. You spend 95% of your time on social media creating a strategy.
+          ۹۵٪ از زمانت رو صرف ساخت استراتژی در شبکه‌های اجتماعی می‌کنی، در حالی که فقط ۵٪ اون رو برای خلق کردن می‌ذاری.
         </p>
 
-        <div style={{ display: "flex", gap: 14, alignItems: "center", color: "var(--text-muted)" }}>
+        <div style={{ display: "flex", gap: 14, alignItems: "center", color: "var(--text-muted)", direction: "rtl" }}>
           {[
-            { icon: <RepostIcon />, value: 3 },
-            { icon: <LikeIcon />,   value: 163 },
-            { icon: <ViewsIcon />,  value: "15K" },
+            { icon: <RepostIcon />, value: "۳" },
+            { icon: <LikeIcon />,   value: "۱۶۳" },
+            { icon: <ViewsIcon />,  value: "۱۵ هزار" },
           ].map(({ icon, value }, j) => (
             <div key={j} style={{
               display: "flex", alignItems: "center", gap: 5,
-              fontFamily: "var(--font-sans)", fontSize: 12,
+              fontFamily: "var(--font-persian)", fontSize: 12,
               WebkitFontSmoothing: "antialiased",
             }}>
               {icon}
@@ -205,36 +203,36 @@ function EmailPreview() {
   }, []);
 
   return (
-    <div className="contact-preview-inner" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-      {/* Buttons row — each fills half the width */}
+    <div className="contact-preview-inner" style={{ display: "flex", flexDirection: "column", gap: 12, direction: "rtl", textAlign: "right" }}>
+      {/* Buttons row */}
       <div style={{ display: "flex", gap: 8 }}>
         <button
           className="email-action-pill"
           onClick={handleCopy}
-          style={{ flex: 1, justifyContent: "center" }}
+          style={{ flex: 1, justifyContent: "center", fontFamily: "var(--font-persian)" }}
         >
           {COPY_ICON}
-          {copied ? "Copied!" : "Copy email"}
+          {copied ? "کپی شد!" : "کپی ایمیل"}
         </button>
         <a
           href={`mailto:${EMAIL_ADDRESS}`}
           className="email-action-pill"
-          style={{ flex: 1, justifyContent: "center" }}
+          style={{ flex: 1, justifyContent: "center", fontFamily: "var(--font-persian)" }}
         >
           {ARROW_OUT_ICON}
-          Open in Mail
+          باز کردن در ایمیل
         </a>
       </div>
 
-      {/* Reply-time note — centered, below buttons */}
+      {/* Reply-time note */}
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
         {LIGHTNING_ICON}
         <span style={{
-          fontFamily: "var(--font-sans)", fontSize: 12,
-          color: "var(--text-muted)", letterSpacing: "-0.02em",
+          fontFamily: "var(--font-persian)", fontSize: 12,
+          color: "var(--text-muted)",
           WebkitFontSmoothing: "antialiased",
         }}>
-          Usually responds within 4 hours
+          معمولاً پاسخگویی در کمتر از ۴ ساعت
         </span>
       </div>
     </div>
@@ -251,7 +249,7 @@ function PreviewContent({ platform }: { platform: Platform }) {
 
 // ── Main component ─────────────────────────────────────────────────────────
 
-export function HeroContact() {
+export function HeroContactFa() {
   const [active, setActive] = useState<Platform | null>(null);
   const leaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -273,29 +271,20 @@ export function HeroContact() {
   }, []);
 
   return (
-    <div>
+    <div style={{ display: "flex", justifyContent: "flex-start", width: "100%" }}>
       <div
         className="contact-pills-wrapper"
         onMouseLeave={handleWrapperLeave}
         role="group"
-        aria-label="Contact options"
+        aria-label="راه‌های ارتباطی"
+        style={{
+          position: "relative",
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          gap: "8px",
+        }}
       >
-        <span
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: "16px",
-            fontWeight: 400,
-            letterSpacing: "-0.03em",
-            color: "var(--text-muted)",
-            flexShrink: 0,
-            lineHeight: 1.43,
-            paddingRight: "2px",
-            WebkitFontSmoothing: "antialiased",
-          }}
-        >
-          Contact me:
-        </span>
-
         {PILLS.map(({ id, label, icon, href }) => {
           const isActive = active === id;
           const isDimmed = active !== null && !isActive;
@@ -305,36 +294,51 @@ export function HeroContact() {
               key={id}
               href={href}
               className="contact-pill"
+              aria-label={label}
+              title={label}
               aria-expanded={isActive}
               target={isExternal ? "_blank" : undefined}
               rel={isExternal ? "noopener noreferrer" : undefined}
               onMouseEnter={() => handlePillEnter(id)}
               style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "30px",
+                height: "30px",
+                padding: 0,
+                borderRadius: "999px",
                 opacity: isDimmed ? 0.55 : 1,
-                color: isActive ? "var(--text-primary)" : undefined,
-                background: isActive ? "rgba(0,0,0,0.08)" : undefined,
+                color: isActive ? "var(--text-primary)" : "var(--text-muted)",
+                background: isActive ? "rgba(0,0,0,0.08)" : "rgba(0,0,0,0.045)",
                 textDecoration: "none",
+                transition: "all 150ms ease",
               }}
             >
               {icon}
-              {label}
             </a>
           );
         })}
 
-        {/* Desktop hover preview — absolute, no layout shift */}
+        {/* Desktop hover preview */}
         <AnimatePresence>
           {active && (
             <motion.div
-              id="contact-preview-panel"
+              id="contact-preview-panel-fa"
               role="region"
               aria-label={`${active} contact preview`}
               className="contact-preview-card contact-preview-desktop"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 8 }}
+              initial={{ opacity: 0, y: 8, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 8, scale: 0.96 }}
               transition={{ duration: 0.18, ease: "easeOut" }}
-              style={{ position: "absolute", top: "calc(100% + 12px)", left: 0, zIndex: 100 }}
+              style={{
+                position: "absolute",
+                top: "calc(100% + 12px)",
+                right: 0,
+                left: "auto",
+                zIndex: 100,
+              }}
               onMouseEnter={() => { if (leaveTimer.current) clearTimeout(leaveTimer.current); }}
               onMouseLeave={handleWrapperLeave}
             >

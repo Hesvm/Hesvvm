@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import Image from "next/image";
 import React, { useRef, useState } from "react";
 import { createPortal } from "react-dom";
 

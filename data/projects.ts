@@ -46,13 +46,23 @@ export const projects: Project[] = [
     title: "Hooshang AI",
     category: "AI Product",
     year: "2024",
-    thumbnail: "/images/icon-1.png",
+    thumbnail: "/images/li-post-3.png",
     icon: "/images/icon-1.png",
     tags: ["AI"],
     blocks: [
       {
         type: "text",
-        content: "Coming soon."
+        content: "Empowering Persian creators with generative AI tools and visual storytelling."
+      },
+      {
+        type: "image",
+        src: "/images/li-post-3.png",
+        subtitle: "Creative canvas interface"
+      },
+      {
+        type: "image",
+        src: "/images/x-post-1.png",
+        subtitle: "Prompt engineer workspace"
       }
     ]
   },
@@ -61,13 +71,23 @@ export const projects: Project[] = [
     title: "Bundles",
     category: "Productivity",
     year: "2024",
-    thumbnail: "/images/icon-2.png",
+    thumbnail: "/images/li-post-4.png",
     icon: "/images/icon-2.png",
     tags: ["Productivity"],
     blocks: [
       {
         type: "text",
-        content: "Coming soon."
+        content: "Curated resource bundles and workspace templates for high-velocity teams."
+      },
+      {
+        type: "image",
+        src: "/images/li-post-4.png",
+        subtitle: "Bundle curation grid"
+      },
+      {
+        type: "image",
+        src: "/images/li-post-5.png",
+        subtitle: "Team permissions & share sheet"
       }
     ]
   },
@@ -76,7 +96,7 @@ export const projects: Project[] = [
     title: "ExpertMed",
     category: "Science Health",
     year: "2023",
-    thumbnail: "/images/icon-3.png",
+    thumbnail: "/images/li-post-5.png",
     icon: "/images/icon-3.png",
     tags: ["Health"],
     blocks: [
@@ -86,7 +106,7 @@ export const projects: Project[] = [
       },
       {
         type: "image",
-        src: "/images/icon-3.png",
+        src: "/images/li-post-5.png",
         subtitle: "The main dashboard — designed for one-handed use during rounds."
       },
       {
@@ -100,11 +120,11 @@ export const projects: Project[] = [
       {
         type: "image-pair",
         left: {
-          src: "/images/icon-1.png",
+          src: "/images/x-post-1.png",
           subtitle: "Patient summary card"
         },
         right: {
-          src: "/images/icon-2.png",
+          src: "/images/li-post-3.png",
           subtitle: "Prescription flow"
         }
       },
@@ -118,7 +138,8 @@ export const projects: Project[] = [
       },
       {
         type: "image",
-        src: "/images/icon-3.png"
+        src: "/images/li-post-4.png",
+        subtitle: "Clinical outcomes & analytics"
       },
       {
         type: "link",
@@ -132,13 +153,23 @@ export const projects: Project[] = [
     title: "Dastyar",
     category: "Assistant",
     year: "2023",
-    thumbnail: "/images/icon-1.png",
+    thumbnail: "/images/x-post-1.png",
     icon: "/images/icon-1.png",
     tags: ["Assistant"],
     blocks: [
       {
         type: "text",
-        content: "Coming soon."
+        content: "Personal Persian AI assistant designed for seamless workflow automation."
+      },
+      {
+        type: "image",
+        src: "/images/x-post-1.png",
+        subtitle: "Assistant conversational hub"
+      },
+      {
+        type: "image",
+        src: "/images/li-post-3.png",
+        subtitle: "Quick action widget"
       }
     ]
   },
@@ -147,13 +178,23 @@ export const projects: Project[] = [
     title: "Upolo",
     category: "Social",
     year: "2022",
-    thumbnail: "/images/icon-2.png",
+    thumbnail: "/images/li-post-3.png",
     icon: "/images/icon-2.png",
     tags: ["Social"],
     blocks: [
       {
         type: "text",
-        content: "Coming soon."
+        content: "Audio-first micro communities and real-time voice stages."
+      },
+      {
+        type: "image",
+        src: "/images/li-post-3.png",
+        subtitle: "Live audio stage interface"
+      },
+      {
+        type: "image",
+        src: "/images/li-post-4.png",
+        subtitle: "Community channel discovery"
       }
     ]
   },
@@ -162,13 +203,23 @@ export const projects: Project[] = [
     title: "Cent",
     category: "Finance",
     year: "2025",
-    thumbnail: "/images/icon-3.png",
-    icon: "/images/icon-3.png",
+    thumbnail: "/images/buildings/cent.png",
+    icon: "/images/buildings/cent.png",
     tags: ["Finance"],
     blocks: [
       {
         type: "text",
-        content: "Coming soon."
+        content: "Fast, minimal expense tracking for people who hate complicated financial apps."
+      },
+      {
+        type: "image",
+        src: "/images/buildings/cent.png",
+        subtitle: "Cent visual brandmark"
+      },
+      {
+        type: "image",
+        src: "/images/li-post-5.png",
+        subtitle: "Transaction input & haptic feedback"
       }
     ]
   },
@@ -177,13 +228,23 @@ export const projects: Project[] = [
     title: "اپ دونی",
     category: "App Store",
     year: "2025",
-    thumbnail: "/images/icon-1.png",
+    thumbnail: "/images/li-post-4.png",
     icon: "/images/icon-1.png",
     tags: ["App"],
     blocks: [
       {
         type: "text",
-        content: "Coming soon."
+        content: "Curated Persian app discovery and alternative app store."
+      },
+      {
+        type: "image",
+        src: "/images/li-post-4.png",
+        subtitle: "Curated app feed"
+      },
+      {
+        type: "image",
+        src: "/images/x-post-1.png",
+        subtitle: "App detail view & developer spotlight"
       }
     ]
   },
@@ -192,13 +253,23 @@ export const projects: Project[] = [
     title: "Paradigm Space",
     category: "Innovation",
     year: "2022",
-    thumbnail: "/images/icon-2.png",
+    thumbnail: "/images/li-post-5.png",
     icon: "/images/icon-2.png",
     tags: ["Innovation"],
     blocks: [
       {
         type: "text",
-        content: "Coming soon."
+        content: "Physical-digital hybrid incubator for creative tech founders."
+      },
+      {
+        type: "image",
+        src: "/images/li-post-5.png",
+        subtitle: "Space booking & event coordination"
+      },
+      {
+        type: "image",
+        src: "/images/li-post-3.png",
+        subtitle: "Resident directory & projects"
       }
     ]
   }

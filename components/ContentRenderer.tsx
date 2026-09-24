@@ -6,6 +6,7 @@ import Divider from "@/components/Divider";
 import ProjectLink from "@/components/ProjectLink";
 import Reveal from "@/components/Reveal";
 import { SmartLink } from "@/components/SmartLink";
+import { parseInlineLinks } from "@/lib/parseInlineLinks";
 import { ContentBlock } from "@/types/project";
 
 function parseRichLinks(text: string): React.ReactNode[] {
@@ -108,7 +109,7 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
                   margin: 0,
                 }}
               >
-                {parseRichLinks(block.content)}
+                {parseRichLinks(block.content) ?? parseInlineLinks(block.content)}
               </h2>
             </Reveal>
           );
@@ -231,7 +232,7 @@ export default function ContentRenderer({ blocks }: ContentRendererProps) {
         if (block.type === "quote") {
           return (
             <Reveal key={block.id} delay={delay}>
-              <div style={{ borderLeft: "2px solid var(--border-subtle)", paddingLeft: "20px" }}>
+              <div className="content-quote-block" style={{ borderLeft: "2px solid var(--border-subtle)", paddingLeft: "20px" }}>
                 <p style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontSize: "18px", color: "var(--color-text-primary)", margin: "0 0 8px 0", lineHeight: 1.5 }}>
                   {parseRichLinks(block.content)}
                 </p>

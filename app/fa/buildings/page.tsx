@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { PageTransition } from '@/components/PageTransition';
 import { PersonalProjectCard } from '@/components/PersonalProjectCard';
-import { buildings } from '@/data/buildings';
+import { faBuildings } from '@/data/fa/buildings';
 
 const containerVariants = {
   hidden: {},
@@ -12,7 +12,7 @@ const containerVariants = {
   },
 };
 
-export default function BuildingsPage() {
+export default function FaBuildingsPage() {
   return (
     <PageTransition>
       <main
@@ -22,22 +22,23 @@ export default function BuildingsPage() {
           marginRight: "auto",
           paddingTop: "64px",
           paddingBottom: "120px",
+          direction: "rtl",
         }}
       >
         {/* Page Title */}
         <h1
-          className="font-serif italic text-[1.5rem] md:text-[2rem] text-[var(--text-strong)] text-center"
+          className="font-persian font-bold text-[1.75rem] md:text-[2.25rem] text-[var(--text-strong)] text-center"
           style={{ margin: "0 0 6px 0" }}
         >
-          Personal Projects
+          پروژه‌های شخصی
         </h1>
 
         {/* Subtitle */}
         <p
-          className="font-sans text-sm text-[var(--text-secondary)] text-center"
+          className="font-persian text-sm text-[var(--text-secondary)] text-center"
           style={{ margin: "0 0 44px 0" }}
         >
-          Things I built for myself that might be useful to you.
+          چیزهایی که برای خودم ساختم و شاید برای شما هم مفید باشه.
         </p>
 
         {/* Projects Grid */}
@@ -51,8 +52,8 @@ export default function BuildingsPage() {
           initial="hidden"
           animate="show"
         >
-          {buildings.map((building, idx) => (
-            <PersonalProjectCard key={building.id || building.name || idx} project={building} isFa={false} />
+          {faBuildings.map((building, idx) => (
+            <PersonalProjectCard key={building.id || building.name || idx} project={building} isFa={true} />
           ))}
         </motion.div>
       </main>

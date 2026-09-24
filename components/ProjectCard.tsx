@@ -3,7 +3,7 @@
 import { Project } from "@/types/project";
 import { motion } from "framer-motion";
 import { SharedProjectImage } from "@/components/SharedProjectImage";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useIsHoverCapable } from "@/hooks/useIsHoverCapable";
 import { useCallback, useEffect, useRef } from "react";
 
@@ -70,6 +70,10 @@ export function ProjectCard({
   onMouseLeave?: () => void;
 }) {
   const router = useRouter();
+  const pathname = usePathname();
+  const isFa = pathname.startsWith('/fa');
+  const projectHref = isFa ? `/fa/projects/${project.slug}` : `/projects/${project.slug}`;
+
   const isHoverCapable = useIsHoverCapable();
   const cardRef = useRef<HTMLDivElement>(null);
   const routePrefetchedRef = useRef(false);
@@ -78,8 +82,8 @@ export function ProjectCard({
   const prefetchProjectRoute = useCallback(() => {
     if (routePrefetchedRef.current) return;
     routePrefetchedRef.current = true;
-    void router.prefetch(`/projects/${project.slug}`);
-  }, [project.slug, router]);
+    void router.prefetch(projectHref);
+  }, [projectHref, router]);
 
   const preloadProjectImage = useCallback(() => {
     if (imagePreloadedRef.current || !project.thumbnail_url) return;
@@ -125,7 +129,7 @@ export function ProjectCard({
 
   const handleClick = () => {
     warmProject();
-    router.push(`/projects/${project.slug}`);
+    router.push(projectHref);
   };
 
   return (

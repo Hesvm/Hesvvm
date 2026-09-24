@@ -1,9 +1,12 @@
 'use client'
 
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter()
+  const pathname = usePathname()
 
   async function handleLogout() {
     await fetch('/api/admin/logout', { method: 'POST' })
@@ -28,9 +31,35 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         background: '#fff',
         zIndex: 10,
       }}>
-        <span style={{ fontSize: 12, fontFamily: 'monospace', color: '#555' }}>
-          Portfolio Admin
-        </span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
+          <span style={{ fontSize: 12, fontFamily: 'monospace', color: '#555' }}>
+            Portfolio Admin
+          </span>
+          <nav style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            {[
+              { href: '/admin/projects', label: 'Projects' },
+              { href: '/admin/status', label: 'Status' },
+            ].map(item => {
+              const active = pathname.startsWith(item.href)
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  style={{
+                    fontSize: 12,
+                    color: active ? '#111' : '#999',
+                    textDecoration: 'none',
+                    padding: '5px 9px',
+                    borderRadius: 6,
+                    background: active ? '#f3f3f3' : 'transparent',
+                  }}
+                >
+                  {item.label}
+                </Link>
+              )
+            })}
+          </nav>
+        </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
           <div id="navbar-actions" style={{ display: 'flex', alignItems: 'center', gap: 8 }} />
           <button

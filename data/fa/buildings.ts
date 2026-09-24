@@ -1,0 +1,63 @@
+import { Building } from '@/data/buildings';
+
+export const faBuildings: Building[] = [
+  {
+    id: 'days',
+    name: 'Days',
+    description: 'یک اپلیکیشن یادداشت‌برداری روزانه و ثبت خاطرات با متن، عکس، استیکر و ویدیو.',
+    icon: '/images/icon-1.png',
+    status: 'Live',
+    appStoreUrl: 'https://apps.apple.com',
+    siteUrl: 'https://days.example.com',
+  },
+  {
+    id: 'then',
+    name: 'Then',
+    description: 'بررسی چگونگی گذران وقت و درک تأثیر فعالیت‌های روزمره بر تمرکز و سلامت روان.',
+    icon: '/images/icon-2.png',
+    status: 'Live',
+    appStoreUrl: 'https://apps.apple.com',
+    siteUrl: 'https://then.example.com',
+  },
+  {
+    id: 'rotate',
+    name: 'Rotate',
+    description: 'یادداشت‌ها و چک‌لیست‌های چرخشی سفارشی در ویجت‌های صفحه اصلی و لاک‌اسکرین.',
+    icon: '/images/icon-3.png',
+    status: 'Live',
+    appStoreUrl: 'https://apps.apple.com',
+  },
+  {
+    id: 'aim',
+    name: 'Aim',
+    description: 'اپلیکیشن پایش اهداف که خواسته‌ها و اولویت‌های اصلی شما را همیشه در دیدرس قرار می‌دهد.',
+    icon: '/images/icon-1.png',
+    status: 'Live',
+    appStoreUrl: 'https://apps.apple.com',
+    siteUrl: 'https://aim.example.com',
+  },
+  {
+    id: 'idle',
+    name: 'Idle',
+    description: 'تجربه‌ای دست‌چین و آرامش‌بخش برای یافتن الهام و تمرکز در لحظات فراغت.',
+    icon: '/images/icon-2.png',
+    status: 'Live',
+    appStoreUrl: 'https://apps.apple.com',
+  },
+  {
+    id: 'cent',
+    name: 'Cent',
+    description: 'مدیریت مخارج سریع و ساده با کمترین اصطکاک برای کارهای روزمره.',
+    icon: '/images/buildings/cent.png',
+    status: 'Live',
+    appStoreUrl: 'https://apps.apple.com',
+    siteUrl: 'https://cent-app.example.com',
+  },
+  {
+    id: 'new-thing',
+    name: '...',
+    description: 'محصول جدیدی که در حال ساخت آن هستم و به‌زودی رونمایی خواهد شد.',
+    icon: '',
+    status: 'ComingSoon',
+  },
+];

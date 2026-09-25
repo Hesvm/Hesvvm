@@ -89,7 +89,7 @@ export function FramesGrid({
                     style={{
                       position: 'relative',
                       width: '100%',
-                      borderRadius: '16px',
+                      borderRadius: '22px',
                       overflow: 'hidden',
                       backgroundColor: 'var(--surface-secondary)',
                       cursor: 'pointer',
@@ -104,7 +104,7 @@ export function FramesGrid({
                         width: '100%',
                         height: 'auto',
                         display: 'block',
-                        borderRadius: '16px',
+                        borderRadius: '22px',
                       }}
                     />
                   </motion.div>

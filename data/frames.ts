@@ -10,6 +10,25 @@ export type FrameItem = {
   aspectRatio?: string;
 };
 
+// Deterministic PRNG shuffle to interleave frames randomly without project grouping,
+// while remaining 100% stable between SSR and client hydration.
+function seededShuffle<T>(array: T[], seed = 98765): T[] {
+  const result = [...array];
+  let s = seed;
+  const random = () => {
+    let t = (s += 0x6d2b79f5);
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
+
 export function extractFramesFromProjects(projects: Project[]): FrameItem[] {
   const frames: FrameItem[] = [];
   const seenImages = new Set<string>();
@@ -70,5 +89,5 @@ export function extractFramesFromProjects(projects: Project[]): FrameItem[] {
     });
   }
 
-  return frames;
+  return seededShuffle(frames);
 }

@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>رودمپ دیزاین شاد — تایم‌لاین مینیمال</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @font-face {
+      font-family: 'IRANYekanX';
+      src: url('/Shaadproject/IRANYekanXVF.ttf') format('truetype-variations'),
+           url('/Shaadproject/IRANYekanXVF.ttf') format('truetype'),
+           url('./IRANYekanXVF.ttf') format('truetype-variations'),
+           url('./IRANYekanXVF.ttf') format('truetype');
+      font-weight: 100 900;
+      font-display: swap;
+    }
+    * {
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-font-smoothing: antialiased;
+    }
+    html, body {
+      font-family: 'IRANYekanX', -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, sans-serif;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #FAFAFA;
+    }
+
+    /* پترن نقطه‌ای مینیمال و ملایم */
+    .canvas-bg {
+      background-color: #FAFAFA;
+      background-image: radial-gradient(#E2E8F0 1.15px, transparent 1.15px);
+      background-size: 22px 22px;
+    }
+
+    /* اسکرول‌بار بسیار باریک و شیک */
+    #timeline-scroll-viewport::-webkit-scrollbar {
+      height: 6px;
+    }
+    #timeline-scroll-viewport::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    #timeline-scroll-viewport::-webkit-scrollbar-thumb {
+      background: #E2E8F0;
+      border-radius: 9999px;
+    }
+    #timeline-scroll-viewport::-webkit-scrollbar-thumb:hover {
+      background: #CBD5E1;
+    }
+
+    /* چک‌باکس‌های دایره‌ای با استروک ۲ پیکسلی ضخیم‌تر و خاکستری در حالت خالی */
+    .task-check {
+      appearance: none !important;
+      -webkit-appearance: none !important;
+      width: 18px !important;
+      height: 18px !important;
+      border: 2px solid #64748B !important; /* استروک ضخیم‌تر ۲ پیکسلی و خاکستری مشخص */
+      border-radius: 9999px !important; /* دایره کامل */
+      outline: none !important;
+      background-color: transparent !important;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all 0.18s ease-in-out;
+      margin-top: 2px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .task-check:hover {
+      border-color: #334155 !important;
+      background-color: #F8FAFC !important;
+    }
+
+    .task-check:checked {
+      background-color: #2563EB !important;
+      border-color: #2563EB !important;
+      background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e") !important;
+      background-size: 100% 100% !important;
+      background-position: center !important;
+      background-repeat: no-repeat !important;
+    }
+
+    .task-check:checked + span {
+      text-decoration: line-through;
+      color: #94A3B8;
+    }
+
+    .smooth-shadow {
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
+    }
+    .smooth-card-shadow {
+      box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.06), 0 2px 8px -2px rgba(0, 0, 0, 0.02);
+    }
+  </style>
+</head>
+<body class="w-full h-full flex flex-col canvas-bg text-slate-800">
+
+  <!-- ویوپورت تایم‌لاین با اسکرول افقی LTR و پدینگ‌های فراخ و ریلکس -->
+  <main id="timeline-scroll-viewport" dir="ltr" class="flex-1 w-full overflow-x-auto overflow-y-auto relative cursor-grab active:cursor-grabbing pt-16 pb-28" style="scroll-behavior: auto;">
+    
+    <!-- کانتینر مقیاس‌پذیر افقی تایم‌لاین -->
+    <div id="timeline-track" class="min-h-full relative" style="width: 1560px;">
+      
+      <!-- نشانگر اختصاصی امروز (۱۴ مهر) — قرارگیری کاملاً بالای هدر بدون افتادن روی متن هفته -->
+      <div id="today-indicator" class="absolute -top-7 bottom-0 z-30 pointer-events-none flex flex-col items-center" style="left: 96px;">
+        <!-- برچسب کپسولی شناور -->
+        <div class="bg-emerald-500 text-white text-[10px] font-black px-3 py-1 rounded-full shadow-sm whitespace-nowrap flex items-center gap-1.5 pointer-events-auto">
+          <span class="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span>
+          <span>امروز • ۱۴ مهر</span>
+        </div>
+        <!-- نقطه اتصال پین -->
+        <div class="w-2 h-2 rounded-full bg-emerald-500 border-2 border-white shadow-xs mt-0.5"></div>
+        <!-- خط عمودی راهنما در سراسر تایم‌لاین -->
+        <div class="w-[1.5px] h-full bg-emerald-400/80 border-r border-dashed border-emerald-500 mt-0.5"></div>
+      </div>
+
+      <!-- ساختار تاریخ: ۱. هفته  ۲. روز -->
+      <div id="calendar-header-wrapper" class="w-full flex flex-col gap-2 pb-4 pt-1 select-none">
+        
+        <!-- سطح ۱: نوار هفته‌ها (۶ ستون خاکستری مینیمال با استروک) -->
+        <div id="weeks-bar" class="grid grid-cols-6 gap-2 w-full">
+          <!-- ستون‌های هفته با جاوااسکریپت داینامیک رندر می‌شوند -->
+        </div>
+
+        <!-- سطح ۲: خط‌کش روزها (نوار خاکستری تفکیک ۴۲ روز) -->
+        <div id="days-bar" class="grid grid-cols-6 gap-2 w-full">
+          <!-- روزهای هر هفته در این بخش رندر می‌شوند -->
+        </div>
+
+      </div>
+
+      <!-- خطوط عمودی ظریف پس‌زمینه -->
+      <div id="grid-columns-bg" class="grid grid-cols-6 gap-2 w-full absolute top-28 bottom-0 pointer-events-none">
+        <!-- خطوط راهنما -->
+      </div>
+
+      <!-- ردیف فازها با طراحی گرد ۳۲ پیکسلی و مینیمال -->
+      <div id="phases-container" class="relative w-full pt-3 flex items-start z-10 gap-2.5">
+
+        <!-- فاز ۱: زرد لیمویی مدرن / ۱ هفته (۷ روز: ۱۲ تا ۱۸ مهر) -->
+        <div id="phase-col-1" class="phase-column flex flex-col" style="width: calc(16.666% - 2px); min-width: 320px;">
+          <div id="card-1" class="phase-card rounded-3xl bg-[#FFD747] p-3.5 smooth-card-shadow hover:brightness-[0.98] transition-all cursor-pointer select-none">
+            
+            <div class="flex items-center justify-between text-slate-900 px-1">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-black/10 flex items-center justify-center font-black text-xs">۱</span>
+                <span class="font-black text-xs md:text-sm tracking-tight">فاز ۱: آنبوردینگ و وایرفریم بیس</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="text-[10px] font-black bg-white/90 text-amber-950 px-2.5 py-0.5 rounded-full shadow-2xs">۷ روز</span>
+                <svg id="chevron-1" class="w-4 h-4 text-slate-800 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+              </div>
+            </div>
+
+            <!-- باکس سفید بازشونده تسک‌ها -->
+            <div id="tasks-1" class="task-panel mt-3 bg-white/95 rounded-2xl p-4 shadow-xs text-right space-y-2.5" dir="rtl">
+              <div class="text-[11px] font-black text-amber-900 pb-1.5 border-b border-amber-100/60 flex items-center justify-between">
+                <span>تسک‌های اجرایی فاز ۱</span>
+                <span class="text-[10px] font-bold text-slate-400">۱۲ تا ۱۸ مهر</span>
+              </div>
+              <label class="flex items-start gap-2.5 cursor-pointer p-1 rounded-xl hover:bg-slate-50 transition">
+                <input type="checkbox" checked class="task-check w-4 h-4 mt-0.5 rounded-full border-slate-300 text-amber-500 focus:ring-0">
+                <span class="text-xs font-bold text-slate-800 leading-snug">آنبورد شدن روی پروژه و بستن ابهامات / مطالعه داکیومنت اولیه</span>
+              </label>
+              <label class="flex items-start gap-2.5 cursor-pointer p-1 rounded-xl hover:bg-slate-50 transition">
+                <input type="checkbox" checked class="task-check w-4 h-4 mt-0.5 rounded-full border-slate-300 text-amber-500 focus:ring-0">
+                <span class="text-xs font-bold text-slate-800 leading-snug">درآوردن بنچمارک‌ها (دولینگو، دیسکورد، FotMob)</span>
+              </label>
+              <label class="flex items-start gap-2.5 cursor-pointer p-1 rounded-xl hover:bg-slate-50 transition">
+                <input type="checkbox" checked class="task-check w-4 h-4 mt-0.5 rounded-full border-slate-300 text-amber-500 focus:ring-0">
+                <span class="text-xs font-bold text-slate-800 leading-snug">درآوردن رودمپ ۴۲ روزه دیزاین</span>
+              </label>
+              <label class="flex items-start gap-2.5 cursor-pointer p-1 rounded-xl hover:bg-slate-50 transition">
+                <input type="checkbox" class="task-check w-4 h-4 mt-0.5 rounded-full border-slate-300 text-amber-500 focus:ring-0">
+                <span class="text-xs font-bold text-slate-800 leading-snug">طراحی یوزرفلو جامع پروفایل</span>
+              </label>
+              <label class="flex items-start gap-2.5 cursor-pointer p-1 rounded-xl hover:bg-slate-50 transition">
+                <input type="checkbox" class="task-check w-4 h-4 mt-0.5 rounded-full border-slate-300 text-amber-500 focus:ring-0">
+                <span class="text-xs font-bold text-slate-800 leading-snug">وایرفریم بیس و ساختار اولیه پروفایل جدید</span>
+              </label>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- فاز ۲: قرمز مرجانی ملایم / ۳ هفته (۲۱ روز) -->
+        <div id="phase-col-2" class="phase-column flex flex-col" style="width: calc(50.000% - 2px);">
+          <div id="card-2" class="phase-card rounded-3xl bg-[#FF453A] p-3.5 smooth-card-shadow hover:brightness-[0.98] transition-all cursor-pointer select-none">
+            
+            <div class="flex items-center justify-between text-white px-1">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-black/20 flex items-center justify-center font-black text-xs">۲</span>
+                <span class="font-black text-xs md:text-sm tracking-tight">فاز ۲: وایرفریم‌ها، ماژول‌ها و فیدبک</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="text-[10px] font-black bg-black/20 text-white px-2.5 py-0.5 rounded-full">۲۱ روز</span>
+                <svg id="chevron-2" class="w-4 h-4 text-white transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+              </div>
+            </div>
+
+            <!-- باکس سفید بازشونده تسک‌ها (پیش‌فرض بسته) -->
+            <div id="tasks-2" class="task-panel hidden mt-3 bg-white/95 rounded-2xl p-4 shadow-xs text-right space-y-2.5" dir="rtl">
+              <div class="text-[11px] font-black text-red-900 pb-1.5 border-b border-red-100/60 flex items-center justify-between">
+                <span>تسک‌های اجرایی فاز ۲</span>
+                <span class="text-[10px] font-bold text-slate-400">۱۹ مهر تا ۹ آبان</span>
+              </div>
+              <label class="flex items-start gap-2.5 cursor-pointer p-1 rounded-xl hover:bg-slate-50 transition">
+                <input type="checkbox" class="task-check w-4 h-4 mt-0.5 rounded-full border-slate-300 text-red-600 focus:ring-0">
+                <span class="text-xs font-bold text-slate-800 leading-snug">وایرفریم بخش پروفایل جدید (Post-Iteration)</span>
+              </label>
+              <label class="flex items-start gap-2.5 cursor-pointer p-1 rounded-xl hover:bg-slate-50 transition">
+                <input type="checkbox" class="task-check w-4 h-4 mt-0.5 rounded-full border-slate-300 text-red-600 focus:ring-0">
+                <span class="text-xs font-bold text-slate-800 leading-snug">وایرفریم بخش دوستان و تنظیمات دوستان</span>
+              </label>
+              <label class="flex items-start gap-2.5 cursor-pointer p-1 rounded-xl hover:bg-slate-50 transition">
+                <input type="checkbox" class="task-check w-4 h-4 mt-0.5 rounded-full border-slate-300 text-red-600 focus:ring-0">
+                <span class="text-xs font-bold text-slate-800 leading-snug">وایرفریم بخش بج‌ها و اچیومنت دانش‌آموز</span>
+              </label>
+              <label class="flex items-start gap-2.5 cursor-pointer p-1 rounded-xl hover:bg-slate-50 transition">
+                <input type="checkbox" class="task-check w-4 h-4 mt-0.5 rounded-full border-slate-300 text-red-600 focus:ring-0">
+                <span class="text-xs font-bold text-slate-800 leading-snug">وایرفریم بخش کاوش و تست‌ها</span>
+              </label>
+              <label class="flex items-start gap-2.5 cursor-pointer p-1 rounded-xl hover:bg-slate-50 transition">
+                <input type="checkbox" class="task-check w-4 h-4 mt-0.5 rounded-full border-slate-300 text-red-600 focus:ring-0">
+                <span class="text-xs font-bold text-slate-800 leading-snug">فیدبک گرفتن و اعمال بازخوردها روی تمام صفحات</span>
+              </label>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- فاز ۳: بنفش سلطنتی ملایم / ۲ هفته (۱۴ روز) -->
+        <div id="phase-col-3" class="phase-column flex flex-col" style="width: calc(33.333% - 2px);">
+          <div id="card-3" class="phase-card rounded-3xl bg-[#6851A8] p-3.5 smooth-card-shadow hover:brightness-[0.98] transition-all cursor-pointer select-none">
+            
+            <div class="flex items-center justify-between text-white px-1">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-black/20 flex items-center justify-center font-black text-xs">۳</span>
+                <span class="font-black text-xs md:text-sm tracking-tight">فاز ۳: دیزاین سیستم، پروتوتایپ و هندآف</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="text-[10px] font-black bg-black/20 text-white px-2.5 py-0.5 rounded-full">۱۴ روز</span>
+                <svg id="chevron-3" class="w-4 h-4 text-white transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+              </div>
+            </div>
+
+            <!-- باکس سفید بازشونده تسک‌ها (پیش‌فرض بسته) -->
+            <div id="tasks-3" class="task-panel hidden mt-3 bg-white/95 rounded-2xl p-4 shadow-xs text-right space-y-2.5" dir="rtl">
+              <div class="text-[11px] font-black text-purple-900 pb-1.5 border-b border-purple-100/60 flex items-center justify-between">
+                <span>تسک‌های اجرایی فاز ۳</span>
+                <span class="text-[10px] font-bold text-slate-400">۱۰ تا ۲۳ آبان</span>
+              </div>
+              <label class="flex items-start gap-2.5 cursor-pointer p-1 rounded-xl hover:bg-slate-50 transition">
+                <input type="checkbox" class="task-check w-4 h-4 mt-0.5 rounded-full border-slate-300 text-purple-600 focus:ring-0">
+                <span class="text-xs font-bold text-slate-800 leading-snug">نهایی کردن دیزاین لنگوئج و دیزاین سیستم بخش‌های جدید</span>
+              </label>
+              <label class="flex items-start gap-2.5 cursor-pointer p-1 rounded-xl hover:bg-slate-50 transition">
+                <input type="checkbox" class="task-check w-4 h-4 mt-0.5 rounded-full border-slate-300 text-purple-600 focus:ring-0">
+                <span class="text-xs font-bold text-slate-800 leading-snug">پروتوتایپ تعاملی کامل فلوها</span>
+              </label>
+              <label class="flex items-start gap-2.5 cursor-pointer p-1 rounded-xl hover:bg-slate-50 transition">
+                <input type="checkbox" class="task-check w-4 h-4 mt-0.5 rounded-full border-slate-300 text-purple-600 focus:ring-0">
+                <span class="text-xs font-bold text-slate-800 leading-snug">نهایی‌سازی یوایکس رایت‌ها (UX Writing)</span>
+              </label>
+              <label class="flex items-start gap-2.5 cursor-pointer p-1 rounded-xl hover:bg-slate-50 transition">
+                <input type="checkbox" class="task-check w-4 h-4 mt-0.5 rounded-full border-slate-300 text-purple-600 focus:ring-0">
+                <span class="text-xs font-bold text-slate-800 leading-snug">درآوردن اج‌کیس‌ها، امپتی‌استیت‌ها و حالت‌های خطا</span>
+              </label>
+              <label class="flex items-start gap-2.5 cursor-pointer p-1 rounded-xl hover:bg-slate-50 transition">
+                <input type="checkbox" class="task-check w-4 h-4 mt-0.5 rounded-full border-slate-300 text-purple-600 focus:ring-0">
+                <span class="text-xs font-bold text-slate-800 leading-snug">هندآف به تیم فنی (Tech Handoff)</span>
+              </label>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <script>
+    // اطلاعات تفکیکی ۶ هفته رودمپ با شروع از ۱۲ مهر (۴۲ روز)
+    const WEEKS_DATA = [
+      {
+        id: 1,
+        title: 'هفته ۱',
+        dateRange: '۱۲ الی ۱۸ مهر',
+        days: [
+          { num: '۱۲', name: 'ش' },
+          { num: '۱۳', name: 'ی' },
+          { num: '۱۴', name: 'د', isToday: true },
+          { num: '۱۵', name: 'س' },
+          { num: '۱۶', name: 'چ' },
+          { num: '۱۷', name: 'پ' },
+          { num: '۱۸', name: 'ج' }
+        ]
+      },
+      {
+        id: 2,
+        title: 'هفته ۲',
+        dateRange: '۱۹ الی ۲۵ مهر',
+        days: [
+          { num: '۱۹', name: 'ش' },
+          { num: '۲۰', name: 'ی' },
+          { num: '۲۱', name: 'د' },
+          { num: '۲۲', name: 'س' },
+          { num: '۲۳', name: 'چ' },
+          { num: '۲۴', name: 'پ' },
+          { num: '۲۵', name: 'ج' }
+        ]
+      },
+      {
+        id: 3,
+        title: 'هفته ۳',
+        dateRange: '۲۶ مهر الی ۲ آبان',
+        days: [
+          { num: '۲۶', name: 'ش' },
+          { num: '۲۷', name: 'ی' },
+          { num: '۲۸', name: 'د' },
+          { num: '۲۹', name: 'س' },
+          { num: '۳۰', name: 'چ' },
+          { num: '۱', name: 'پ', isStartOfAban: true },
+          { num: '۲', name: 'ج' }
+        ]
+      },
+      {
+        id: 4,
+        title: 'هفته ۴',
+        dateRange: '۳ الی ۹ آبان',
+        days: [
+          { num: '۳', name: 'ش' },
+          { num: '۴', name: 'ی' },
+          { num: '۵', name: 'د' },
+          { num: '۶', name: 'س' },
+          { num: '۷', name: 'چ' },
+          { num: '۸', name: 'پ' },
+          { num: '۹', name: 'ج' }
+        ]
+      },
+      {
+        id: 5,
+        title: 'هفته ۵',
+        dateRange: '۱۰ الی ۱۶ آبان',
+        days: [
+          { num: '۱۰', name: 'ش' },
+          { num: '۱۱', name: 'ی' },
+          { num: '۱۲', name: 'د' },
+          { num: '۱۳', name: 'س' },
+          { num: '۱۴', name: 'چ' },
+          { num: '۱۵', name: 'پ' },
+          { num: '۱۶', name: 'ج' }
+        ]
+      },
+      {
+        id: 6,
+        title: 'هفته ۶',
+        dateRange: '۱۷ الی ۲۳ آبان',
+        days: [
+          { num: '۱۷', name: 'ش' },
+          { num: '۱۸', name: 'ی' },
+          { num: '۱۹', name: 'د' },
+          { num: '۲۰', name: 'س' },
+          { num: '۲۱', name: 'چ' },
+          { num: '۲۲', name: 'پ' },
+          { num: '۲۳', name: 'ج' }
+        ]
+      }
+    ];
+
+    const viewport = document.getElementById('timeline-scroll-viewport');
+    const track = document.getElementById('timeline-track');
+    const weeksBar = document.getElementById('weeks-bar');
+    const daysBar = document.getElementById('days-bar');
+    const gridColumnsBg = document.getElementById('grid-columns-bg');
+    const zoomText = document.getElementById('zoom-level-text');
+    const todayIndicator = document.getElementById('today-indicator');
+
+    // مقیاس زمانی زوم (حداقل زوم ۱.۲۵ برای حفظ عرض کامل فازها و خوانایی تسک‌ها مطابق با تصویر ارسالی)
+    const BASE_WEEK_WIDTH = 260; // عرض پایه هر هفته
+    const MIN_ZOOM = 1.25;       // حداقل زوم مجاز
+    const MAX_ZOOM = 3.80;       // حداکثر زوم
+    let currentZoom = 1.25;
+
+    // محاسبه پدینگ پویا به گونه‌ای که هر نقطه‌ای از جمله امروز بتواند دقیقاً در وسط کادر قرار بگیرد
+    function getSidePadding() {
+      const vWidth = viewport.clientWidth || window.innerWidth;
+      return Math.max(120, Math.round(vWidth / 2 - 120));
+    }
+
+    /**
+     * فرمول دقیق زوم متمرکز بر مکان نشانگر ماوس (Cursor-Centric Zoom)
+     */
+    function updateTimelineScale(newZoom, cursorClientX = null, isInitial = false) {
+      const oldZoom = currentZoom;
+      const targetZoom = Math.max(MIN_ZOOM, Math.min(newZoom, MAX_ZOOM));
+      if (!isInitial && Math.abs(targetZoom - oldZoom) < 0.002) return;
+
+      const rect = viewport.getBoundingClientRect();
+      const mouseViewportX = (cursorClientX !== null) 
+        ? (cursorClientX - rect.left) 
+        : (viewport.clientWidth / 2);
+
+      const sidePad = getSidePadding();
+      const currentScrollLeft = viewport.scrollLeft;
+
+      // محاسبه مختصات دقیق روی محتوای زمان (منهای پدینگ ثابت کناری)
+      const contentPointUnderMouse = (currentScrollLeft + mouseViewportX) - sidePad;
+
+      const zoomRatio = targetZoom / oldZoom;
+      // فقط محتوای زمانی مقیاس می‌گیرد، نه پدینگ ثابت کناری
+      const newContentPoint = contentPointUnderMouse * zoomRatio;
+      const newTrackPoint = sidePad + newContentPoint;
+
+      currentZoom = targetZoom;
+      const weekWidth = Math.round(BASE_WEEK_WIDTH * currentZoom);
+
+      // اعمال پدینگ به ترک و خطوط پس‌زمینه
+      track.style.paddingLeft = sidePad + 'px';
+      track.style.paddingRight = sidePad + 'px';
+      gridColumnsBg.style.left = sidePad + 'px';
+      gridColumnsBg.style.right = sidePad + 'px';
+
+      const totalWeeksWidth = weekWidth * 6;
+      track.style.width = (totalWeeksWidth + sidePad * 2) + 'px';
+      if (zoomText) zoomText.innerText = Math.round(currentZoom * 100) + '٪';
+
+      renderCalendarHeaders(weekWidth);
+
+      // قرار دادن دقیق پین امروز روی مرکز روز ۱۴ مهر (روز ۳ از هفته اول)
+      const dayWidth = weekWidth / 7;
+      const todayX = sidePad + Math.round((2 + 0.5) * dayWidth);
+      todayIndicator.style.left = todayX + 'px';
+
+      if (!isInitial) {
+        viewport.scrollLeft = newTrackPoint - mouseViewportX;
+      }
+    }
+
+    // مرکز قرار دادن جایی که الان هستیم (امروز ۱۴ مهر)
+    function centerOnToday() {
+      const weekWidth = Math.round(BASE_WEEK_WIDTH * currentZoom);
+      const dayWidth = weekWidth / 7;
+      const sidePad = getSidePadding();
+      const todayX = sidePad + Math.round((2 + 0.5) * dayWidth);
+      const vWidth = viewport.clientWidth || window.innerWidth;
+      const targetScroll = todayX - (vWidth / 2);
+      viewport.scrollLeft = Math.max(0, targetScroll);
+    }
+
+    function renderCalendarHeaders(weekWidth) {
+      // ۱. رندر سطح هفته‌ها با کانتینرهای خاکستری مینیمال و استروک
+      let weeksHtml = '';
+      WEEKS_DATA.forEach(w => {
+        weeksHtml += `
+          <div class="rounded-2xl bg-slate-100 border border-slate-200/90 p-2 flex flex-col items-center justify-center hover:border-slate-300 transition">
+            <span class="text-xs md:text-sm font-black text-slate-800 tracking-tight leading-none">${w.title}</span>
+            <span dir="rtl" class="text-[10px] md:text-[11px] font-bold text-slate-500 mt-1.5 whitespace-nowrap leading-none">${w.dateRange}</span>
+          </div>
+        `;
+      });
+      weeksBar.innerHTML = weeksHtml;
+
+      // ۲. رندر سطح خط‌کش روزها (نوار خاکستری با استروک)
+      const showDayNames = currentZoom >= 0.75;
+      let daysHtml = '';
+      let gridBgHtml = '';
+
+      WEEKS_DATA.forEach((w, wIdx) => {
+        let weekDaysCells = '';
+        w.days.forEach(d => {
+          if (d.isToday) {
+            // روز امروز (۱۴ مهر)
+            weekDaysCells += `
+              <div class="flex flex-col items-center justify-center py-1 rounded-xl bg-emerald-500 text-white font-black shadow-xs ring-1 ring-emerald-300">
+                ${showDayNames ? `<span class="text-[8px] text-emerald-100 font-bold leading-none mb-0.5">${d.name}</span>` : ''}
+                <span class="text-[11px] md:text-xs font-black leading-none">${d.num}</span>
+              </div>
+            `;
+          } else if (d.isStartOfAban) {
+            // شروع آبان (۱ آبان)
+            weekDaysCells += `
+              <div class="flex flex-col items-center justify-center py-1 rounded-xl bg-slate-200/90 hover:bg-slate-300 text-slate-800 border border-slate-300 font-black transition" title="آغاز آبان">
+                ${showDayNames ? `<span class="text-[8px] text-slate-500 font-bold leading-none mb-0.5">${d.name}</span>` : ''}
+                <span class="text-[11px] md:text-xs font-black leading-none">${d.num}</span>
+              </div>
+            `;
+          } else {
+            // سایر روزها
+            weekDaysCells += `
+              <div class="flex flex-col items-center justify-center py-1 rounded-xl text-slate-600 hover:bg-white hover:text-slate-900 border border-transparent hover:border-slate-200 transition">
+                ${showDayNames ? `<span class="text-[8px] text-slate-400 font-semibold leading-none mb-0.5">${d.name}</span>` : ''}
+                <span class="text-[11px] md:text-xs font-bold leading-none">${d.num}</span>
+              </div>
+            `;
+          }
+        });
+
+        daysHtml += `
+          <div class="grid grid-cols-7 gap-1 p-1 rounded-2xl bg-slate-100 border border-slate-200/90">
+            ${weekDaysCells}
+          </div>
+        `;
+
+        // خطوط راهنمای عمودی
+        gridBgHtml += `
+          <div class="h-full border-r border-dashed border-slate-200/50 last:border-r-0"></div>
+        `;
+      });
+
+      daysBar.innerHTML = daysHtml;
+      gridColumnsBg.innerHTML = gridBgHtml;
+    }
+
+    // ۱. رویداد زوم چرخ ماوس دقیقاً روی موقعیت نشانگر
+    viewport.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const zoomDelta = e.deltaY < 0 ? 0.14 : -0.14;
+      updateTimelineScale(currentZoom + zoomDelta, e.clientX);
+    }, { passive: false });
+
+    // ۲. دکمه‌های کنترل زوم شناور (در صورت وجود)
+    const btnZoomIn = document.getElementById('btn-zoom-in');
+    if (btnZoomIn) btnZoomIn.onclick = () => updateTimelineScale(currentZoom + 0.25);
+
+    const btnZoomOut = document.getElementById('btn-zoom-out');
+    if (btnZoomOut) btnZoomOut.onclick = () => updateTimelineScale(currentZoom - 0.25);
+
+    const btnZoomFit = document.getElementById('btn-zoom-fit');
+    if (btnZoomFit) btnZoomFit.onclick = () => {
+      const availableWidth = viewport.clientWidth - (PADDING_OFFSET * 2);
+      const fitZoom = availableWidth / (BASE_WEEK_WIDTH * 6);
+      updateTimelineScale(fitZoom);
+      viewport.scrollLeft = 0;
+    };
+
+    const btnToday = document.getElementById('btn-today');
+    if (btnToday) btnToday.onclick = () => {
+      viewport.scrollTo({
+        left: 0,
+        behavior: 'smooth'
+      });
+      togglePhase(1, true);
+    };
+
+    // ۳. درگ نرم و روان برای جابه‌جایی افقی (Pan Drag)
+    let isDragging = false;
+    let startX = 0;
+    let scrollStart = 0;
+    let draggedDistance = 0;
+
+    viewport.addEventListener('mousedown', (e) => {
+      if (e.target.closest('.task-panel') || e.target.closest('input') || e.target.closest('button')) {
+        return;
+      }
+      isDragging = true;
+      draggedDistance = 0;
+      startX = e.clientX;
+      scrollStart = viewport.scrollLeft;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const dx = e.clientX - startX;
+      draggedDistance += Math.abs(dx);
+      viewport.scrollLeft = scrollStart - dx;
+    });
+
+    window.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+
+    // ۴. آکاردئون باز و بسته شدن فازها با حفظ موقعیت
+    function togglePhase(phaseNum, forceOpen = null) {
+      const panel = document.getElementById(`tasks-${phaseNum}`);
+      const chevron = document.getElementById(`chevron-${phaseNum}`);
+      const isCurrentlyOpen = !panel.classList.contains('hidden');
+
+      const shouldOpen = (forceOpen !== null) ? forceOpen : !isCurrentlyOpen;
+
+      if (shouldOpen) {
+        panel.classList.remove('hidden');
+        if (chevron) chevron.style.transform = 'rotate(180deg)';
+      } else {
+        panel.classList.add('hidden');
+        if (chevron) chevron.style.transform = 'rotate(0deg)';
+      }
+    }
+
+    [1, 2, 3].forEach(id => {
+      const card = document.getElementById(`card-${id}`);
+      card.addEventListener('click', (e) => {
+        if (draggedDistance > 5) return; // اگر در حال درگ بوده، باز و بسته نشود
+        togglePhase(id);
+      });
+
+      const panel = document.getElementById(`tasks-${id}`);
+      panel.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+    });
+
+    // بارگذاری اولیه: زوم ۱.۲۵ و مرکز قرار دادن موقعیت امروز (۱۴ مهر)
+    window.addEventListener('DOMContentLoaded', () => {
+      updateTimelineScale(1.25, null, true);
+      togglePhase(1, true);
+      togglePhase(2, false);
+      togglePhase(3, false);
+      requestAnimationFrame(() => {
+        centerOnToday();
+      });
+    });
+
+    window.addEventListener('resize', () => {
+      updateTimelineScale(currentZoom, null, true);
+      centerOnToday();
+    });
+  </script>
+
+</body>
+</html>

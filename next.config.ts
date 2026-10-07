@@ -10,6 +10,18 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/Shaadproject',
+        destination: '/Shaadproject/index.html',
+      },
+      {
+        source: '/shaadproject',
+        destination: '/Shaadproject/index.html',
+      },
+    ];
+  },
 };
 
 export default nextConfig;

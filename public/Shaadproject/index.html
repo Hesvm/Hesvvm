@@ -131,6 +131,71 @@
 </head>
 <body class="w-full h-full flex flex-col canvas-bg text-slate-800">
 
+  <!-- پنجره اعتبارسنجی رمز عبور (Gate) -->
+  <div id="password-gate" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-[#FAFAFA] select-none" dir="rtl" style="background-image: radial-gradient(#E2E8F0 1.15px, transparent 1.15px); background-size: 22px 22px;">
+    <div class="w-full max-w-sm bg-white/95 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-2xl flex flex-col items-center text-center">
+      
+      <!-- لوگو و نشان قفل شاد -->
+      <div class="relative mb-4">
+        <div class="w-16 h-16 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center shadow-inner overflow-hidden p-2">
+          <img src="/Shaadproject/favicon.png" alt="شاد" class="w-full h-full object-contain" onerror="this.src='./favicon.png'">
+        </div>
+        <div class="absolute -bottom-1 -left-1 w-6 h-6 rounded-full bg-slate-900 border-2 border-white flex items-center justify-center text-white text-[11px] shadow-sm">
+          🔒
+        </div>
+      </div>
+
+      <!-- عناوین -->
+      <h2 class="text-base sm:text-lg font-black text-slate-900 mb-1">پروژه پروفایل شاد</h2>
+      <p class="text-xs font-semibold text-slate-500 mb-6 leading-relaxed">
+        این صفحه دارای دسترسی محرمانه است.<br>لطفاً برای مشاهده، رمز عبور را وارد کنید.
+      </p>
+
+      <!-- فرم ورود -->
+      <form id="password-form" class="w-full space-y-3" onsubmit="event.preventDefault(); verifyPassword();">
+        <div class="relative w-full">
+          <input 
+            type="password" 
+            id="password-input" 
+            placeholder="رمز عبور..." 
+            autocomplete="current-password"
+            class="w-full px-4 py-3 text-sm font-bold text-slate-800 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-amber-400 focus:bg-white focus:ring-4 focus:ring-amber-100/60 transition-all text-center tracking-widest placeholder:tracking-normal placeholder:font-normal"
+          >
+          <button 
+            type="button" 
+            id="toggle-pw-btn" 
+            onclick="togglePasswordVisibility()" 
+            class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1"
+            title="نمایش رمز"
+          >
+            <svg id="eye-icon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+          </button>
+        </div>
+
+        <div id="password-error" class="hidden text-xs font-bold text-red-500 text-center py-0.5">
+          رمز عبور اشتباه است
+        </div>
+
+        <button 
+          type="submit" 
+          id="submit-pw-btn" 
+          class="w-full py-3 px-4 bg-slate-900 hover:bg-black text-white text-xs sm:text-sm font-black rounded-xl shadow-md hover:shadow-lg active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer"
+        >
+          <span>ورود به پروژه</span>
+          <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </button>
+      </form>
+
+      <div class="mt-5 text-[11px] font-bold text-slate-400 flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+        <span>ورود شما تا ۱ ماه آینده ذخیره می‌ماند</span>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="app-wrapper" class="w-full h-full flex flex-col" style="display: none;">
+
   <!-- ویوپورت تایم‌لاین با اسکرول افقی LTR و پدینگ‌های فراخ و ریلکس -->
   <main id="timeline-scroll-viewport" dir="ltr" class="flex-1 w-full overflow-x-auto overflow-y-auto relative cursor-grab active:cursor-grabbing pt-16 pb-28" style="scroll-behavior: auto;">
     
@@ -316,6 +381,7 @@
     </div>
 
   </main>
+  </div><!-- /app-wrapper -->
   </div>
 
   <script>
@@ -641,18 +707,28 @@
 
     // بارگذاری اولیه: زوم ۱.۲۵ و مرکز قرار دادن موقعیت امروز (۱۴ مهر)
     
+    
     // --- سیستم احراز هویت و ذخیره دسترسی تا ۱ ماه ---
-    const AUTH_STORAGE_KEY = 'shaad_access_expiry';
-    // هش SHA-256 رمز اولیه "shad2026"
+    const AUTH_STORAGE_KEY = 'shaad_session_v3';
+    // هش SHA-256 رمز Sh@ad_X79!Pr0f!le#Vault2026
     const PASSWORD_HASH = 'f1c99a4f44e16f515bd28839387b00bcdea8fe14609bd5c76718a529de66abb3';
 
     function isAuthorized() {
       try {
-        const cookieMatch = document.cookie.match(/(?:^|; )shaad_access_expiry=([^;]+)/);
-        const cookieExp = cookieMatch ? parseInt(cookieMatch[1]) : 0;
-        const localExp = parseInt(localStorage.getItem(AUTH_STORAGE_KEY) || '0');
-        const validExp = Math.max(cookieExp, localExp);
-        return validExp > Date.now();
+        const cookieMatch = document.cookie.match(/(?:^|; )shaad_session_v3=([^;]+)/);
+        const cookieVal = cookieMatch ? cookieMatch[1] : null;
+        const localVal = localStorage.getItem(AUTH_STORAGE_KEY);
+        const token = cookieVal || localVal;
+
+        if (!token) return false;
+
+        const parts = token.split(':');
+        if (parts.length !== 2) return false;
+
+        const [savedHash, expiryStr] = parts;
+        const expiry = parseInt(expiryStr);
+
+        return savedHash === PASSWORD_HASH && expiry > Date.now();
       } catch(e) {
         return false;
       }
@@ -661,9 +737,13 @@
     function setAuthorized() {
       const ONE_MONTH_MS = 30 * 24 * 60 * 60 * 1000; // ۳۰ روز (۱ ماه)
       const expiry = Date.now() + ONE_MONTH_MS;
+      const token = `${PASSWORD_HASH}:${expiry}`;
       try {
-        localStorage.setItem(AUTH_STORAGE_KEY, expiry.toString());
-        document.cookie = `shaad_access_expiry=${expiry}; path=/; max-age=${30 * 24 * 60 * 60}; SameSite=Lax`;
+        localStorage.setItem(AUTH_STORAGE_KEY, token);
+        document.cookie = `shaad_session_v3=${token}; path=/; max-age=${30 * 24 * 60 * 60}; SameSite=Lax`;
+        // پاکسازی سشن‌های قدیمی
+        localStorage.removeItem('shaad_access_expiry');
+        document.cookie = 'shaad_access_expiry=; path=/; max-age=0;';
       } catch(e) {}
     }
 
@@ -695,11 +775,11 @@
 
       const inputHash = await sha256(val);
       if (inputHash === PASSWORD_HASH) {
-        errorMsg.classList.add('hidden');
+        if (errorMsg) errorMsg.classList.add('hidden');
         setAuthorized();
         unlockPage();
       } else {
-        errorMsg.classList.remove('hidden');
+        if (errorMsg) errorMsg.classList.remove('hidden');
         if (modalBox) {
           modalBox.classList.remove('shake-anim');
           void modalBox.offsetWidth; // trigger reflow
@@ -721,25 +801,30 @@
       if (app) {
         app.style.display = 'flex';
       }
-      // اجرای اسکرول و تنظیم مجدد ابعاد پس از نمایش
       setTimeout(() => {
         updateTimelineScale(currentZoom, null, true);
         centerOnToday();
       }, 50);
     }
 
-    // بررسی اولیه قبل از نمایش هر چیز
-    if (isAuthorized()) {
+    function initAuth() {
       const gate = document.getElementById('password-gate');
       const app = document.getElementById('app-wrapper');
-      if (gate) gate.remove();
-      if (app) app.style.display = 'flex';
-    } else {
-      setTimeout(() => {
-        const inp = document.getElementById('password-input');
-        if (inp) inp.focus();
-      }, 100);
+      if (isAuthorized()) {
+        if (gate) gate.remove();
+        if (app) app.style.display = 'flex';
+      } else {
+        if (gate) gate.style.display = 'flex';
+        if (app) app.style.display = 'none';
+        setTimeout(() => {
+          const inp = document.getElementById('password-input');
+          if (inp) inp.focus();
+        }, 150);
+      }
     }
+
+    initAuth();
+
 
     window.addEventListener('DOMContentLoaded', () => {
       updateTimelineScale(1.25, null, true);

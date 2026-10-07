@@ -1,0 +1,7 @@
+# Disallow search engine indexing of private/preview slugs
+User-agent: *
+Disallow: /Shaadproject
+Disallow: /shaadproject
+Disallow: /Shaadproject/
+Disallow: /shaadproject/
+Disallow: /admin

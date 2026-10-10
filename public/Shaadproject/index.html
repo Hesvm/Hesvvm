@@ -223,13 +223,13 @@
         <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100/90 border border-slate-200 text-[11px] font-bold text-slate-700 shadow-2xs">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
           <span class="text-slate-500">آخرین تغییر:</span>
-          <span class="font-extrabold text-slate-900" id="last-update-display">۱۹ مهر ۱۴۰۵ • ۱۵:۲۰</span>
+          <span class="font-extrabold text-slate-900" id="last-update-display">۱۸ مهر ۱۴۰۵ • ۱۵:۵۰</span>
         </div>
 
         <!-- دکمه برو به امروز -->
         <button id="btn-today" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 hover:bg-emerald-100 text-emerald-800 text-[11px] font-bold shadow-2xs transition active:scale-95 cursor-pointer">
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
-          <span>امروز (۱۴ مهر)</span>
+          <span>امروز (۱۸ مهر)</span>
         </button>
 
         <!-- کنترل‌های زوم -->
@@ -249,12 +249,12 @@
     <!-- کانتینر مقیاس‌پذیر افقی تایم‌لاین -->
     <div id="timeline-track" class="min-h-full relative" style="width: 1560px;">
       
-      <!-- نشانگر اختصاصی امروز (۱۴ مهر) — قرارگیری کاملاً بالای هدر بدون افتادن روی متن هفته -->
+      <!-- نشانگر اختصاصی امروز (۱۸ مهر) — قرارگیری کاملاً بالای هدر بدون افتادن روی متن هفته -->
       <div id="today-indicator" class="absolute -top-7 bottom-0 z-30 pointer-events-none flex flex-col items-center" style="left: 96px;">
         <!-- برچسب کپسولی شناور -->
         <div class="bg-emerald-500 text-white text-[10px] font-black px-3 py-1 rounded-full shadow-sm whitespace-nowrap flex items-center gap-1.5 pointer-events-auto">
           <span class="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span>
-          <span>امروز • ۱۴ مهر</span>
+          <span>امروز • ۱۸ مهر</span>
         </div>
         <!-- نقطه اتصال پین -->
         <div class="w-2 h-2 rounded-full bg-emerald-500 border-2 border-white shadow-xs mt-0.5"></div>
@@ -441,11 +441,11 @@
         days: [
           { num: '۱۲', name: 'ش' },
           { num: '۱۳', name: 'ی' },
-          { num: '۱۴', name: 'د', isToday: true },
+          { num: '۱۴', name: 'د' },
           { num: '۱۵', name: 'س' },
           { num: '۱۶', name: 'چ' },
           { num: '۱۷', name: 'پ' },
-          { num: '۱۸', name: 'ج' }
+          { num: '۱۸', name: 'ج', isToday: true }
         ]
       },
       {
@@ -591,8 +591,8 @@
 
       renderCalendarHeaders(weekWidth);
 
-      // قرار دادن دقیق پین امروز روی مرکز روز ۱۴ مهر (روز ۳ از هفته اول)
-      const todayX = sidePad + Math.round((2 + 0.5) * dayWidth);
+      // قرار دادن دقیق پین امروز روی مرکز روز ۱۸ مهر (روز ۷ از هفته اول)
+      const todayX = sidePad + Math.round((6 + 0.5) * dayWidth);
       todayIndicator.style.left = todayX + 'px';
 
       if (!isInitial) {
@@ -600,12 +600,12 @@
       }
     }
 
-    // مرکز قرار دادن جایی که الان هستیم (امروز ۱۴ مهر)
+    // مرکز قرار دادن جایی که الان هستیم (امروز ۱۸ مهر)
     function centerOnToday() {
       const weekWidth = Math.round(BASE_WEEK_WIDTH * currentZoom);
       const dayWidth = weekWidth / 7;
       const sidePad = getSidePadding();
-      const todayX = sidePad + Math.round((2 + 0.5) * dayWidth);
+      const todayX = sidePad + Math.round((6 + 0.5) * dayWidth);
       const vWidth = viewport.clientWidth || window.innerWidth;
       const targetScroll = todayX - (vWidth / 2);
       viewport.scrollLeft = Math.max(0, targetScroll);

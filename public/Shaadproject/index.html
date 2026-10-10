@@ -15,9 +15,7 @@
   <style>
     @font-face {
       font-family: 'IRANYekanX';
-      src: url('/Shaadproject/IRANYekanXVF.ttf') format('truetype-variations'),
-           url('/Shaadproject/IRANYekanXVF.ttf') format('truetype'),
-           url('./IRANYekanXVF.ttf') format('truetype-variations'),
+      src: url('./IRANYekanXVF.ttf') format('truetype-variations'),
            url('./IRANYekanXVF.ttf') format('truetype');
       font-weight: 100 900;
       font-display: swap;
@@ -196,6 +194,50 @@
 
   <div id="app-wrapper" class="w-full h-full flex flex-col" style="display: none;">
 
+    <!-- نوار هدر شناور و شیک پروژه با اطلاعات به‌روزرسانی و کنترل‌ها -->
+    <header class="w-full bg-white/90 backdrop-blur-md border-b border-slate-200/80 px-4 md:px-8 py-2.5 flex items-center justify-between z-40 select-none shadow-2xs" dir="rtl">
+      
+      <!-- بخش راست: لوگو و تایتل پروژه -->
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center p-1 shadow-2xs shrink-0">
+          <img src="/Shaadproject/favicon.png" alt="شاد" class="w-full h-full object-contain" onerror="this.src='./favicon.png'">
+        </div>
+        <div class="flex flex-col text-right">
+          <div class="flex items-center gap-2">
+            <h1 class="text-xs md:text-sm font-black text-slate-900 tracking-tight">پروژه پروفایل شاد</h1>
+            <span class="text-[10px] font-black bg-slate-900 text-white px-2 py-0.5 rounded-full">رودمپ ۴۶ روزه</span>
+          </div>
+          <span class="text-[10px] font-bold text-slate-500">۱۲ مهر الی ۲۷ آبان</span>
+        </div>
+      </div>
+
+      <!-- بخش چپ: برچسب آخرین تغییرات و کنترل‌های تعاملی -->
+      <div class="flex items-center gap-2 md:gap-3">
+        
+        <!-- نشان آخرین تغییر -->
+        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100/90 border border-slate-200 text-[11px] font-bold text-slate-700 shadow-2xs">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span class="text-slate-500">آخرین تغییر:</span>
+          <span class="font-extrabold text-slate-900" id="last-update-display">۱۹ مهر ۱۴۰۵ • ۱۵:۲۰</span>
+        </div>
+
+        <!-- دکمه برو به امروز -->
+        <button id="btn-today" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 hover:bg-emerald-100 text-emerald-800 text-[11px] font-bold shadow-2xs transition active:scale-95 cursor-pointer">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+          <span>امروز (۱۴ مهر)</span>
+        </button>
+
+        <!-- کنترل‌های زوم -->
+        <div class="flex items-center bg-slate-100 border border-slate-200 rounded-full p-0.5 shadow-2xs text-slate-700">
+          <button id="btn-zoom-out" class="w-7 h-7 flex items-center justify-center rounded-full hover:bg-white transition text-xs font-bold active:scale-90 cursor-pointer" title="کوچک‌نمایی">−</button>
+          <span id="zoom-level-text" class="text-[10px] font-black px-2 min-w-[36px] text-center">۱۲۵٪</span>
+          <button id="btn-zoom-in" class="w-7 h-7 flex items-center justify-center rounded-full hover:bg-white transition text-xs font-bold active:scale-90 cursor-pointer" title="بزرگ‌نمایی">+</button>
+        </div>
+
+      </div>
+
+    </header>
+
   <!-- ویوپورت تایم‌لاین با اسکرول افقی LTR و پدینگ‌های فراخ و ریلکس -->
   <main id="timeline-scroll-viewport" dir="ltr" class="flex-1 w-full overflow-x-auto overflow-y-auto relative cursor-grab active:cursor-grabbing pt-16 pb-28" style="scroll-behavior: auto;">
     
@@ -218,20 +260,20 @@
       <!-- ساختار تاریخ: ۱. هفته  ۲. روز -->
       <div id="calendar-header-wrapper" class="w-full flex flex-col gap-2 pb-4 pt-1 select-none">
         
-        <!-- سطح ۱: نوار هفته‌ها (۶ ستون خاکستری مینیمال با استروک) -->
-        <div id="weeks-bar" class="grid grid-cols-6 gap-2 w-full">
+        <!-- سطح ۱: نوار هفته‌ها (۷ ستون هماهنگ با روزها با استروک) -->
+        <div id="weeks-bar" class="flex gap-2 w-full">
           <!-- ستون‌های هفته با جاوااسکریپت داینامیک رندر می‌شوند -->
         </div>
 
-        <!-- سطح ۲: خط‌کش روزها (نوار خاکستری تفکیک ۴۲ روز) -->
-        <div id="days-bar" class="grid grid-cols-6 gap-2 w-full">
+        <!-- سطح ۲: خط‌کش روزها (نوار خاکستری تفکیک ۴۶ روز) -->
+        <div id="days-bar" class="flex gap-2 w-full">
           <!-- روزهای هر هفته در این بخش رندر می‌شوند -->
         </div>
 
       </div>
 
       <!-- خطوط عمودی ظریف پس‌زمینه -->
-      <div id="grid-columns-bg" class="grid grid-cols-6 gap-2 w-full absolute top-28 bottom-0 pointer-events-none">
+      <div id="grid-columns-bg" class="flex gap-2 w-full absolute top-28 bottom-0 pointer-events-none">
         <!-- خطوط راهنما -->
       </div>
 
@@ -239,7 +281,7 @@
       <div id="phases-container" class="relative w-full pt-3 flex items-start z-10 gap-2.5">
 
         <!-- فاز ۱: زرد لیمویی مدرن / ۱ هفته (۷ روز: ۱۲ تا ۱۸ مهر) -->
-        <div id="phase-col-1" class="phase-column flex flex-col" style="width: calc(16.666% - 2px); min-width: 320px;">
+        <div id="phase-col-1" class="phase-column flex flex-col" style="width: calc(15.217% - 3px); min-width: 320px;">
           <div id="card-1" class="phase-card rounded-3xl bg-[#FFD747] p-3.5 smooth-card-shadow hover:brightness-[0.98] transition-all cursor-pointer select-none" dir="rtl">
             
             <div class="flex items-center justify-between text-slate-900 px-1">
@@ -269,7 +311,7 @@
               </label>
               <label class="flex items-start gap-2.5 cursor-pointer p-1 rounded-xl hover:bg-slate-50 transition">
                 <input type="checkbox" checked class="task-check w-4 h-4 mt-0.5 rounded-full border-slate-300 text-amber-500 focus:ring-0">
-                <span class="text-xs font-bold text-slate-800 leading-snug">درآوردن رودمپ ۴۲ روزه دیزاین</span>
+                <span class="text-xs font-bold text-slate-800 leading-snug">درآوردن رودمپ ۴۶ روزه دیزاین</span>
               </label>
               <label class="flex items-start gap-2.5 cursor-pointer p-1 rounded-xl hover:bg-slate-50 transition">
                 <input type="checkbox" class="task-check w-4 h-4 mt-0.5 rounded-full border-slate-300 text-amber-500 focus:ring-0">
@@ -285,7 +327,7 @@
         </div>
 
         <!-- فاز ۲: قرمز مرجانی ملایم / ۳ هفته (۲۱ روز) -->
-        <div id="phase-col-2" class="phase-column flex flex-col" style="width: calc(50.000% - 2px);">
+        <div id="phase-col-2" class="phase-column flex flex-col" style="width: calc(45.652% - 3px);">
           <div id="card-2" class="phase-card rounded-3xl bg-[#FF453A] p-3.5 smooth-card-shadow hover:brightness-[0.98] transition-all cursor-pointer select-none" dir="rtl">
             
             <div class="flex items-center justify-between text-white px-1">
@@ -330,8 +372,8 @@
           </div>
         </div>
 
-        <!-- فاز ۳: بنفش سلطنتی ملایم / ۲ هفته (۱۴ روز) -->
-        <div id="phase-col-3" class="phase-column flex flex-col" style="width: calc(33.333% - 2px);">
+        <!-- فاز ۳: بنفش سلطنتی ملایم / ۱۸ روز (۱۰ تا ۲۷ آبان) -->
+        <div id="phase-col-3" class="phase-column flex flex-col" style="width: calc(39.130% - 3px);">
           <div id="card-3" class="phase-card rounded-3xl bg-[#6851A8] p-3.5 smooth-card-shadow hover:brightness-[0.98] transition-all cursor-pointer select-none" dir="rtl">
             
             <div class="flex items-center justify-between text-white px-1">
@@ -340,7 +382,7 @@
                 <span class="font-black text-xs md:text-sm tracking-tight">فاز ۳: دیزاین سیستم، پروتوتایپ و هندآف</span>
               </div>
               <div class="flex items-center gap-1.5">
-                <span class="text-[10px] font-black bg-black/20 text-white px-2.5 py-0.5 rounded-full">۱۴ روز</span>
+                <span class="text-[10px] font-black bg-black/20 text-white px-2.5 py-0.5 rounded-full">۱۸ روز</span>
                 <svg id="chevron-3" class="w-4 h-4 text-white transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
               </div>
             </div>
@@ -349,7 +391,7 @@
             <div id="tasks-3" class="task-panel hidden mt-3 bg-white/95 rounded-2xl p-4 shadow-xs text-right space-y-2.5" dir="rtl">
               <div class="text-[11px] font-black text-purple-900 pb-1.5 border-b border-purple-100/60 flex items-center justify-between">
                 <span>تسک‌های اجرایی فاز ۳</span>
-                <span class="text-[10px] font-bold text-slate-400">۱۰ تا ۲۳ آبان</span>
+                <span class="text-[10px] font-bold text-slate-400">۱۰ تا ۲۷ آبان</span>
               </div>
               <label class="flex items-start gap-2.5 cursor-pointer p-1 rounded-xl hover:bg-slate-50 transition">
                 <input type="checkbox" class="task-check w-4 h-4 mt-0.5 rounded-full border-slate-300 text-purple-600 focus:ring-0">
@@ -470,6 +512,17 @@
           { num: '۲۲', name: 'پ' },
           { num: '۲۳', name: 'ج' }
         ]
+      },
+      {
+        id: 7,
+        title: 'هفته ۷',
+        dateRange: '۲۴ الی ۲۷ آبان (پایان)',
+        days: [
+          { num: '۲۴', name: 'ش' },
+          { num: '۲۵', name: 'ی' },
+          { num: '۲۶', name: 'د' },
+          { num: '۲۷', name: 'س', isFinalDay: true }
+        ]
       }
     ];
 
@@ -526,8 +579,9 @@
       gridColumnsBg.style.left = sidePad + 'px';
       gridColumnsBg.style.right = sidePad + 'px';
 
-      const totalWeeksWidth = weekWidth * 6;
-      track.style.width = (totalWeeksWidth + sidePad * 2) + 'px';
+      const dayWidth = weekWidth / 7;
+      const totalDaysWidth = Math.round(dayWidth * 46);
+      track.style.width = (totalDaysWidth + sidePad * 2) + 'px';
       if (zoomText) zoomText.innerText = Math.round(currentZoom * 100) + '٪';
 
       renderCalendarHeaders(weekWidth);
@@ -554,11 +608,12 @@
     }
 
     function renderCalendarHeaders(weekWidth) {
-      // ۱. رندر سطح هفته‌ها با کانتینرهای خاکستری مینیمال و استروک
+      // ۱. رندر سطح هفته‌ها با کانتینرهای هماهنگ با تعداد روزها
       let weeksHtml = '';
       WEEKS_DATA.forEach(w => {
+        const colDays = w.days.length;
         weeksHtml += `
-          <div class="rounded-2xl bg-slate-100 border border-slate-200/90 p-2 flex flex-col items-center justify-center hover:border-slate-300 transition">
+          <div style="flex: ${colDays};" class="rounded-2xl bg-slate-100 border border-slate-200/90 p-2 flex flex-col items-center justify-center hover:border-slate-300 transition">
             <span class="text-xs md:text-sm font-black text-slate-800 tracking-tight leading-none">${w.title}</span>
             <span dir="rtl" class="text-[10px] md:text-[11px] font-bold text-slate-500 mt-1.5 whitespace-nowrap leading-none">${w.dateRange}</span>
           </div>
@@ -566,12 +621,13 @@
       });
       weeksBar.innerHTML = weeksHtml;
 
-      // ۲. رندر سطح خط‌کش روزها (نوار خاکستری با استروک)
+      // ۲. رندر سطح خط‌کش روزها (نوار خاکستری با تفکیک ۴۶ روز)
       const showDayNames = currentZoom >= 0.75;
       let daysHtml = '';
       let gridBgHtml = '';
 
       WEEKS_DATA.forEach((w, wIdx) => {
+        const colDays = w.days.length;
         let weekDaysCells = '';
         w.days.forEach(d => {
           if (d.isToday) {
@@ -590,6 +646,14 @@
                 <span class="text-[11px] md:text-xs font-black leading-none">${d.num}</span>
               </div>
             `;
+          } else if (d.isFinalDay) {
+            // روز پایانی رودمپ (۲۷ آبان • روز ۴۶)
+            weekDaysCells += `
+              <div class="flex flex-col items-center justify-center py-1 rounded-xl bg-purple-600 text-white font-black shadow-xs ring-1 ring-purple-300 transition" title="روز پایانی رودمپ (۴۶ روز)">
+                ${showDayNames ? `<span class="text-[8px] text-purple-200 font-bold leading-none mb-0.5">${d.name}</span>` : ''}
+                <span class="text-[11px] md:text-xs font-black leading-none">${d.num} 🏁</span>
+              </div>
+            `;
           } else {
             // سایر روزها
             weekDaysCells += `
@@ -602,14 +666,14 @@
         });
 
         daysHtml += `
-          <div class="grid grid-cols-7 gap-1 p-1 rounded-2xl bg-slate-100 border border-slate-200/90">
+          <div style="flex: ${colDays};" class="grid grid-cols-${colDays} gap-1 p-1 rounded-2xl bg-slate-100 border border-slate-200/90">
             ${weekDaysCells}
           </div>
         `;
 
         // خطوط راهنمای عمودی
         gridBgHtml += `
-          <div class="h-full border-r border-dashed border-slate-200/50 last:border-r-0"></div>
+          <div style="flex: ${colDays};" class="h-full border-r border-dashed border-slate-200/50 last:border-r-0"></div>
         `;
       });
 
@@ -634,7 +698,7 @@
     const btnZoomFit = document.getElementById('btn-zoom-fit');
     if (btnZoomFit) btnZoomFit.onclick = () => {
       const availableWidth = viewport.clientWidth - (PADDING_OFFSET * 2);
-      const fitZoom = availableWidth / (BASE_WEEK_WIDTH * 6);
+      const fitZoom = availableWidth / (BASE_WEEK_WIDTH * (46 / 7));
       updateTimelineScale(fitZoom);
       viewport.scrollLeft = 0;
     };

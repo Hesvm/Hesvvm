@@ -200,10 +200,11 @@
   <div id="app-wrapper" class="w-full h-full flex flex-col" style="display: none;">
 
     <!-- نوار هدر شناور و شیک پروژه با اطلاعات به‌روزرسانی و کنترل‌ها -->
-    <header class="w-full bg-white/90 backdrop-blur-md border-b border-slate-200/80 px-4 md:px-8 py-2.5 flex items-center justify-between z-40 select-none shadow-2xs" dir="rtl">
+    <!-- نوار هدر شناور و شیک پروژه با اطلاعات به‌روزرسانی، چیپ‌های ناوبری و کنترل‌ها -->
+    <header class="w-full bg-white/95 backdrop-blur-md border-b border-slate-200/80 px-4 md:px-8 py-2.5 flex flex-wrap md:flex-nowrap items-center justify-between gap-3 z-40 select-none shadow-2xs" dir="rtl">
       
       <!-- بخش راست: لوگو و تایتل پروژه -->
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-3 shrink-0">
         <div class="w-9 h-9 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center p-1 shadow-2xs shrink-0">
           <img src="/Shaadproject/favicon.png" alt="شاد" class="w-full h-full object-contain" onerror="this.src='./favicon.png'">
         </div>
@@ -216,8 +217,30 @@
         </div>
       </div>
 
+      <!-- بخش میانی: چیپ‌های ناوبری ۳ گانه با آیکون -->
+      <div class="flex items-center gap-2 overflow-x-auto py-1 scrollbar-none">
+        <!-- چیپ ۱: رودمپ و تسک‌ها -->
+        <button id="nav-chip-roadmap" onclick="switchNavTab('roadmap')" class="nav-chip active flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900 text-white text-[11px] font-extrabold shadow-sm transition-all duration-200 active:scale-95 cursor-pointer">
+          <span class="text-xs">🗺️</span>
+          <span>رودمپ و تسک‌ها</span>
+        </button>
+
+        <!-- چیپ ۲: نمونه صفحه‌ها -->
+        <button id="nav-chip-designs" onclick="switchNavTab('designs')" class="nav-chip flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200/80 border border-slate-200/80 text-slate-700 text-[11px] font-extrabold transition-all duration-200 active:scale-95 cursor-pointer">
+          <span class="text-xs">📱</span>
+          <span>نمونه صفحه‌ها</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
+        </button>
+
+        <!-- چیپ ۳: منابع و لینک‌ها -->
+        <button id="nav-chip-resources" onclick="switchNavTab('resources')" class="nav-chip flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200/80 border border-slate-200/80 text-slate-700 text-[11px] font-extrabold transition-all duration-200 active:scale-95 cursor-pointer">
+          <span class="text-xs">📚</span>
+          <span>منابع و لینک‌ها</span>
+        </button>
+      </div>
+
       <!-- بخش چپ: برچسب آخرین تغییرات و کنترل‌های تعاملی -->
-      <div class="flex items-center gap-2 md:gap-3">
+      <div class="flex items-center gap-2 md:gap-3 shrink-0">
         
         <!-- نشان آخرین تغییر -->
         <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100/90 border border-slate-200 text-[11px] font-bold text-slate-700 shadow-2xs">
@@ -233,7 +256,7 @@
         </button>
 
         <!-- کنترل‌های زوم -->
-        <div class="flex items-center bg-slate-100 border border-slate-200 rounded-full p-0.5 shadow-2xs text-slate-700">
+        <div id="zoom-controls-wrapper" class="flex items-center bg-slate-100 border border-slate-200 rounded-full p-0.5 shadow-2xs text-slate-700">
           <button id="btn-zoom-out" class="w-7 h-7 flex items-center justify-center rounded-full hover:bg-white transition text-xs font-bold active:scale-90 cursor-pointer" title="کوچک‌نمایی">−</button>
           <span id="zoom-level-text" class="text-[10px] font-black px-2 min-w-[36px] text-center">۱۲۵٪</span>
           <button id="btn-zoom-in" class="w-7 h-7 flex items-center justify-center rounded-full hover:bg-white transition text-xs font-bold active:scale-90 cursor-pointer" title="بزرگ‌نمایی">+</button>
@@ -428,6 +451,192 @@
     </div>
 
   </main>
+  
+  <!-- صفحه / سکشن نمونه صفحه‌ها و دیزاین‌ها -->
+  <section id="view-designs" class="flex-1 w-full overflow-y-auto bg-slate-50/90 p-4 md:p-8 select-none" style="display: none;" dir="rtl">
+    <div class="max-w-6xl mx-auto space-y-6">
+      
+      <!-- هدر بخش دیزاین‌ها -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-xl">📱</span>
+            <h2 class="text-lg md:text-xl font-black text-slate-900">ویترین نمونه صفحه‌ها و پروتوتایپ‌های شاد</h2>
+          </div>
+          <p class="text-xs md:text-sm text-slate-600 font-medium">مشاهده زنده پروتوتایپ‌های تعاملی، فایل‌های فیگما، وایرفریم‌ها و بازسازی‌های بصری رُخ شاد</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <a href="/app/rokh/index.html" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full text-xs font-black shadow-sm transition active:scale-95">
+            <span>اجرای پروتوتایپ زنده</span>
+            <span>↗</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- کارت‌های دسترسی به دیزاین‌ها -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        
+        <!-- کارت ۱: پروتوتایپ زنده موبایلی رُخ شاد -->
+        <div class="bg-white rounded-3xl border border-slate-200/80 p-5 flex flex-col justify-between hover:shadow-md transition-all group">
+          <div>
+            <div class="w-full h-44 rounded-2xl bg-slate-950 overflow-hidden relative mb-4 border border-slate-800 flex items-center justify-center">
+              <iframe src="/app/rokh/index.html" class="w-[390px] h-[750px] scale-[0.45] origin-top pointer-events-none rounded-[36px]"></iframe>
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-4">
+                <span class="text-[11px] font-black text-white bg-indigo-600/90 backdrop-blur-xs px-2.5 py-1 rounded-full">وب‌اپلیکیشن تعاملی (Live)</span>
+              </div>
+            </div>
+            <h3 class="text-sm font-black text-slate-900 mb-1.5">رُخ شاد — شبیه‌ساز نیتیو موبایل (آیفون ۱۶)</h3>
+            <p class="text-xs text-slate-600 leading-relaxed font-medium mb-3">شامل Bottom Sheet متحرک، سوییچر دید دیگران و خودم، استریک ۳۱ روزه، بنتو کارت‌های چندبعدی، و حالت ادیت زنده.</p>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] font-bold text-slate-500">نسخه v6 — ریسپانسیو</span>
+            <a href="/app/rokh/index.html" target="_blank" class="text-xs font-black text-indigo-600 hover:text-indigo-800 flex items-center gap-1">
+              <span>مشاهده کامل</span>
+              <span>←</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- کارت ۲: فایل دیزاین فیگما -->
+        <div class="bg-white rounded-3xl border border-slate-200/80 p-5 flex flex-col justify-between hover:shadow-md transition-all group">
+          <div>
+            <div class="w-full h-44 rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-100/70 border border-emerald-200/70 flex flex-col items-center justify-center p-4 mb-4 text-center">
+              <div class="w-12 h-12 rounded-2xl bg-white shadow-xs flex items-center justify-center text-2xl mb-2">🎨</div>
+              <span class="text-xs font-black text-slate-800">Shad Profile Service</span>
+              <span class="text-[10px] font-bold text-emerald-700 bg-emerald-100/80 px-2 py-0.5 rounded-full mt-1">سند رسمی فیگما</span>
+            </div>
+            <h3 class="text-sm font-black text-slate-900 mb-1.5">فایل طراحی فیگما (Figma Design File)</h3>
+            <p class="text-xs text-slate-600 leading-relaxed font-medium mb-3">فریم‌های رسمی رابط کاربری شاد، تایپوگرافی، پالت رنگی سبز نعنایی، کامپوننت‌های سوئیچ سرویس‌ها و تنظیمات حریم خصوصی.</p>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] font-bold text-slate-500">لینک مستقیم فیگما</span>
+            <a href="https://www.figma.com/make/fSAaWn4GFzQ1UkAIcc2DzB/Shad-Profile-Service?code-node-id=0-6&p=f&t=DH3OP30DP8y4fpnT-0&fullscreen=1" target="_blank" class="text-xs font-black text-emerald-700 hover:text-emerald-900 flex items-center gap-1">
+              <span>باز کردن در فیگما</span>
+              <span>↗</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- کارت ۳: نمودار یوزرفلو جامع -->
+        <div class="bg-white rounded-3xl border border-slate-200/80 p-5 flex flex-col justify-between hover:shadow-md transition-all group">
+          <div>
+            <div class="w-full h-44 rounded-2xl bg-slate-900 border border-slate-800 overflow-hidden relative mb-4 flex items-center justify-center">
+              <div class="text-center p-4">
+                <span class="text-3xl mb-1 block">🗺️</span>
+                <span class="text-xs font-black text-white">نقشه جریان کاربری و اینتراکشن‌ها</span>
+                <span class="text-[10px] font-bold text-cyan-400 block mt-1">User Flow Diagram</span>
+              </div>
+            </div>
+            <h3 class="text-sm font-black text-slate-900 mb-1.5">یوزرفلو جامع اینتراکشن‌های رُخ شاد</h3>
+            <p class="text-xs text-slate-600 leading-relaxed font-medium mb-3">نمودار تعاملی رفتار مالک در برابر بازدیدکننده، اتصال به پُرس‌لاین، کشوی ویجت‌ها، شیت کیف پول و لیدربورد.</p>
+          </div>
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-[11px] font-bold text-slate-500">سند معماری UX</span>
+            <button onclick="switchNavTab('resources')" class="text-xs font-black text-cyan-700 hover:text-cyan-900 flex items-center gap-1 cursor-pointer">
+              <span>مشاهده سند</span>
+              <span>←</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- صفحه / سکشن منابع و لینک‌ها -->
+  <section id="view-resources" class="flex-1 w-full overflow-y-auto bg-slate-50/90 p-4 md:p-8 select-none" style="display: none;" dir="rtl">
+    <div class="max-w-5xl mx-auto space-y-6">
+      
+      <!-- هدر بخش منابع -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-xl">📚</span>
+            <h2 class="text-lg md:text-xl font-black text-slate-900">مخزن اسناد، منابع و پیوندهای پروژه</h2>
+          </div>
+          <p class="text-xs md:text-sm text-slate-600 font-medium">دسترسی سریع به اسناد الزامات محصول (PRD)، دیزاین سیستم، مستندات فنی و ابزارها</p>
+        </div>
+      </div>
+
+      <!-- دسته‌بندی منابع -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        
+        <!-- ۱. اسناد محصولی (PRD) -->
+        <div class="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-2xs space-y-4">
+          <div class="flex items-center gap-2 pb-3 border-b border-slate-100">
+            <span class="text-base">📄</span>
+            <h3 class="text-sm font-black text-slate-900">اسناد محصولی و تحلیل نیازها (PRD)</h3>
+          </div>
+          <div class="space-y-2.5">
+            <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200/60 flex items-center justify-between">
+              <div>
+                <h4 class="text-xs font-black text-slate-900">سند الزامات محصول (PRD شاد - فاز اول)</h4>
+                <p class="text-[11px] font-bold text-slate-500">سند رسمی ۳۶ صفحه‌ای شامل ۵ ماژول و ۸ مکانیسم هویت</p>
+              </div>
+              <span class="text-[10px] font-black bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">PDF رسمی</span>
+            </div>
+            <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200/60 flex items-center justify-between">
+              <div>
+                <h4 class="text-xs font-black text-slate-900">نقشه ۵ ساحت رشد و اقتصاد دوگانه</h4>
+                <p class="text-[11px] font-bold text-slate-500">مؤلفه رشد (G)، اعتبار سکه (C) و وب‌هوک پُرس‌لاین</p>
+              </div>
+              <span class="text-[10px] font-black bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">معماری رشد</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ۲. طراحی و فیگما -->
+        <div class="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-2xs space-y-4">
+          <div class="flex items-center gap-2 pb-3 border-b border-slate-100">
+            <span class="text-base">🎨</span>
+            <h3 class="text-sm font-black text-slate-900">پیوندهای طراحی و ابزارها</h3>
+          </div>
+          <div class="space-y-2.5">
+            <a href="https://www.figma.com/make/fSAaWn4GFzQ1UkAIcc2DzB/Shad-Profile-Service?code-node-id=0-6&p=f&t=DH3OP30DP8y4fpnT-0&fullscreen=1" target="_blank" class="p-3 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200/60 flex items-center justify-between transition group">
+              <div>
+                <h4 class="text-xs font-black text-slate-900 group-hover:text-emerald-700 transition">فایل اصلی فیگما (Figma URL)</h4>
+                <p class="text-[11px] font-bold text-slate-500">فریم‌های نگار موسوی‌راد، تنظیمات سرویس‌ها و تم شاد</p>
+              </div>
+              <span class="text-xs text-slate-400 group-hover:text-emerald-700 transition">↗</span>
+            </a>
+            <a href="/app/rokh/index.html" target="_blank" class="p-3 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200/60 flex items-center justify-between transition group">
+              <div>
+                <h4 class="text-xs font-black text-slate-900 group-hover:text-indigo-600 transition">شبیه‌ساز زنده رُخ (Localhost / Live App)</h4>
+                <p class="text-[11px] font-bold text-slate-500">پروتوتایپ تعاملی با کنترل حالت ادیت و دید دیگران</p>
+              </div>
+              <span class="text-xs text-slate-400 group-hover:text-indigo-600 transition">↗</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- ۳. نیازمندی‌های فنی و استانداردهای طراحی -->
+        <div class="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-2xs space-y-4 md:col-span-2">
+          <div class="flex items-center gap-2 pb-3 border-b border-slate-100">
+            <span class="text-base">⚡</span>
+            <h3 class="text-sm font-black text-slate-900">استانداردهای تایپوگرافی، فونت و استک فنی</h3>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200/60">
+              <span class="text-xs font-black text-slate-900 block mb-1">فونت‌های رسمی پروژه</span>
+              <span class="text-[11px] text-slate-600 font-medium block">ایران یکان ۱۰ الی ۹۰۰ و وزیرمتن متغیر، انطباق کامل با نمایشگرهای رتینا</span>
+            </div>
+            <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200/60">
+              <span class="text-xs font-black text-slate-900 block mb-1">مدل حریم خصوصی ۴ لایه</span>
+              <span class="text-[11px] text-slate-600 font-medium block">دوستان صمیمی، معمولی، آشنا و هم‌مدرسه‌ای با ماتریس تفکیک افشا</span>
+            </div>
+            <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200/60">
+              <span class="text-xs font-black text-slate-900 block mb-1">موتور خودشناسی کاوش</span>
+              <span class="text-[11px] text-slate-600 font-medium block">یکپارچه‌سازی وب‌هوک پرسالین/پُرس‌لاین با سیستم اعطای سکه و نشان</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
   </div><!-- /app-wrapper -->
   </div>
 
@@ -921,6 +1130,50 @@
       updateTimelineScale(currentZoom, null, true);
       centerOnToday();
     });
+  
+
+    // تابع ناوبری بین چیپ‌ها (رودمپ، نمونه صفحه‌ها، منابع)
+    function switchNavTab(tabId) {
+      const viewRoadmap = document.getElementById('timeline-scroll-viewport');
+      const viewDesigns = document.getElementById('view-designs');
+      const viewResources = document.getElementById('view-resources');
+      const zoomControls = document.getElementById('zoom-controls-wrapper');
+      const btnToday = document.getElementById('btn-today');
+
+      const chipRoadmap = document.getElementById('nav-chip-roadmap');
+      const chipDesigns = document.getElementById('nav-chip-designs');
+      const chipResources = document.getElementById('nav-chip-resources');
+
+      // ریست وضعیت چیپ‌ها
+      [chipRoadmap, chipDesigns, chipResources].forEach(chip => {
+        if (!chip) return;
+        chip.className = 'nav-chip flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200/80 border border-slate-200/80 text-slate-700 text-[11px] font-extrabold transition-all duration-200 active:scale-95 cursor-pointer';
+      });
+
+      // پنهان کردن تمام ویوها
+      if (viewRoadmap) viewRoadmap.style.display = 'none';
+      if (viewDesigns) viewDesigns.style.display = 'none';
+      if (viewResources) viewResources.style.display = 'none';
+
+      if (tabId === 'roadmap') {
+        if (viewRoadmap) viewRoadmap.style.display = 'block';
+        if (zoomControls) zoomControls.style.display = 'flex';
+        if (btnToday) btnToday.style.display = 'flex';
+        if (chipRoadmap) chipRoadmap.className = 'nav-chip active flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900 text-white text-[11px] font-extrabold shadow-sm transition-all duration-200 active:scale-95 cursor-pointer';
+        requestAnimationFrame(() => centerOnToday());
+      } else if (tabId === 'designs') {
+        if (viewDesigns) viewDesigns.style.display = 'block';
+        if (zoomControls) zoomControls.style.display = 'none';
+        if (btnToday) btnToday.style.display = 'none';
+        if (chipDesigns) chipDesigns.className = 'nav-chip active flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-600 text-white text-[11px] font-extrabold shadow-sm transition-all duration-200 active:scale-95 cursor-pointer';
+      } else if (tabId === 'resources') {
+        if (viewResources) viewResources.style.display = 'block';
+        if (zoomControls) zoomControls.style.display = 'none';
+        if (btnToday) btnToday.style.display = 'none';
+        if (chipResources) chipResources.className = 'nav-chip active flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900 text-white text-[11px] font-extrabold shadow-sm transition-all duration-200 active:scale-95 cursor-pointer';
+      }
+    }
+
   </script>
 
 </body>

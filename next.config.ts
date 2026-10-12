@@ -20,6 +20,14 @@ const nextConfig: NextConfig = {
         source: '/shaadproject',
         destination: '/Shaadproject/index.html',
       },
+      {
+        source: '/shad',
+        destination: '/Shaadproject/index.html',
+      },
+      {
+        source: '/sahd',
+        destination: '/Shaadproject/index.html',
+      },
     ];
   },
   async headers() {

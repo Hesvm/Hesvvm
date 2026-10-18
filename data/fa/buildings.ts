@@ -3,7 +3,7 @@ import { Building } from '@/data/buildings';
 export const faBuildings: Building[] = [
   {
     id: 'vibekit',
-    name: 'Vibe Club',
+    name: 'Vibekit',
     description: 'مجموعه کامپوننت‌ها، شیدرها و انیمیشن‌های وایب‌کدینگ.',
     icon: '/images/buildings/v4/vibekit-v4.png',
     status: 'Live',

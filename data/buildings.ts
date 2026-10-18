@@ -15,7 +15,7 @@ export type Building = {
 export const buildings: Building[] = [
   {
     id: 'vibekit',
-    name: 'Vibe Club',
+    name: 'Vibekit',
     description: 'Curated components, shaders, and animations for vibe-coding.',
     icon: '/images/buildings/v4/vibekit-v4.png',
     status: 'Live',

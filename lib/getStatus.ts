@@ -1,5 +1,6 @@
-import { supabaseAdmin } from './supabase-admin'
+import { supabaseAdmin, isSupabaseConfigured } from './supabase-admin'
 import type { Status, StatusRow, StatusType } from '@/types/status'
+
 
 const previewStatusTypes: StatusType[] = ['song', 'movie', 'game', 'book', 'manual']
 
@@ -56,6 +57,10 @@ export function mapStatusRow(row: StatusRow): Status {
 }
 
 export async function getActiveStatus(): Promise<Status | null> {
+  if (!isSupabaseConfigured) {
+    return process.env.NODE_ENV === 'production' ? null : getPreviewStatus()
+  }
+
   const { data, error } = await supabaseAdmin
     .from('statuses')
     .select('*')
@@ -63,6 +68,7 @@ export async function getActiveStatus(): Promise<Status | null> {
     .order('updated_at', { ascending: false })
     .limit(1)
     .maybeSingle()
+
 
   if (error || !data) {
     if (process.env.NODE_ENV === 'production') {

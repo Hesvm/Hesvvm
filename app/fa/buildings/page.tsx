@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { PageTransition } from '@/components/PageTransition';
 import { PersonalProjectCard } from '@/components/PersonalProjectCard';
@@ -13,6 +14,8 @@ const containerVariants = {
 };
 
 export default function FaBuildingsPage() {
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+
   return (
     <PageTransition>
       <main
@@ -30,7 +33,7 @@ export default function FaBuildingsPage() {
           className="font-persian font-bold text-[1.75rem] md:text-[2.25rem] text-[var(--text-strong)] text-center"
           style={{ margin: "0 0 6px 0" }}
         >
-          پروژه‌های شخصی
+          پروژه‌ها
         </h1>
 
         {/* Subtitle */}
@@ -38,7 +41,7 @@ export default function FaBuildingsPage() {
           className="font-persian text-sm text-[var(--text-secondary)] text-center"
           style={{ margin: "0 0 44px 0" }}
         >
-          چیزهایی که برای خودم ساختم و شاید برای شما هم مفید باشه.
+          چیزهایی که برای خودم ساختم و ممکنه برای شما هم کاربردی باشه.
         </p>
 
         {/* Projects Grid */}
@@ -52,9 +55,20 @@ export default function FaBuildingsPage() {
           initial="hidden"
           animate="show"
         >
-          {faBuildings.map((building, idx) => (
-            <PersonalProjectCard key={building.id || building.name || idx} project={building} isFa={true} />
-          ))}
+          {faBuildings.map((building, idx) => {
+            const key = building.id || building.name || String(idx);
+            return (
+              <PersonalProjectCard
+                key={key}
+                project={building}
+                isFa={true}
+                isHovered={hoveredId === key}
+                anyHovered={hoveredId !== null}
+                onMouseEnter={() => setHoveredId(key)}
+                onMouseLeave={() => setHoveredId(null)}
+              />
+            );
+          })}
         </motion.div>
       </main>
     </PageTransition>

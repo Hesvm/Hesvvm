@@ -3,16 +3,25 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Building } from '@/data/buildings';
-
+import { useIsHoverCapable } from '@/hooks/useIsHoverCapable';
 
 export function PersonalProjectCard({
   project,
   isFa = false,
+  isHovered = false,
+  anyHovered = false,
+  onMouseEnter,
+  onMouseLeave,
 }: {
   project: Building;
   isFa?: boolean;
+  isHovered?: boolean;
+  anyHovered?: boolean;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 }) {
   const isComingSoon = project.status === 'ComingSoon';
+  const isHoverCapable = useIsHoverCapable();
 
   return (
     <motion.div
@@ -20,24 +29,24 @@ export function PersonalProjectCard({
         hidden: { opacity: 0, y: 16 },
         show: { opacity: 1, y: 0, transition: { duration: 0.36, ease: [0.16, 1, 0.3, 1] } },
       }}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       style={{
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        backgroundColor: "#F0EFEA",
+        backgroundColor: isHovered ? "#EFECE6" : "#F7F6F2",
         border: "none",
         borderRadius: "22px",
         padding: "24px",
         boxShadow: "none",
-        transition: "transform 220ms ease, box-shadow 220ms ease, background-color 220ms ease",
+        transform: "none",
+        filter: isHoverCapable && anyHovered && !isHovered ? "blur(2px)" : "none",
+        opacity: isHoverCapable && anyHovered && !isHovered ? 0.45 : 1,
+        transition: "filter 0.3s ease, opacity 0.3s ease, background-color 220ms ease",
         height: "100%",
         direction: isFa ? "rtl" : "ltr",
         textAlign: isFa ? "right" : "left",
-      }}
-      whileHover={{
-        y: -3,
-        backgroundColor: "#EAE7E0",
-        boxShadow: "0 12px 30px rgba(0, 0, 0, 0.06)",
       }}
     >
       <div>
@@ -50,9 +59,9 @@ export function PersonalProjectCard({
               height: "54px",
               borderRadius: "14px",
               overflow: "hidden",
-              backgroundColor: "var(--surface-secondary)",
-              border: "1px solid rgba(0, 0, 0, 0.06)",
-              boxShadow: "0 3px 10px rgba(0, 0, 0, 0.05)",
+              backgroundColor: "#FFFFFF",
+              border: "none",
+              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.04)",
             }}
           >
             <Image
@@ -130,12 +139,12 @@ export function PersonalProjectCard({
             style={{
               display: "inline-flex",
               alignItems: "center",
-              gap: "6px",
+              gap: "7px",
               padding: "7px 16px",
               borderRadius: "999px",
               backgroundColor: "#FFFFFF",
               border: "1px solid rgba(0, 0, 0, 0.04)",
-              boxShadow: "0 1px 3px rgba(0, 0, 0, 0.05)",
+              boxShadow: "0 1px 3px rgba(0, 0, 0, 0.04)",
               color: "var(--text-primary)",
               fontSize: "13px",
               fontWeight: 500,
@@ -143,13 +152,13 @@ export function PersonalProjectCard({
               textDecoration: "none",
               transition: "all 140ms ease",
             }}
-            className="hover:shadow-md hover:bg-white"
+            className="hover:bg-white"
           >
             <span>{isFa ? "ببینم" : "View"}</span>
             <svg
-              width="12"
-              height="12"
-              viewBox="0 0 12 12"
+              width="15"
+              height="15"
+              viewBox="0 0 16 16"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               style={{
@@ -159,9 +168,9 @@ export function PersonalProjectCard({
               }}
             >
               <path
-                d="M2.5 6H9.5M9.5 6L6.5 3M9.5 6L6.5 9"
+                d="M4.5 11.5L11.5 4.5M11.5 4.5H6.5M11.5 4.5V9.5"
                 stroke="currentColor"
-                strokeWidth="1.3"
+                strokeWidth="1.6"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />

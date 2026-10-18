@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { PageTransition } from '@/components/PageTransition';
 import { PersonalProjectCard } from '@/components/PersonalProjectCard';
@@ -13,6 +14,8 @@ const containerVariants = {
 };
 
 export default function BuildingsPage() {
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+
   return (
     <PageTransition>
       <main
@@ -29,7 +32,7 @@ export default function BuildingsPage() {
           className="font-serif italic text-[1.5rem] md:text-[2rem] text-[var(--text-strong)] text-center"
           style={{ margin: "0 0 6px 0" }}
         >
-          Personal Projects
+          Projects
         </h1>
 
         {/* Subtitle */}
@@ -51,9 +54,20 @@ export default function BuildingsPage() {
           initial="hidden"
           animate="show"
         >
-          {buildings.map((building, idx) => (
-            <PersonalProjectCard key={building.id || building.name || idx} project={building} isFa={false} />
-          ))}
+          {buildings.map((building, idx) => {
+            const key = building.id || building.name || String(idx);
+            return (
+              <PersonalProjectCard
+                key={key}
+                project={building}
+                isFa={false}
+                isHovered={hoveredId === key}
+                anyHovered={hoveredId !== null}
+                onMouseEnter={() => setHoveredId(key)}
+                onMouseLeave={() => setHoveredId(null)}
+              />
+            );
+          })}
         </motion.div>
       </main>
     </PageTransition>

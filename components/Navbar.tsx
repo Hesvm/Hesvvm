@@ -86,7 +86,7 @@ function UkFlagIcon({ color }: { color?: string }) {
 
 const enNavItems = [
   { href: "/", label: "Works", Icon: HomeIcon },
-  { href: "/buildings", label: "Personal Projects", Icon: PersonalProjectsIcon },
+  { href: "/buildings", label: "Projects", Icon: PersonalProjectsIcon },
   { href: "/lab", label: "Lab", Icon: LabIcon },
   { href: "/notes", label: "Writings", Icon: WritesIcon },
 ];
@@ -120,7 +120,7 @@ export function Navbar() {
   const navItems = isFa
     ? [
         { href: "/fa", label: "آثار", Icon: HomeIcon },
-        { href: "/fa/buildings", label: "پروژه‌های شخصی", Icon: PersonalProjectsIcon },
+        { href: "/fa/buildings", label: "پروژه‌ها", Icon: PersonalProjectsIcon },
         { href: "/fa/lab", label: "آزمایشگاه", Icon: LabIcon },
         { href: "/fa/notes", label: "نوشته‌ها", Icon: WritesIcon },
         { href: englishEquivalentPath, label: "English", Icon: UkFlagIcon },

@@ -3,13 +3,19 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-export type Platform = "linkedin" | "x" | "email";
+export type Platform = "linkedin" | "dribbble" | "x" | "email";
 
 // ── Icons ──────────────────────────────────────────────────────────────────
 
 const LINKEDIN_ICON = (
   <svg width="13" height="13" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <path d="M14.0855 0H1.12266C0.824912 0 0.539359 0.123912 0.328819 0.344478C0.11828 0.565043 0 0.864193 0 1.17612V14.7563C0 15.0682 0.11828 15.3673 0.328819 15.5879C0.539359 15.8085 0.824912 15.9324 1.12266 15.9324H14.0855C14.3833 15.9324 14.6688 15.8085 14.8794 15.5879C15.0899 15.3673 15.2082 15.0682 15.2082 14.7563V1.17612C15.2082 0.864193 15.0899 0.565043 14.8794 0.344478C14.6688 0.123912 14.3833 0 14.0855 0ZM4.53288 13.5724H2.24638V5.96358H4.53288V13.5724ZM3.38804 4.90916C3.12868 4.90763 2.87556 4.82565 2.66063 4.67356C2.4457 4.52146 2.27859 4.30608 2.18039 4.05458C2.0822 3.80309 2.05732 3.52676 2.10889 3.26046C2.16046 2.99417 2.28617 2.74985 2.47016 2.55833C2.65415 2.36681 2.88817 2.23668 3.14269 2.18437C3.3972 2.13205 3.66081 2.1599 3.90023 2.26438C4.13966 2.36886 4.34418 2.54531 4.48797 2.77145C4.63177 2.99758 4.7084 3.26328 4.7082 3.535C4.71065 3.71691 4.67811 3.89748 4.61252 4.06595C4.54694 4.23441 4.44965 4.38731 4.32645 4.51555C4.20326 4.64378 4.05669 4.74472 3.89546 4.81234C3.73424 4.87997 3.56167 4.9129 3.38804 4.90916ZM12.9607 13.579H10.6753V9.42223C10.6753 8.19632 10.1779 7.81793 9.53574 7.81793C8.85771 7.81793 8.19235 8.35343 8.19235 9.45321V13.579H5.90584V5.96911H8.10469V7.02352H8.13426C8.35499 6.55551 9.12808 5.75557 10.3078 5.75557C11.5836 5.75557 12.9618 6.54887 12.9618 8.87234L12.9607 13.579Z" fill="currentColor"/>
+  </svg>
+);
+
+const DRIBBBLE_ICON = (
+  <svg width="13" height="13" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path fillRule="evenodd" clipRule="evenodd" d="M8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16C12.4183 16 16 12.4183 16 8C16 3.58172 12.4183 0 8 0ZM7.30268 1.4883C7.53123 1.46513 7.76395 1.45312 8 1.45312C9.48979 1.45312 10.8654 1.94729 11.9772 2.77665C11.8906 2.91578 11.2338 3.92135 9.77353 4.54228C9.0963 3.33235 8.27091 2.30206 7.30268 1.4883ZM5.88373 2.05263C6.79093 2.87106 7.5762 3.89689 8.23253 5.0932C5.9723 5.76678 3.5074 5.72754 2.45781 5.70648C3.07664 4.14816 4.31032 2.87913 5.88373 2.05263ZM1.51737 7.02606C2.65824 7.04561 5.37894 7.07255 7.82283 6.30401C8.16335 6.98565 8.47352 7.6974 8.74955 8.43135C6.38879 9.17244 4.18047 10.6698 3.53589 11.1273C2.26125 9.97282 1.45312 8.32431 1.45312 6.48625C1.45312 6.66699 1.47466 6.84803 1.51737 7.02606ZM4.44498 12.1813C4.94524 11.7764 7.04169 10.3703 9.30906 9.6384C9.89708 11.2482 10.3346 12.8223 10.5516 13.6826C9.77189 14.237 8.92178 14.5469 8 14.5469C6.67104 14.5469 5.44855 14.0628 4.44498 12.1813ZM11.8792 12.9238C11.6669 12.1009 11.2588 10.6272 10.6973 9.07693C12.5693 8.7402 14.2831 9.28189 14.4716 9.3444C13.9163 10.8711 12.9984 12.1159 11.8792 12.9238ZM14.5469 8.0039C14.1534 7.86806 12.6373 7.39174 10.8527 7.70119C10.5759 7.00947 10.2647 6.33777 9.92384 5.69485C11.459 5.09353 12.2471 4.13781 12.3361 4.02535C13.6662 5.07447 14.5367 6.69172 14.5469 8.0039Z" fill="currentColor"/>
   </svg>
 );
 
@@ -66,6 +72,7 @@ const ViewsIcon = () => (
 
 const PILLS: { id: Platform; label: string; icon: React.ReactNode; href: string }[] = [
   { id: "linkedin", label: "LinkedIn", icon: LINKEDIN_ICON, href: "https://www.linkedin.com/in/hesvm" },
+  { id: "dribbble", label: "Dribbble", icon: DRIBBBLE_ICON, href: "https://dribbble.com/hesmousavi" },
   { id: "x",        label: "X posts",  icon: X_ICON,        href: "https://x.com/hesvvm" },
   { id: "email",    label: "Email",    icon: EMAIL_ICON,    href: "mailto:hesammousavizadeh@gmail.com" },
 ];
@@ -241,10 +248,75 @@ function EmailPreview() {
   );
 }
 
+// ── Dribbble preview ───────────────────────────────────────────────────────
+
+function DribbblePreview() {
+  return (
+    <a
+      href="https://dribbble.com/hesmousavi"
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{ display: "block", textDecoration: "none", color: "inherit" }}
+    >
+      <div className="contact-preview-inner">
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+          <div style={{
+            width: 36, height: 36, borderRadius: "50%", overflow: "hidden",
+            flexShrink: 0, background: "var(--surface-secondary)",
+          }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/avatar-hero.png"
+              alt="Hesam Mousavizadeh"
+              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+            />
+          </div>
+          <div>
+            <div style={{
+              fontFamily: "var(--font-sans)", fontSize: 13, fontWeight: 500,
+              color: "var(--text-primary)", letterSpacing: "-0.02em",
+              WebkitFontSmoothing: "antialiased",
+            }}>
+              Hesam Mousavizadeh
+            </div>
+            <div style={{
+              fontFamily: "var(--font-sans)", fontSize: 12,
+              color: "var(--text-muted)", letterSpacing: "-0.01em",
+              WebkitFontSmoothing: "antialiased",
+            }}>
+              dribbble.com/hesmousavi
+            </div>
+          </div>
+        </div>
+
+        <div style={{ display: "flex", gap: 6 }}>
+          {([1, 2, 3] as const).map((n) => (
+            <div
+              key={n}
+              style={{
+                flex: 1, aspectRatio: "1", borderRadius: 8,
+                overflow: "hidden", background: "var(--surface-secondary)",
+              }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`/images/dribbble-shot-${n}.webp`}
+                alt=""
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </a>
+  );
+}
+
 // ── Preview router ─────────────────────────────────────────────────────────
 
 function PreviewContent({ platform }: { platform: Platform }) {
   if (platform === "linkedin") return <LinkedInPreview />;
+  if (platform === "dribbble") return <DribbblePreview />;
   if (platform === "x")        return <XPreview />;
   return <EmailPreview />;
 }

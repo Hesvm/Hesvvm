@@ -1,4 +1,4 @@
-import { supabaseAdmin } from './supabase-admin'
+import { supabaseAdmin, isSupabaseConfigured } from './supabase-admin'
 import type { Project } from '@/types/project'
 import { projects as localProjects } from '@/data/projects'
 
@@ -37,6 +37,10 @@ function localProjectToRecord(project: (typeof localProjects)[number]): Project 
 const localPublishedProjects = localProjects.map(localProjectToRecord)
 
 export async function getPublishedProjects(): Promise<Project[]> {
+  if (!isSupabaseConfigured) {
+    return localPublishedProjects
+  }
+
   const { data, error } = await supabaseAdmin
     .from('projects')
     .select('*')
@@ -51,6 +55,10 @@ export async function getPublishedProjects(): Promise<Project[]> {
 }
 
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
+  if (!isSupabaseConfigured) {
+    return localPublishedProjects.find((project) => project.slug === slug) ?? null
+  }
+
   const { data, error } = await supabaseAdmin
     .from('projects')
     .select('*')
@@ -63,3 +71,4 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
 
   return data as Project
 }
+

@@ -236,11 +236,11 @@
       <!-- سمت چپ: وضعیت تاریخ زنده، دکمه امروز پویا، و زوم -->
       <div class="flex items-center gap-2.5 shrink-0">
         
-        <!-- نشان وضعیت زنده و تاریخ روز -->
+        <!-- نشان آخرین تغییر بدون ساعت -->
         <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-50 border border-slate-200/90 text-xs font-bold text-slate-700 shadow-2xs">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span class="text-slate-400 font-medium">تاریخ امروز:</span>
-          <span class="font-black text-slate-900" id="live-today-text">دوشنبه ۲۷ مهر ۱۴۰۵</span>
+          <span class="text-slate-400 font-medium">آخرین تغییر:</span>
+          <span class="font-black text-slate-900" id="live-today-text">۲۷ مهر ۱۴۰۵</span>
         </div>
 
         <!-- دکمه پرش به امروز در تایم‌لاین -->
@@ -1097,7 +1097,7 @@
       const btnTodayTextEl = document.getElementById('btn-today-text');
       const pillLabelEl = document.getElementById('today-pill-label');
       
-      if (liveTextEl) liveTextEl.innerText = todayInfo.fullFa;
+      if (liveTextEl) liveTextEl.innerText = `${todayInfo.dayFa} ${todayInfo.monthFa} ${todayInfo.yearFa}`;
       if (btnTodayTextEl) btnTodayTextEl.innerText = `امروز (${todayInfo.dayFa} ${todayInfo.monthFa})`;
       if (pillLabelEl) pillLabelEl.innerText = `امروز • ${todayInfo.dayFa} ${todayInfo.monthFa}`;
 

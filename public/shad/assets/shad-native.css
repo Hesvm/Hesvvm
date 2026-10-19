@@ -1,0 +1,587 @@
+/* =========================================================================
+   SHAD NATIVE DESIGN SYSTEM (استایل اصیل و بومی اپلیکیشن رسمی شاد)
+   فونت رسمی: IRANSans
+   پالت رنگی: سبز شاد (#00BA88)، آبی پیام‌رسان (#0EA5E9 / #0284C7)، کارت‌های فلت سفید
+   ========================================================================= */
+
+@import url('https://cdn.jsdelivr.net/npm/iransans-fontface@0.1.1/css/iransans/iransans-fontface.min.css');
+
+:root {
+  --shad-green: #00BA88;
+  --shad-green-hover: #009E74;
+  --shad-green-soft: #E6F7F0;
+  --shad-green-border: #A7F3D0;
+  --shad-green-text: #007A52;
+  
+  --shad-cyan: #0EA5E9;
+  --shad-blue: #0284C7;
+  --shad-blue-soft: #F0F9FF;
+  
+  --shad-orange: #EA580C;
+  --shad-orange-soft: #FFF7ED;
+  --shad-orange-border: #FFEDD5;
+  
+  --shad-red: #EF4444;
+  --shad-red-soft: #FEE2E2;
+  
+  --shad-bg: #F5F6F8;
+  --shad-card-bg: #FFFFFF;
+  --shad-border: #E2E8F0;
+  --shad-border-subtle: #F1F5F9;
+  
+  --shad-text-main: #1E293B;
+  --shad-text-body: #334155;
+  --shad-text-sub: #64748B;
+  --shad-text-muted: #94A3B8;
+  
+  --shad-radius-card: 16px;
+  --shad-radius-pill: 9999px;
+  --shad-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+/* 1. Global Font Enforcement: IRANSans */
+*, *::before, *::after,
+body, button, input, select, textarea, span, p, h1, h2, h3, h4, h5, h6, div {
+  font-family: 'IRANSansWeb', 'IRANSans', IRANSans, -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, sans-serif !important;
+}
+
+/* 2. Base Container & Viewport */
+body {
+  background-color: #0F172A;
+  color: var(--shad-text-main);
+}
+
+.phone-container {
+  background-color: #FFFFFF;
+  border-radius: 40px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* 3. Official Shad Main Page (صفحه اصلی شاد - یکسان با ورژن حسام) */
+.main-app-screen {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #FFFFFF;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  z-index: 5;
+}
+
+.main-screen-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
+}
+
+.main-profile-icon-btn {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 15;
+  background: #FFFFFF;
+  border: 2px solid #FFFFFF;
+  border-radius: 9999px;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16);
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.22s ease;
+}
+
+.main-profile-icon-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 14px rgba(0, 186, 136, 0.35);
+  border-color: var(--shad-green);
+}
+
+.main-profile-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.main-profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.main-profile-online-dot {
+  position: absolute;
+  bottom: 0px;
+  right: -1px;
+  width: 10px;
+  height: 10px;
+  background-color: var(--shad-green);
+  border: 2px solid #FFFFFF;
+  border-radius: 9999px;
+}
+
+/* 4. Bottom Sheet (پروفایل رخ در استایل بومی شاد) */
+.bottom-sheet-container {
+  background-color: var(--shad-bg) !important;
+  border-top-left-radius: 28px !important;
+  border-top-right-radius: 28px !important;
+  box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.14) !important;
+}
+
+/* Header inside Sheet */
+.sheet-header {
+  background: #FFFFFF !important;
+  border-bottom: 1px solid var(--shad-border) !important;
+  padding: 10px 16px !important;
+  border-top-left-radius: 28px !important;
+  border-top-right-radius: 28px !important;
+}
+
+.sheet-grabber {
+  background-color: #CBD5E1 !important;
+  width: 42px !important;
+  height: 4.5px !important;
+  border-radius: 9999px !important;
+}
+
+/* Tab Switcher: دید خودم / دید بقیه */
+.sheet-tab-switcher {
+  background: #F1F5F9 !important;
+  border: 1px solid var(--shad-border) !important;
+  border-radius: 9999px !important;
+  padding: 3px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 2px !important;
+}
+
+.sheet-tab-btn {
+  background: transparent !important;
+  border: none !important;
+  color: var(--shad-text-sub) !important;
+  font-size: 11.5px !important;
+  font-weight: 700 !important;
+  padding: 5px 14px !important;
+  border-radius: 9999px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.sheet-tab-btn.active {
+  background: var(--shad-green) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 2px 6px rgba(0, 186, 136, 0.25) !important;
+  font-weight: 800 !important;
+}
+
+.sheet-icon-btn {
+  background: #F1F5F9 !important;
+  border: none !important;
+  color: var(--shad-text-sub) !important;
+  border-radius: 50% !important;
+  width: 32px !important;
+  height: 32px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+}
+
+.sheet-icon-btn:hover {
+  background: #E2E8F0 !important;
+  color: var(--shad-text-main) !important;
+}
+
+/* 5. Banner Area */
+.banner-container {
+  margin: 12px 14px 0 14px !important;
+  border-radius: var(--shad-radius-card) !important;
+  height: 135px !important;
+  border: 1px solid var(--shad-border) !important;
+  box-shadow: var(--shad-shadow) !important;
+  overflow: hidden !important;
+  position: relative !important;
+}
+
+.badge-pill {
+  background: #FFFFFF !important;
+  color: var(--shad-text-main) !important;
+  border: 1px solid var(--shad-border) !important;
+  border-radius: 9999px !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06) !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  padding: 5px 12px !important;
+}
+
+.edit-btn {
+  background: #FFFFFF !important;
+  color: var(--shad-green) !important;
+  border: 1.5px solid var(--shad-green) !important;
+  border-radius: 9999px !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  padding: 5px 14px !important;
+  box-shadow: 0 2px 6px rgba(0, 186, 136, 0.15) !important;
+  cursor: pointer !important;
+}
+
+.edit-btn:hover {
+  background: var(--shad-green-soft) !important;
+}
+
+/* 6. Profile Identity Header */
+.profile-info-section {
+  background: transparent !important;
+  padding-bottom: 14px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+.avatar-wrapper {
+  margin-top: -44px !important;
+}
+
+.avatar-circle {
+  width: 86px !important;
+  height: 86px !important;
+  background: #FFFFFF !important;
+  border: 3.5px solid #FFFFFF !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08) !important;
+  border-radius: 50% !important;
+  overflow: hidden !important;
+}
+
+.vibe-tag {
+  background: #FFFFFF !important;
+  color: var(--shad-text-main) !important;
+  border: 1px solid var(--shad-border) !important;
+  border-radius: 9999px !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05) !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  padding: 3px 10px !important;
+  margin-top: -12px !important;
+  cursor: pointer !important;
+}
+
+.vibe-tag:hover {
+  background: var(--shad-green-soft) !important;
+}
+
+.user-name-row {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  margin-top: 8px !important;
+}
+
+.user-name {
+  color: var(--shad-text-main) !important;
+  font-size: 16.5px !important;
+  font-weight: 800 !important;
+}
+
+.level-tag {
+  background: var(--shad-green-soft) !important;
+  color: var(--shad-green-text) !important;
+  border: 1px solid var(--shad-green-border) !important;
+  border-radius: 9999px !important;
+  font-size: 10.5px !important;
+  font-weight: 800 !important;
+  padding: 2px 10px !important;
+}
+
+.user-subtext {
+  color: var(--shad-text-sub) !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  margin-top: 3px !important;
+}
+
+/* 7. Section Cards (کارت‌های بومی شاد) */
+.sections-body {
+  padding: 10px 14px 40px 14px !important;
+  gap: 12px !important;
+}
+
+.section-card {
+  background: var(--shad-card-bg) !important;
+  border: 1px solid var(--shad-border) !important;
+  border-radius: var(--shad-radius-card) !important;
+  box-shadow: var(--shad-shadow) !important;
+  padding: 14px 16px !important;
+  margin-bottom: 0 !important;
+}
+
+.section-label {
+  color: var(--shad-text-main) !important;
+  font-size: 13.5px !important;
+  font-weight: 800 !important;
+  border-bottom: 1px solid var(--shad-border-subtle) !important;
+  padding-bottom: 8px !important;
+  margin-bottom: 12px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.section-label svg, .section-title-wrap svg, .isax-icon {
+  color: var(--shad-green) !important;
+  stroke: var(--shad-green) !important;
+  fill: none !important;
+}
+
+/* 8. Bento 4-Info Widgets (تراز، مدال، رتبه، درس) */
+.bento-row {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 10px !important;
+}
+
+.info-widget {
+  background: #FFFFFF !important;
+  border: 1px solid var(--shad-border) !important;
+  border-radius: 14px !important;
+  box-shadow: var(--shad-shadow) !important;
+  padding: 10px 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+.info-widget-emoji {
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 18px !important;
+  flex-shrink: 0 !important;
+  background: #F8FAFC !important;
+  border: 1px solid var(--shad-border) !important;
+}
+
+.info-widget-header {
+  color: var(--shad-text-sub) !important;
+  font-size: 9.5px !important;
+  font-weight: 700 !important;
+  margin-bottom: 2px !important;
+}
+
+.info-widget-value {
+  color: var(--shad-text-main) !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+}
+
+/* 9. Football Clubs (تیم‌های محبوب) */
+.football-chips-box {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+}
+
+.club-chip {
+  background: #F8FAFC !important;
+  border: 1px solid var(--shad-border) !important;
+  border-radius: 9999px !important;
+  padding: 5px 12px 5px 10px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: var(--shad-text-main) !important;
+}
+
+/* 10. Attendance Calendar (حضور و غیاب ۳۱ روزه) */
+.calendar-streak-badge {
+  background: var(--shad-orange-soft) !important;
+  color: var(--shad-orange) !important;
+  border: 1px solid var(--shad-orange-border) !important;
+  border-radius: 9999px !important;
+  padding: 3px 10px !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+
+.calendar-days-header {
+  color: var(--shad-text-muted) !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+}
+
+.calendar-day.present {
+  background: var(--shad-green) !important;
+  color: #FFFFFF !important;
+  font-weight: 800 !important;
+}
+
+.calendar-day.absent {
+  background: var(--shad-red-soft) !important;
+  color: var(--shad-red) !important;
+  font-weight: 800 !important;
+}
+
+.calendar-day.weekend {
+  background: #F1F5F9 !important;
+  color: var(--shad-text-muted) !important;
+}
+
+/* 11. MBTI & Learning Style */
+.mbti-learning-row {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+
+.mbti-progress-bar {
+  background: #F1F5F9 !important;
+  border-radius: 9999px !important;
+  height: 8px !important;
+  overflow: hidden !important;
+}
+
+.mbti-progress-fill {
+  background: linear-gradient(90deg, var(--shad-green) 0%, var(--shad-cyan) 100%) !important;
+  height: 100% !important;
+  border-radius: 9999px !important;
+}
+
+/* 12. Passions & Interests (علایق و اشتیاق‌ها) */
+.passions-chip {
+  background: #F8FAFC !important;
+  border: 1px solid var(--shad-border) !important;
+  border-radius: 9999px !important;
+  padding: 6px 14px !important;
+  font-size: 11.5px !important;
+  font-weight: 700 !important;
+  color: var(--shad-text-body) !important;
+  transition: all 0.15s ease !important;
+}
+
+.passions-chip:hover {
+  background: var(--shad-green-soft) !important;
+  border-color: var(--shad-green-border) !important;
+  color: var(--shad-green-text) !important;
+}
+
+/* 13. Friendship Orbit (مدار دوستان) */
+.orbit-card-wrapper {
+  background: #FFFFFF !important;
+  border: 1px solid var(--shad-border) !important;
+  border-radius: var(--shad-radius-card) !important;
+  padding: 14px 16px !important;
+}
+
+.orbit-btn-manage {
+  background: var(--shad-green) !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  border-radius: 9999px !important;
+  padding: 6px 14px !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  box-shadow: 0 2px 6px rgba(0, 186, 136, 0.25) !important;
+  cursor: pointer !important;
+}
+
+.orbit-btn-manage:hover {
+  background: var(--shad-green-hover) !important;
+}
+
+.orbit-radar-box {
+  background: #F8FAFC !important;
+  border: 1px solid var(--shad-border) !important;
+  border-radius: 14px !important;
+}
+
+/* 14. Radar Chart (رادار ساحتهای ۵گانه رشد) */
+.radar-dimension-tag {
+  background: #FFFFFF !important;
+  border: 1px solid var(--shad-border) !important;
+  border-radius: 9999px !important;
+  padding: 4px 10px !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  color: var(--shad-text-main) !important;
+}
+
+/* 15. Leaderboard (لیدربورد و رتبه) */
+.leaderboard-row {
+  background: #FFFFFF !important;
+  border: 1px solid var(--shad-border) !important;
+  border-radius: 12px !important;
+  padding: 10px 12px !important;
+  transition: transform 0.15s ease !important;
+}
+
+.leaderboard-row.my-row, .leaderboard-row.highlight-me {
+  background: var(--shad-green-soft) !important;
+  border: 1.5px solid var(--shad-green) !important;
+}
+
+.leaderboard-row.my-row .lb-name {
+  color: var(--shad-green-text) !important;
+  font-weight: 800 !important;
+}
+
+/* 16. Modals & Dialogs (پنجره‌های شناور) */
+.modal-sheet-inner, .rokh-modal {
+  background: #FFFFFF !important;
+  border-top-left-radius: 24px !important;
+  border-top-right-radius: 24px !important;
+  border: 1px solid var(--shad-border) !important;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+.modal-search-input {
+  background: #F1F5F9 !important;
+  border: 1px solid var(--shad-border) !important;
+  border-radius: 9999px !important;
+  color: var(--shad-text-main) !important;
+  padding: 8px 14px !important;
+}
+
+.btn-primary, .modal-submit-btn {
+  background: var(--shad-green) !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  border-radius: 9999px !important;
+  padding: 8px 18px !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  box-shadow: 0 3px 10px rgba(0, 186, 136, 0.3) !important;
+  cursor: pointer !important;
+}
+
+.btn-primary:hover, .modal-submit-btn:hover {
+  background: var(--shad-green-hover) !important;
+}
+
+/* 17. Sticky Edit Bar */
+#sticky-edit-bar {
+  background: #FFFFFF !important;
+  border-bottom: 1px solid var(--shad-border) !important;
+  box-shadow: var(--shad-shadow) !important;
+}
+
+#sticky-edit-bar button:last-child {
+  background: var(--shad-green) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 2px 6px rgba(0, 186, 136, 0.3) !important;
+}

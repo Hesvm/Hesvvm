@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نمای کامل بدون اسکرول پروفایل رُخ</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+  <link rel="stylesheet" href="./assets/style.css?v=39">
+  <style>
+    body {
+      background-color: #0f172a !important;
+      display: flex !important;
+      justify-content: center !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+    .app-viewport-wrapper {
+      max-width: 393px !important;
+      width: 393px !important;
+      gap: 0 !important;
+    }
+    .phone-container {
+      width: 393px !important;
+      height: auto !important;
+      min-height: 100vh !important;
+      overflow: visible !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+    }
+    .main-app-screen, .app-backdrop {
+      display: none !important;
+    }
+    .bottom-sheet-container {
+      position: relative !important;
+      top: 0 !important;
+      transform: none !important;
+      height: auto !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      overflow: visible !important;
+    }
+    .sheet-scroll-area {
+      overflow: visible !important;
+      height: auto !important;
+      max-height: none !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-viewport-wrapper">
+    <div class="phone-container">
+      <div id="bottom-sheet-container" class="bottom-sheet-container sheet-open">
+        <!-- Sheet Header -->
+        <div class="sheet-header">
+          <div id="sheet-action-right" class="sheet-actions-group"></div>
+          <div id="sheet-tab-switcher" class="sheet-tab-switcher"></div>
+          <button class="sheet-icon-btn" title="بستن">✕</button>
+        </div>
+
+        <div class="sheet-scroll-area">
+          <div id="banner-area" class="banner-container"></div>
+          <div id="identity-area" class="profile-info-section"></div>
+          <div class="sections-body">
+            <div class="identity-widgets-group">
+              <div id="info-area"></div>
+              <div id="bio-widget" class="section-card">
+                <span class="section-label">
+                  <span class="section-title-wrap">👤 درباره من</span>
+                </span>
+                <div id="bio-content"></div>
+              </div>
+            </div>
+            <div id="clubs-area" class="section-card"></div>
+            <div id="calendar-area"></div>
+            <div id="mbti-learning-area"></div>
+            <div id="passions-area"></div>
+            <div id="role-models-area"></div>
+            <div id="books-area"></div>
+            <div id="games-area"></div>
+            <div id="movies-area"></div>
+            <div id="goal-area"></div>
+            <div id="orbit-area"></div>
+            <div id="podium-area"></div>
+            <div id="badges-area"></div>
+            <div id="radar-area"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="./js/store.js?v=39"></script>
+  <script src="./js/ui.js?v=39"></script>
+  <script src="./js/app.js?v=39"></script>
+</body>
+</html>

@@ -22,11 +22,19 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/shad',
-        destination: '/Shaadproject/index.html',
+        destination: '/shad/index.html',
       },
       {
-        source: '/sahd',
-        destination: '/Shaadproject/index.html',
+        source: '/shad-style',
+        destination: '/shad/index.html',
+      },
+      {
+        source: '/hesam',
+        destination: '/hesam/index.html',
+      },
+      {
+        source: '/hesam-style',
+        destination: '/hesam/index.html',
       },
     ];
   },

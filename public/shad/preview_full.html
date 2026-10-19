@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نمای کامل بدون اسکرول پروفایل رُخ (استایل شاد)</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persianfonts@1.0.2/dist/persianfont.min.css">
+  <link rel="stylesheet" href="./assets/shad-theme.css?v=250">
+  <style>
+    body {
+      background-color: #0f172a !important;
+      display: flex !important;
+      justify-content: center !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+    .app-viewport-wrapper {
+      max-width: 393px !important;
+      width: 393px !important;
+      gap: 0 !important;
+    }
+    .phone-container {
+      width: 393px !important;
+      height: auto !important;
+      min-height: 100vh !important;
+      overflow: visible !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+    }
+    .main-app-screen, .app-backdrop {
+      display: none !important;
+    }
+    .profile-screen-page, .bottom-sheet-container {
+      position: relative !important;
+      top: 0 !important;
+      transform: none !important;
+      height: auto !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      overflow: visible !important;
+    }
+    .sheet-scroll-area {
+      overflow: visible !important;
+      height: auto !important;
+      max-height: none !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-viewport-wrapper">
+    <div class="phone-container">
+      <div id="bottom-sheet-container" class="profile-screen-page native-shad-style sheet-open">
+        <!-- Native Shad App Bar -->
+        <header class="profile-screen-header">
+          <div class="header-nav-side">
+            <h1 class="header-page-title">حساب من</h1>
+          </div>
+          <div id="sheet-action-right" class="sheet-actions-group"></div>
+        </header>
+
+        <div class="sheet-scroll-area">
+          <div id="banner-area" class="banner-container"></div>
+          <div id="id-card-area"></div>
+          
+          <div class="sections-body">
+            <div id="quick-stats-area"></div>
+            <div id="calendar-area"></div>
+            <div id="podium-area"></div>
+            <div id="badges-area"></div>
+            <div id="radar-area"></div>
+            <div id="orbit-area"></div>
+            <div id="goal-area"></div>
+            <div id="mbti-learning-area"></div>
+            <div id="passions-area"></div>
+            <div id="role-models-area"></div>
+            <div id="books-area"></div>
+            <div id="games-area"></div>
+            <div id="movies-area"></div>
+            <div id="music-area" style="display: none;"></div>
+          </div>
+
+          <div id="hidden-tray">
+            <p style="font-size: 13px; font-weight: 700; color: #64748b; margin-bottom: 12px;">بخش‌های خاموش (پنهان شده)</p>
+            <div id="hidden-tray-items" style="display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="./js/store.js?v=250"></script>
+  <script src="./js/ui.js?v=250"></script>
+  <script src="./js/app.js?v=250"></script>
+</body>
+</html>

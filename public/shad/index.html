@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>پروفایل رُخ | شبیه‌ساز رابط کاربری شبکه دانش‌آموزی</title>
+  <link rel="icon" type="image/png" href="./favicon.png">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persianfonts@1.0.2/dist/persianfont.min.css">
+  <link rel="stylesheet" href="./assets/shad-theme.css?v=250">
+</head>
+<body>
+
+  <div class="app-viewport-wrapper">
+
+    <!-- Phone Frame Container -->
+    <div class="phone-container">
+      
+      <!-- 0. Base Main App Screen (Official Shad Main Page Image - Photo sent by Kamran) -->
+      <div id="main-app-screen" class="main-app-screen">
+        <img src="./assets/shad_home_entry.jpg" class="main-screen-img" alt="صفحه اصلی شاد" />
+        
+        <!-- Bottom Tab Hotspot: "حساب من" (Official Shad Entry Point to Rokh - Clean Invisible Click Area) -->
+        <button id="main-account-tab-btn" class="main-account-tab-hotspot" onclick="window.uiController.openProfileSheet()" title="ورود به حساب من / شناسنامه مهارتی و هویتی رُخ"></button>
+      </div>
+
+      <!-- Backdrop (Disabled for Full Screen Page) -->
+      <div id="app-backdrop" class="app-backdrop" onclick="window.uiController.closeProfileSheet()" style="display: none;"></div>
+
+      <!-- Dedicated Profile Screen (Native Shad Page View) -->
+      <div id="bottom-sheet-container" class="profile-screen-page native-shad-style">
+        
+        <!-- Native Shad App Bar / Screen Header -->
+        <header class="profile-screen-header">
+          <!-- Back button on the right in RTL (leading navigation) -->
+          <div class="header-nav-side">
+            <button class="screen-back-btn" onclick="window.uiController.closeProfileSheet()" title="بازگشت به صفحه اصلی شاد">
+              <svg class="isax-icon" viewBox="0 0 24 24" style="width: 22px; height: 22px;">
+                <path d="M8.91 19.92l6.52-6.52c.77-.77.77-2.03 0-2.8L8.91 4.08" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <h1 class="header-page-title">حساب من</h1>
+          </div>
+
+          <!-- Actions on the left in RTL: Settings + Edit -->
+          <div id="sheet-action-right" class="sheet-actions-group"></div>
+        </header>
+
+        <div id="sticky-edit-bar">
+          <button onclick="window.uiController.cancelEditMode()" style="background: none; border: none; color: #64748b; font-size: 14px; font-weight: 700; cursor: pointer;">انصراف ✕</button>
+          <span style="font-size: 14px; font-weight: 700; color: #1e293b;">چیدمان و ویرایش</span>
+          <button onclick="window.uiController.saveEditMode()" style="background: #10b981; color: white; border: none; padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; cursor: pointer; box-shadow: 0 2px 6px rgba(16,185,129,0.3);">تأیید ✓</button>
+        </div>
+
+        <!-- Scrollable Content inside Sheet -->
+        <div class="sheet-scroll-area">
+          
+          <!-- 1. Header Banner -->
+        <div id="banner-area" class="banner-container"></div>
+
+        <!-- 2. Profile Identity Info (مستقیماً روی بوم سفید اپ) -->
+        <div id="identity-area" class="profile-info-section"></div>
+
+        <!-- 2.5 Quick Category Navigation Bar (دسته‌بندی‌های شاد) -->
+        <div class="quick-nav-pills-bar">
+          <button class="nav-pill-chip active" onclick="window.uiController.scrollToSection('calendar-area')">
+            <span>🏫 مدرسه من</span>
+          </button>
+          <button class="nav-pill-chip" onclick="window.uiController.scrollToSection('podium-area')">
+            <span>🏆 افتخارات و رقابت</span>
+          </button>
+          <button class="nav-pill-chip" onclick="window.uiController.scrollToSection('mbti-learning-area')">
+            <span>🎯 شخصیت و مسیر</span>
+          </button>
+          <button class="nav-pill-chip" onclick="window.uiController.scrollToSection('books-area')">
+            <span>🎬 رسانه و فرهنگ</span>
+          </button>
+        </div>
+
+        <!-- 3. Main Sections Body -->
+        <div class="sections-body">
+
+          <!-- شناسنامه دانش‌آموزی -->
+          <div id="info-area"></div>
+
+          <!-- درباره من (بیوگرافی) -->
+          <div id="bio-widget" class="section-card">
+            <span class="section-label">
+              <span class="section-title-wrap">
+                <svg class="isax-icon" viewBox="0 0 24 24"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5Zm0 2c-3.31 0-10 1.67-10 5v2h20v-2c0-3.33-6.69-5-10-5Z"/></svg>
+                <span>درباره من</span>
+              </span>
+            </span>
+            <div id="bio-content"></div>
+          </div>
+          <!-- تیم‌های فوتبال موردعلاقه (چیپ‌های هواداری) -->
+          <div id="clubs-area" class="section-card"></div>
+
+          <!-- تقویم ۳۱ روزه حضور و غیاب مدرسه و پیوستگی -->
+          <div id="calendar-area"></div>
+
+          <!-- لیدربورد هفتگی مدرسه -->
+          <div id="podium-area"></div>
+
+          <!-- ویترین مدال‌ها و افتخارات سنجاق‌شده -->
+          <div id="badges-area"></div>
+
+          <!-- رادار ساحتهای ۵گانه رشد -->
+          <div id="radar-area"></div>
+
+          <!-- شبکه دوستی در شاد (گراف مداری) -->
+          <div id="orbit-area"></div>
+
+          <!-- هدف آینده و دانشگاه -->
+          <div id="goal-area"></div>
+
+          <!-- ام‌بی‌تی‌آی و سبک یادگیری -->
+          <div id="mbti-learning-area"></div>
+
+          <!-- علایق و اشتیاق‌ها -->
+          <div id="passions-area"></div>
+
+          <!-- الگوها و الهام‌بخش‌ها -->
+          <div id="role-models-area"></div>
+
+          <!-- کتاب‌های روی میز -->
+          <div id="books-area"></div>
+
+          <!-- بازی‌های مورد علاقه -->
+          <div id="games-area"></div>
+
+          <!-- فیلم و سریال -->
+          <div id="movies-area"></div>
+
+          <!-- در حال گوش دادن (موزیک و پادکست) -->
+          <div id="music-area" style="display: none;"></div>
+
+        </div> <!-- End of sections-body -->
+          <!-- Hidden Tray -->
+          <div id="hidden-tray">
+            <p style="font-size: 13px; font-weight: 700; color: #64748b; margin-bottom: 12px;">بخش‌های خاموش (پنهان شده)</p>
+            <div id="hidden-tray-items" style="display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;">
+              <!-- Items will be injected here -->
+            </div>
+          </div>
+        </div> <!-- End of sheet-scroll-area -->
+    </div> <!-- End of bottom-sheet-container -->
+
+    <!-- Modals & Sheets Constrained Inside Phone Frame -->
+    <div id="rokh-modal-container" class="modal-backdrop-hidden"></div>
+  </div> <!-- End of phone-container -->
+
+  <!-- State & Controller Scripts -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="./js/store.js?v=250"></script>
+  <script src="./js/ui.js?v=250"></script>
+  <script src="./js/app.js?v=250"></script>
+</body>
+</html>

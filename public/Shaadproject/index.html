@@ -201,64 +201,58 @@
 
     <!-- نوار هدر شناور و شیک پروژه با اطلاعات به‌روزرسانی و کنترل‌ها -->
     <!-- نوار هدر شناور و شیک پروژه با اطلاعات به‌روزرسانی، چیپ‌های ناوبری و کنترل‌ها -->
-    <header class="w-full bg-white/95 backdrop-blur-md border-b border-slate-200/80 px-4 md:px-8 py-2.5 flex flex-wrap md:flex-nowrap items-center justify-between gap-3 z-40 select-none shadow-2xs" dir="rtl">
+    <!-- هدر مینیمال، مدرن و شیک دایرکتوری پروژه شاد -->
+    <header class="w-full bg-white/95 backdrop-blur-md border-b border-slate-200/80 px-6 md:px-10 py-3.5 flex items-center justify-between gap-4 z-40 select-none shadow-xs" dir="rtl">
       
-      <!-- بخش راست: لوگو و تایتل پروژه -->
-      <div class="flex items-center gap-3 shrink-0">
-        <div class="w-9 h-9 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center p-1 shadow-2xs shrink-0">
+      <!-- سمت راست: برند و عنوان پروژه شاد -->
+      <div class="flex items-center gap-3.5 shrink-0">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-50 to-amber-100/80 border border-amber-200/90 flex items-center justify-center p-1.5 shadow-xs shrink-0">
           <img src="/Shaadproject/favicon.png" alt="شاد" class="w-full h-full object-contain" onerror="this.src='./favicon.png'">
         </div>
         <div class="flex flex-col text-right">
           <div class="flex items-center gap-2">
-            <h1 class="text-xs md:text-sm font-black text-slate-900 tracking-tight">پروژه پروفایل شاد</h1>
-            <span class="text-[10px] font-black bg-slate-900 text-white px-2 py-0.5 rounded-full">رودمپ ۴۶ روزه</span>
+            <h1 class="text-sm md:text-base font-black text-slate-900 tracking-tight">پروژه پروفایل شاد</h1>
+            <span class="text-[10px] font-black bg-slate-900 text-white px-2.5 py-0.5 rounded-full tracking-wide">رودمپ ۴۶ روزه</span>
           </div>
-          <span class="text-[10px] font-bold text-slate-500">۱۲ مهر الی ۲۷ آبان</span>
+          <span class="text-[11px] font-bold text-slate-500 mt-0.5">۱۲ مهر الی ۲۷ آبان • پاییز ۱۴۰۵</span>
         </div>
       </div>
 
-      <!-- بخش میانی: چیپ‌های ناوبری ۳ گانه با آیکون -->
-      <div class="flex items-center gap-2 overflow-x-auto py-1 scrollbar-none">
+      <!-- وسط: چیپ‌های ناوبری (فقط رودمپ و منابع) -->
+      <div class="flex items-center gap-2.5 bg-slate-100/90 p-1 rounded-full border border-slate-200/80">
         <!-- چیپ ۱: رودمپ و تسک‌ها -->
-        <button id="nav-chip-roadmap" onclick="switchNavTab('roadmap')" class="nav-chip active flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900 text-white text-[11px] font-extrabold shadow-sm transition-all duration-200 active:scale-95 cursor-pointer">
-          <span class="text-xs">🗺️</span>
+        <button id="nav-chip-roadmap" onclick="switchNavTab('roadmap')" class="nav-chip active flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900 text-white text-xs font-black shadow-xs transition-all duration-200 active:scale-95 cursor-pointer">
+          <span>🗺️</span>
           <span>رودمپ و تسک‌ها</span>
         </button>
 
-        <!-- چیپ ۲: نمونه صفحه‌ها -->
-        <button id="nav-chip-designs" onclick="switchNavTab('designs')" class="nav-chip flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200/80 border border-slate-200/80 text-slate-700 text-[11px] font-extrabold transition-all duration-200 active:scale-95 cursor-pointer">
-          <span class="text-xs">📱</span>
-          <span>نمونه صفحه‌ها</span>
-          <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
-        </button>
-
-        <!-- چیپ ۳: منابع و لینک‌ها -->
-        <button id="nav-chip-resources" onclick="switchNavTab('resources')" class="nav-chip flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200/80 border border-slate-200/80 text-slate-700 text-[11px] font-extrabold transition-all duration-200 active:scale-95 cursor-pointer">
-          <span class="text-xs">📚</span>
+        <!-- چیپ ۲: منابع و لینک‌ها -->
+        <button id="nav-chip-resources" onclick="switchNavTab('resources')" class="nav-chip flex items-center gap-2 px-4 py-1.5 rounded-full bg-transparent hover:bg-white/80 text-slate-600 text-xs font-black transition-all duration-200 active:scale-95 cursor-pointer">
+          <span>📚</span>
           <span>منابع و لینک‌ها</span>
         </button>
       </div>
 
-      <!-- بخش چپ: برچسب آخرین تغییرات و کنترل‌های تعاملی -->
-      <div class="flex items-center gap-2 md:gap-3 shrink-0">
+      <!-- سمت چپ: وضعیت تاریخ زنده، دکمه امروز پویا، و زوم -->
+      <div class="flex items-center gap-2.5 shrink-0">
         
-        <!-- نشان آخرین تغییر -->
-        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100/90 border border-slate-200 text-[11px] font-bold text-slate-700 shadow-2xs">
+        <!-- نشان وضعیت زنده و تاریخ روز -->
+        <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-50 border border-slate-200/90 text-xs font-bold text-slate-700 shadow-2xs">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span class="text-slate-500">آخرین تغییر:</span>
-          <span class="font-extrabold text-slate-900" id="last-update-display">۱۸ مهر ۱۴۰۵ • ۱۵:۵۰</span>
+          <span class="text-slate-400 font-medium">تاریخ امروز:</span>
+          <span class="font-black text-slate-900" id="live-today-text">دوشنبه ۲۷ مهر ۱۴۰۵</span>
         </div>
 
-        <!-- دکمه برو به امروز -->
-        <button id="btn-today" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 hover:bg-emerald-100 text-emerald-800 text-[11px] font-bold shadow-2xs transition active:scale-95 cursor-pointer">
+        <!-- دکمه پرش به امروز در تایم‌لاین -->
+        <button id="btn-today" onclick="centerOnToday()" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-300 hover:bg-emerald-100 text-emerald-800 text-xs font-black shadow-2xs transition active:scale-95 cursor-pointer">
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
-          <span>امروز (۱۸ مهر)</span>
+          <span id="btn-today-text">برو به امروز</span>
         </button>
 
         <!-- کنترل‌های زوم -->
-        <div id="zoom-controls-wrapper" class="flex items-center bg-slate-100 border border-slate-200 rounded-full p-0.5 shadow-2xs text-slate-700">
+        <div id="zoom-controls-wrapper" class="flex items-center bg-slate-100 border border-slate-200/90 rounded-full p-0.5 shadow-2xs text-slate-700">
           <button id="btn-zoom-out" class="w-7 h-7 flex items-center justify-center rounded-full hover:bg-white transition text-xs font-bold active:scale-90 cursor-pointer" title="کوچک‌نمایی">−</button>
-          <span id="zoom-level-text" class="text-[10px] font-black px-2 min-w-[36px] text-center">۱۲۵٪</span>
+          <span id="zoom-level-text" class="text-[11px] font-black px-2 min-w-[38px] text-center">۱۲۵٪</span>
           <button id="btn-zoom-in" class="w-7 h-7 flex items-center justify-center rounded-full hover:bg-white transition text-xs font-bold active:scale-90 cursor-pointer" title="بزرگ‌نمایی">+</button>
         </div>
 
@@ -267,7 +261,7 @@
     </header>
 
   <!-- ویوپورت تایم‌لاین با اسکرول افقی LTR و پدینگ‌های فراخ و ریلکس -->
-  <main id="timeline-scroll-viewport" dir="ltr" class="flex-1 w-full overflow-x-auto overflow-y-auto relative cursor-grab active:cursor-grabbing pt-16 pb-28" style="scroll-behavior: auto;">
+  <main id="timeline-scroll-viewport" dir="ltr" class="flex-1 w-auto overflow-x-auto overflow-y-auto relative cursor-grab active:cursor-grabbing rounded-3xl border border-slate-200/90 bg-white/95 shadow-md m-8 pt-12 pb-24" style="scroll-behavior: auto;">
     
     <!-- کانتینر مقیاس‌پذیر افقی تایم‌لاین -->
     <div id="timeline-track" class="min-h-full relative" style="width: 1560px;">
@@ -277,7 +271,7 @@
         <!-- برچسب کپسولی شناور -->
         <div class="bg-emerald-500 text-white text-[10px] font-black px-3 py-1 rounded-full shadow-sm whitespace-nowrap flex items-center gap-1.5 pointer-events-auto">
           <span class="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span>
-          <span>امروز • ۱۸ مهر</span>
+          <span id="today-pill-label">امروز • ۲۷ مهر</span>
         </div>
         <!-- نقطه اتصال پین -->
         <div class="w-2 h-2 rounded-full bg-emerald-500 border-2 border-white shadow-xs mt-0.5"></div>
@@ -452,100 +446,8 @@
 
   </main>
   
-  <!-- صفحه / سکشن نمونه صفحه‌ها و دیزاین‌ها -->
-  <section id="view-designs" class="flex-1 w-full overflow-y-auto bg-slate-50/90 p-4 md:p-8 select-none" style="display: none;" dir="rtl">
-    <div class="max-w-6xl mx-auto space-y-6">
-      
-      <!-- هدر بخش دیزاین‌ها -->
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs">
-        <div>
-          <div class="flex items-center gap-2 mb-1">
-            <span class="text-xl">📱</span>
-            <h2 class="text-lg md:text-xl font-black text-slate-900">ویترین نمونه صفحه‌ها و پروتوتایپ‌های شاد</h2>
-          </div>
-          <p class="text-xs md:text-sm text-slate-600 font-medium">مشاهده زنده پروتوتایپ‌های تعاملی، فایل‌های فیگما، وایرفریم‌ها و بازسازی‌های بصری رُخ شاد</p>
-        </div>
-        <div class="flex items-center gap-2">
-          <a href="/app/rokh/index.html" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full text-xs font-black shadow-sm transition active:scale-95">
-            <span>اجرای پروتوتایپ زنده</span>
-            <span>↗</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- کارت‌های دسترسی به دیزاین‌ها -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        
-        <!-- کارت ۱: پروتوتایپ زنده موبایلی رُخ شاد -->
-        <div class="bg-white rounded-3xl border border-slate-200/80 p-5 flex flex-col justify-between hover:shadow-md transition-all group">
-          <div>
-            <div class="w-full h-44 rounded-2xl bg-slate-950 overflow-hidden relative mb-4 border border-slate-800 flex items-center justify-center">
-              <iframe src="/app/rokh/index.html" class="w-[390px] h-[750px] scale-[0.45] origin-top pointer-events-none rounded-[36px]"></iframe>
-              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-4">
-                <span class="text-[11px] font-black text-white bg-indigo-600/90 backdrop-blur-xs px-2.5 py-1 rounded-full">وب‌اپلیکیشن تعاملی (Live)</span>
-              </div>
-            </div>
-            <h3 class="text-sm font-black text-slate-900 mb-1.5">رُخ شاد — شبیه‌ساز نیتیو موبایل (آیفون ۱۶)</h3>
-            <p class="text-xs text-slate-600 leading-relaxed font-medium mb-3">شامل Bottom Sheet متحرک، سوییچر دید دیگران و خودم، استریک ۳۱ روزه، بنتو کارت‌های چندبعدی، و حالت ادیت زنده.</p>
-          </div>
-          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
-            <span class="text-[11px] font-bold text-slate-500">نسخه v6 — ریسپانسیو</span>
-            <a href="/app/rokh/index.html" target="_blank" class="text-xs font-black text-indigo-600 hover:text-indigo-800 flex items-center gap-1">
-              <span>مشاهده کامل</span>
-              <span>←</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- کارت ۲: فایل دیزاین فیگما -->
-        <div class="bg-white rounded-3xl border border-slate-200/80 p-5 flex flex-col justify-between hover:shadow-md transition-all group">
-          <div>
-            <div class="w-full h-44 rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-100/70 border border-emerald-200/70 flex flex-col items-center justify-center p-4 mb-4 text-center">
-              <div class="w-12 h-12 rounded-2xl bg-white shadow-xs flex items-center justify-center text-2xl mb-2">🎨</div>
-              <span class="text-xs font-black text-slate-800">Shad Profile Service</span>
-              <span class="text-[10px] font-bold text-emerald-700 bg-emerald-100/80 px-2 py-0.5 rounded-full mt-1">سند رسمی فیگما</span>
-            </div>
-            <h3 class="text-sm font-black text-slate-900 mb-1.5">فایل طراحی فیگما (Figma Design File)</h3>
-            <p class="text-xs text-slate-600 leading-relaxed font-medium mb-3">فریم‌های رسمی رابط کاربری شاد، تایپوگرافی، پالت رنگی سبز نعنایی، کامپوننت‌های سوئیچ سرویس‌ها و تنظیمات حریم خصوصی.</p>
-          </div>
-          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
-            <span class="text-[11px] font-bold text-slate-500">لینک مستقیم فیگما</span>
-            <a href="https://www.figma.com/make/fSAaWn4GFzQ1UkAIcc2DzB/Shad-Profile-Service?code-node-id=0-6&p=f&t=DH3OP30DP8y4fpnT-0&fullscreen=1" target="_blank" class="text-xs font-black text-emerald-700 hover:text-emerald-900 flex items-center gap-1">
-              <span>باز کردن در فیگما</span>
-              <span>↗</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- کارت ۳: نمودار یوزرفلو جامع -->
-        <div class="bg-white rounded-3xl border border-slate-200/80 p-5 flex flex-col justify-between hover:shadow-md transition-all group">
-          <div>
-            <div class="w-full h-44 rounded-2xl bg-slate-900 border border-slate-800 overflow-hidden relative mb-4 flex items-center justify-center">
-              <div class="text-center p-4">
-                <span class="text-3xl mb-1 block">🗺️</span>
-                <span class="text-xs font-black text-white">نقشه جریان کاربری و اینتراکشن‌ها</span>
-                <span class="text-[10px] font-bold text-cyan-400 block mt-1">User Flow Diagram</span>
-              </div>
-            </div>
-            <h3 class="text-sm font-black text-slate-900 mb-1.5">یوزرفلو جامع اینتراکشن‌های رُخ شاد</h3>
-            <p class="text-xs text-slate-600 leading-relaxed font-medium mb-3">نمودار تعاملی رفتار مالک در برابر بازدیدکننده، اتصال به پُرس‌لاین، کشوی ویجت‌ها، شیت کیف پول و لیدربورد.</p>
-          </div>
-          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
-            <span class="text-[11px] font-bold text-slate-500">سند معماری UX</span>
-            <button onclick="switchNavTab('resources')" class="text-xs font-black text-cyan-700 hover:text-cyan-900 flex items-center gap-1 cursor-pointer">
-              <span>مشاهده سند</span>
-              <span>←</span>
-            </button>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
   <!-- صفحه / سکشن منابع و لینک‌ها -->
-  <section id="view-resources" class="flex-1 w-full overflow-y-auto bg-slate-50/90 p-4 md:p-8 select-none" style="display: none;" dir="rtl">
+  <section id="view-resources" class="flex-1 w-auto overflow-y-auto rounded-3xl border border-slate-200/90 bg-white shadow-md m-8 p-6 md:p-10 select-none" style="display: none;" dir="rtl">
     <div class="max-w-5xl mx-auto space-y-6">
       
       <!-- هدر بخش منابع -->
@@ -749,6 +651,74 @@
     const todayIndicator = document.getElementById('today-indicator');
 
     // مقیاس زمانی زوم (حداقل زوم ۱.۲۵ برای حفظ عرض کامل فازها و خوانایی تسک‌ها مطابق با تصویر ارسالی)
+    // محاسبه خودکار تاریخ شمسی روز جاری
+    function getTodaySolarInfo() {
+      try {
+        const now = new Date();
+        const formatter = new Intl.DateTimeFormat('fa-IR', {
+          calendar: 'persian',
+          timeZone: 'Asia/Tehran',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          weekday: 'long'
+        });
+        const parts = formatter.formatToParts(now);
+        let day = '', month = '', year = '', weekday = '';
+        parts.forEach(p => {
+          if (p.type === 'day') day = p.value;
+          if (p.type === 'month') month = p.value;
+          if (p.type === 'year') year = p.value;
+          if (p.type === 'weekday') weekday = p.value;
+        });
+
+        // تبدیل عدد روز انگلیسی به فارسی یا برعکس برای تطبیق
+        const dayInt = parseInt(now.toLocaleDateString('fa-IR-u-nu-latn', { calendar: 'persian', day: 'numeric', timeZone: 'Asia/Tehran' }));
+        const monthStr = now.toLocaleDateString('fa-IR', { calendar: 'persian', month: 'long', timeZone: 'Asia/Tehran' });
+
+        return {
+          dayInt,
+          monthStr,
+          dayFa: day,
+          monthFa: month,
+          yearFa: year,
+          weekdayFa: weekday,
+          fullFa: `${weekday} ${day} ${month} ${year}`
+        };
+      } catch(e) {
+        return {
+          dayInt: 27,
+          monthStr: 'مهر',
+          dayFa: '۲۷',
+          monthFa: 'مهر',
+          yearFa: '۱۴۰۵',
+          weekdayFa: 'دوشنبه',
+          fullFa: 'دوشنبه ۲۷ مهر ۱۴۰۵'
+        };
+      }
+    }
+
+    // لیست متوالی ۴۶ روز رودمپ از ۱۲ مهر تا ۲۷ آبان
+    const ROADMAP_TIMELINE_DAYS = [];
+    (function initDays() {
+      // ۱۲ الی ۳۰ مهر (۱۹ روز)
+      for (let d = 12; d <= 30; d++) {
+        ROADMAP_TIMELINE_DAYS.push({ day: d, month: 'مهر' });
+      }
+      // ۱ الی ۲۷ آبان (۲۷ روز)
+      for (let d = 1; d <= 27; d++) {
+        ROADMAP_TIMELINE_DAYS.push({ day: d, month: 'آبان' });
+      }
+    })();
+
+    // پیدا کردن ایندکس روز جاری در تایم‌لاین (پیش‌فرض روز ۱۶ یعنی ۲۷ مهر، یا براساس تاریخ زنده)
+    function getTodayDayIndex() {
+      const today = getTodaySolarInfo();
+      const matchIdx = ROADMAP_TIMELINE_DAYS.findIndex(item => item.day === today.dayInt && item.month === today.monthStr);
+      // اگر در بازه پروژه بود، ایندکس آن، وگرنه پیش‌فرض ۲۷ مهر (ایندکس ۱۵)
+      return matchIdx !== -1 ? matchIdx : 15;
+    }
+
     const BASE_WEEK_WIDTH = 260; // عرض پایه هر هفته
     const MIN_ZOOM = 1.25;       // حداقل زوم مجاز
     const MAX_ZOOM = 3.80;       // حداکثر زوم
@@ -801,7 +771,8 @@
       renderCalendarHeaders(weekWidth);
 
       // قرار دادن دقیق پین امروز روی مرکز روز ۱۸ مهر (روز ۷ از هفته اول)
-      const todayX = sidePad + Math.round((6 + 0.5) * dayWidth);
+      const todayDayIdx = getTodayDayIndex();
+      const todayX = sidePad + Math.round((todayDayIdx + 0.5) * dayWidth);
       todayIndicator.style.left = todayX + 'px';
 
       if (!isInitial) {
@@ -814,7 +785,8 @@
       const weekWidth = Math.round(BASE_WEEK_WIDTH * currentZoom);
       const dayWidth = weekWidth / 7;
       const sidePad = getSidePadding();
-      const todayX = sidePad + Math.round((6 + 0.5) * dayWidth);
+      const todayDayIdx = getTodayDayIndex();
+      const todayX = sidePad + Math.round((todayDayIdx + 0.5) * dayWidth);
       const vWidth = viewport.clientWidth || window.innerWidth;
       const targetScroll = todayX - (vWidth / 2);
       viewport.scrollLeft = Math.max(0, targetScroll);
@@ -843,7 +815,9 @@
         const colDays = w.days.length;
         let weekDaysCells = '';
         w.days.forEach(d => {
-          if (d.isToday) {
+          const todayInfo = getTodaySolarInfo();
+          const isThisDayToday = (w.dateRange.includes(todayInfo.monthStr) && (d.num == todayInfo.dayInt || d.num == todayInfo.dayFa));
+          if (isThisDayToday || d.isToday) {
             // روز امروز (۱۴ مهر)
             weekDaysCells += `
               <div class="flex flex-col items-center justify-center py-1 rounded-xl bg-emerald-500 text-white font-black shadow-xs ring-1 ring-emerald-300">
@@ -1117,6 +1091,16 @@
 
 
     window.addEventListener('DOMContentLoaded', () => {
+      // مقداردهی زنده تاریخ و برچسب‌های امروز
+      const todayInfo = getTodaySolarInfo();
+      const liveTextEl = document.getElementById('live-today-text');
+      const btnTodayTextEl = document.getElementById('btn-today-text');
+      const pillLabelEl = document.getElementById('today-pill-label');
+      
+      if (liveTextEl) liveTextEl.innerText = todayInfo.fullFa;
+      if (btnTodayTextEl) btnTodayTextEl.innerText = `امروز (${todayInfo.dayFa} ${todayInfo.monthFa})`;
+      if (pillLabelEl) pillLabelEl.innerText = `امروز • ${todayInfo.dayFa} ${todayInfo.monthFa}`;
+
       updateTimelineScale(1.25, null, true);
       togglePhase(1, true);
       togglePhase(2, false);
@@ -1132,45 +1116,41 @@
     });
   
 
-    // تابع ناوبری بین چیپ‌ها (رودمپ، نمونه صفحه‌ها، منابع)
+    // تابع ناوبری بین چیپ‌ها (رودمپ و تسک‌ها | منابع و لینک‌ها)
     function switchNavTab(tabId) {
       const viewRoadmap = document.getElementById('timeline-scroll-viewport');
-      const viewDesigns = document.getElementById('view-designs');
       const viewResources = document.getElementById('view-resources');
       const zoomControls = document.getElementById('zoom-controls-wrapper');
       const btnToday = document.getElementById('btn-today');
 
       const chipRoadmap = document.getElementById('nav-chip-roadmap');
-      const chipDesigns = document.getElementById('nav-chip-designs');
       const chipResources = document.getElementById('nav-chip-resources');
-
-      // ریست وضعیت چیپ‌ها
-      [chipRoadmap, chipDesigns, chipResources].forEach(chip => {
-        if (!chip) return;
-        chip.className = 'nav-chip flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200/80 border border-slate-200/80 text-slate-700 text-[11px] font-extrabold transition-all duration-200 active:scale-95 cursor-pointer';
-      });
-
-      // پنهان کردن تمام ویوها
-      if (viewRoadmap) viewRoadmap.style.display = 'none';
-      if (viewDesigns) viewDesigns.style.display = 'none';
-      if (viewResources) viewResources.style.display = 'none';
 
       if (tabId === 'roadmap') {
         if (viewRoadmap) viewRoadmap.style.display = 'block';
+        if (viewResources) viewResources.style.display = 'none';
         if (zoomControls) zoomControls.style.display = 'flex';
         if (btnToday) btnToday.style.display = 'flex';
-        if (chipRoadmap) chipRoadmap.className = 'nav-chip active flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900 text-white text-[11px] font-extrabold shadow-sm transition-all duration-200 active:scale-95 cursor-pointer';
+
+        if (chipRoadmap) {
+          chipRoadmap.className = 'nav-chip active flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900 text-white text-xs font-black shadow-xs transition-all duration-200 active:scale-95 cursor-pointer';
+        }
+        if (chipResources) {
+          chipResources.className = 'nav-chip flex items-center gap-2 px-4 py-1.5 rounded-full bg-transparent hover:bg-white/80 text-slate-600 text-xs font-black transition-all duration-200 active:scale-95 cursor-pointer';
+        }
         requestAnimationFrame(() => centerOnToday());
-      } else if (tabId === 'designs') {
-        if (viewDesigns) viewDesigns.style.display = 'block';
-        if (zoomControls) zoomControls.style.display = 'none';
-        if (btnToday) btnToday.style.display = 'none';
-        if (chipDesigns) chipDesigns.className = 'nav-chip active flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-600 text-white text-[11px] font-extrabold shadow-sm transition-all duration-200 active:scale-95 cursor-pointer';
       } else if (tabId === 'resources') {
+        if (viewRoadmap) viewRoadmap.style.display = 'none';
         if (viewResources) viewResources.style.display = 'block';
         if (zoomControls) zoomControls.style.display = 'none';
         if (btnToday) btnToday.style.display = 'none';
-        if (chipResources) chipResources.className = 'nav-chip active flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900 text-white text-[11px] font-extrabold shadow-sm transition-all duration-200 active:scale-95 cursor-pointer';
+
+        if (chipRoadmap) {
+          chipRoadmap.className = 'nav-chip flex items-center gap-2 px-4 py-1.5 rounded-full bg-transparent hover:bg-white/80 text-slate-600 text-xs font-black transition-all duration-200 active:scale-95 cursor-pointer';
+        }
+        if (chipResources) {
+          chipResources.className = 'nav-chip active flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900 text-white text-xs font-black shadow-xs transition-all duration-200 active:scale-95 cursor-pointer';
+        }
       }
     }
 

@@ -3262,23 +3262,24 @@ html, body {
   flex-shrink: 0 !important;
 }
 
-/* 4. Banner & Identity */
+/* 4. Native Shad Banner & Identity (تمام‌عرض بومی شاد) */
 .banner-container {
-  margin: 16px 16px 0 16px !important;
-  width: auto !important;
-  border-radius: 22px !important;
+  margin: 0 !important;
+  width: 100% !important;
+  border-radius: 0 !important;
   overflow: hidden !important;
 }
 
 .profile-info-section {
-  background-color: transparent !important;
-  padding: 0 16px !important;
+  background-color: #FFFFFF !important;
+  padding: 0 16px 16px 16px !important;
+  border-bottom: 8px solid var(--shad-bg) !important;
 }
 
 .shad-stats-card {
-  background: #FFFFFF !important;
-  border-radius: 18px !important;
-  border: none !important;
+  background: #F8FAFC !important;
+  border-radius: 14px !important;
+  border: 1px solid var(--shad-border) !important;
   box-shadow: none !important;
   padding: 12px 14px !important;
   margin: 12px 0 0 0 !important;
@@ -3286,18 +3287,20 @@ html, body {
 
 /* 5. Quick Nav Pills */
 .quick-nav-pills-bar {
-  margin-top: 14px !important;
-  margin-bottom: 14px !important;
-  padding: 4px 16px 6px 16px !important;
+  margin-top: 0 !important;
+  margin-bottom: 8px !important;
+  padding: 10px 16px 10px 16px !important;
+  background-color: #FFFFFF !important;
+  border-bottom: 1px solid var(--shad-border) !important;
   gap: 10px !important;
 }
 
-/* 6. Body & Cards Spacing */
+/* 6. Body & Sections Spacing (تمام‌عرض با خط جداکننده بالا و پایین به سبک اصیل شاد) */
 .sections-body {
-  padding: 0 16px 48px 16px !important;
+  padding: 0 0 48px 0 !important;
   display: flex !important;
   flex-direction: column !important;
-  gap: 16px !important;
+  gap: 8px !important;
   width: 100% !important;
   box-sizing: border-box !important;
 }
@@ -3305,9 +3308,12 @@ html, body {
 .section-card {
   position: relative !important;
   background-color: #FFFFFF !important;
-  border: none !important;
-  border-radius: 22px !important;
-  padding: 18px 18px !important;
+  border-top: 1px solid var(--shad-border) !important;
+  border-bottom: 1px solid var(--shad-border) !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-radius: 0 !important;
+  padding: 16px 18px !important;
   box-shadow: none !important;
   box-sizing: border-box !important;
   width: 100% !important;

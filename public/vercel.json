@@ -1,9 +1,0 @@
-{
-  "cleanUrls": true,
-  "rewrites": [
-    { "source": "/hesam", "destination": "/hesam.html" },
-    { "source": "/hesam/", "destination": "/hesam.html" },
-    { "source": "/shad", "destination": "/shad.html" },
-    { "source": "/shad/", "destination": "/shad.html" }
-  ]
-}

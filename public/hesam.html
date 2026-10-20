@@ -8453,23 +8453,19 @@ function renderApp() {
     `).join('');
 
     identitySection.innerHTML = `
-      <div class="profile-identity-top-row">
-        <div class="avatar-wrapper">
-          <div class="avatar-circle" id="user-avatar-circle" ${isOwner ? 'onclick="window.uiController.openEditProfileModal()" title="کلیک برای تغییر آواتار"' : ''}>
-            ${s.user.avatar}
-          </div>
-          <div class="vibe-tag" ${isOwner ? 'onclick="window.uiController.openVibeModal()" title="کلیک برای تنظیم حال‌وهوا و مود"' : `onclick="window.uiController.showToast('مود فعلی: ${s.user.vibe}', 'info')"`}>
-            <span>${s.user.vibe}</span>
-          </div>
+      <div class="avatar-wrapper">
+        <div class="avatar-circle" id="user-avatar-circle" ${isOwner ? 'onclick="window.uiController.openEditProfileModal()" title="کلیک برای تغییر آواتار"' : ''}>
+          ${s.user.avatar}
         </div>
-
-        <div class="profile-identity-text-col">
-          <div class="user-name-row">
-            <h1 class="user-name" id="user-display-name">${s.user.name}</h1>
-          </div>
-          <p class="user-subtext" id="user-school-info">${s.user.school || 'دبیرستان ماندگار البرز'} • ${s.user.grade || 'دهم ریاضی'}</p>
+        <div class="vibe-tag" ${isOwner ? 'onclick="window.uiController.openVibeModal()" title="کلیک برای تنظیم حال‌وهوا و مود"' : `onclick="window.uiController.showToast('مود فعلی: ${s.user.vibe}', 'info')"`}>
+          <span>${s.user.vibe}</span>
         </div>
       </div>
+
+      <div class="user-name-row">
+        <h1 class="user-name" id="user-display-name">${s.user.name}</h1>
+      </div>
+      <p class="user-subtext" id="user-school-info">${s.user.school || 'دبیرستان ماندگار البرز'} • ${s.user.grade || 'دهم ریاضی'}</p>
 
       <!-- Student Stats Ribbon (نوار اعتبار، جایگاه رشد و امتیاز فعالیت شاد) -->
       <div class="shad-stats-card">

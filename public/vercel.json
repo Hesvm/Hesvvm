@@ -1,0 +1,10 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/shad", "destination": "/shad/index.html" },
+    { "source": "/shad/", "destination": "/shad/index.html" },
+    { "source": "/hesam", "destination": "/hesam/index.html" },
+    { "source": "/hesam/", "destination": "/hesam/index.html" },
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
+  ]
+}

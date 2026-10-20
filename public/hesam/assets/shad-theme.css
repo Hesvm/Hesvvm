@@ -1,0 +1,3491 @@
+/* =========================================================================
+   SHAD DESIGN SYSTEM (زبان طراحی بومی و رسمی اپلیکیشن شاد)
+   مطابقت ۱۰۰٪ با اسکرین‌شات‌های رسمی شاد (خانه، مدرسه من، پیام‌رسان، ویژه‌ها)
+   تایپوگرافی رسمی: IRANSans
+   پالت رنگی:
+     - سبز رسمی شاد: #009673 / #00BA88
+     - سبز ملایم کپسول‌ها و استریک: #E6F7F0
+     - آبی شاد / تیک تأیید و پیام‌رسان: #0088CC / #0284C7 / #0EA5E9
+     - آبی ملایم تگ‌ها و لیگ‌ها: #F0F9FF
+     - نارنجی استریک و سکه: #EA580C / #FFF7ED
+     - قرمز غیبت و بج‌ها: #EF4444 / #FEE2E2
+     - پس‌زمینه بوم شاد: #F5F6F8
+     - کارت‌ها: #FFFFFF فلت با کادر بسیار ظریف #E8EDF2
+   ========================================================================= */
+
+/* 1. Local IRANSans Font Declarations */
+@font-face {
+  font-family: 'IRANSans';
+  src: url('./IRANSans.woff2') format('woff2'),
+       url('./IRANSans.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IRANSans';
+  src: url('./IRANSans.woff2') format('woff2'),
+       url('./IRANSans.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 2. Global Design Tokens */
+:root {
+  --shad-font: 'IRANSans', 'IRANSansWeb', 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, sans-serif;
+  
+  --shad-green: #009673; /* رنگ سبز رسمی و فعال در شاد */
+  --shad-green-brand: #00A651; /* رنگ لوگوی شاد */
+  --shad-green-dark: #007D60;
+  --shad-green-soft: #C7FFF2; /* کپسول تب فعال شاد */
+  --shad-green-border: #80E5CB;
+  --shad-green-text: #00664F;
+
+  --shad-blue: #0284C7;
+  --shad-cyan: #0EA5E9;
+  --shad-blue-soft: #F0F9FF;
+  --shad-blue-border: #BAE6FD;
+  --shad-blue-text: #0369A1;
+
+  --shad-orange: #EA580C;
+  --shad-orange-soft: #FFF7ED;
+  --shad-orange-border: #FFEDD5;
+
+  --shad-red: #EF4444;
+  --shad-red-soft: #FEE2E2;
+
+  --shad-bg: #F5F6F8;
+  --shad-card-bg: #FFFFFF;
+  --shad-border: #E8EDF2;
+  --shad-divider: #F1F4F7;
+
+  --shad-text-main: #1E293B;
+  --shad-text-body: #334155;
+  --shad-text-sub: #64748B;
+  --shad-text-muted: #94A3B8;
+
+  --shad-radius-card: 16px;
+  --shad-radius-pill: 9999px;
+  --shad-shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+/* Base Resets */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: var(--shad-font) !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: #FFFFFF !important;
+  background-image: none !important;
+  color: var(--shad-text-main);
+  direction: rtl;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Desktop Presentation Wrapper */
+.app-viewport-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  background: #FFFFFF !important;
+}
+
+/* Clean Web / App Frame (بدون فریم مشکی و بدون گوشه‌های گرد) */
+.phone-container {
+  width: 100%;
+  max-width: 412px;
+  height: 100vh;
+  background-color: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0;
+  border: none;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+}
+
+@media (min-width: 600px) {
+  .phone-container {
+    height: 100vh;
+    max-height: 915px;
+    border-radius: 0;
+    border: none;
+  }
+}
+
+/* 0. Base Main App Screen (صفحه اصلی بومی شاد) */
+.main-app-screen {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #FFFFFF;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  z-index: 5;
+}
+
+.main-app-screen::-webkit-scrollbar {
+  display: none;
+}
+
+.main-screen-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Top-Left Profile Icon Trigger Button (دکمه پروفایل در هدر صفحه اصلی) */
+.main-profile-icon-btn {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 15;
+  background: #FFFFFF;
+  border: 2px solid #FFFFFF;
+  border-radius: 9999px;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.18s ease;
+}
+
+.main-profile-icon-btn:hover {
+  transform: scale(1.08);
+}
+
+.main-profile-icon-btn:active {
+  transform: scale(0.92);
+}
+
+.main-profile-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.main-profile-fallback {
+  display: none;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background: #E2E8F0;
+  color: #64748B;
+}
+
+.main-profile-online-dot {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  background-color: var(--shad-green);
+  border: 2px solid #FFFFFF;
+  border-radius: 9999px;
+}
+
+/* Backdrop Dimmer Behind Profile Sheet */
+.app-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  z-index: 20;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+
+.app-backdrop.backdrop-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* =========================================================================
+   DEDICATED PROFILE SCREEN PAGE (صفحه اختصاصی پروفایل در شاد)
+   ========================================================================= */
+.bottom-sheet-container,
+.profile-screen-page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 25;
+  background-color: var(--shad-bg);
+  border-radius: 0;
+  box-shadow: none;
+  overflow: hidden;
+  transform: translateX(-100%);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bottom-sheet-container.sheet-open,
+.profile-screen-page.sheet-open {
+  transform: translateX(0);
+}
+
+/* Screen Header Bar (Shad Top App Bar) */
+.profile-screen-header,
+.sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--shad-border);
+  min-height: 56px;
+  flex-shrink: 0;
+  z-index: 40;
+}
+
+.header-nav-side {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.screen-back-btn {
+  background: transparent;
+  border: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--shad-text-main);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.screen-back-btn:hover {
+  background: #F1F4F7;
+}
+
+.screen-back-btn:active {
+  transform: scale(0.92);
+}
+
+.header-page-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--shad-text-main);
+  margin: 0;
+  line-height: 1;
+}
+
+.sheet-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sheet-icon-btn {
+  background: #F1F4F7;
+  border: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--shad-text-sub);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.sheet-icon-btn:hover {
+  background: #E2E8F0;
+  color: var(--shad-text-main);
+}
+
+/* Tab Switcher: دید خودم / دید بقیه */
+.sheet-tab-switcher {
+  background: #F1F4F7;
+  padding: 3px;
+  border-radius: var(--shad-radius-pill);
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  border: 1px solid var(--shad-border);
+}
+
+.sheet-tab-btn {
+  padding: 5px 14px;
+  border-radius: var(--shad-radius-pill);
+  font-size: 11.5px;
+  font-weight: 700;
+  border: none;
+  background: transparent;
+  color: var(--shad-text-sub);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sheet-tab-btn.active {
+  background: #FFFFFF;
+  color: var(--shad-text-main);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  font-weight: 800;
+}
+
+/* Sticky Edit Bar */
+#sticky-edit-bar {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--shad-border);
+}
+
+.edit-mode-active #sticky-edit-bar {
+  display: flex !important;
+}
+
+/* Scroll Area */
+.sheet-scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #CBD5E1 transparent;
+  background-color: var(--shad-bg);
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+}
+
+.sheet-scroll-area::-webkit-scrollbar {
+  width: 5px;
+}
+
+.sheet-scroll-area::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sheet-scroll-area::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 9999px;
+}
+
+.sheet-scroll-area::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* 1. Header Banner (فول‌عرض بدون حاشیه و گردی معلق) */
+.banner-container {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  height: 155px;
+  background: #E2E8F0;
+  border-radius: 0;
+  overflow: hidden;
+  border: none;
+  box-shadow: none;
+}
+
+.banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: url('./header_banner.jpg') center/cover no-repeat;
+  position: relative;
+}
+
+.banner-top-actions {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+}
+
+.badge-pill {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  padding: 5px 12px;
+  border-radius: var(--shad-radius-pill);
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--shad-text-main);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.coin-icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+/* 2. Identity Header Section (هویت دانش‌آموز - چینش بومی راست‌چین شاد) */
+.profile-info-section {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 0 16px 16px 16px;
+  background: #FFFFFF;
+  border-bottom: 8px solid var(--shad-bg);
+}
+
+.profile-identity-top-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  margin-top: -38px;
+  width: 100%;
+}
+
+.avatar-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  z-index: 20;
+}
+
+.avatar-circle {
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 3.5px solid #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.vibe-tag {
+  background-color: #FFFFFF;
+  padding: 3px 10px;
+  border-radius: var(--shad-radius-pill);
+  font-size: 10.5px;
+  font-weight: 800;
+  color: var(--shad-text-main);
+  margin-top: -10px;
+  z-index: 25;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+  border: 1px solid var(--shad-border);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.profile-identity-text-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: right;
+  flex: 1;
+  padding-bottom: 4px;
+}
+
+.user-name-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  margin-top: 0;
+  width: 100%;
+}
+
+.user-name {
+  font-size: 17px;
+  font-weight: 900;
+  color: var(--shad-text-main);
+  margin: 0;
+}
+
+.shad-verified-icon {
+  width: 19px;
+  height: 19px;
+  fill: #0088CC;
+}
+
+.user-subtext {
+  font-size: 12px;
+  color: var(--shad-text-sub);
+  font-weight: 600;
+  margin-top: 4px;
+  text-align: right;
+  width: 100%;
+}
+
+/* =========================================================================
+   3. SECTIONS BODY & NATIVE SHAD CARDS (بخش‌های پیوسته و تمام‌عرض شاد)
+   ========================================================================= */
+.sections-body {
+  padding: 0 0 40px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.section-card {
+  position: relative;
+  background-color: var(--shad-card-bg);
+  border-top: 1px solid var(--shad-border);
+  border-bottom: 1px solid var(--shad-border);
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+  padding: 16px 18px;
+  box-shadow: none;
+}
+
+.section-label {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--shad-text-main);
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--shad-divider);
+  padding-bottom: 8px;
+}
+
+.section-title-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.section-more-link {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--shad-blue);
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.section-more-link:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.isax-icon {
+  width: 17px;
+  height: 17px;
+  color: var(--shad-green);
+  stroke: var(--shad-green);
+  fill: none;
+}
+
+/* 4 Bento Info Widgets (پایه، دبیرستان، تولد، رابطه) */
+.identity-widgets-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.info-widget-card {
+  background-color: #FFFFFF;
+  border: 1px solid var(--shad-border);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  text-align: right;
+  min-height: 52px;
+  padding: 8px 12px;
+  gap: 10px;
+  box-shadow: var(--shad-shadow-subtle);
+}
+
+.info-widget-emoji {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+  background-color: #F8FAFC;
+  border: 1px solid var(--shad-border);
+}
+
+.info-widget-text-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-widget-header {
+  font-size: 9.5px;
+  color: var(--shad-text-sub);
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.info-widget-value {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--shad-text-main);
+}
+
+/* Bio Text */
+.bio-text {
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--shad-text-body);
+  font-weight: 500;
+}
+
+/* Football Chips Box */
+.football-chips-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.club-chip {
+  background-color: #F8FAFC;
+  border: 1px solid var(--shad-border);
+  padding: 6px 14px 6px 10px;
+  border-radius: var(--shad-radius-pill);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--shad-text-main);
+}
+
+.club-chip-logo {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+/* 31-Day Attendance Calendar (تقویم حضور و غیاب مدرسه شاد) */
+.calendar-card-box {
+  background-color: transparent;
+}
+
+.calendar-legend {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 9.5px;
+  color: var(--shad-text-sub);
+  font-weight: 700;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.calendar-days-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--shad-text-muted);
+  margin-bottom: 8px;
+}
+
+.calendar-grid-31 {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px 0;
+  justify-items: center;
+}
+
+.cal-day-cell {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--shad-text-main);
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.cal-day-cell:hover {
+  transform: scale(1.15);
+  z-index: 5;
+}
+
+/* Present Days in Shad Green & Continuous Streak */
+.cal-day-cell.day-present {
+  background-color: var(--shad-green);
+  color: #FFFFFF;
+}
+
+.cal-day-cell.streak-start {
+  width: calc(100% - 4px);
+  margin-right: 4px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  background-color: var(--shad-green-soft);
+  color: var(--shad-green-text);
+}
+
+.cal-day-cell.streak-mid {
+  width: 100%;
+  border-radius: 0;
+  background-color: var(--shad-green-soft);
+  color: var(--shad-green-text);
+}
+
+.cal-day-cell.streak-end {
+  width: calc(100% - 4px);
+  margin-left: 4px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  background-color: var(--shad-green-soft);
+  color: var(--shad-green-text);
+}
+
+.cal-day-cell.streak-single {
+  border-radius: 50%;
+  background-color: var(--shad-green);
+  color: #FFFFFF;
+}
+
+.cal-day-cell.day-absent {
+  background-color: var(--shad-red-soft);
+  color: var(--shad-red);
+}
+
+.cal-day-cell.day-off {
+  background-color: #F1F4F7;
+  color: var(--shad-text-muted);
+}
+
+.cal-day-cell.day-today {
+  background-color: #DBEAFE;
+  color: #1D4ED8;
+  border: 1.5px solid #60A5FA;
+}
+
+.cal-day-cell.day-future {
+  background-color: transparent;
+  color: var(--shad-text-muted);
+}
+
+/* MBTI & Learning Style Cards */
+.bento-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.mbti-card, .learning-card {
+  background-color: #FFFFFF;
+  border: 1px solid var(--shad-border);
+  border-radius: 16px;
+  padding: 14px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  text-align: right;
+  box-shadow: var(--shad-shadow-subtle);
+}
+
+.insight-badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--shad-text-sub);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mbti-title, .learning-title {
+  font-weight: 900;
+  color: var(--shad-text-main);
+  margin-top: 4px;
+  text-align: right;
+}
+
+.mbti-title {
+  font-size: 18px;
+}
+
+.learning-title {
+  font-size: 14px;
+}
+
+.insight-desc {
+  font-size: 9.5px;
+  color: var(--shad-text-sub);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.insight-pill {
+  background-color: var(--shad-green-soft);
+  color: var(--shad-green-text);
+  border: 1px solid var(--shad-green-border);
+  font-size: 10px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: var(--shad-radius-pill);
+  margin-top: 8px;
+}
+
+/* Passions & Interests */
+.passions-white-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag-chip {
+  background-color: #F8FAFC;
+  border: 1px solid var(--shad-border);
+  padding: 6px 14px;
+  border-radius: var(--shad-radius-pill);
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--shad-text-body);
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.tag-chip:hover {
+  background-color: var(--shad-green-soft);
+  border-color: var(--shad-green-border);
+  color: var(--shad-green-text);
+}
+
+/* Role Models */
+.models-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.model-square {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px 4px;
+  background: #F8FAFC;
+  border: 1px solid var(--shad-border);
+  border-radius: 14px;
+}
+
+.model-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  margin-bottom: 6px;
+}
+
+.model-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.model-name {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--shad-text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.model-field {
+  font-size: 9.5px;
+  color: var(--shad-text-sub);
+  margin-top: 2px;
+}
+
+/* Books, Games, Movies Showcases */
+.books-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  padding: 6px 0;
+}
+
+.book-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.book-cover-wrap {
+  position: relative;
+  width: 72%;
+  aspect-ratio: 2 / 2.9;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--shad-border);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin-bottom: 8px;
+  transition: transform 0.2s ease;
+  background: #F1F4F7;
+}
+
+.book-cover-wrap:hover {
+  transform: translateY(-3px);
+}
+
+.book-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.book-spine-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 12px;
+  width: 1.5px;
+  background: rgba(0,0,0,0.2);
+}
+
+.book-title-text {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--shad-text-main);
+  margin-bottom: 2px;
+  line-height: 1.3;
+}
+
+.book-author-text {
+  font-size: 9.5px;
+  color: var(--shad-text-sub);
+  font-weight: 600;
+}
+
+/* Audio Player Card */
+.audio-white-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: #F8FAFC;
+  border: 1px solid var(--shad-border);
+  border-radius: 12px;
+}
+
+.audio-play-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--shad-green);
+  color: #FFFFFF;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+
+/* Future Goal Card */
+.goal-white-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  background: #F8FAFC;
+  border: 1px solid var(--shad-border);
+  border-radius: 14px;
+}
+
+/* Friendship Orbit Graph (مدارهای دوستی در شاد) */
+.orbit-container {
+  background: linear-gradient(180deg, #F0FDF4 0%, #ECFDF5 100%);
+  border-radius: 20px;
+  height: 250px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #D1FAE5;
+}
+
+.orbit-ring {
+  position: absolute;
+  border-radius: 9999px;
+  border: 1px solid rgba(0, 150, 115, 0.22);
+  pointer-events: none;
+}
+
+.ring-1 { width: 100px; height: 100px; }
+.ring-2 { width: 165px; height: 165px; }
+.ring-3 { width: 230px; height: 230px; }
+.ring-4 { width: 295px; height: 295px; }
+
+.orbit-label {
+  position: absolute;
+  background: #FFFFFF;
+  border: 1px solid #A7F3D0;
+  color: var(--shad-green-dark);
+  font-size: 9px;
+  font-weight: 900;
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  z-index: 5;
+}
+
+.orbit-node {
+  position: absolute;
+  background: #FFFFFF;
+  border: 2px solid #FFFFFF;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.orbit-node:hover {
+  transform: scale(1.2);
+  border-color: var(--shad-green);
+  z-index: 10;
+}
+
+/* Leaderboard (لیدربورد هفتگی شاد) */
+.leaderboard-league-tag {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--shad-blue-text);
+  background: var(--shad-blue-soft);
+  padding: 4px 12px;
+  border-radius: var(--shad-radius-pill);
+  border: 1px solid var(--shad-blue-border);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.leaderboard-league-tag:hover {
+  background: #E0F2FE;
+  transform: translateY(-1px);
+}
+
+.leaderboard-list-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  max-height: 310px;
+  overflow-y: auto;
+  padding: 4px 0;
+  margin-top: 8px;
+  scrollbar-width: none;
+}
+
+.leaderboard-list-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.leaderboard-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 12px;
+  background: #F8FAFC;
+  border-radius: 14px;
+  border: 1px solid var(--shad-border);
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.leaderboard-row:hover {
+  background: #F1F4F7;
+}
+
+/* User's row highlighted in Shad Green */
+.leaderboard-row.is-me {
+  background: var(--shad-green-soft) !important;
+  border: 1.5px solid var(--shad-green) !important;
+  box-shadow: 0 2px 10px rgba(0, 150, 115, 0.12);
+}
+
+.leaderboard-row.is-me .lb-name-text {
+  color: var(--shad-green-text) !important;
+}
+
+.leaderboard-row.is-me .lb-xp-val {
+  color: var(--shad-green) !important;
+}
+
+.lb-rank-col {
+  width: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.lb-rank-badge {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.lb-rank-num {
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--shad-green);
+}
+
+.lb-avatar-wrap {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  flex-shrink: 0;
+}
+
+.lb-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lb-info-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.lb-name-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lb-name-text {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--shad-text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lb-subtitle-text {
+  font-size: 10px;
+  color: var(--shad-text-sub);
+  font-weight: 600;
+  margin-top: 1px;
+}
+
+.lb-xp-col {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  flex-shrink: 0;
+  direction: ltr;
+}
+
+.lb-xp-val {
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--shad-text-main);
+}
+
+.lb-xp-label {
+  font-size: 9.5px;
+  font-weight: 800;
+  color: var(--shad-text-muted);
+}
+
+/* Badges Grid (مدال‌ها و افتخارات) */
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.badge-item {
+  background: #F8FAFC;
+  border: 1px solid var(--shad-border);
+  border-radius: 14px;
+  padding: 12px 6px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+}
+
+.badge-item.unearned {
+  opacity: 0.35;
+  filter: grayscale(80%);
+}
+
+/* Growth Radar Chart Container */
+#radar-area .section-card {
+  padding-bottom: 24px;
+}
+
+/* Modals & Dialogs (در تم شاد) */
+.modal-backdrop-hidden {
+  display: none !important;
+}
+
+.modal-backdrop-visible {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 150;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.modal-card {
+  background: #FFFFFF;
+  border-radius: 28px 28px 0 0;
+  width: 100%;
+  max-width: 100%;
+  max-height: 85%;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 20px 28px 20px;
+  box-shadow: 0 -12px 35px rgba(0, 0, 0, 0.22);
+  animation: modalSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+  position: relative;
+  z-index: 160;
+}
+
+@keyframes modalSlideUp {
+  0% { transform: translateY(100%); }
+  100% { transform: translateY(0); }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--shad-divider);
+  flex-shrink: 0;
+}
+
+.modal-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--shad-text-main);
+}
+
+.modal-close-btn {
+  background: #F1F4F7;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--shad-text-sub);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  transition: all 0.15s ease;
+}
+
+.modal-close-btn:hover {
+  background: #E2E8F0;
+  color: var(--shad-text-main);
+}
+
+.modal-body {
+  font-size: 12.5px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  max-height: 65vh;
+}
+
+.modal-body::-webkit-scrollbar {
+  display: none;
+}
+
+.modal-sheet-inner {
+  width: 100%;
+  background: #FFFFFF;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  padding: 20px 18px 30px;
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.15);
+}
+
+.btn-primary {
+  background: var(--shad-green);
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--shad-radius-pill);
+  padding: 10px 24px;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0, 150, 115, 0.25);
+  transition: background 0.15s ease;
+}
+
+.btn-primary:hover {
+  background: var(--shad-green-dark);
+}
+
+.btn-secondary {
+  background: #F1F4F7;
+  color: var(--shad-text-main);
+  border: 1px solid var(--shad-border);
+  border-radius: var(--shad-radius-pill);
+  padding: 10px 24px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Modal Form Controls */
+.form-group {
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: right;
+}
+
+.form-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--shad-text-sub);
+}
+
+.form-input, .form-textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--shad-border);
+  border-radius: 14px;
+  background: #F8FAFC;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--shad-text-main);
+  box-sizing: border-box;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.form-input:focus, .form-textarea:focus {
+  background: #FFFFFF;
+  border-color: var(--shad-green);
+  box-shadow: 0 0 0 3px rgba(0, 150, 115, 0.12);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+
+/* Avatar Picker in Modal */
+.avatar-picker-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  padding: 8px 0;
+}
+
+.avatar-pick-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background: #F1F4F7;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.avatar-pick-btn:hover {
+  background: #E2E8F0;
+  transform: scale(1.08);
+}
+
+.avatar-pick-btn.selected {
+  border-color: var(--shad-green);
+  background: #DCFCE7;
+  transform: scale(1.12);
+  box-shadow: 0 2px 8px rgba(0, 150, 115, 0.3);
+}
+
+/* Clubs Picker Grid in Modal */
+.clubs-pick-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  max-height: 240px;
+  overflow-y: auto;
+  padding: 4px;
+}
+
+.club-selectable {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--shad-border);
+  border-radius: 12px;
+  background: #FFFFFF;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--shad-text-body);
+  transition: all 0.15s ease;
+}
+
+.club-selectable:hover {
+  background: #F8FAFC;
+}
+
+.club-selectable.selected {
+  border-color: var(--shad-green);
+  background: #F0FDF4;
+  color: var(--shad-green-dark);
+}
+
+/* Toasts */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.toast-item {
+  background: #1E293B;
+  color: #FFFFFF;
+  padding: 10px 20px;
+  border-radius: var(--shad-radius-pill);
+  font-size: 12.5px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  animation: toastFadeIn 0.25s ease;
+}
+
+@keyframes toastFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.toast-item.toast-fadeout {
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: all 0.3s ease;
+}
+
+.toast-success {
+  background: var(--shad-green-dark);
+}
+
+.toast-error {
+  background: var(--shad-red);
+}
+
+.toast-info {
+  background: #1E293B;
+}
+
+/* =========================================================================
+   ENHANCED NATIVE SHAD SUPER-APP PATTERNS (الگوهای اختصاصی سوپراپلیکیشن شاد)
+   ========================================================================= */
+
+/* Quick Navigation Bar (دسته‌بندی‌های شاد) */
+.quick-nav-pills-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 14px 10px 14px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  flex-shrink: 0;
+  background-color: var(--shad-bg);
+}
+
+.quick-nav-pills-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-pill-chip {
+  background-color: #FFFFFF;
+  border: 1px solid var(--shad-border);
+  padding: 6px 14px;
+  border-radius: var(--shad-radius-pill);
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--shad-text-body);
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-pill-chip:hover {
+  background-color: #F8FAFC;
+  border-color: #CBD5E1;
+}
+
+.nav-pill-chip.active {
+  background-color: var(--shad-green);
+  border-color: var(--shad-green);
+  color: #FFFFFF;
+  box-shadow: 0 2px 6px rgba(0, 150, 115, 0.25);
+  font-weight: 800;
+}
+
+/* Student Stats Ribbon (نوار یکپارچه آمار و اعتبارات شاد) */
+.shad-stats-card {
+  width: 100%;
+  max-width: 100%;
+  background: #F8FAFC;
+  border: 1px solid var(--shad-border);
+  border-radius: 14px;
+  padding: 10px 8px;
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  box-shadow: none;
+}
+
+.shad-stat-col {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 10px;
+  transition: background 0.15s ease;
+}
+
+.shad-stat-col:hover {
+  background: #F8FAFC;
+}
+
+.shad-stat-icon-wrap {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.shad-stat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.shad-stat-value {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--shad-text-main);
+  line-height: 1.2;
+}
+
+.shad-stat-label {
+  font-size: 9.5px;
+  color: var(--shad-text-sub);
+  font-weight: 600;
+}
+
+.shad-stat-divider {
+  width: 1px;
+  height: 28px;
+  background-color: var(--shad-divider);
+}
+
+/* Official Student ID Card */
+.student-id-card {
+  padding-bottom: 16px;
+}
+
+.id-badge-verified {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--shad-blue-text);
+  background-color: var(--shad-blue-soft);
+  border: 1px solid var(--shad-blue-border);
+  padding: 2px 8px;
+  border-radius: var(--shad-radius-pill);
+}
+
+.student-id-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+/* Attendance Quick Metrics Strip */
+.att-summary-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.att-sum-box {
+  border-radius: 12px;
+  padding: 8px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 2px;
+}
+
+.att-sum-box.present {
+  background-color: #ECFDF5;
+  border: 1px solid #A7F3D0;
+  color: #065F46;
+}
+
+.att-sum-box.streak {
+  background-color: #FFF7ED;
+  border: 1px solid #FED7AA;
+  color: #9A3412;
+}
+
+.att-sum-box.absent {
+  background-color: #FEF2F2;
+  border: 1px solid #FECACA;
+  color: #991B1B;
+}
+
+.att-sum-num {
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.att-sum-lbl {
+  font-size: 9.5px;
+  font-weight: 700;
+  opacity: 0.85;
+}
+
+/* Role Models Circular Stories Row */
+.models-stories-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 8px 0 4px 0;
+  gap: 12px;
+}
+
+.model-story-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.18s ease;
+}
+
+.model-story-col:hover {
+  transform: translateY(-2px);
+}
+
+.model-story-avatar-wrap {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  padding: 2.5px;
+  background: linear-gradient(135deg, var(--shad-green) 0%, var(--shad-cyan) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 8px rgba(0, 150, 115, 0.2);
+  margin-bottom: 6px;
+}
+
+.model-story-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #FFFFFF;
+}
+
+.model-story-name {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--shad-text-main);
+  white-space: nowrap;
+}
+
+.model-story-field {
+  font-size: 9px;
+  color: var(--shad-text-sub);
+  background-color: #F1F5F9;
+  padding: 2px 8px;
+  border-radius: var(--shad-radius-pill);
+  margin-top: 3px;
+  font-weight: 600;
+}
+
+/* Media Carousel Scroll (تماشا و کتابخوان شاد) */
+.media-carousel-scroll {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding: 6px 2px 4px 2px;
+}
+
+.media-carousel-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.media-carousel-item {
+  flex-shrink: 0;
+  width: 115px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+.media-carousel-item .book-cover-wrap {
+  width: 100%;
+  aspect-ratio: 2 / 2.9;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--shad-border);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  position: relative;
+  transition: transform 0.2s ease;
+  background: #F1F4F7;
+  margin-bottom: 6px;
+}
+
+.media-carousel-item:hover .book-cover-wrap {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+}
+
+.media-rank-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 2px 6px;
+  border-radius: var(--shad-radius-pill);
+  font-size: 9px;
+  font-weight: 800;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  color: var(--shad-text-main);
+}
+
+/* =========================================================================
+   WIDGET EDIT CONTROLS (کنترل‌های هوشمند ویرایش و چیدمان شاد)
+   ========================================================================= */
+
+/* در حالت عادی (دید پروفایل): ۱۰۰٪ مخفی برای حفظ تمیزی و آرامش بصری */
+.widget-edit-controls {
+  display: none !important;
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  z-index: 35;
+}
+
+/* فقط هنگامی که کاربر دکمه «ویرایش چیدمان» را لمس می‌کند ظاهر می‌شود */
+.edit-mode-active .widget-edit-controls {
+  display: block !important;
+}
+
+/* کپسول افقی، متقارن و ارگونومیک (هم‌تراز با هدر کارت در سمت چپ) */
+.widget-actions-cluster {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  background: #FFFFFF;
+  border: 1px solid var(--shad-border);
+  padding: 3px 6px;
+  border-radius: var(--shad-radius-pill);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.widget-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #F8FAFC;
+  border: 1px solid var(--shad-divider);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--shad-text-sub);
+  transition: all 0.18s ease;
+}
+
+.widget-btn:hover {
+  background: var(--shad-green-soft);
+  color: var(--shad-green-text);
+  border-color: var(--shad-green-border);
+  transform: scale(1.08);
+}
+
+.widget-btn .isax-icon {
+  width: 14px;
+  height: 14px;
+  color: inherit;
+  stroke: currentColor;
+}
+
+.widget-btn.drag-handle {
+  cursor: grab;
+}
+
+.widget-btn.drag-handle:active {
+  cursor: grabbing;
+}
+
+/* در حالت فعال بودن ویرایش: کادر کارت‌ها خط‌چین ملایم تعاملی می‌گیرد */
+.edit-mode-active .section-card {
+  border: 1.5px dashed #CBD5E1 !important;
+  background-color: #FAFAFB !important;
+}
+
+.edit-mode-active .section-card:hover {
+  border-color: var(--shad-green) !important;
+}
+
+/* =========================================================================
+   3-DOTS CARD ACTION MENU (منوی سه‌نقطه مدیریت کارت‌ها)
+   ========================================================================= */
+
+.section-header-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-more-btn {
+  background: #F1F4F7;
+  border: 1px solid transparent;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--shad-text-sub);
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.18s ease;
+  flex-shrink: 0;
+}
+
+.card-more-btn:hover {
+  background: #E2E8F0;
+  color: var(--shad-text-main);
+  transform: scale(1.06);
+}
+
+.card-more-btn:active {
+  transform: scale(0.94);
+}
+
+.card-more-dots-svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.card-more-btn-floating {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 10;
+  background: #FFFFFF;
+  border: 1px solid var(--shad-border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Popover Modal / Menu */
+.card-popover-menu {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.popover-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.2);
+  pointer-events: auto;
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+}
+
+.popover-content {
+  position: absolute;
+  background: #FFFFFF;
+  border: 1px solid var(--shad-border);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.14), 0 2px 6px rgba(0,0,0,0.06);
+  padding: 6px;
+  min-width: 175px;
+  z-index: 110;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  animation: popoverScaleIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes popoverScaleIn {
+  from { opacity: 0; transform: scale(0.92) translateY(-4px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.popover-header-title {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--shad-text-muted);
+  padding: 6px 10px 4px 10px;
+  border-bottom: 1px solid var(--shad-divider);
+  margin-bottom: 3px;
+}
+
+.popover-btn {
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--shad-text-main);
+  cursor: pointer;
+  text-align: right;
+  transition: background 0.15s ease;
+  width: 100%;
+}
+
+.popover-btn:hover {
+  background: #F1F5F9;
+}
+
+.popover-btn.text-danger {
+  color: var(--shad-red);
+}
+
+.popover-btn.text-danger:hover {
+  background: var(--shad-red-soft);
+}
+
+.popover-btn-icon {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  flex-shrink: 0;
+}
+
+.popover-divider {
+  height: 1px;
+  background-color: var(--shad-divider);
+  margin: 3px 0;
+}
+
+/* Hidden Restore Chip in Hidden Tray */
+.hidden-restore-chip {
+  background: #FFFFFF;
+  border: 1px solid var(--shad-border);
+  border-radius: 9999px;
+  padding: 6px 14px;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--shad-blue);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.18s ease;
+}
+
+.hidden-restore-chip:hover {
+  background: var(--shad-blue-soft);
+  border-color: var(--shad-blue);
+  transform: translateY(-1px);
+}
+
+/* =========================================================================
+   NEW ENHANCEMENTS BASED ON KAMRAN OKALA FEEDBACK
+   ========================================================================= */
+
+/* 1. Official Shad Entry Point Hotspot ("حساب من" bottom navigation tab) */
+.main-account-tab-hotspot {
+  position: absolute;
+  bottom: 12px;
+  left: 20px;
+  width: 68px;
+  height: 60px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  outline: none;
+}
+
+.hotspot-pulse {
+  display: none !important;
+}
+
+/* 2. Media Horizontal Carousel with Peek (بیرون‌زدگی لبه کارت برای نمایش اسکرول افقی) */
+.media-carousel-scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 6px 4px 12px 4px;
+  margin: 0 -18px;
+  padding-left: 18px;
+  padding-right: 18px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.media-carousel-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.media-carousel-item {
+  flex: 0 0 135px;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: right;
+  cursor: pointer;
+}
+
+.media-carousel-item .book-cover-wrap {
+  width: 100%;
+  aspect-ratio: 2 / 2.9;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--shad-border);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  margin-bottom: 8px;
+  position: relative;
+  background: #F1F4F7;
+}
+
+.media-rank-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  font-size: 14px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.models-stories-row {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding: 6px 4px 10px 4px;
+  margin: 0 -18px;
+  padding-left: 18px;
+  padding-right: 18px;
+  scrollbar-width: none;
+}
+
+.models-stories-row::-webkit-scrollbar {
+  display: none;
+}
+
+.model-story-col {
+  flex: 0 0 95px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: #F8FAFC;
+  border: 1px solid var(--shad-border);
+  border-radius: 16px;
+  padding: 10px 6px;
+  cursor: pointer;
+  transition: transform 0.18s ease;
+}
+
+.model-story-col:hover {
+  transform: translateY(-2px);
+  background: #F1F5F9;
+}
+
+.model-story-avatar-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  margin-bottom: 6px;
+}
+
+.model-story-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.model-story-name {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--shad-text-main);
+  margin-bottom: 2px;
+}
+
+.model-story-field {
+  font-size: 9px;
+  color: var(--shad-text-sub);
+  font-weight: 600;
+}
+
+/* 3. RTL Aligned MBTI & Learning Cards (چیدمان راست‌چین استاندارد فارسی) */
+.mbti-card.rtl-aligned,
+.learning-card.rtl-aligned {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: right;
+  padding: 14px;
+  background: #F8FAFC;
+  border: 1px solid var(--shad-border);
+  border-radius: 16px;
+  position: relative;
+}
+
+.insight-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.insight-avatar-img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  border: 1.5px solid #FFFFFF;
+  flex-shrink: 0;
+}
+
+.insight-header-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.insight-badge-title {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--shad-text-main);
+}
+
+.insight-badge-sub {
+  font-size: 9.5px;
+  color: var(--shad-text-sub);
+  font-weight: 600;
+}
+
+.insight-card-body {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.mbti-title-fa,
+.learning-title-fa {
+  font-size: 13.5px;
+  font-weight: 900;
+  color: var(--shad-green-dark);
+  margin: 0;
+}
+
+/* 4. Orbit Friendship Levels Pills (تفکیک شفاف لایه‌های دوستی) */
+.orbit-manage-btn {
+  background: #F1F5F9;
+  border: 1px solid var(--shad-border);
+  color: var(--shad-text-body);
+  border-radius: var(--shad-radius-pill);
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.15s ease;
+}
+
+.orbit-manage-btn:hover {
+  background: var(--shad-green-soft);
+  border-color: var(--shad-green-border);
+  color: var(--shad-green-text);
+}
+
+.orbit-levels-pills {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 4px 0 8px 0;
+  scrollbar-width: none;
+}
+
+.orbit-levels-pills::-webkit-scrollbar {
+  display: none;
+}
+
+.orbit-pill {
+  background: #F8FAFC;
+  border: 1px solid var(--shad-border);
+  border-radius: var(--shad-radius-pill);
+  padding: 4px 10px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--shad-text-sub);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.orbit-pill:hover,
+.orbit-pill.active {
+  background: var(--shad-green-soft);
+  border-color: var(--shad-green-border);
+  color: var(--shad-green-text);
+}
+
+.orbit-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.orbit-dot.lvl-1 { background: #10B981; }
+.orbit-dot.lvl-2 { background: #0EA5E9; }
+.orbit-dot.lvl-3 { background: #8B5CF6; }
+.orbit-dot.lvl-4 { background: #F59E0B; }
+
+/* 5. Leaderboard Gap Divider (جداکننده رتبه کاربر خارج از ۴ نفر اول) */
+.lb-rank-gap-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 4px 0;
+  color: var(--shad-text-muted);
+}
+
+.lb-gap-dots {
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+.lb-gap-text {
+  font-size: 9.5px;
+  font-weight: 800;
+  color: var(--shad-text-sub);
+  background: #FFFFFF;
+  border: 1px solid var(--shad-border);
+  padding: 2px 10px;
+  border-radius: var(--shad-radius-pill);
+}
+
+/* 6. Pro Badges System (الهام از Tarteel AI - تفکیک وضعیت کسب شده و قفل) */
+.badges-grid-pro {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.badge-item-pro {
+  background: #F8FAFC;
+  border: 1px solid var(--shad-border);
+  border-radius: 16px;
+  padding: 10px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.badge-item-pro:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+.badge-item-pro.earned {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F0FDF4 100%);
+  border-color: #A7F3D0;
+}
+
+.badge-item-pro.locked {
+  background: #F8FAFC;
+  opacity: 0.65;
+  filter: grayscale(45%);
+}
+
+.badge-icon-pod {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+  border: 1.5px solid var(--shad-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  position: relative;
+}
+
+.badge-lock-tag {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  font-size: 11px;
+  background: #E2E8F0;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge-check-tag {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  font-size: 10px;
+  font-weight: 900;
+  background: #009673;
+  color: #FFFFFF;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  width: 100%;
+}
+
+.badge-title-text {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--shad-text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.badge-sub-text {
+  font-size: 8.5px;
+  color: var(--shad-text-sub);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.badge-progress-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.badge-progress-bar {
+  width: 100%;
+  height: 4px;
+  background: #E2E8F0;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.badge-progress-fill {
+  height: 100%;
+  background: var(--shad-green);
+  border-radius: 999px;
+}
+
+.badge-level-chip {
+  font-size: 8px;
+  font-weight: 800;
+  color: var(--shad-text-muted);
+}
+
+/* =========================================================================
+   TARTEEL AI 3D BADGES SYSTEM (مدال‌ها و افتخارات سه‌بعدی شاد بر اساس رفرنس ترتیل)
+   ========================================================================= */
+.badges-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 14px;
+  background: #F1F5F9;
+  padding: 4px;
+  border-radius: 12px;
+}
+
+.badge-filter-btn {
+  flex: 1;
+  padding: 6px 10px;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #64748B;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.badge-filter-btn.active {
+  background: #FFFFFF;
+  color: #0F172A;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.badges-grid-tarteel {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.badge-card-tarteel {
+  position: relative;
+  background: #F1F5F9;
+  border: none !important;
+  border-radius: 18px;
+  padding: 16px 12px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: none !important;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.badge-card-tarteel:hover {
+  transform: translateY(-2px);
+}
+
+/* Earned Badge State (Achieved - Soft clean organic green background, no stroke) */
+.badge-card-tarteel.earned {
+  background: #E8F8F0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.badge-card-tarteel.earned::before {
+  display: none !important;
+}
+
+/* Locked Badge State (In Progress - Soft clean gray, dimmer, no stroke) */
+.badge-card-tarteel.locked {
+  background: #F1F5F9 !important;
+  border: none !important;
+  box-shadow: none !important;
+  opacity: 0.8 !important;
+}
+
+.tarteel-icon-wrap {
+  width: 72px;
+  height: 72px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.tarteel-svg-icon {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.1));
+  transition: transform 0.25s ease;
+}
+
+.badge-card-tarteel:hover .tarteel-svg-icon {
+  transform: scale(1.08);
+}
+
+.tarteel-card-meta {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.tarteel-badge-title {
+  font-size: 13px;
+  font-weight: 900;
+  color: #0F172A;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.tarteel-badge-sub {
+  font-size: 10px;
+  font-weight: 600;
+  color: #64748B;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+/* Earned Tag */
+.tarteel-earned-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #DCFCE7;
+  color: #15803D;
+  font-size: 9.5px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 999px;
+  margin-top: 6px;
+  border: 1px solid #BBF7D0;
+}
+
+/* Locked Progress Bar & Hint */
+.tarteel-locked-progress {
+  width: 100%;
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tarteel-prog-track {
+  width: 100%;
+  height: 6px;
+  background: #E2E8F0;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.tarteel-prog-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3B82F6, #6366F1);
+  border-radius: 999px;
+}
+
+.tarteel-prog-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 9px;
+  font-weight: 700;
+  color: #64748B;
+}
+
+.tarteel-remaining-hint {
+  font-size: 8.5px;
+  font-weight: 700;
+  color: #D97706;
+  background: #FEF3C7;
+  padding: 2px 6px;
+  border-radius: 6px;
+  width: 100%;
+  margin-top: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* =========================================================================
+   SCALABLE FRIENDSHIP ORBIT SYSTEM (شبکه دوستی شاد با قابلیت مدیریت ۳۰۰+ دانش‌آموز)
+   ========================================================================= */
+.orbit-header-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.orbit-view-switcher {
+  display: inline-flex;
+  background: #F1F5F9;
+  border-radius: 10px;
+  padding: 3px;
+  align-self: flex-start;
+}
+
+.orbit-switch-btn {
+  border: none;
+  background: transparent;
+  font-size: 11px;
+  font-weight: 800;
+  color: #64748B;
+  padding: 5px 12px;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.orbit-switch-btn.active {
+  background: #FFFFFF;
+  color: #0F172A;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.orbit-filter-chips-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+.orbit-filter-chips-row::-webkit-scrollbar { display: none; }
+
+.orbit-filter-chip {
+  border: 1px solid #E2E8F0;
+  background: #FFFFFF;
+  color: #475569;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 11px;
+  border-radius: 999px;
+  white-space: nowrap;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.2s ease;
+}
+
+.orbit-filter-chip.active {
+  background: #009673;
+  color: #FFFFFF;
+  border-color: #009673;
+  box-shadow: 0 2px 8px rgba(0, 150, 115, 0.25);
+}
+
+/* Radar Canvas Container */
+.orbit-radar-canvas {
+  position: relative;
+  width: 100%;
+  height: 290px;
+  background: radial-gradient(circle at center, #F0FDF4 0%, #ECFDF5 45%, #E2E8F0 100%);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid #CBD5E1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.radar-sweep-beam {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border-radius: 100% 0 0 0;
+  background: linear-gradient(135deg, rgba(0, 150, 115, 0.15) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform-origin: 0 0;
+  animation: radarSweep 6s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes radarSweep {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.orbit-radar-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px dashed rgba(0, 150, 115, 0.3);
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.orbit-radar-ring.r-1 { width: 95px; height: 95px; border-color: rgba(0, 150, 115, 0.5); }
+.orbit-radar-ring.r-2 { width: 160px; height: 160px; border-color: rgba(14, 165, 233, 0.45); }
+.orbit-radar-ring.r-3 { width: 225px; height: 225px; border-color: rgba(99, 102, 241, 0.4); }
+.orbit-radar-ring.r-4 { width: 285px; height: 285px; border-color: rgba(148, 163, 184, 0.4); }
+
+.orbit-radar-ring.highlighted {
+  border-style: solid;
+  border-width: 2px;
+  box-shadow: 0 0 15px rgba(0, 150, 115, 0.35);
+}
+
+.radar-center-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 3px solid #009673;
+  overflow: hidden;
+  position: absolute;
+  z-index: 35;
+  box-shadow: 0 4px 14px rgba(0, 150, 115, 0.4);
+}
+
+.orbit-student-node {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  z-index: 25;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.orbit-student-node:hover {
+  transform: scale(1.18);
+  z-index: 40;
+}
+
+.orbit-node-photo {
+  border-radius: 50%;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+  border: 2px solid #FFFFFF;
+  object-fit: cover;
+  display: block;
+}
+
+.orbit-node-name-pill {
+  font-size: 9px;
+  font-weight: 800;
+  color: #0F172A;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 1px 6px;
+  border-radius: 999px;
+  margin-top: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  white-space: nowrap;
+}
+
+/* Orbit Spotlight Banner */
+.orbit-spotlight-box {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 14px;
+  padding: 10px 14px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.spotlight-info-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: right;
+}
+
+.spotlight-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: #0F172A;
+}
+
+.spotlight-sub {
+  font-size: 10px;
+  color: #64748B;
+  font-weight: 600;
+}
+
+/* Tiered Roster View (برای ۳۰۰ دانش‌آموز) */
+.orbit-roster-view {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.roster-group-card {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 12px 14px;
+}
+
+.roster-group-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #E2E8F0;
+  padding-bottom: 6px;
+}
+
+.roster-group-title {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #0F172A;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.close-friends-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.close-friend-mini-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.close-friend-mini-card:hover {
+  border-color: #009673;
+  box-shadow: 0 2px 8px rgba(0, 150, 115, 0.12);
+}
+
+.close-friend-thumb {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.close-friend-meta {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  overflow: hidden;
+}
+
+.close-friend-name {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #0F172A;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.close-friend-role {
+  font-size: 9.5px;
+  color: #009673;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.classmates-pills-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.classmate-chip-btn {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 999px;
+  padding: 4px 10px 4px 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.classmate-chip-btn:hover {
+  background: #F1F5F9;
+  border-color: #CBD5E1;
+}
+
+.classmate-chip-img {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.school-stack-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.avatar-stack-group {
+  display: flex;
+  align-items: center;
+  direction: ltr;
+}
+
+.avatar-stack-item {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #FFFFFF;
+  margin-left: -8px;
+  object-fit: cover;
+}
+
+
+
+
+/* =========================================================================
+   Quick Navigation Bar & Pills (دسته‌بندی‌های شاد با فاصله‌گذاری و کنتراست عالی)
+   ========================================================================= */
+.quick-nav-pills-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px !important;
+  margin-bottom: 14px !important;
+  padding: 6px 16px 8px 16px !important;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  flex-shrink: 0;
+  background-color: transparent !important;
+  width: 100%;
+}
+
+.quick-nav-pills-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-pill-chip {
+  background-color: #FFFFFF !important;
+  border: 1.5px solid #E2E8F0 !important;
+  padding: 8px 16px !important;
+  border-radius: 9999px !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  color: #334155 !important;
+  white-space: nowrap !important;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.nav-pill-chip span {
+  color: #334155 !important;
+  font-weight: 800 !important;
+}
+
+.nav-pill-chip:hover {
+  background-color: #F8FAFC !important;
+  border-color: #CBD5E1 !important;
+  transform: translateY(-1px);
+}
+
+.nav-pill-chip.active {
+  background: linear-gradient(135deg, #00A651 0%, #009673 100%) !important;
+  border-color: #009673 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 3px 12px rgba(0, 150, 115, 0.28) !important;
+}
+
+.nav-pill-chip.active span {
+  color: #FFFFFF !important;
+  font-weight: 900 !important;
+}
+
+/* =========================================================================
+   PERFECT SPACING & CARD CONTAINERS (حل قطعی فاصله‌گذاری و استایل کارت‌ها)
+   ========================================================================= */
+
+/* 1. Frameless Pure Screen View */
+.phone-container {
+  width: 100% !important;
+  max-width: 440px !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  border-radius: 0 !important;
+  overflow: hidden !important;
+  box-shadow: none !important;
+  border: none !important;
+  position: relative !important;
+  margin: 0 auto !important;
+  background-color: #FFFFFF !important;
+}
+
+@media (max-width: 600px) {
+  .phone-container {
+    max-width: 100% !important;
+    height: 100vh !important;
+  }
+}
+
+/* 2. Full Page Canvas */
+.bottom-sheet-container,
+.profile-screen-page,
+.full-screen-page {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  z-index: 25 !important;
+  background-color: #F1F5F9 !important; /* Soft slate canvas for card contrast */
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+  transform: translateX(-100%);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.bottom-sheet-container.sheet-open,
+.profile-screen-page.sheet-open,
+.full-screen-page.sheet-open {
+  transform: translateX(0) !important;
+}
+
+/* 3. Screen App Bar */
+.sheet-header,
+.profile-screen-header,
+.full-screen-appbar {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 14px 20px !important;
+  background: #FFFFFF !important;
+  border-bottom: 1px solid #E2E8F0 !important;
+  min-height: 58px !important;
+  flex-shrink: 0 !important;
+}
+
+/* 4. Banner & Identity */
+.banner-container {
+  margin: 16px 16px 0 16px !important;
+  width: auto !important;
+  border-radius: 22px !important;
+  overflow: hidden !important;
+}
+
+.profile-info-section {
+  background-color: transparent !important;
+  padding: 0 16px !important;
+}
+
+.shad-stats-card {
+  background: #FFFFFF !important;
+  border-radius: 18px !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 12px 14px !important;
+  margin: 12px 0 0 0 !important;
+}
+
+/* 5. Quick Nav Pills */
+.quick-nav-pills-bar {
+  margin-top: 14px !important;
+  margin-bottom: 14px !important;
+  padding: 4px 16px 6px 16px !important;
+  gap: 10px !important;
+}
+
+/* 6. Body & Cards Spacing */
+.sections-body {
+  padding: 0 16px 48px 16px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.section-card {
+  position: relative !important;
+  background-color: #FFFFFF !important;
+  border: none !important;
+  border-radius: 22px !important;
+  padding: 18px 18px !important;
+  box-shadow: none !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+.mbti-card,
+.learning-card {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* 7. Calendar Spacing */
+.calendar-card-box {
+  padding: 4px 0 0 0 !important;
+}
+
+.calendar-days-header {
+  padding: 0 4px !important;
+  margin-bottom: 8px !important;
+}
+
+.calendar-grid-31 {
+  padding: 0 4px !important;
+  gap: 8px 0 !important;
+}
+
+.cal-day-cell {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 9999px !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+}
+
+/* ==========================================================================
+   CREST BADGES & ORBIT CANVAS REFINEMENTS (Kamran & User Feedback)
+   ========================================================================== */
+.tarteel-crest-img {
+  width: 76px;
+  height: 76px;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.12));
+  transition: transform 0.25s ease;
+  display: block;
+}
+
+.badge-card-tarteel:hover .tarteel-crest-img {
+  transform: scale(1.08);
+}
+
+.tarteel-locked-img-wrap {
+  opacity: 0.55;
+  filter: grayscale(100%) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tarteel-locked-img-wrap .tarteel-crest-img {
+  filter: grayscale(100%) !important;
+}
+
+.tarteel-locked-badge-lock-icon {
+  display: none !important;
+}
+
+/* Orbit Clean Canvas (Radar removed, soft clean minimal style) */
+.orbit-radar-canvas {
+  background: #F8FAFC !important;
+  border: 1px solid #E2E8F0 !important;
+}
+
+.radar-sweep-beam {
+  display: none !important;
+}
+
+.orbit-radar-ring {
+  border: 1px dashed rgba(203, 213, 225, 0.5) !important;
+  background: transparent !important;
+}
+
+/* Cluster Node for +200 More Students */
+.orbit-overflow-node {
+  z-index: 25 !important;
+}
+
+.orbit-cluster-bubble {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #009673 0%, #007A5E 100%);
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 150, 115, 0.25);
+  border: 2px solid #FFFFFF;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.orbit-cluster-bubble:hover {
+  transform: scale(1.1);
+}
+
+.orbit-cluster-plus {
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.orbit-cluster-text {
+  font-size: 8px;
+  font-weight: 700;
+  opacity: 0.9;
+}
+
+/* Center-Aligned Clean MBTI & Learning Cards */
+.mbti-card,
+.learning-card {
+  background: #F8FAFC !important;
+  border: none !important;
+  border-radius: 20px !important;
+  padding: 16px 12px 14px 12px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  text-align: center !important;
+  min-height: 184px !important;
+  box-sizing: border-box !important;
+  box-shadow: none !important;
+}
+
+.insight-badge {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #64748B !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  width: 100% !important;
+}
+
+.insight-card-center-body {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 6px 0 !important;
+  width: 100% !important;
+  text-align: center !important;
+}
+
+.insight-avatar-img-centered {
+  width: 50px !important;
+  height: 50px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  margin: 0 auto 6px auto !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06) !important;
+  border: 2.5px solid #FFFFFF !important;
+  display: block !important;
+}
+
+.mbti-title {
+  font-size: 18px !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.5px !important;
+  color: var(--shad-green-dark, #009673) !important;
+  margin: 0 0 2px 0 !important;
+  text-align: center !important;
+  line-height: 1.2 !important;
+}
+
+.learning-title {
+  font-size: 13.5px !important;
+  font-weight: 900 !important;
+  color: var(--shad-green-dark, #009673) !important;
+  margin: 0 0 2px 0 !important;
+  text-align: center !important;
+  line-height: 1.2 !important;
+  white-space: nowrap !important;
+}
+
+.insight-desc {
+  font-size: 11px !important;
+  color: #64748B !important;
+  font-weight: 600 !important;
+  margin: 0 !important;
+  text-align: center !important;
+  line-height: 1.3 !important;
+  white-space: nowrap !important;
+}
+
+.insight-pill {
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  padding: 4px 12px !important;
+  border-radius: 9999px !important;
+  background: #E8F8F0 !important;
+  color: #009673 !important;
+  border: 1px solid rgba(0, 150, 115, 0.12) !important;
+  display: inline-block !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  margin-top: 4px !important;
+}

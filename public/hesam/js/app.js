@@ -185,27 +185,32 @@
             <div class="tarteel-card-meta">
               <h4 class="tarteel-badge-title">${b.title}</h4>
               <span class="tarteel-badge-sub">${b.sub}</span>
-              <span class="tarteel-earned-pill">کسب شده ✓</span>
+              <span class="tarteel-earned-pill" style="display: inline-flex; align-items: center; justify-content: center; gap: 4px;">
+                <svg class="isax-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px;" fill="none">
+                  <path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="m7.75 12 2.83 2.83 5.67-5.66" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>کسب شده</span>
+              </span>
             </div>
           </div>
         `;
       } else {
+        const pEn = (b.progress || '0%').replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/[٪%]/g, '').trim();
+        const pWidth = (pEn ? pEn : '0') + '%';
         return `
           <div class="badge-card-tarteel locked" onclick="window.uiController.openBadgeDetailModal(${b.id})" title="کلیک برای مشاهده مأموریت‌های بازگشایی">
             <div class="tarteel-icon-wrap" style="position: relative;">
               <div class="tarteel-locked-img-wrap">
                 ${badgeImgHtml}
               </div>
-              <div class="tarteel-locked-badge-lock-icon">
-                🔒
-              </div>
             </div>
             <div class="tarteel-card-meta">
               <h4 class="tarteel-badge-title">${b.title}</h4>
               <span class="tarteel-badge-sub">${b.sub}</span>
               <div class="tarteel-locked-progress">
-                <div class="tarteel-prog-track">
-                  <div class="tarteel-prog-fill" style="width: ${b.progress};"></div>
+                <div class="tarteel-prog-track" style="direction: rtl;">
+                  <div class="tarteel-prog-fill" style="width: ${pWidth};"></div>
                 </div>
                 <div class="tarteel-prog-info">
                   <span>${b.ratio || ''}</span>

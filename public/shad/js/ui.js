@@ -167,11 +167,11 @@ class UIController {
           </button>
         ` : ''}
         <button class="popover-btn" onclick="window.uiController.moveCard('${actualId}', 'up'); window.uiController.closeCardMenu();">
-          <svg class="popover-btn-icon" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></svg>
+          <svg class="popover-btn-icon" viewBox="0 0 24 24" fill="none"><path d="M19.92 15.05L13.4 8.53c-.77-.77-2.03-.77-2.8 0l-6.52 6.52" stroke="currentColor" stroke-width="1.8" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <span>انتقال به بالا ⬆</span>
         </button>
         <button class="popover-btn" onclick="window.uiController.moveCard('${actualId}', 'down'); window.uiController.closeCardMenu();">
-          <svg class="popover-btn-icon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+          <svg class="popover-btn-icon" viewBox="0 0 24 24" fill="none"><path d="M19.92 8.95l-6.52 6.52c-.77.77-2.03.77-2.8 0L4.08 8.95" stroke="currentColor" stroke-width="1.8" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <span>انتقال به پایین ⬇</span>
         </button>
         <div class="popover-divider"></div>
@@ -1420,14 +1420,26 @@ class UIController {
         <div style="width: 100%; background: #F1F5F9; border-radius: 12px; padding: 10px 14px; display: flex; flex-direction: column; gap: 6px; text-align: right;">
           <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 800;">
             <span style="color: #475569;">وضعیت دستیابی:</span>
-            <span style="color: ${b.earned ? '#15803D' : '#D97706'};">${b.earned ? 'کسب شده ✓ (' + (b.date || 'مهر ۱۴۰۴') + ')' : b.ratio + ' (' + b.progress + ')'}</span>
+            <span style="color: ${b.earned ? '#15803D' : '#D97706'}; display: inline-flex; align-items: center; gap: 4px;">
+              ${b.earned ? `
+                <svg class="isax-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; stroke: #15803D;" fill="none">
+                  <path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="m7.75 12 2.83 2.83 5.67-5.66" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>کسب شده (${b.date || 'مهر ۱۴۰۴'})</span>
+              ` : `${b.ratio} (${b.progress})`}
+            </span>
           </div>
-          ${!b.earned ? `
-            <div style="width: 100%; height: 6px; background: #E2E8F0; border-radius: 999px; overflow: hidden;">
-              <div style="width: ${b.progress}; height: 100%; background: linear-gradient(90deg, #3B82F6, #6366F1); border-radius: 999px;"></div>
-            </div>
-            <span style="font-size: 10px; font-weight: 700; color: #D97706;">⚡ ${b.remaining || ''}</span>
-          ` : ''}
+          ${!b.earned ? (() => {
+            const pEn = (b.progress || '0%').replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/[٪%]/g, '').trim();
+            const pWidth = (pEn ? pEn : '0') + '%';
+            return `
+              <div style="width: 100%; height: 6px; background: #E2E8F0; border-radius: 999px; overflow: hidden; direction: rtl;">
+                <div style="width: ${pWidth}; height: 100%; background: linear-gradient(90deg, #3B82F6, #6366F1); border-radius: 999px;"></div>
+              </div>
+              <span style="font-size: 10px; font-weight: 700; color: #D97706;">⚡ ${b.remaining || ''}</span>
+            `;
+          })() : ''}
         </div>
 
         <button class="btn btn-primary" style="width: 100%; border-radius: 12px; padding: 11px; font-weight: 800; margin-top: 4px;" onclick="window.uiController.closeModal()">

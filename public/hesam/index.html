@@ -5631,6 +5631,210 @@ F7;
 }
 
 
+
+/* Orbit Radar Modal Clean Light Style */
+.orbit-radar-svg {
+  width: 100% !important;
+  max-width: 330px !important;
+  height: auto !important;
+  display: block !important;
+  margin: 0 auto !important;
+  touch-action: none !important;
+  cursor: default !important;
+  background: transparent !important;
+}
+
+.radar-ring {
+  fill: none !important;
+  stroke: #E2E8F0 !important;
+  stroke-width: 1.2px !important;
+  transition: stroke 0.15s, stroke-width 0.15s, filter 0.15s !important;
+}
+
+.radar-ring.ring-orbit1 {
+  stroke: #A7F3D0 !important;
+  fill: rgba(236, 253, 245, 0.45) !important;
+}
+
+.radar-ring.drag-hover-ring {
+  stroke: #00BA88 !important;
+  stroke-width: 2.8px !important;
+  stroke-dasharray: none !important;
+  filter: drop-shadow(0 0 6px rgba(0, 186, 136, 0.35)) !important;
+}
+
+.orbit-radar-node {
+  cursor: grab !important;
+  transition: transform 0.12s ease-out !important;
+}
+
+.orbit-radar-node.is-dragging {
+  cursor: grabbing !important;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.25)) !important;
+}
+
+.orbit-radar-node:hover {
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.12)) !important;
+}
+
+.radar-selection-ring {
+  animation: radarSelectionPulse 2s infinite ease-in-out !important;
+}
+
+@keyframes radarSelectionPulse {
+  0% { stroke-opacity: 1; stroke-width: 2.2; }
+  50% { stroke-opacity: 0.45; stroke-width: 3.2; }
+  100% { stroke-opacity: 1; stroke-width: 2.2; }
+}
+
+/* Modal Content Card for Orbit Inspector */
+.orbit-friend-card {
+  background: #F8FAFC !important;
+  border: 1px solid #E2E8F0 !important;
+  border-radius: 16px !important;
+  padding: 12px 14px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  margin-top: 10px !important;
+  box-shadow: none !important;
+}
+
+.ofc-header {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+.ofc-avatar-wrap {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 50% !important;
+  overflow: hidden !important;
+  border: 2px solid #00BA88 !important;
+  background: white !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  box-shadow: 0 2px 6px rgba(0, 186, 136, 0.15) !important;
+}
+
+.ofc-avatar-img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  border-radius: 50% !important;
+  display: block !important;
+}
+
+.ofc-info {
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+
+.ofc-name-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 2px !important;
+}
+
+.ofc-name {
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  color: #0F172A !important;
+}
+
+.ofc-role-badge {
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  background: #ECFDF5 !important;
+  color: #008756 !important;
+  padding: 2px 8px !important;
+  border-radius: 999px !important;
+  border: 1px solid #A7F3D0 !important;
+}
+
+.ofc-sub-info {
+  font-size: 10.5px !important;
+  color: #64748B !important;
+  margin: 0 !important;
+}
+
+.ofc-orbit-segmented {
+  display: flex !important;
+  background: #E2E8F0 !important;
+  padding: 3px !important;
+  border-radius: 12px !important;
+  gap: 3px !important;
+}
+
+.ofc-orbit-tab {
+  flex: 1 !important;
+  border: none !important;
+  background: transparent !important;
+  color: #475569 !important;
+  font-size: 10.5px !important;
+  font-weight: 700 !important;
+  padding: 6px 2px !important;
+  border-radius: 9px !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px !important;
+  transition: all 0.15s ease !important;
+  font-family: inherit !important;
+}
+
+.ofc-orbit-tab:hover {
+  color: #0F172A !important;
+}
+
+.ofc-orbit-tab.active {
+  background: #FFFFFF !important;
+  color: #008756 !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08) !important;
+  font-weight: 800 !important;
+}
+
+.ofc-roles-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  flex-wrap: wrap !important;
+}
+
+.ofc-role-chip {
+  background: white !important;
+  border: 1px solid #CBD5E1 !important;
+  border-radius: 8px !important;
+  padding: 4px 8px !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  color: #475569 !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+}
+
+.ofc-role-chip:hover {
+  background: #F1F5F9 !important;
+}
+
+.ofc-role-chip.active {
+  background: #ECFDF5 !important;
+  border-color: #00BA88 !important;
+  color: #008756 !important;
+  font-weight: 800 !important;
+}
+
+.ofc-action-bar {
+  display: flex !important;
+  margin-top: 4px !important;
+}
+
+
 </style>
 </head>
 <body>
@@ -7269,8 +7473,8 @@ class UIController {
     orbitConfigs.forEach(cfg => {
       const isInner = cfg.key === 'orbit1';
       ringsSvg += `
-        <circle id="ring-${cfg.key}" class="radar-ring ring-${cfg.key}" cx="${cx}" cy="${cy}" r="${cfg.r}" stroke-dasharray="${isInner ? 'none' : '4 3'}" />
-        <text x="${cx}" y="${cy + cfg.r - 4}" text-anchor="middle" font-size="8.5px" font-weight="700" fill="${isInner ? '#93c5fd' : '#94a3b8'}" style="pointer-events: none;">${cfg.label}</text>
+        <circle id="ring-${cfg.key}" class="radar-ring ring-${cfg.key}" cx="${cx}" cy="${cy}" r="${cfg.r}" fill="none" stroke="#e2e8f0" stroke-width="1.2" stroke-dasharray="${isInner ? 'none' : '4 3'}" />
+        <text x="${cx}" y="${cy + cfg.r - 4}" text-anchor="middle" font-size="8.5px" font-weight="700" fill="${isInner ? '#00BA88' : '#94a3b8'}" style="pointer-events: none;">${cfg.label}</text>
       `;
     });
 

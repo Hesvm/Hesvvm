@@ -5886,6 +5886,28 @@ F7;
 }
 
 
+/* Semantic Smart Zoom Styles: Keep elements neat, crisp and avoid bloated avatars/labels */
+.orbit-zoomable-stage {
+  --orbit-counter-scale: 1;
+}
+
+.orbit-student-node {
+  transform: scale(var(--orbit-counter-scale, 1)) !important;
+  transform-origin: center center !important;
+  transition: transform 0.15s ease-out !important;
+}
+
+.orbit-student-node:hover {
+  transform: scale(calc(var(--orbit-counter-scale, 1) * 1.25)) !important;
+  z-index: 50 !important;
+}
+
+.radar-center-avatar {
+  transform: scale(var(--orbit-counter-scale, 1)) !important;
+  transform-origin: center center !important;
+  transition: transform 0.15s ease-out !important;
+}
+
 </style>
 </head>
 <body>
@@ -7873,15 +7895,25 @@ window.uiController = new UIController();
 </script>
     <script>
 
-  // Orbit Zoom & Pan Engine
+  // Orbit Zoom & Pan Engine (Semantic Smart Zoom)
   if (typeof window.orbitZoom === 'undefined') {
     window.orbitZoom = 1.0;
     window.orbitPanX = 0;
     window.orbitPanY = 0;
   }
 
-  window.zoomOrbit = function(delta) {
-    window.orbitZoom = Math.min(2.5, Math.max(0.65, window.orbitZoom + delta));
+  window.zoomOrbit = function(delta, focalX, focalY) {
+    const prevZoom = window.orbitZoom;
+    const newZoom = Math.min(2.5, Math.max(0.65, window.orbitZoom + delta));
+    if (newZoom === prevZoom) return;
+
+    if (focalX !== undefined && focalY !== undefined) {
+      const factor = newZoom / prevZoom;
+      window.orbitPanX = focalX - (focalX - window.orbitPanX) * factor;
+      window.orbitPanY = focalY - (focalY - window.orbitPanY) * factor;
+    }
+
+    window.orbitZoom = newZoom;
     window.updateOrbitTransform();
   };
 
@@ -7896,7 +7928,10 @@ window.uiController = new UIController();
     const stage = document.getElementById('orbit-zoomable-stage');
     const label = document.getElementById('orbit-zoom-label');
     if (stage) {
-      stage.style.transform = `translate(${window.orbitPanX}px, ${window.orbitPanY}px) scale(${window.orbitZoom})`;
+      stage.style.transform = "translate(" + window.orbitPanX + "px, " + window.orbitPanY + "px) scale(" + window.orbitZoom + ")";
+      // Semantic Zoom: counter-scale nodes so positions expand cleanly but avatars and text remain crisp and neat
+      const counterScale = Math.pow(1 / window.orbitZoom, 0.45);
+      stage.style.setProperty('--orbit-counter-scale', counterScale.toFixed(3));
     }
     if (label) {
       label.textContent = Math.round(window.orbitZoom * 100) + '٪';
@@ -8462,8 +8497,11 @@ window.uiController = new UIController();
         // Mouse Wheel Zoom
         container.addEventListener('wheel', (e) => {
           e.preventDefault();
+          const rect = container.getBoundingClientRect();
+          const focalX = e.clientX - rect.left - rect.width / 2;
+          const focalY = e.clientY - rect.top - rect.height / 2;
           const delta = e.deltaY < 0 ? 0.15 : -0.15;
-          window.zoomOrbit(delta);
+          window.zoomOrbit(delta, focalX, focalY);
         }, { passive: false });
 
         // Touch Pinch Zoom & Drag

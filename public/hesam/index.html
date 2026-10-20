@@ -61,14 +61,15 @@
 }
 
 body {
-  background-color: #ffffff !important;
-  background-image: none !important;
+  background-color: #0F172A !important;
+  background-image: radial-gradient(#1E293B 1px, transparent 1px) !important;
+  background-size: 24px 24px !important;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   margin: 0;
-  padding: 0;
+  padding: 24px 12px;
   color: #0f172a;
 }
 
@@ -77,11 +78,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 16px;
   width: 100%;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-  background: #ffffff !important;
+  background: transparent !important;
 }
 
 .app-topbar {
@@ -144,8 +143,8 @@ body {
   width: 100%;
   max-width: 393px;
   height: 852px;
-  background-color: #ffffff;
-  border-radius: 0;
+  background-color: #F1F5F9;
+  border-radius: 44px;
   overflow: hidden;
   box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1);
   position: relative;
@@ -285,7 +284,7 @@ body {
   display: flex;
   flex-direction: column;
   z-index: 25;
-  background-color: #F8FAFC;
+  background-color: #F1F5F9;
   border-radius: 0 !important;
   box-shadow: none !important;
   overflow: hidden;
@@ -325,6 +324,7 @@ body {
   overflow-x: hidden;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  background-color: #F1F5F9;
 }
 
 .sheet-scroll-area::-webkit-scrollbar {
@@ -410,8 +410,9 @@ body {
   margin: 14px 14px 0 14px;
   height: 140px;
   background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 50%, #94a3b8 100%);
-  border-radius: 26px;
+  border-radius: 24px;
   overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 105, 92, 0.15);
 }
 
 .banner-image {
@@ -491,12 +492,12 @@ body {
 
 /* 2. USER IDENTITY INFO (No container) */
 .profile-info-section {
-  background-color: #ffffff;
+  background-color: transparent;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-  padding-bottom: 24px;
+  padding: 0 14px 20px 14px;
 }
 
 .avatar-wrapper {
@@ -617,10 +618,10 @@ body {
 
 /* 3. MAIN BODY SECTIONS */
 .sections-body {
-  padding: 10px 14px 40px 14px;
+  padding: 0 14px 40px 14px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
 .identity-widgets-group {
@@ -636,10 +637,11 @@ body {
 }
 
 .section-card {
-  background-color: #f8fafc;
+  background-color: #FFFFFF;
   border: none;
-  border-radius: 20px;
-  padding: 12px 14px;
+  border-radius: 24px;
+  padding: 16px 18px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
 }
 
 .section-label {
@@ -2884,27 +2886,28 @@ F7;
 
 /* Student Stats Ribbon (نوار یکپارچه آمار و اعتبارات شاد) */
 .shad-stats-card {
-  width: 100%;
-  max-width: 100%;
-  background: #F8FAFC;
-  border: 1px solid var(--shad-border);
-  border-radius: 14px;
-  padding: 10px 8px;
-  margin-top: 14px;
+  background: #FFFFFF;
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  padding: 12px 14px;
+  margin: 12px 0 0 0;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  box-shadow: none;
 }
 
 .shad-stat-col {
+  flex: 1;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 4px 6px;
   cursor: pointer;
-  padding: 2px 6px;
-  border-radius: 10px;
-  transition: background 0.15s ease;
 }
 
 .shad-stat-col:hover {
@@ -4160,50 +4163,7 @@ F7;
 }
 
 
-
-/* ==========================================================================
-   HESAM FLOATING BENTO DESIGN SYSTEM (100% Authentic Floating Rounded Cards)
-   ========================================================================== */
-
-/* 1. Global Presentation Canvas */
-html, body {
-  background-color: #0F172A !important;
-  background-image: radial-gradient(#1E293B 1px, transparent 1px) !important;
-  background-size: 24px 24px !important;
-  color: #0F172A !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  min-height: 100vh !important;
-  font-family: 'IRANYekanX', 'Vazirmatn', -apple-system, sans-serif !important;
-}
-
-.app-viewport-wrapper {
-  background: transparent !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: 100% !important;
-  min-height: 100vh !important;
-}
-
-.phone-container {
-  width: 100% !important;
-  max-width: 393px !important;
-  height: 852px !important;
-  background-color: #F1F5F9 !important; /* Soft gray canvas so pure white cards float */
-  border-radius: 44px !important;
-  overflow: hidden !important;
-  box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.12) !important;
-  position: relative !important;
-  display: flex !important;
-  flex-direction: column !important;
-}
-
-/* Responsive Mobile View: On real mobile screens, maintain the floating bento canvas! */
+/* ========== RESPONSIVE MOBILE ========== */
 @media (max-width: 600px) {
   html, body {
     background-color: #F1F5F9 !important;
@@ -4213,61 +4173,22 @@ html, body {
   .app-viewport-wrapper {
     height: 100vh !important;
     min-height: 100vh !important;
+    gap: 0 !important;
   }
   .phone-container {
     max-width: 100vw !important;
+    width: 100vw !important;
     height: 100vh !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     background-color: #F1F5F9 !important;
   }
+  .app-topbar {
+    display: none !important;
+  }
 }
 
-/* 2. Interior App Screen & Scroll Canvas */
-.bottom-sheet-container,
-.full-screen-page {
-  background-color: #F1F5F9 !important;
-}
-
-.sheet-scroll-area {
-  background-color: #F1F5F9 !important;
-  padding-bottom: 40px !important;
-}
-
-.sheet-header,
-.full-screen-appbar {
-  background-color: rgba(255, 255, 255, 0.94) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  border-bottom: 1px solid #E2E8F0 !important;
-}
-
-/* 3. Floating Rounded Header Banner */
-.banner-container {
-  margin: 14px 14px 0 14px !important;
-  height: 140px !important;
-  border-radius: 24px !important;
-  overflow: hidden !important;
-  box-shadow: 0 8px 24px rgba(0, 105, 92, 0.18) !important;
-  position: relative !important;
-}
-
-.banner-image {
-  border-radius: 24px !important;
-}
-
-/* 4. Profile Identity (Centered Avatar & Clean Centered Typography) */
-.profile-info-section {
-  background-color: transparent !important;
-  padding: 0 14px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  position: relative !important;
-  width: 100% !important;
-  box-sizing: border-box !important;
-}
-
+/* ========== CENTERED AVATAR LAYOUT ========== */
 .profile-identity-center-layout {
   display: flex !important;
   flex-direction: column !important;
@@ -4275,7 +4196,7 @@ html, body {
   width: 100% !important;
 }
 
-.avatar-wrapper {
+.profile-identity-center-layout .avatar-wrapper {
   margin-top: -46px !important;
   z-index: 20 !important;
   display: flex !important;
@@ -4283,28 +4204,7 @@ html, body {
   align-items: center !important;
 }
 
-.avatar-circle {
-  width: 88px !important;
-  height: 88px !important;
-  border-radius: 9999px !important;
-  border: 4px solid #FFFFFF !important;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12) !important;
-  background: #FFFFFF !important;
-}
-
-.vibe-tag {
-  background: #FFFFFF !important;
-  border-radius: 9999px !important;
-  padding: 3px 10px !important;
-  font-size: 11px !important;
-  font-weight: 700 !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
-  border: 1px solid #E2E8F0 !important;
-  margin-top: -10px !important;
-  z-index: 25 !important;
-}
-
-.profile-identity-text-center {
+.profile-identity-center-layout .profile-identity-text-center {
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
@@ -4312,95 +4212,33 @@ html, body {
   text-align: center !important;
 }
 
-.user-name-row {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 6px !important;
-}
-
-.user-name {
-  font-size: 17px !important;
-  font-weight: 800 !important;
-  color: #0F172A !important;
+.profile-identity-center-layout .user-name {
   text-align: center !important;
-  margin: 0 !important;
 }
 
-.user-subtext {
-  font-size: 12px !important;
-  color: #64748B !important;
-  font-weight: 500 !important;
+.profile-identity-center-layout .user-subtext {
   text-align: center !important;
-  margin-top: 3px !important;
 }
 
-/* 5. Single Unified Rounded Floating Stats Ribbon (Hesam Signature Card) */
-.shad-stats-card {
+/* ========== BENTO CARD HOVER EFFECTS ========== */
+.section-card:hover {
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.03) !important;
+}
+
+/* ========== MBTI & LEARNING FLOATING CARDS ========== */
+.mbti-card, .learning-card {
   background: #FFFFFF !important;
-  border-radius: 20px !important;
-  border: 1px solid rgba(226, 232, 240, 0.8) !important;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02) !important;
-  padding: 12px 14px !important;
-  margin: 14px 0 0 0 !important;
-  width: 100% !important;
-  box-sizing: border-box !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-around !important;
-}
-
-.shad-stat-col {
-  flex: 1 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 8px !important;
-  background: transparent !important;
+  border-radius: 22px !important;
   border: none !important;
-  box-shadow: none !important;
-  padding: 4px 6px !important;
-  cursor: pointer !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04) !important;
 }
 
-.shad-stat-divider {
-  width: 1px !important;
-  height: 28px !important;
-  background-color: #E2E8F0 !important;
-}
-
-.shad-stat-value {
-  font-size: 14px !important;
-  font-weight: 800 !important;
-  color: #0F172A !important;
-}
-
-.shad-stat-label {
-  font-size: 10px !important;
-  color: #64748B !important;
-  font-weight: 600 !important;
-}
-
-.stat-clay-icon {
-  width: 33px !important;
-  height: 33px !important;
-  object-fit: contain !important;
-  filter: none !important;
-}
-
-/* 6. Quick Nav Pills Bar (Floating Rounded Chips) */
+/* ========== QUICK NAV PILLS ========== */
 .quick-nav-pills-bar {
   background: transparent !important;
   box-shadow: none !important;
-  position: -webkit-sticky !important;
-  position: sticky !important;
-  top: 0 !important;
-  z-index: 30 !important;
   padding: 8px 14px !important;
   margin: 6px 0 8px 0 !important;
-  display: flex !important;
-  gap: 8px !important;
-  overflow-x: auto !important;
 }
 
 .nav-pill-chip {
@@ -4408,110 +4246,12 @@ html, body {
   border: 1px solid rgba(226, 232, 240, 0.9) !important;
   border-radius: 9999px !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
-  padding: 6px 14px !important;
-  font-size: 11.5px !important;
-  font-weight: 700 !important;
-  color: #475569 !important;
-  white-space: nowrap !important;
 }
 
 .nav-pill-chip.active {
   background: #E6FBF5 !important;
   border-color: #80E5CB !important;
   color: #007D60 !important;
-  font-weight: 800 !important;
-}
-
-.clay-tab-icon {
-  width: 20px !important;
-  height: 20px !important;
-  object-fit: contain !important;
-  vertical-align: middle !important;
-}
-
-/* 7. Floating Bento Cards / Widgets (The Core Hesam Aesthetic!) */
-.sections-body {
-  padding: 0 14px 40px 14px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 16px !important; /* Visible breathing room between floating cards */
-  width: 100% !important;
-  box-sizing: border-box !important;
-}
-
-.section-card {
-  background: #FFFFFF !important;
-  border-radius: 24px !important; /* Generous smooth rounding */
-  border: 1px solid rgba(226, 232, 240, 0.7) !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02) !important; /* Floating card shadow */
-  padding: 16px 18px !important;
-  margin: 0 !important;
-  box-sizing: border-box !important;
-  width: 100% !important;
-  overflow: hidden !important;
-  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
-}
-
-.section-card:hover {
-  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.03) !important;
-}
-
-/* Bento Row (MBTI & Learning Side-by-Side Floating Cards) */
-.bento-row {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr !important;
-  gap: 12px !important;
-}
-
-.mbti-card,
-.learning-card {
-  background: #FFFFFF !important;
-  border-radius: 22px !important;
-  border: 1px solid rgba(226, 232, 240, 0.7) !important;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04) !important;
-  padding: 14px 12px !important;
-  box-sizing: border-box !important;
-  overflow: hidden !important;
-}
-
-/* Student Info Cards Inside Floating ID Section */
-.student-id-grid {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr !important;
-  gap: 10px !important;
-  margin-top: 10px !important;
-}
-
-.info-widget-card {
-  background-color: #F8FAFC !important;
-  border: 1px solid #E2E8F0 !important;
-  border-radius: 18px !important;
-  padding: 10px 12px !important;
-  box-shadow: none !important;
-}
-
-.clay-info-icon {
-  width: 32px !important;
-  height: 32px !important;
-  object-fit: contain !important;
-}
-
-/* All Section Floating Containers */
-#calendar-area .section-card,
-#podium-area .section-card,
-#badges-area .section-card,
-#radar-area .section-card,
-#orbit-area .section-card,
-#goal-area .section-card,
-#passions-area .section-card,
-#role-models-area .section-card,
-#books-area .section-card,
-#games-area .section-card,
-#movies-area .section-card {
-  background: #FFFFFF !important;
-  border-radius: 24px !important;
-  border: 1px solid rgba(226, 232, 240, 0.7) !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
 }
 
 </style>

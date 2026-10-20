@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
+<script>
+  (function() {
+    var p = window.location.pathname.toLowerCase();
+    if (p.indexOf('hesam') !== -1) {
+      window.location.replace('/hesam.html' + window.location.search + window.location.hash);
+    }
+  })();
+</script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>پروفایل رُخ | شبیه‌ساز رابط کاربری شبکه دانش‌آموزی</title>

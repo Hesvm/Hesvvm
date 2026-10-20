@@ -4349,9 +4349,103 @@ class UIController {
       this.selectedOrbitFriendId = first ? first.id : 1;
     }
 
-    const html = `<div id="orbit-manager-mount">${this.buildOrbitManagerHtml()}</div>`;
-    this.openModal(html, '🪐 مدارهای دوستی در شاد');
-    setTimeout(() => this.initOrbitDragAndDrop(), 60);
+    const friend = window.rokhStore.getFriend(this.selectedOrbitFriendId);
+    if (!friend) return;
+
+    const html = this.buildFriendProfileSheetHtml(friend);
+    this.openModal(html, 'پروفایل دانش‌آموز');
+  }
+
+  buildFriendProfileSheetHtml(friend) {
+    const presetRoles = [
+      'صمیمی‌ترین رفیق',
+      'هم‌یار درسی',
+      'هم‌پای المپیاد',
+      'هم‌میزی کلاس',
+      'کاپیتان فیفا'
+    ];
+
+    const orbitBadge = {
+      orbit1: { name: 'صمیمی‌ترین‌ها (مدار ۱)', color: '#D97706', bg: '#FEF3C7', border: '#FDE68A' },
+      orbit2: { name: 'هم‌یاران علمی و بازی (مدار ۲)', color: '#0284C7', bg: '#E0F2FE', border: '#BAE6FD' },
+      orbit3: { name: 'هم‌پایه‌ای‌ها (مدار ۳)', color: '#4F46E5', bg: '#EEF2FF', border: '#C7D2FE' },
+      orbit4: { name: 'شبکه مدرسه (مدار ۴)', color: '#64748B', bg: '#F1F5F9', border: '#E2E8F0' }
+    }[friend.orbitKey || 'orbit1'] || { name: 'دوست در شاد', color: '#009673', bg: '#E6F7F0', border: '#80E5CB' };
+
+    return `
+      <div class="friend-profile-modal-view" style="display: flex; flex-direction: column; gap: 16px; padding: 4px 0 10px 0;">
+        
+        <!-- Header Banner & Avatar Card (مشابه هدر شاد) -->
+        <div class="fpm-header-card" style="position: relative; border-radius: 20px; overflow: hidden; background: #FFFFFF; border: 1px solid #E2E8F0; box-shadow: 0 4px 16px rgba(0,0,0,0.04);">
+          <!-- Mini WhatsApp Banner -->
+          <div style="height: 72px; width: 100%; background: url('./header_pattern.svg') center/320px auto repeat, #00695C; position: relative;">
+            <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 100%);"></div>
+          </div>
+
+          <!-- Avatar & Identity Info -->
+          <div style="padding: 0 16px 16px 16px; margin-top: -36px; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative;">
+            <div style="width: 76px; height: 76px; border-radius: 50%; border: 3.5px solid #FFFFFF; box-shadow: 0 4px 12px rgba(0,0,0,0.12); overflow: hidden; background: #F8FAFC;">
+              <img src="${friend.avatarImg || './assets/avatar.png'}" style="width: 100%; height: 100%; object-fit: cover;" alt="${friend.name}" />
+            </div>
+
+            <div style="margin-top: 8px;">
+              <div style="display: flex; align-items: center; justify-content: center; gap: 6px;">
+                <h3 style="font-size: 17px; font-weight: 900; color: #0F172A; margin: 0;">${friend.name}</h3>
+                <span style="font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 9999px; background: ${orbitBadge.bg}; color: ${orbitBadge.color}; border: 1px solid ${orbitBadge.border};">${friend.relation || 'هم‌پای ریاضی'}</span>
+              </div>
+              <p style="font-size: 11px; color: #64748B; font-weight: 600; margin: 4px 0 0 0;">
+                ${(friend.hours || 1.8).toLocaleString('fa-IR')} ساعت در هفته • دبیرستان ماندگار البرز • پایه دهم
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Segmented Orbit Placement -->
+        <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 16px; padding: 12px 14px;">
+          <span style="font-size: 11px; font-weight: 800; color: #475569; display: block; margin-bottom: 8px; text-align: right;">جایگاه در مدارهای دوستی:</span>
+          <div class="ofc-orbit-segmented" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; background: #EEF2F6; padding: 4px; border-radius: 12px;">
+            <button type="button" class="ofc-orbit-tab ${friend.orbitKey === 'orbit1' ? 'active' : ''}" style="padding: 6px 4px; border-radius: 8px; font-size: 11px; font-weight: 800; border: none; cursor: pointer; transition: all 0.2s;" onclick="window.uiController.changeFriendOrbit(${friend.id}, 'orbit1')">
+              <span>🪐</span> صمیمی
+            </button>
+            <button type="button" class="ofc-orbit-tab ${friend.orbitKey === 'orbit2' ? 'active' : ''}" style="padding: 6px 4px; border-radius: 8px; font-size: 11px; font-weight: 800; border: none; cursor: pointer; transition: all 0.2s;" onclick="window.uiController.changeFriendOrbit(${friend.id}, 'orbit2')">
+              <span>✨</span> هم‌یار
+            </button>
+            <button type="button" class="ofc-orbit-tab ${friend.orbitKey === 'orbit3' ? 'active' : ''}" style="padding: 6px 4px; border-radius: 8px; font-size: 11px; font-weight: 800; border: none; cursor: pointer; transition: all 0.2s;" onclick="window.uiController.changeFriendOrbit(${friend.id}, 'orbit3')">
+              <span>🎯</span> هم‌پایه
+            </button>
+            <button type="button" class="ofc-orbit-tab ${friend.orbitKey === 'orbit4' ? 'active' : ''}" style="padding: 6px 4px; border-radius: 8px; font-size: 11px; font-weight: 800; border: none; cursor: pointer; transition: all 0.2s;" onclick="window.uiController.changeFriendOrbit(${friend.id}, 'orbit4')">
+              <span>🌐</span> شبکه
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick Roles Chips -->
+        <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 16px; padding: 12px 14px;">
+          <span style="font-size: 11px; font-weight: 800; color: #475569; display: block; margin-bottom: 8px; text-align: right;">برچسب و عنوان رفاقت:</span>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-start;">
+            ${presetRoles.map(role => `
+              <button type="button" class="ofc-role-chip ${friend.relation === role ? 'active' : ''}" style="border: 1px solid ${friend.relation === role ? '#009673' : '#CBD5E1'}; background: ${friend.relation === role ? '#E6F7F0' : '#FFFFFF'}; color: ${friend.relation === role ? '#007A5E' : '#334155'}; font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 9999px; cursor: pointer;" onclick="window.uiController.changeFriendRole(${friend.id}, '${role}')">
+                ${role}
+              </button>
+            `).join('')}
+          </div>
+        </div>
+
+        <!-- Single Primary Button: مشاهده کامل پروفایل -->
+        <div style="margin-top: 6px;">
+          <button type="button" class="btn btn-primary" style="width: 100%; height: 48px; font-size: 13.5px; font-weight: 800; border-radius: 14px; background: #009673; color: #FFFFFF; border: none; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 12px rgba(0, 150, 115, 0.25); cursor: pointer;" onclick="window.uiController.openFullUserProfile('${friend.name}')">
+            <svg class="isax-icon" viewBox="0 0 24 24" style="width: 18px; height: 18px; stroke: currentColor; fill: none;"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10ZM20.59 22c0-3.87-3.85-7-8.59-7s-8.59 3.13-8.59 7" stroke-width="1.8" stroke-linecap="round"/></svg>
+            مشاهده کامل پروفایل
+          </button>
+        </div>
+
+      </div>
+    `;
+  }
+
+  openFullUserProfile(name) {
+    this.closeModal();
+    this.showToast(`صفحه اختصاصی شناسنامه «${name}» باز شد 👤`, 'info');
   }
 
   openEditOrbitModal() {
@@ -4359,10 +4453,11 @@ class UIController {
   }
 
   refreshOrbitModalBody() {
-    const mount = document.getElementById('orbit-manager-mount');
-    if (mount) {
-      mount.innerHTML = this.buildOrbitManagerHtml();
-      setTimeout(() => this.initOrbitDragAndDrop(), 40);
+    const friend = window.rokhStore.getFriend(this.selectedOrbitFriendId);
+    if (!friend) return;
+    const body = document.querySelector('.modal-body');
+    if (body) {
+      body.innerHTML = this.buildFriendProfileSheetHtml(friend);
     }
   }
 
@@ -4375,13 +4470,13 @@ class UIController {
     const orbitLabels = {
       orbit1: 'مدار ۱ (صمیمی‌ترین‌ها)',
       orbit2: 'مدار ۲ (هم‌یاران درسی)',
-      orbit3: 'مدار ۳ (هم‌کلاسی‌ها)',
+      orbit3: 'مدار ۳ (هم‌پایه‌ای‌ها)',
       orbit4: 'مدار ۴ (شبکه شاد)'
     };
     const moved = window.rokhStore.moveFriendOrbit(friendId, targetOrbitKey);
     if (moved) {
       this.selectedOrbitFriendId = moved.id;
-      this.showToast(`«${moved.name}» به ${orbitLabels[targetOrbitKey] || targetOrbitKey} منتقل شد ✨`, 'success');
+      this.showToast(`«${moved.name}» به ${orbitLabels[targetOrbitKey] || targetOrbitKey} منتقل شد ✓`, 'success');
       this.refreshOrbitModalBody();
     }
   }
@@ -4406,325 +4501,6 @@ class UIController {
 
   sendChatMessage(friendName) {
     this.showToast(`گفتگو با «${friendName}» در پیام‌رسان شاد باز شد 💬`, 'info');
-  }
-
-  initOrbitDragAndDrop() {
-    const svg = document.getElementById('orbit-radar-svg');
-    if (!svg) return;
-
-    let isDragging = false;
-    let draggedFriendId = null;
-    let draggedNodeGroup = null;
-    let origX = 0, origY = 0;
-    let startClientX = 0, startClientY = 0;
-    let currentTargetOrbit = null;
-    let hasMovedSignificantly = false;
-
-    const getSvgCoords = (clientX, clientY) => {
-      const pt = svg.createSVGPoint();
-      pt.x = clientX;
-      pt.y = clientY;
-      return pt.matrixTransform(svg.getScreenCTM().inverse());
-    };
-
-    const onStart = (e) => {
-      const nodeEl = e.target.closest('.orbit-radar-node');
-      if (!nodeEl) return;
-
-      draggedFriendId = Number(nodeEl.getAttribute('data-id'));
-      if (!draggedFriendId) return;
-
-      isDragging = true;
-      hasMovedSignificantly = false;
-      draggedNodeGroup = nodeEl;
-      draggedNodeGroup.classList.add('is-dragging');
-
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-      startClientX = clientX;
-      startClientY = clientY;
-
-      origX = Number(nodeEl.getAttribute('data-x')) || 175;
-      origY = Number(nodeEl.getAttribute('data-y')) || 175;
-
-      if (e.type === 'touchstart') {
-        e.stopPropagation();
-      }
-    };
-
-    const onMove = (e) => {
-      if (!isDragging || !draggedNodeGroup) return;
-
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-      const dist = Math.hypot(clientX - startClientX, clientY - startClientY);
-
-      if (dist > 6) {
-        hasMovedSignificantly = true;
-        if (e.cancelable) e.preventDefault();
-      }
-
-      if (!hasMovedSignificantly) return;
-
-      const svgPt = getSvgCoords(clientX, clientY);
-      const dx = Math.round(svgPt.x - origX);
-      const dy = Math.round(svgPt.y - origY);
-
-      draggedNodeGroup.setAttribute('transform', `translate(${dx}, ${dy})`);
-
-      // Determine ring based on distance from center (175, 175)
-      const r = Math.hypot(svgPt.x - 175, svgPt.y - 175);
-      let targetKey = 'orbit4';
-      if (r <= 72) targetKey = 'orbit1';
-      else if (r <= 110) targetKey = 'orbit2';
-      else if (r <= 145) targetKey = 'orbit3';
-      else targetKey = 'orbit4';
-
-      currentTargetOrbit = targetKey;
-
-      svg.querySelectorAll('.radar-ring').forEach(ring => {
-        if (ring.id === 'ring-' + targetKey) {
-          ring.classList.add('drag-hover-ring');
-        } else {
-          ring.classList.remove('drag-hover-ring');
-        }
-      });
-    };
-
-    const onEnd = () => {
-      if (!isDragging) return;
-      isDragging = false;
-
-      svg.querySelectorAll('.radar-ring').forEach(ring => ring.classList.remove('drag-hover-ring'));
-
-      if (draggedNodeGroup) {
-        draggedNodeGroup.classList.remove('is-dragging');
-        draggedNodeGroup.removeAttribute('transform');
-      }
-
-      if (hasMovedSignificantly && currentTargetOrbit && draggedFriendId) {
-        const current = window.rokhStore.getFriend(draggedFriendId);
-        if (current && current.orbitKey !== currentTargetOrbit) {
-          this.changeFriendOrbit(draggedFriendId, currentTargetOrbit);
-        } else {
-          this.refreshOrbitModalBody();
-        }
-      } else if (!hasMovedSignificantly && draggedFriendId) {
-        this.selectOrbitFriend(draggedFriendId);
-      }
-
-      draggedFriendId = null;
-      draggedNodeGroup = null;
-      currentTargetOrbit = null;
-      hasMovedSignificantly = false;
-    };
-
-    svg.addEventListener('mousedown', onStart);
-    window.addEventListener('mousemove', onMove);
-    window.addEventListener('mouseup', onEnd);
-
-    svg.addEventListener('touchstart', onStart, { passive: false });
-    window.addEventListener('touchmove', onMove, { passive: false });
-    window.addEventListener('touchend', onEnd);
-    window.addEventListener('touchcancel', onEnd);
-  }
-
-  buildOrbitManagerHtml() {
-    const s = window.rokhStore.getState();
-    const net = s.orbitNetwork;
-
-    const o1 = net.orbit1 || [];
-    const o2 = net.orbit2 || [];
-    const o3 = net.orbit3 || [];
-    const o4 = net.orbit4 || [];
-
-    // Find selected friend
-    let currentFriend = window.rokhStore.getFriend(this.selectedOrbitFriendId);
-    if (!currentFriend) {
-      const fallback = o1[0] || o2[0] || o3[0] || o4[0];
-      if (fallback) {
-        this.selectedOrbitFriendId = fallback.id;
-        currentFriend = window.rokhStore.getFriend(fallback.id);
-      }
-    }
-
-    const cx = 175;
-    const cy = 175;
-    const orbitConfigs = [
-      { key: 'orbit1', r: 52, label: 'صمیمی‌ترین‌ها', phase: -45 },
-      { key: 'orbit2', r: 90, label: 'هم‌یاران', phase: 0 },
-      { key: 'orbit3', r: 128, label: 'هم‌کلاسی‌ها', phase: 35 },
-      { key: 'orbit4', r: 162, label: 'شبکه مدرسه', phase: 70 }
-    ];
-
-    let clipDefs = `
-      <clipPath id="radar-user-clip">
-        <circle cx="${cx}" cy="${cy}" r="21" />
-      </clipPath>
-    `;
-
-    let ringsSvg = '';
-    orbitConfigs.forEach(cfg => {
-      const isInner = cfg.key === 'orbit1';
-      ringsSvg += `
-        <circle id="ring-${cfg.key}" class="radar-ring ring-${cfg.key}" cx="${cx}" cy="${cy}" r="${cfg.r}" fill="none" stroke="#e2e8f0" stroke-width="1.2" stroke-dasharray="${isInner ? 'none' : '4 3'}" />
-        <text x="${cx}" y="${cy + cfg.r - 4}" text-anchor="middle" font-size="8.5px" font-weight="700" fill="${isInner ? '#00BA88' : '#94a3b8'}" style="pointer-events: none;">${cfg.label}</text>
-      `;
-    });
-
-    // Friend Nodes with guaranteed non-overlapping circular spacing
-    let nodesSvg = '';
-    orbitConfigs.forEach(cfg => {
-      const friends = net[cfg.key] || [];
-      const total = friends.length;
-
-      friends.forEach((friend, idx) => {
-        const angle = cfg.phase + (idx * 360 / Math.max(1, total));
-        const rad = (angle * Math.PI) / 180;
-        const x = Math.round(cx + cfg.r * Math.cos(rad));
-        const y = Math.round(cy + cfg.r * Math.sin(rad));
-        const isSelected = currentFriend && friend.id === currentFriend.id;
-        const nodeR = 17;
-
-        clipDefs += `
-          <clipPath id="clip-radar-${friend.id}">
-            <circle cx="${x}" cy="${y}" r="${nodeR - 1.5}" />
-          </clipPath>
-        `;
-
-        nodesSvg += `
-          <g class="orbit-radar-node" data-id="${friend.id}" data-x="${x}" data-y="${y}" title="${friend.name} (${friend.relation})">
-            ${isSelected ? `<circle cx="${x}" cy="${y}" r="22" fill="none" stroke="#00BA88" stroke-width="2.5" class="radar-selection-ring" />` : ''}
-            <circle cx="${x}" cy="${y}" r="${nodeR}" fill="#ffffff" stroke="${isSelected ? '#00BA88' : '#cbd5e1'}" stroke-width="${isSelected ? '2' : '1.5'}" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.08))" />
-            ${friend.avatarImg ? `
-              <image href="${friend.avatarImg}" x="${x - nodeR + 1.5}" y="${y - nodeR + 1.5}" width="${(nodeR - 1.5) * 2}" height="${(nodeR - 1.5) * 2}" clip-path="url(#clip-radar-${friend.id})" preserveAspectRatio="xMidYMid slice" />
-            ` : `
-              <text x="${x}" y="${y + 5}" text-anchor="middle" font-size="${nodeR * 0.9}px" style="user-select:none;">${friend.avatar || '👤'}</text>
-            `}
-            <text x="${x}" y="${y + nodeR + 10}" text-anchor="middle" font-size="9px" font-weight="${isSelected ? '900' : '700'}" fill="${isSelected ? '#00BA88' : '#334155'}" style="user-select:none; pointer-events: none;">${friend.name.split(' ')[0]}</text>
-          </g>
-        `;
-      });
-    });
-
-    const radarSvg = `
-      <svg id="orbit-radar-svg" class="orbit-radar-svg" viewBox="0 0 350 350">
-        <defs>${clipDefs}</defs>
-        
-        <!-- Subtle Quadrant Lines -->
-        <line x1="${cx}" y1="20" x2="${cx}" y2="330" stroke="#f1f5f9" stroke-width="1.2" stroke-dasharray="3 3" />
-        <line x1="20" y1="${cy}" x2="330" y2="${cy}" stroke="#f1f5f9" stroke-width="1.2" stroke-dasharray="3 3" />
-
-        <!-- Clean Sector Category Labels -->
-        <text x="${cx}" y="14" text-anchor="middle" font-size="9px" font-weight="700" fill="#94a3b8">المپیاد و علم</text>
-        <text x="340" y="${cy + 3.5}" text-anchor="end" font-size="9px" font-weight="700" fill="#94a3b8">درس و مدرسه</text>
-        <text x="${cx}" y="344" text-anchor="middle" font-size="9px" font-weight="700" fill="#94a3b8">ورزش و بازی</text>
-        <text x="10" y="${cy + 3.5}" text-anchor="start" font-size="9px" font-weight="700" fill="#94a3b8">هنر و فرهنگ</text>
-
-        <!-- Concentric Orbit Rings -->
-        ${ringsSvg}
-
-        <!-- Center Node (You) -->
-        <g class="radar-center-user" style="cursor: default;">
-          <circle cx="${cx}" cy="${cy}" r="26" fill="rgba(0, 186, 136, 0.08)" />
-          <circle cx="${cx}" cy="${cy}" r="22" fill="#ffffff" stroke="#00BA88" stroke-width="2.2" />
-          <image href="./assets/avatar.png" x="${cx - 21}" y="${cy - 21}" width="42" height="42" clip-path="url(#radar-user-clip)" preserveAspectRatio="xMidYMid slice" />
-          <text x="${cx}" y="${cy + 34}" text-anchor="middle" font-size="9.5px" font-weight="800" fill="#1e293b">شما</text>
-        </g>
-
-        <!-- Friend Nodes -->
-        ${nodesSvg}
-      </svg>
-    `;
-
-    // Minimalist Selected Friend Detail Card
-    let friendCardHtml = '';
-    if (currentFriend) {
-      const presetRoles = [
-        'صمیمی‌ترین رفیق',
-        'هم‌یار درسی',
-        'هم‌پای المپیاد',
-        'هم‌میزی کلاس',
-        'کاپیتان فیفا'
-      ];
-
-      friendCardHtml = `
-        <div class="orbit-friend-card">
-          <div class="ofc-header">
-            <div class="ofc-avatar-wrap">
-              ${currentFriend.avatarImg ? `
-                <img src="${currentFriend.avatarImg}" class="ofc-avatar-img" alt="${currentFriend.name}" />
-              ` : `
-                <span style="font-size: 24px;">${currentFriend.avatar || '👤'}</span>
-              `}
-            </div>
-            <div class="ofc-info">
-              <div class="ofc-name-row">
-                <span class="ofc-name">${currentFriend.name}</span>
-                <span class="ofc-role-badge">${currentFriend.relation}</span>
-              </div>
-              <p class="ofc-sub-info">${(currentFriend.hours || 2).toLocaleString('fa-IR')} ساعت در هفته • ${currentFriend.bio || 'دانش‌آموز شاد'}</p>
-            </div>
-          </div>
-
-          <!-- Segmented Orbit Switcher -->
-          <div class="ofc-orbit-segmented">
-            <button type="button" class="ofc-orbit-tab ${currentFriend.orbitKey === 'orbit1' ? 'active' : ''}" onclick="window.uiController.changeFriendOrbit(${currentFriend.id}, 'orbit1')">
-              <span>🪐</span><span>صمیمی</span>
-            </button>
-            <button type="button" class="ofc-orbit-tab ${currentFriend.orbitKey === 'orbit2' ? 'active' : ''}" onclick="window.uiController.changeFriendOrbit(${currentFriend.id}, 'orbit2')">
-              <span>✨</span><span>هم‌یار</span>
-            </button>
-            <button type="button" class="ofc-orbit-tab ${currentFriend.orbitKey === 'orbit3' ? 'active' : ''}" onclick="window.uiController.changeFriendOrbit(${currentFriend.id}, 'orbit3')">
-              <span>🎯</span><span>هم‌کلاسی</span>
-            </button>
-            <button type="button" class="ofc-orbit-tab ${currentFriend.orbitKey === 'orbit4' ? 'active' : ''}" onclick="window.uiController.changeFriendOrbit(${currentFriend.id}, 'orbit4')">
-              <span>🌐</span><span>شبکه</span>
-            </button>
-          </div>
-
-          <!-- Quick Roles Row -->
-          <div class="ofc-roles-row">
-            ${presetRoles.map(role => `
-              <button type="button" class="ofc-role-chip ${currentFriend.relation === role ? 'active' : ''}" onclick="window.uiController.changeFriendRole(${currentFriend.id}, '${role}')">
-                ${role}
-              </button>
-            `).join('')}
-          </div>
-
-          <!-- Single Clean Action Bar -->
-          <div class="ofc-action-bar">
-            <button type="button" class="btn btn-primary" style="flex: 1; padding: 7px 12px; font-size: 11px; border-radius: 10px;" onclick="window.uiController.sendChatMessage('${currentFriend.name}')">
-              💬 ارسال پیام در شاد
-            </button>
-            <button type="button" class="btn btn-secondary" style="padding: 7px 12px; font-size: 11px; border-radius: 10px;" onclick="window.uiController.sendWave('${currentFriend.name}')">
-              👋 سلام
-            </button>
-          </div>
-        </div>
-      `;
-    }
-
-    return `
-      <div class="orbit-manager-wrap">
-        <!-- Minimal Summary Strip -->
-        <div class="orbit-summary-strip">
-          <div class="orbit-summary-item" style="color: #2563eb;"><span>🪐 صمیمی:</span> <b>${o1.length.toLocaleString('fa-IR')}</b></div>
-          <div class="orbit-summary-item" style="color: #059669;"><span>✨ هم‌یار:</span> <b>${o2.length.toLocaleString('fa-IR')}</b></div>
-          <div class="orbit-summary-item" style="color: #475569;"><span>🎯 هم‌کلاسی:</span> <b>${o3.length.toLocaleString('fa-IR')}</b></div>
-          <div class="orbit-summary-item" style="color: #64748b;"><span>🌐 شبکه:</span> <b>${o4.length.toLocaleString('fa-IR')}</b></div>
-        </div>
-
-        <!-- Radar Canvas -->
-        <div class="orbit-radar-box">
-          <div class="radar-drag-hint">👆 آواتارها را بکشید و روی دایره‌ها رها کنید تا جابجا شوند</div>
-          ${radarSvg}
-        </div>
-
-        <!-- Clean Inspector Card -->
-        ${friendCardHtml}
-      </div>
-    `;
   }
 
   openEditGoalModal() {

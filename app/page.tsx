@@ -45,8 +45,8 @@ export default async function Home() {
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-start",
-        marginBottom: "48px",
-        width: "min(100%, 520px)",
+        marginBottom: "62px",
+        width: "min(100%, 572px)",
         marginLeft: "auto",
         marginRight: "auto",
       }}
@@ -102,14 +102,16 @@ export default async function Home() {
             className="hero-tagline"
             style={{
               fontFamily: "var(--font-sans)",
-              fontSize: "14.5px",
+              fontSize: "14px",
               color: "var(--text-muted)",
               lineHeight: 1.5,
               margin: "0 0 14px 0",
               textAlign: "left",
             }}
           >
-            Product Designer, Making software feel less like software. Done it for startups, agencies & myself.
+            Product Designer, Making software feel less like software.
+            <br />
+            Done it for startups, agencies & myself.
           </p>
 
           <HeroContact />

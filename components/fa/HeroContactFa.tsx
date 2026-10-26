@@ -331,7 +331,7 @@ export function HeroContactFa() {
   }, []);
 
   const handleWrapperLeave = useCallback(() => {
-    leaveTimer.current = setTimeout(() => setActive(null), 50);
+    leaveTimer.current = setTimeout(() => setActive(null), 160);
   }, []);
 
   useEffect(() => {
@@ -367,27 +367,19 @@ export function HeroContactFa() {
               href={href}
               className="contact-pill"
               aria-label={label}
-              title={label}
               aria-expanded={isActive}
               target={isExternal ? "_blank" : undefined}
               rel={isExternal ? "noopener noreferrer" : undefined}
               onMouseEnter={() => handlePillEnter(id)}
               style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "30px",
-                height: "30px",
-                padding: 0,
-                borderRadius: "999px",
                 opacity: isDimmed ? 0.55 : 1,
-                color: isActive ? "var(--text-primary)" : "var(--text-muted)",
-                background: isActive ? "rgba(0,0,0,0.08)" : "rgba(0,0,0,0.045)",
+                color: isActive ? "var(--text-primary)" : undefined,
+                background: isActive ? "rgba(0,0,0,0.08)" : undefined,
                 textDecoration: "none",
-                transition: "all 150ms ease",
               }}
             >
               {icon}
+              <span className="contact-pill-label">{label}</span>
             </a>
           );
         })}

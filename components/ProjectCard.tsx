@@ -7,8 +7,8 @@ import { useRouter, usePathname } from "next/navigation";
 import { useIsHoverCapable } from "@/hooks/useIsHoverCapable";
 import { useCallback, useEffect, useRef } from "react";
 
-const HERO_IMAGE_QUALITY = 75;
-const HERO_IMAGE_SIZES = "(max-width: 767px) 100vw, 540px";
+const HERO_IMAGE_QUALITY = 90;
+const HERO_IMAGE_SIZES = "(max-width: 767px) 100vw, 594px";
 const NEXT_IMAGE_WIDTHS = [640, 750, 828, 1080, 1200, 1920, 2048, 3840];
 
 function getOptimizedImageUrl(src: string, width: number) {
@@ -16,7 +16,7 @@ function getOptimizedImageUrl(src: string, width: number) {
 }
 
 function getApproximateOptimizedHeroImageUrl(src: string) {
-  const cssWidth = window.innerWidth <= 767 ? window.innerWidth : 540;
+  const cssWidth = window.innerWidth <= 767 ? window.innerWidth : 594;
   const targetWidth = cssWidth * window.devicePixelRatio;
   const width =
     NEXT_IMAGE_WIDTHS.find((candidate) => candidate >= targetWidth) ??
@@ -175,7 +175,8 @@ export function ProjectCard({
               src={project.thumbnail_url ?? ''}
               alt={project.title}
               style={{ width: "100%", height: "100%" }}
-              sizes="(max-width: 767px) 50vw, 156px"
+              sizes="(max-width: 767px) 50vw, 500px"
+              quality={90}
             />
           )}
         </div>

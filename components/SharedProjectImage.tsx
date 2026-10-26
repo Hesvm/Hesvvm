@@ -12,6 +12,7 @@ export function SharedProjectImage({
   priority = false,
   fetchPriority,
   sizes,
+  quality = 90,
 }: {
   layoutId: string;
   src: string;
@@ -20,6 +21,7 @@ export function SharedProjectImage({
   priority?: boolean;
   fetchPriority?: "high" | "low" | "auto";
   sizes?: string;
+  quality?: number;
 }) {
   const shouldReduceMotion = useReducedMotion();
 
@@ -50,6 +52,7 @@ export function SharedProjectImage({
         priority={priority}
         fetchPriority={fetchPriority}
         sizes={sizes}
+        quality={quality}
       />
     </motion.div>
   );

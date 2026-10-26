@@ -28,7 +28,7 @@ export function HomeView({
         paddingTop: '30px',
         paddingBottom: '120px',
         direction: isFa ? 'rtl' : 'ltr',
-        width: activeTab === 'frames' ? 'min(calc(100% - 32px), 820px)' : 'min(calc(100% - (2 * var(--page-padding))), 540px)',
+        width: activeTab === 'frames' ? 'min(calc(100% - 32px), 820px)' : 'min(calc(100% - 32px), 800px)',
         marginLeft: 'auto',
         marginRight: 'auto',
         transition: 'width 300ms cubic-bezier(0.16, 1, 0.3, 1)',
@@ -81,7 +81,7 @@ export function HomeView({
                   justifyContent: 'center',
                 }}
               >
-                <div style={{ width: 'min(100%, 520px)' }}>
+                <div style={{ width: 'min(100%, 800px)' }}>
                   <ProjectGrid projects={projects} />
                 </div>
               </motion.div>

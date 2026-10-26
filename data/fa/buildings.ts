@@ -15,7 +15,7 @@ export const faBuildings: Building[] = [
     description: 'استودیوی تخصصی تدوین ویدیوهای کوتاه با ریتنشن بالا.',
     icon: '/images/buildings/v4/heslab-v4.png',
     status: 'Live',
-    siteUrl: 'https://hes-lab.vercel.app',
+    siteUrl: 'https://heslab.space',
   },
   {
     id: 'birthday',

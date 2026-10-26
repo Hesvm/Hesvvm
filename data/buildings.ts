@@ -27,7 +27,7 @@ export const buildings: Building[] = [
     description: 'Short-form video editing studio focused on creator retention.',
     icon: '/images/buildings/v4/heslab-v4.png',
     status: 'Live',
-    siteUrl: 'https://hes-lab.vercel.app',
+    siteUrl: 'https://heslab.space',
   },
   {
     id: 'birthday',

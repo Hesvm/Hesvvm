@@ -103,7 +103,7 @@ function LinkedInPreview() {
           <div>
             <div style={{
               fontFamily: "var(--font-sans)", fontSize: 13, fontWeight: 500,
-              color: "var(--text-primary)", letterSpacing: "-0.02em",
+              color: "var(--text-primary)", letterSpacing: "-0.015em",
               WebkitFontSmoothing: "antialiased",
             }}>
               Hesam Mousavizadeh
@@ -156,7 +156,7 @@ function XPreview() {
           fontFamily: "var(--font-sans)",
           fontSize: 13,
           lineHeight: 1.45,
-          letterSpacing: "-0.02em",
+          letterSpacing: "-0.015em",
           color: "var(--text-primary)",
           margin: "0 0 10px 0",
           WebkitFontSmoothing: "antialiased",
@@ -238,7 +238,7 @@ function EmailPreview() {
         {LIGHTNING_ICON}
         <span style={{
           fontFamily: "var(--font-sans)", fontSize: 12,
-          color: "var(--text-muted)", letterSpacing: "-0.02em",
+          color: "var(--text-muted)", letterSpacing: "-0.015em",
           WebkitFontSmoothing: "antialiased",
         }}>
           Usually responds within 4 hours
@@ -274,7 +274,7 @@ function DribbblePreview() {
           <div>
             <div style={{
               fontFamily: "var(--font-sans)", fontSize: 13, fontWeight: 500,
-              color: "var(--text-primary)", letterSpacing: "-0.02em",
+              color: "var(--text-primary)", letterSpacing: "-0.015em",
               WebkitFontSmoothing: "antialiased",
             }}>
               Hesam Mousavizadeh
@@ -333,7 +333,7 @@ export function HeroContact() {
   }, []);
 
   const handleWrapperLeave = useCallback(() => {
-    leaveTimer.current = setTimeout(() => setActive(null), 50);
+    leaveTimer.current = setTimeout(() => setActive(null), 160);
   }, []);
 
   useEffect(() => {
@@ -355,12 +355,12 @@ export function HeroContact() {
         <span
           style={{
             fontFamily: "var(--font-sans)",
-            fontSize: "16px",
+            fontSize: "14px",
             fontWeight: 400,
-            letterSpacing: "-0.03em",
+            letterSpacing: "-0.015em",
             color: "var(--text-muted)",
             flexShrink: 0,
-            lineHeight: 1.43,
+            lineHeight: 1.5,
             paddingRight: "2px",
             WebkitFontSmoothing: "antialiased",
           }}
@@ -377,6 +377,7 @@ export function HeroContact() {
               key={id}
               href={href}
               className="contact-pill"
+              aria-label={label}
               aria-expanded={isActive}
               target={isExternal ? "_blank" : undefined}
               rel={isExternal ? "noopener noreferrer" : undefined}
@@ -389,7 +390,7 @@ export function HeroContact() {
               }}
             >
               {icon}
-              {label}
+              <span className="contact-pill-label">{label}</span>
             </a>
           );
         })}
